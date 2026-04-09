@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "npx tsc && nodemon dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +13,13 @@
   "type": "module",
   "dependencies": {
     "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
     "mongoose": "^9.4.1"
   },
   "devDependencies": {
+    "@tsconfig/node22": "^22.0.5",
     "@types/express": "^5.0.6",
     "typescript": "^6.0.2"
   }
