@@ -1,6 +1,7 @@
 import express from 'express'
 //import functions
-import { getAllMenu } from '../controllers/menuController.js';
+import { getAllMenu,postAllMenu } from '../controllers/menuController.js';
 const menuRouter=express.Router();
 menuRouter.get("/",getAllMenu);
+menuRouter.post("/",postAllMenu);
 export default menuRouter;

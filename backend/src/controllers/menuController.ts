@@ -1,5 +1,16 @@
 import { Request,Response } from "express"
 const getAllMenu=(req:Request,res:Response)=>{
-    res.json({})
+    try {
+        
+    } catch (error) {
+        
+    }
 }
-export {getAllMenu}
+const postAllMenu=(req:Request,res:Response)=>{
+try {
+    
+} catch (error) {
+    
+}
+}
+export {getAllMenu,postAllMenu}
