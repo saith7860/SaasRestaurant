@@ -1,16 +1,16 @@
 import { Request,Response,NextFunction } from "express"
 import * as categoryService from '../services/categoryService.js'
-const getAllMenu=(req:Request,res:Response,next:NextFunction)=>{
+const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const menu=categoryService.fetchMenu();
+        const menu=await categoryService.fetchMenu();
         res.json(menu);
     } catch (error) {
         next(error)
     }
 }
-const postAllMenu=(req:Request,res:Response,next:NextFunction)=>{
+const postAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    categoryService.createMenu(req.body);
+   await categoryService.createMenu(req.body);
     res.json({
         success:"True",
         message:"Category saved successfully"
