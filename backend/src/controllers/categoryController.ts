@@ -8,11 +8,15 @@ const getAllMenu=(req:Request,res:Response,next:NextFunction)=>{
         next(error)
     }
 }
-const postAllMenu=(req:Request,res:Response)=>{
+const postAllMenu=(req:Request,res:Response,next:NextFunction)=>{
 try {
-    
+    categoryService.createMenu(req.body);
+    res.json({
+        success:"True",
+        message:"Category saved successfully"
+    });
 } catch (error) {
-    
+    next(error);
 }
 }
 const getSpecificCategory=(req:Request,res:Response)=>{
