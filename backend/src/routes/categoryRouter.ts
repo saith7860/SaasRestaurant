@@ -4,7 +4,7 @@ import { getAllMenu,postAllMenu,getSpecificCategory,updateSpecificCategory ,dele
 const categoryRouter=express.Router();
 categoryRouter.get("/",getAllMenu); //SHOW WHOLE MENU
 categoryRouter.post("/",postAllMenu); //CREATE A NEW CATEGORY
-categoryRouter.get("/:id",getSpecificCategory) //GET SPECIFIC CATEGORY
+categoryRouter.get("/category",getSpecificCategory) //GET SPECIFIC CATEGORY
 categoryRouter.patch("/:id",updateSpecificCategory) //UPDATE SPECIFIC CATEGORY
 categoryRouter.delete("/:id",deleteSpecificCategory) //DELETE SPECIFIC CATEGORY
 export default categoryRouter;

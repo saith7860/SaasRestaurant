@@ -1,9 +1,13 @@
 import { Request,Response,NextFunction } from "express"
 import * as categoryService from '../services/categoryService.js'
+import { success } from "zod";
 const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const menu=await categoryService.fetchMenu();
-        res.json(menu);
+        res.json({
+            success:"true",
+            data:menu
+        });
     } catch (error) {
         next(error)
     }
@@ -19,11 +23,18 @@ try {
     next(error);
 }
 }
-const getSpecificCategory=(req:Request,res:Response)=>{
+const getSpecificCategory=async(req:Request,res:Response,next:NextFunction)=>{
 try {
+    const category=req.query.category as string;
+    console.log(category);
     
+   const result=await categoryService.getSpecificCategory(category);
+    res.json({
+       success:true,
+       data:result
+    })
 } catch (error) {
-    
+    next(error)
 }
 }
 const updateSpecificCategory=(req:Request,res:Response)=>{
