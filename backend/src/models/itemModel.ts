@@ -15,17 +15,21 @@ const itemSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    variants: [{ type: "ObjectId", ref: "Variant" }],
-    category: [{ type: "ObjectId", ref: "Category" }],
+    variants: [
+      {
+        variation: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }, // adds createdAt & updatedAt automatically
 );
-// itemSchema.set("toJSON", {
-//   transform: (document, returnedObject) => {
-//     returnedObject.id = returnedObject._id.toString();
-//     delete returnedObject._id;
-//     delete returnedObject.__v;
-//   },
-// });
+
 const Item = mongoose.model("Item", itemSchema);
 export default Item;

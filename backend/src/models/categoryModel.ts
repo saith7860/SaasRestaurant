@@ -3,6 +3,8 @@ const categorySchema = new mongoose.Schema(
   {
    category: {
       type: String,
+      unique:true,
+      trim:true,
       required: true
     },
     image: {
