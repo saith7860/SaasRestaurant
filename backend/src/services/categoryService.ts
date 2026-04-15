@@ -15,7 +15,7 @@ const createMenu=async(category:CategoryType)=>{
         console.log('error ',error)
         return;
     }
-   const newCategory=await categoryRepo.createMenu(data);
+   await categoryRepo.createMenu(data);
 }
 const getSpecificCategory=async(category?:string)=>{
     if (!category) {
