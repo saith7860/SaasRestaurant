@@ -17,23 +17,4 @@ const handleError=(err:ApiError,req:Request,res:Response,next:NextFunction)=>{
 
     })
 }
-// const handleError = (
-//   err: ApiError,
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ) => {
-//   if (err instanceof ApiError) {
-//     return res.status(err.statusCode).json({
-//       success: false,
-//       message: err.message,
-//     });
-//   }
-
-//   // Unknown error
-//   return res.status(500).json({
-//     success: false,
-//     message: "Internal Server Error",
-//   });
-// };
 export {ApiError,handleError}

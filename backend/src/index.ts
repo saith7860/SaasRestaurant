@@ -7,6 +7,7 @@ import categoryRouter from './routes/categoryRouter.js';
 import itemRouter from './routes/itemRouter.js';
 import vairantRouter from './routes/variantRouter.js';
 import { handleError } from './middlewares/errorHandler.js';
+import validate from './middlewares/validationMiddleware.js';
 //constants
 const PORT=process.env.PORT;
 const app:Express=express();

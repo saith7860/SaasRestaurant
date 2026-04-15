@@ -10,12 +10,7 @@ const fetchMenu=async()=>{
    return menus;
 }
 const createMenu=async(category:CategoryType)=>{
-    const {data,error}=categorySchema.safeParse(category);
-    if (error) {
-        console.log('error ',error)
-        return;
-    }
-   await categoryRepo.createMenu(data);
+   await categoryRepo.createMenu(category);
 }
 const getSpecificCategory=async(category?:string)=>{
     if (!category) {
