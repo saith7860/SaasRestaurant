@@ -15,5 +15,5 @@ export const userSchemaZod = z.object({
 });
 export const loginSchemaZod = z.object({
   email: z.email(),
-  password: z.string().min(6)
+  password: z.string().min(6,{message:"Password should be longer than 6"})
 });
