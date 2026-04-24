@@ -24,7 +24,9 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.5",
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "typescript": "^6.0.2"
   }
 }
