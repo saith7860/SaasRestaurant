@@ -5,9 +5,8 @@ import 'dotenv/config'
 import { connectDB } from './utils/db.js';
 import categoryRouter from './routes/categoryRouter.js';
 import itemRouter from './routes/itemRouter.js';
-import vairantRouter from './routes/variantRouter.js';
 import { handleError } from './middlewares/errorHandler.js';
-import validate from './middlewares/validationMiddleware.js';
+import UserRouter from './routes/userRouter.js';
 //constants
 const PORT=process.env.PORT;
 const app:Express=express();
@@ -15,7 +14,7 @@ app.use(express.json());
 //Routes
 app.use("/api/menu",categoryRouter) //CATEGORY ROUTER
 app.use("/api/item",itemRouter) //ITEM ROUTER
-app.use("/api/variant",vairantRouter) //ITEM ROUTER
+app.use("/api/user",UserRouter) //User ROUTER
 //handle error middleware
 app.use(handleError);
 app.listen(PORT,async()=>{
