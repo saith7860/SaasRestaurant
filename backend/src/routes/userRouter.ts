@@ -5,4 +5,4 @@ import { loginSchemaZod, userSchemaZod } from '../validators/userValidator.js';
 const UserRouter =express.Router();
 UserRouter.post("/signup",validate(userSchemaZod),createUser);
 UserRouter.post("/login",validate(loginSchemaZod),loginUser);
-export default UserRouter
+export default UserRouter;
