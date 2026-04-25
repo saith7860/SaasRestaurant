@@ -30,7 +30,8 @@ const loginUser = async (data: loginUserType) => {
     //created payload
     const payload={
       email:findUser.email,
-      password:findUser.password
+      password:findUser.password,
+      role:findUser.role
     }
     //generate token
     const token= createToken(payload)

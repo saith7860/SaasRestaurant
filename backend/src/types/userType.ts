@@ -10,4 +10,5 @@ export type loginUserType={
 export type userData={
     email:string
     password:string
+    role:string
 }

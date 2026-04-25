@@ -1,14 +1,21 @@
-import jwt from 'jsonwebtoken';
+import jwt,{JwtPayload} from 'jsonwebtoken';
 import { ApiError } from '../middlewares/errorHandler.js';
 import { userData } from '../types/userType.js';
-import { NextFunction } from 'express';
+import { NextFunction ,Request,Response} from 'express';
+interface CustomJwtPayload extends JwtPayload {
+  password: string;
+  email: string;
+  role: string;
+}
 //secret
  const secret=process.env.JWT_SECRET;
 //auth middleware to verify token
-const authMiddleware = (req:any, res:Response, next:NextFunction) => {
+const authMiddleware = (req:Request, res:Response, next:NextFunction) => {
   // Grab token from the authorization header
   const authHeader = req.headers.authorization;
-  
+   if (!authHeader) {
+    throw new ApiError(401,'Auth header is missing')
+  }
   const token = authHeader && authHeader.split(" ")[1];
   if (!token) {
    throw new ApiError(403,'Token is missing!');
@@ -17,12 +24,8 @@ const authMiddleware = (req:any, res:Response, next:NextFunction) => {
       throw new ApiError(500,'Bad Request!');
     }
   try {
-    const decoded = jwt.verify(
-      token,
-      secret
-    );
-
-    req.user = decoded;
+  const decoded = jwt.verify(token, secret);
+  req.user = decoded as CustomJwtPayload;
 
     next();
   } catch (error) {
@@ -38,7 +41,7 @@ const createToken = (userData:userData) => {
     if (!secret) {
       throw new ApiError(500,'Bad Request!');
     }
-    return jwt.sign(userData,secret);
+    return jwt.sign(userData,secret,{expiresIn:"1d"});
   } catch (error) {
     console.log("error in genterating token", error);
   }
