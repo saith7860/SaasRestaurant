@@ -1,5 +1,7 @@
 import express from 'express';
 import type { Express } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
 import 'dotenv/config'
 //File imports
 import { connectDB } from './utils/db.js';
@@ -8,9 +10,11 @@ import itemRouter from './routes/itemRouter.js';
 import { handleError } from './middlewares/errorHandler.js';
 import UserRouter from './routes/userRouter.js';
 //constants
-const PORT=process.env.PORT;
+const PORT=process.env.PORT||3000;
 const app:Express=express();
 app.use(express.json());
+app.use(cors());
+app.use(helmet());
 //Routes
 app.use("/api/menu",categoryRouter) //CATEGORY ROUTER
 app.use("/api/item",itemRouter) //ITEM ROUTER
