@@ -1,13 +1,52 @@
 import jwt from 'jsonwebtoken';
-const createToken = (userData:string) => {
+import { ApiError } from '../middlewares/errorHandler.js';
+import { userData } from '../types/userType.js';
+import { NextFunction } from 'express';
+//secret
+ const secret=process.env.JWT_SECRET;
+//auth middleware to verify token
+const authMiddleware = (req:any, res:Response, next:NextFunction) => {
+  // Grab token from the authorization header
+  const authHeader = req.headers.authorization;
+  
+  const token = authHeader && authHeader.split(" ")[1];
+  if (!token) {
+   throw new ApiError(403,'Token is missing!');
+  }
+    if (!secret) {
+      throw new ApiError(500,'Bad Request!');
+    }
+  try {
+    const decoded = jwt.verify(
+      token,
+      secret
+    );
+
+    req.user = decoded;
+
+    next();
+  } catch (error) {
+   next(error)
+  }
+};
+
+
+//create token
+const createToken = (userData:userData) => {
   try {
     const secret=process.env.JWT_SECRET;
     if (!secret) {
-      throw new Error('Bad Request!Secret not found');
+      throw new ApiError(500,'Bad Request!');
     }
     return jwt.sign(userData,secret);
   } catch (error) {
     console.log("error in genterating token", error);
   }
 };
-export { createToken };
+const checkAdmin = (req: any, res: Response, next: NextFunction) => {
+  if (req.user?.role !== "admin") {
+   throw new ApiError(401,'Admin not found')
+  }
+  next();
+};
+export { createToken, authMiddleware,checkAdmin};

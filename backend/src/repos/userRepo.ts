@@ -8,8 +8,5 @@ export const create=async(data:userType)=>{
 }
 export const isEmailExists=async(email:string)=>{
   const findUser=await User.findOne({email});
-  if (findUser) {
-    return true;
-  }
-  return false;
+  return findUser;
 }

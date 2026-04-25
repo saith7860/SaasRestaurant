@@ -14,12 +14,31 @@ const createUser = async (data: userType) => {
     const hashPassword = await bcrypt.hash(password, saltRounds);
     const newUser = await userRepo.create({ ...data, password: hashPassword });
     if (!newUser) {
-      return new ApiError(500, "Interval Server Error!User not created");
+      throw new ApiError(500, "Interval Server Error!User not created");
     }
     return newUser;
   }
 };
 const loginUser = async (data: loginUserType) => {
-    
+    const {email,password}=data;
+    const findUser=await userRepo.isEmailExists(email);
+ if (!findUser || !findUser.password ||!findUser.email) {
+  throw new ApiError(401,"Invalid credentials");
+}
+  const isMatch= await bcrypt.compare(password,findUser.password);
+  if (isMatch) {
+    //created payload
+    const payload={
+      email:findUser.email,
+      password:findUser.password
+    }
+    //generate token
+    const token= createToken(payload)
+    if (token) {
+      return token;
+    }
+    throw new ApiError(500,'Error in generating token');
+  }
+  throw new ApiError(401,'Password does not match')
 };
 export { createUser, loginUser };

@@ -2,7 +2,7 @@ import { Request,Response,NextFunction } from "express"
 import * as userService from '../services/userService.js'
 export const createUser=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-   const user= await userService.createUser(req.body);
+   await userService.createUser(req.body);
     return res.json({
       success: "true",
       message:"User created successfully"
@@ -15,8 +15,13 @@ try {
 }
 export const loginUser=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    const loginUser=await userService.loginUser(req.body);
+     const loginUserToken=await userService.loginUser(req.body);
+    return res.json({
+      success: "true",
+      message:"User logged in successfully",
+      token:loginUserToken
+    });
 } catch (error) {
-    
+    next(error)
 }
 }

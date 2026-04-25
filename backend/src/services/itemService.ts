@@ -21,7 +21,7 @@ return update;
 const deleteSpecificItem=async(id:string)=>{
 const del=await itemRepo.deleteItemByName(id);
 if (!del) {
-   return new ApiError(400,'Server Error! Item not Deleted');
+   throw new ApiError(400,'Server Error! Item not Deleted');
 }
 return del;
 }

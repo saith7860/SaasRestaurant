@@ -14,7 +14,7 @@ const createMenu=async(category:CategoryType)=>{
 }
 const getSpecificCategory=async(category?:string)=>{
     if (!category) {
-       return new ApiError(404,'Category does not found')
+       throw new ApiError(404,'Category does not found')
     }
     const specificData=await categoryRepo.getSpecificCategory(category);
     return specificData;
