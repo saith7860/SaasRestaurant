@@ -11,6 +11,9 @@ const itemSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    basePrice:{
+      type:Number
+    },
     isAvailable: {
       type: Boolean,
       default: true,

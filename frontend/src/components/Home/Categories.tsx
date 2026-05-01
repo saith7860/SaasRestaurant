@@ -3,15 +3,21 @@ import axios from "axios";
 import type { CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType } from "../../types/HomePageTypes";
 const Categories = () => {
-  const [categories, setCategories] = useState<CategoriesType[]>([]);
-  const [selectedCategory,setSelectedCategory]=useState<string>('Sweets');
-  const [items,setItems]=useState<ItemType[]>([]);
+  const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
+  const [selectedCategory,setSelectedCategory]=useState<string>('Burgers'); //selecting specific castegory and based on that fetch items
+  const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
+  const [selectVariant,setSelectVariant]=useState<string|null>(null);
   // const [loading, setLoading] = useState(false);
 
   const handleClick = (category: string) => {
     console.log("You clicked", category);
     setSelectedCategory(category); 
   };
+  const handleVariationChange=(variation:string)=>{
+  setSelectVariant(variation);
+  }
+  console.log(selectVariant);
+  
   useEffect(() => {
     const fetchItems=async()=>{
     try {
@@ -83,13 +89,14 @@ const Categories = () => {
 
             <h2 className="">{item.name}</h2>
             <p className="">{item.description}</p>
+           
             {item.variants.map((variant)=>(
               <div key={variant._id}>
-              <p>Price:{variant.price}</p>
-              <p>{variant.variation}</p>
-             
+            
+              <input checked={selectVariant===variant.variation} type="radio" id={variant.variation} value={variant.variation} onChange={()=>handleVariationChange(variant.variation)} />
+              <label htmlFor={variant.variation}>{variant.variation}</label>
               </div>
-               
+              
             ))}
            <button >Add to Cart</button> 
           </div>
