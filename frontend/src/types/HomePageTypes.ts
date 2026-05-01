@@ -7,7 +7,8 @@ export type CategoriesType={
     image:string
 }
 type variant={
-    variantion:string
+    _id:string
+    variation:string
     price:number
 }
 export type ItemType={

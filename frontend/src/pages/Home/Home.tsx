@@ -1,12 +1,12 @@
+import Categories from "../../components/Home/Categories";
 import Navbar from "../../components/Home/Navbar"
 const Home = () => {
   return (
     <>
-    <section>
-        
-    </section>
+     <Navbar restaurnatName="AlHadi"/>
+     <Categories/>
     </>
   )
 }
 
-export default Home
+export default Home;

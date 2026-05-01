@@ -1,11 +1,13 @@
-import Categories from "./components/Home/Categories";
-import Navbar from "./components/Home/Navbar";
+import { Routes,Route } from "react-router";
+import Home from "./pages/Home/Home";
+import CartPage from "./pages/Cart/CartPage";
+
 const App = () => {
   return (
-   <div>
-    <Navbar restaurnatName='AlHadi'/>
-    <Categories/>
-   </div>
+   <Routes>
+    <Route path="/" element={<Home/>}/>
+    <Route path="/cart" element={<CartPage/>}/>
+   </Routes>
   )
 }
 

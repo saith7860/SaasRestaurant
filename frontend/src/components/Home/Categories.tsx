@@ -15,8 +15,12 @@ const Categories = () => {
   useEffect(() => {
     const fetchItems=async()=>{
     try {
+
       const res=await axios.get(`/api/menu/category?category=${selectedCategory}`);
       const itemsArray=res.data.data.items;
+      if (items.length==0) {
+        setItems([]);
+      }
       setItems(itemsArray);
       
     } catch (error) {
@@ -30,6 +34,7 @@ const Categories = () => {
   
   // Fetch categories (your existing code)
   useEffect(() => {
+
     const fetchCategories = async () => {
       try {
         const res = await axios.get("/api/menu");
@@ -41,26 +46,6 @@ const Categories = () => {
 
     fetchCategories();
   }, []);
-
-  // 🔥 Fetch items when category changes
-  // useEffect(() => {
-  //   if (!selectedCategory) return;
-
-  //   const fetchItems = async () => {
-  //     try {
-  //       // setLoading(true);
-  //       const res = await axios.get(`/api/menu/category?category=${selectedCategory}`);
-  //       console.log(res);
-        
-  //       setItems(res.data.items);
-  //     } catch (error) {
-  //       console.error("Error fetching items", error);
-  //       setItems([]);
-  //     }
-  //   };
-
-  //   fetchItems();
-  // }, [selectedCategory]);
 
   return (
     <div className="px-4 py-6">
@@ -81,7 +66,7 @@ const Categories = () => {
 
       {/* Items Section */}
   
-      { selectedCategory && items.length === 0 && (
+      { selectedCategory && items.length == 0 && (
         <p>No items in this category</p>
       )}
       <div className="">
@@ -95,9 +80,18 @@ const Categories = () => {
               alt={item.name}
               className=""
             /> */}
+
             <h2 className="">{item.name}</h2>
             <p className="">{item.description}</p>
-            
+            {item.variants.map((variant)=>(
+              <div key={variant._id}>
+              <p>Price:{variant.price}</p>
+              <p>{variant.variation}</p>
+             
+              </div>
+               
+            ))}
+           <button >Add to Cart</button> 
           </div>
         ))}
       </div>
