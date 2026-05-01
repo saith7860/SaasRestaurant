@@ -1,8 +1,6 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import * as itemRepo from '../repos/itemRepo.js'
 import type { ItemType } from '../types/itemType.js';
-import Category from '../models/categoryModel.js';
-import { ca } from 'zod/locales';
 const fetchAllItems=async()=>{
    const items=await itemRepo.showAllItems();
    if (!items.length) {
@@ -32,7 +30,7 @@ const createItem=async(category:string,itemData:ItemType)=>{
    console.log(foundCategoryId);
    
    if (!foundCategoryId) {
-    throw new ApiError(404,'Cateogory is not defined')
+    throw new ApiError(404,'Cateogory is not found')
    }
    const newItem=await itemRepo.createItem(itemData);
    foundCategoryId.items.push(newItem._id);

@@ -1,10 +1,11 @@
 import { Request,Response,NextFunction } from "express"
+import mongoose, { Types } from "mongoose";
 import * as categoryService from '../services/categoryService.js'
 import { success } from "zod";
 const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const menu=await categoryService.fetchMenu();
-        res.json({
+       return res.json({
             success:"true",
             data:menu
         });
@@ -15,7 +16,7 @@ const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 const postAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 try {
    await categoryService.createMenu(req.body);
-    res.json({
+   return res.json({
         success:"True",
         message:"Category saved successfully"
     });
@@ -29,7 +30,8 @@ try {
     console.log(category);
     
    const result=await categoryService.getSpecificCategory(category);
-    res.json({
+   console.log("SERVICE RESULT:", result);
+   return  res.json({
        success:true,
        data:result
     })
@@ -37,6 +39,21 @@ try {
     next(error)
 }
 }
+// const getSpecificCategoryItems=async(req:Request,res:Response,next:NextFunction)=>{
+//     try {
+   
+        
+//         const id=req.params.id as string;
+//        console.log(id);
+//         const items=await categoryService.fetchItems(id);
+//       return  res.json({
+//             success:"true",
+//             data:items
+//         });
+//     } catch (error) {
+//         next(error)
+//     }
+// }
 const updateSpecificCategory=(req:Request,res:Response)=>{
 try {
     
