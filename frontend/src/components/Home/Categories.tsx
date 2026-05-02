@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { CategoriesType } from "../../types/HomePageTypes";
-import type { ItemType } from "../../types/HomePageTypes";
+import type { ItemType ,variant} from "../../types/HomePageTypes";
 const Categories = () => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
   const [selectedCategory,setSelectedCategory]=useState<string>('Burgers'); //selecting specific castegory and based on that fetch items
   const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
-  const [selectVariant,setSelectVariant]=useState<string|null>(null);
+  const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
   // const [loading, setLoading] = useState(false);
 
   const handleClick = (category: string) => {
     console.log("You clicked", category);
     setSelectedCategory(category); 
   };
-  const handleVariationChange=(variation:string)=>{
-  setSelectVariant(variation);
+  const handleVariationChange=(itemID:string,variation:variant)=>{
+  setSelectVariant(prev=>({
+    ...prev,
+    [itemID]:variation
+  }));
   }
   console.log(selectVariant);
-  
+ 
+
   useEffect(() => {
     const fetchItems=async()=>{
     try {
 
       const res=await axios.get(`/api/menu/category?category=${selectedCategory}`);
       const itemsArray=res.data.data.items;
-      if (items.length==0) {
-        setItems([]);
-      }
       setItems(itemsArray);
       
     } catch (error) {
@@ -38,7 +39,7 @@ const Categories = () => {
   }, [selectedCategory])
   
   
-  // Fetch categories (your existing code)
+
   useEffect(() => {
 
     const fetchCategories = async () => {
@@ -79,7 +80,7 @@ const Categories = () => {
         {items.map((item) => (
           <div
             key={item._id}
-            className=""
+            className="mb-2"
           >
             {/* <img
               src={item.image}
@@ -91,13 +92,14 @@ const Categories = () => {
             <p className="">{item.description}</p>
            
             {item.variants.map((variant)=>(
-              <div key={variant._id}>
+              <div key={`${variant.variation}-${item._id}`}>
             
-              <input checked={selectVariant===variant.variation} type="radio" id={variant.variation} value={variant.variation} onChange={()=>handleVariationChange(variant.variation)} />
+              <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio" id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)} />
               <label htmlFor={variant.variation}>{variant.variation}</label>
               </div>
               
             ))}
+       {selectVariant && <p>Price:{ selectVariant[item._id]?.price||'Select Variant'}</p>}
            <button >Add to Cart</button> 
           </div>
         ))}

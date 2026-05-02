@@ -6,7 +6,7 @@ export type CategoriesType={
     category:string 
     image:string
 }
-type variant={
+export type variant={
     _id:string
     variation:string
     price:number
