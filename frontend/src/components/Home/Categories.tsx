@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import type { CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType ,variant} from "../../types/HomePageTypes";
+import { CartContext } from "../../CartContext";
 const Categories = () => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
   const [selectedCategory,setSelectedCategory]=useState<string>('Burgers'); //selecting specific castegory and based on that fetch items
   const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
   const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
   // const [loading, setLoading] = useState(false);
-  
+     const {cart,setCart}=useContext(CartContext)!;   
   const handleClick = (category: string) => {   
     console.log("You clicked", category);
     setSelectedCategory(category); 
@@ -19,20 +20,41 @@ const Categories = () => {
     [itemID]:variation
   }));
   }
-  const handleAddToCart=(selectedVariant:any)=>{
-    try {
+  const handleAddToCart=(selectedVariant:any,fullItem:ItemType)=>{
+  
       if (selectedVariant!==undefined||selectedVariant!==null) {
-      console.log(selectedVariant);
-    }
-    console.log('select variant first');
-    
-    } catch (error) {
-      console.log(error);
-      
-    }
    
+      console.log(selectedVariant);
+      console.log(fullItem);
+      const existing=cart.find((item)=>item.id==selectedVariant._id && selectedVariant.variation==item.variation)
+      if (existing) {
+        const updatedCart = cart.map((item) =>
+      item.id === selectedVariant._id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    setCart(updatedCart);
+      } 
+      else{
+        const newItem={
+          id:selectedVariant._id,
+          name:fullItem.name,
+          image:fullItem.image,
+          variantId:selectedVariant._id,
+          variation:selectedVariant.variation,
+          price:selectedVariant.price,
+          quantity:1
+        }
+        setCart([...cart,newItem])
+      }
+      }
+    
+    
+
    
   }
+ 
+ console.log(cart);
  
 
   useEffect(() => {
@@ -113,7 +135,7 @@ const Categories = () => {
               
             ))}
        {selectVariant && <p>Price:{ selectVariant[item._id]?.price||'Select Variant'}</p>}
-           <button onClick={()=>handleAddToCart(selectVariant[item._id])} >Add to Cart</button> 
+         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} >Add to Cart</button>
           </div>
         ))}
       </div>

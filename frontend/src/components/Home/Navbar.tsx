@@ -1,6 +1,7 @@
 import { Search, ShoppingCart } from "lucide-react";
 import type { FC } from "react";
 import  type { NavbarType } from "../../types/HomePageTypes";
+import { Link } from "react-router";
 
 const Navbar:FC<NavbarType> = ({restaurnatName}) => {
   return (
@@ -26,11 +27,12 @@ const Navbar:FC<NavbarType> = ({restaurnatName}) => {
         <div className="flex items-center gap-3">
 
           {/* Cart */}
+         <Link to={"/cart"}>
           <button className="flex items-center gap-1 border px-3 py-1 rounded-lg hover:bg-gray-100">
             <ShoppingCart size={18} />
             <span className="hidden sm:inline">Cart</span>
           </button>
-
+          </Link>
           {/* Login */}
           <button className="bg-green-600 text-white px-4 py-1 rounded-lg hover:bg-green-700">
     
