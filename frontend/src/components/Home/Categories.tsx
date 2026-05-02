@@ -8,8 +8,8 @@ const Categories = () => {
   const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
   const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
   // const [loading, setLoading] = useState(false);
-
-  const handleClick = (category: string) => {
+  
+  const handleClick = (category: string) => {   
     console.log("You clicked", category);
     setSelectedCategory(category); 
   };
@@ -19,7 +19,20 @@ const Categories = () => {
     [itemID]:variation
   }));
   }
-  console.log(selectVariant);
+  const handleAddToCart=(selectedVariant:any)=>{
+    try {
+      if (selectedVariant!==undefined||selectedVariant!==null) {
+      console.log(selectedVariant);
+    }
+    console.log('select variant first');
+    
+    } catch (error) {
+      console.log(error);
+      
+    }
+   
+   
+  }
  
 
   useEffect(() => {
@@ -100,7 +113,7 @@ const Categories = () => {
               
             ))}
        {selectVariant && <p>Price:{ selectVariant[item._id]?.price||'Select Variant'}</p>}
-           <button >Add to Cart</button> 
+           <button onClick={()=>handleAddToCart(selectVariant[item._id])} >Add to Cart</button> 
           </div>
         ))}
       </div>
