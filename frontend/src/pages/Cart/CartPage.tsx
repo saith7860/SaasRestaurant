@@ -14,8 +14,6 @@ const CartPage = () => {
     .filter((item) => item.quantity > 0); // remove if 0
 
   setCart(updatedCart);
-
-    
   }
   //Total amount 
   const total = cart.reduce(
@@ -81,7 +79,7 @@ const CartPage = () => {
     {cart.length>0 && (
       <>
        <h2>Total: {total}</h2>
-       <Link to={"/checkout"}><button>Proceed To Checkout</button></Link>
+       <Link to={"/signup"}><button>Proceed To Checkout</button></Link>
        </>
        )}
 
