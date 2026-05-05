@@ -3,5 +3,5 @@ const orderRouter=express.Router();
 import * as orderController from '../controllers/orderController.js';
 orderRouter.post("/order/create",orderController.createOrder);
 orderRouter.get("/order/my",orderController.getMyOrders);
-orderRouter.get("/order/:id",orderController.getSpecificOrder);
+// orderRouter.get("/order/:id",orderController.getSpecificOrder);
 

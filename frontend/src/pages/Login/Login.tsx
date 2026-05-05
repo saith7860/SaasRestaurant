@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
@@ -30,27 +30,49 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
+      <h1 className="text-4xl font-black text-[#F4B400] pt-5 pb-8">Login</h1>
 
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
+      <form
+        className="bg-[#2A2633] mx-auto px-10 py-24 flex flex-col gap-3 rounded-lg w-full max-w-md"
+        onSubmit={handleSubmit}
+      >
+        <label htmlFor="email" className="text-lg text-gray-300">Email</label>
         <input
+          id="email"
           type="email"
           name="email"
           value={loginField.email}
           onChange={handleChange}
+          className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
         />
 
-        <label>Password</label>
+        <label htmlFor="password" className="text-lg text-gray-300">Password</label>
         <input
+          id="password"
           type="password"
           name="password"
           value={loginField.password}
           onChange={handleChange}
+          className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
         />
 
-        <button type="submit">Login</button>
+
+            <Link to="/checkout">
+              <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
+                Login
+              </button>
+            </Link>
+        
+
+          {/* Signup link */}
+          <div className="text-md text-gray-400 text-center">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-[#F4B400] hover:underline">
+              Signup
+            </Link>
+          </div>
+
       </form>
     </div>
   );
