@@ -9,8 +9,8 @@ const Navbar:FC<NavbarType> = ({restaurnatName}) => {
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
         {/* Logo / Restaurant Name */}
-        <Link to={"/"}><h1 className="text-xl md:text-2xl font-bold text-green-600">
-          {restaurnatName}
+        <Link to={"/"}><h1 className="text-xl md:text-2xl font-bold text-[#984447] hover:text-[#F4B400] transition">
+          {restaurnatName}  
         </h1></Link>
 
         {/* Search Bar */}
@@ -23,23 +23,28 @@ const Navbar:FC<NavbarType> = ({restaurnatName}) => {
           />
         </div>
 
+
+
         {/* Right Side */}
         <div className="flex items-center gap-3">
 
           {/* Cart */}
          <Link to={"/cart"}>
-          <button className="flex items-center gap-1 border px-3 py-1 rounded-lg hover:bg-gray-100">
+          <button className="flex items-center gap-1 border px-3 py-1 rounded-lg hover:text-white hover:bg-[#F4B400]">
             <ShoppingCart size={18} />
             <span className="hidden sm:inline">Cart</span>
           </button>
           </Link>
+
           {/* Login */}
-          <button className="bg-green-600 text-white px-4 py-1 rounded-lg hover:bg-green-700">
-    
-            Login
-          </button>
+          <Link to={"/login"}>
+              <button className="bg-[#984447] text-white px-4 py-1 rounded-lg hover:bg-[#F4B400]">
+                Login
+              </button>
+          </Link>
         </div>
       </div>
+
 
       {/* Mobile Search Bar */}
       <div className="mt-3 md:hidden flex items-center border rounded-lg px-2 py-1">

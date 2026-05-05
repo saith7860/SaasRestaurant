@@ -41,49 +41,57 @@ const CartPage = () => {
   console.log(cart);
   
   return (
-    <div>
+    <div className="p-5 text-white">
       {cart.length==0?
-      <p>Your cart is empty</p>:
+      <div className="">
+        <p className="text-[#F4B400] text-lg sm:text-xl font-black">Your cart is empty!</p>
+      </div>:
       cart.map((item)=>(
-        <section className="mb-3" key={item.id} >
-        <div>
-          <img src={item.image} alt={item.name} />
-        </div>
-        <div>
-          <h1>{item.name}</h1>
-          <p>{item.variation}</p>
-          <h3>Price:{item.price*item.quantity}</h3>
-          <h3>Qty:{item.quantity}</h3>
-        </div>
-           <div className="flex items-center gap-2">
-          {/* Decrese quantity by 1 */}
-          <button onClick={() => decreaseQty(item.id)}>
-            <Minus/>
-          </button>
+        <section key={item.id}  className="bg-[#984447] flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 px-10 rounded-lg mb-4 gap-3">
 
-          <span>{item.quantity}</span>
-        {/* Increase quantity by 1 */}
-          <button onClick={() => increaseQty(item.id)}>
-            <Plus/>
-          </button>
-          {/*Remove itemm from cart  */}
-          <button
-          onClick={() => removeItem(item.id)}
-          className=""
-        >
-          <Trash2/>
-        </button>
-        </div>
-     </section>
-      ))}
+
+            <div>
+              <img className="hidden sm:block" src={item.image} alt={item.name} />
+            </div>
+            <div className="">
+              <h1 className="text-[#F4B400] font-black text-lg sm:text-xl">{item.name}</h1>
+              <p>{item.variation}</p>
+              <h3>Price:{item.price*item.quantity}</h3>
+              <h3>Qty:{item.quantity}</h3>
+            </div>
+            <div className="flex items-center gap-2 ">
+              {/* Decrese quantity by 1 */}
+              <button onClick={() => decreaseQty(item.id)}>
+                <Minus/>
+              </button>
+
+              <span>{item.quantity}</span>
+            {/* Increase quantity by 1 */}
+              <button onClick={() => increaseQty(item.id)}>
+                <Plus/>
+              </button>
+              {/*Remove itemm from cart  */}
+              <button
+              onClick={() => removeItem(item.id)}
+              className=""
+              >
+              <Trash2/>
+            </button>
+            </div>
+        </section> ))}
+
     {cart.length>0 && (
       <>
-       <h2>Total: {total}</h2>
-       <Link to={"/signup"}><button>Proceed To Checkout</button></Link>
+       <h2 className="m-auto mt-4 text-[#F4B400] text-2xl font-bold text-right">Total: {total}</h2>
+
+       <Link to={"/signup"}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-6 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
        </>
        )}
 
+      <Link to="/"><button className=" w-[clamp(200px,50%,300px)]  block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-6 rounded-sm hover:bg-[#F4B400] transition">Return to Menu</button></Link>
+
     </div>
+    
   )
 }
 
