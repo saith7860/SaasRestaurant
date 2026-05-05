@@ -5,13 +5,13 @@ import { Link } from "react-router";
 
 const Navbar:FC<NavbarType> = ({restaurnatName}) => {
   return (
-    <nav className="w-full shadow-md px-4 py-3 bg-white">
+    <nav className=" w-full shadow-md px-4 py-3 bg-white">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
         {/* Logo / Restaurant Name */}
-        <h1 className="text-xl md:text-2xl font-bold text-green-600">
+        <Link to={"/"}><h1 className="text-xl md:text-2xl font-bold text-green-600">
           {restaurnatName}
-        </h1>
+        </h1></Link>
 
         {/* Search Bar */}
         <div className="hidden md:flex items-center border rounded-lg px-2 py-1 w-full max-w-md">

@@ -6,7 +6,8 @@ import { createToken } from "../tokens/jwt.js";
 const saltRounds = 10;
 const createUser = async (data: userType) => {
   const { password, email } = data;
-
+ console.log(data);
+ 
   const checkEmailExists = await userRepo.isEmailExists(email);
   if (checkEmailExists) {
     throw new ApiError(409, "Email alrady exists");

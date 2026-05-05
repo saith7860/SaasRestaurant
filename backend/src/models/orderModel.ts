@@ -17,12 +17,10 @@ const orderSchema = new mongoose.Schema(
         variation:String
       },
     ],
-
-    address: {
-      street: String,
-      city: String,
-    },
-
+   address:{
+    type:String,
+    required:true
+   },
     subtotal: {
       type: Number,
       required: true,
@@ -68,4 +66,5 @@ const orderSchema = new mongoose.Schema(
 orderSchema.pre("save", function (next) {
   this.totalAmount = this.subtotal + this.deliveryFee;
 });
-export default mongoose.model("Order", orderSchema);
+const Order=mongoose.model("Order", orderSchema);
+export default Order;
