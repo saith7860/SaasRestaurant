@@ -1,11 +1,6 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import { useNavigate } from "react-router";
 import api from "../../api/axios";
-=======
-import axios from "axios";
-import { Link, useNavigate } from "react-router";
->>>>>>> 9ac8d36ae15c5d69d333ba659ff1a5f4babe3fb1
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
@@ -63,19 +58,17 @@ const Login = () => {
         />
 
 
-            <Link to="/checkout">
-              <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
-                Login
-              </button>
-            </Link>
-        
+        <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
+            Login
+       </button>
+
 
           {/* Signup link */}
           <div className="text-md text-gray-400 text-center">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-[#F4B400] hover:underline">
+            <button className="text-[#F4B400] hover:underline">
               Signup
-            </Link>
+            </button>
           </div>
 
       </form>
