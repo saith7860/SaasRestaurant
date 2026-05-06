@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import api from "../../api/axios";
 import type { CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType ,variant} from "../../types/HomePageTypes";
 import { CartContext } from "../../CartContext";
@@ -61,7 +62,7 @@ const Categories = () => {
     const fetchItems=async()=>{
     try {
 
-      const res=await axios.get(`/api/menu/category?category=${selectedCategory}`);
+      const res=await api.get(`api/menu/category?category=${selectedCategory}`);
       const itemsArray=res.data.data.items;
       setItems(itemsArray);
       
@@ -79,7 +80,7 @@ const Categories = () => {
 
     const fetchCategories = async () => {
       try {
-        const res = await axios.get("/api/menu");
+        const res = await api.get("api/menu");
         setCategories(res.data.data);
       } catch (error) {
         console.error("Error fetching categories", error);

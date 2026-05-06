@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import api from "../../api/axios";
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
@@ -18,7 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(" http://localhost:3000/api/user/login", loginField);
+      const res = await api.post(" /api/user/login", loginField);
       console.log("Login success:", res.data);
       navigate("/checkout")
       // optional: store token

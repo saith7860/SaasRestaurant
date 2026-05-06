@@ -9,6 +9,7 @@ import categoryRouter from './routes/categoryRouter.js';
 import itemRouter from './routes/itemRouter.js';
 import { handleError } from './middlewares/errorHandler.js';
 import UserRouter from './routes/userRouter.js';
+import orderRouter from './routes/orderRouter.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
@@ -24,6 +25,7 @@ app.use(helmet());
 app.use("/api/menu",categoryRouter) //CATEGORY ROUTER
 app.use("/api/item",itemRouter) //ITEM ROUTER
 app.use("/api/user",UserRouter) //User ROUTER
+app.use("/api/order",orderRouter) //User ROUTER
 //handle error middleware
 app.use(handleError);
 app.listen(PORT,async()=>{
