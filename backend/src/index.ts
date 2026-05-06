@@ -13,7 +13,7 @@ import UserRouter from './routes/userRouter.js';
 const PORT=process.env.PORT||3000;
 const app:Express=express();
 app.use(cors({
-   origin: 'http://localhost:5173',
+   origin: "https://foodordersystemonline.vercel.app/",
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
