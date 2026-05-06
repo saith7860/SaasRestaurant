@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import api from "../../api/axios";
 import type { CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType ,variant} from "../../types/HomePageTypes";
