@@ -97,7 +97,7 @@ const Categories = () => {
         {categories.map((cat) => (
           <div
             key={cat._id}
-            className="flex flex-col justify-center items-center bg-white shadow-md px-3 py-2 hover:scale-105 transition cursor-pointer"
+            className="flex flex-col justify-center items-center text-white hover:text-[#F4B400] hover:bg-[##984447] font-bold  hover:border-b-2 hover:border-[#F4B400] shadow-md px-3 py-2 hover:scale-105 transition cursor-pointer"
           >
             <button onClick={() => handleClick(cat.category)}>
               {cat.category}
@@ -109,13 +109,13 @@ const Categories = () => {
       {/* Items Section */}
   
       { selectedCategory && items.length == 0 && (
-        <p>No items in this category</p>
+        <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
       )}
-      <div className="">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
           <div
             key={item._id}
-            className="mb-2"
+            className="mb-2 p-4 text-white bg-[#2A2633] rounded-lg shadow-md flex flex-col gap-2"
           >
             {/* <img
               src={item.image}
@@ -123,19 +123,19 @@ const Categories = () => {
               className=""
             /> */}
 
-            <h2 className="">{item.name}</h2>
-            <p className="">{item.description}</p>
+            <h2 className="text-[#F4B400] font-black text-xl">{item.name}</h2>
+            <p className="text-white">{item.description}</p>
            
             {item.variants.map((variant)=>(
-              <div key={`${variant.variation}-${item._id}`}>
+              <div key={`${variant.variation}-${item._id}`} className="flex gap-2">
             
-              <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio" id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)} />
+              <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio"  id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)} />
               <label htmlFor={variant.variation}>{variant.variation}</label>
               </div>
               
             ))}
-       {selectVariant && <p>Price:{ selectVariant[item._id]?.price||'Select Variant'}</p>}
-         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} >Add to Cart</button>
+       {selectVariant && <p className="text-[#F4B400] font-bold text-lg" >Rs : { selectVariant[item._id]?.price||'Select Variant'}</p>}
+         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] transition" >Add to Cart</button>
           </div>
         ))}
       </div>

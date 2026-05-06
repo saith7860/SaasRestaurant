@@ -5,7 +5,9 @@ const Home = () => {
     <>
      <Navbar restaurnatName="AlHadi"/>
      <Categories/>
+     
     </>
+    
   )
 }
 

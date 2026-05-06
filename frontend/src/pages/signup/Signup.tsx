@@ -32,55 +32,103 @@ const navigate=useNavigate();
   };
 
   return (
-    <div className="flex flex-col">
-      <h1>Signup</h1>
+    <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
+      <h1 className="text-4xl font-black text-[#F4B400] pt-5 pb-8" >Signup</h1>
 
-      <form onSubmit={handleSubmit} method="POST">
-        <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          value={formField.name}
-          onChange={handleChange}
-        />
+      <form
+          className="bg-[#2A2633] mx-auto px-10 pt-6 pb-3 flex flex-col gap-3 rounded-md w-full max-w-md "
+          onSubmit={handleSubmit}
+        >
+          {/* Name */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="name" className="text-sm text-gray-300">Name</label>
+            <input 
+              id="name" 
+              type="text" 
+              name="name" 
+              value={formField.name} 
+              onChange={handleChange}
+              className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              placeholder="Enter your full name"
+            />
+          </div>
 
-        <label>Email</label>
-        <input
-          type="email"
-          name="email"
-          value={formField.email}
-          onChange={handleChange}
-        />
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="text-sm text-gray-300">Email</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              value={formField.email}
+              onChange={handleChange}
+              className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              placeholder="Enter your email"  
+            />
+          </div>
 
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={formField.password}
-          onChange={handleChange}
-        />
+          {/* Password */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="password" className="text-sm text-gray-300">Password</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              value={formField.password}
+              onChange={handleChange}
+              className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              placeholder="Create a password"
+            />
+          </div>
 
-        <label>Phone</label>
-        <input
-          type="text"
-          name="phone"
-          value={formField.phone}
-          onChange={handleChange}
-        />
+          {/* Phone */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="phone" className="text-sm text-gray-300">Phone</label>
+            <input
+              id="phone"
+              type="text"
+              name="phone"
+              value={formField.phone}
+              onChange={handleChange}
+              className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              placeholder="Enter your phone number"
+            />
+          </div>
 
-        <label>Address</label>
-        <input
-          type="text"
-          name="address"
-          value={formField.address}
-          onChange={handleChange}
-        />
+          {/* Address */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="address" className="text-sm text-gray-300">Address</label>
+            <input
+              id="address"
+              type="text"
+              name="address"
+              value={formField.address}
+              onChange={handleChange}
+              className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              placeholder="Enter your address"
+            />
+          </div>
 
-        <button type="submit">Signup</button>
-        <div>Have an Account
-          <Link to={"/login"}>Login</Link>
-        </div>
-      </form>
+          {/* Button */}
+          
+          <Link to={"/checkout"}>
+            <button
+              type="submit"
+              className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 rounded-md font-semibold"
+              >
+              Signup
+            </button>
+          </Link>
+
+          {/* Login link */}
+          <div className="text-md text-gray-400 text-center">
+            Have an account?{" "}
+            <Link to="/login" className="text-[#F4B400] hover:underline">
+              Login
+            </Link>
+          </div>
+        </form>
+
     </div>
   );
 };
