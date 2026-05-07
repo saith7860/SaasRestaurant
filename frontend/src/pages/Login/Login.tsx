@@ -30,11 +30,12 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
-      <h1 className="text-4xl font-black text-[#F4B400] pt-5 pb-8">Login</h1>
+    <div className="flex flex-col justify-center items-center h-screen w-screen text-white gap-2 p-5 m-auto">
+
+      <h1 className="text-[clamp(2rem,5vw,2.5rem)] font-black text-[#F4B400] pt-5 pb-8">Login</h1>
 
       <form
-        className="bg-[#2A2633] mx-auto px-10 py-24 flex flex-col gap-3 rounded-lg w-full max-w-md"
+        className="bg-[#2A2633] mx-10 px-10 py-24 flex flex-col gap-3 rounded-lg w-full max-w-sm"
         onSubmit={handleSubmit}
       >
         <label htmlFor="email" className="text-lg text-gray-300">Email</label>
@@ -42,6 +43,8 @@ const Login = () => {
           id="email"
           type="email"
           name="email"
+          required
+          placeholder="Enter your Email"
           value={loginField.email}
           onChange={handleChange}
           className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
@@ -52,6 +55,8 @@ const Login = () => {
           id="password"
           type="password"
           name="password"
+          required
+          placeholder="Enter your password"
           value={loginField.password}
           onChange={handleChange}
           className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"

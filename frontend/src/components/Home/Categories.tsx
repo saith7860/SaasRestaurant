@@ -93,17 +93,31 @@ const Categories = () => {
     <div className="px-4 py-6">
       
       {/* Categories */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide mb-6">
-        {categories.map((cat) => (
-          <div
-            key={cat._id}
-            className="flex flex-col justify-center items-center text-white hover:text-[#F4B400] hover:bg-[##984447] font-bold  hover:border-b-2 hover:border-[#F4B400] shadow-md px-3 py-2 hover:scale-105 transition cursor-pointer"
-          >
-            <button onClick={() => handleClick(cat.category)}>
+
+      <div className="flex gap-6 overflow-x-auto scrollbar-hide mb-6 whitespace-nowrap">
+          {categories.map((cat) => (
+            <button
+              key={cat._id}
+              onClick={() => handleClick(cat.category)}
+              className={`
+                relative pb-2 text-sm font-semibold transition-all duration-200
+                active:scale-95
+
+                ${
+                  selectedCategory === cat.category
+                    ? "text-[#F4B400]"
+                    : "text-white"
+                }
+              `}
+            >
               {cat.category}
+
+              {/* Active Underline */}
+              {selectedCategory === cat.category && (
+                <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#F4B400] rounded-full"></span>
+              )}
             </button>
-          </div>
-        ))}
+          ))}
       </div>
 
       {/* Items Section */}
@@ -111,6 +125,7 @@ const Categories = () => {
       { selectedCategory && items.length == 0 && (
         <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
       )}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
           <div
@@ -129,13 +144,14 @@ const Categories = () => {
             {item.variants.map((variant)=>(
               <div key={`${variant.variation}-${item._id}`} className="flex gap-2">
             
-              <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio"  id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)} />
-              <label htmlFor={variant.variation}>{variant.variation}</label>
+                <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio"   className="accent-[#984447]" id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)}/>
+                <label htmlFor={variant.variation}>{variant.variation}</label>
+              
               </div>
               
             ))}
        {selectVariant && <p className="text-[#F4B400] font-bold text-lg" >Rs : { selectVariant[item._id]?.price||'Select Variant'}</p>}
-         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] transition" >Add to Cart</button>
+         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] active:bg-[#4CAF50]/60 transition" >Add to Cart</button>
           </div>
         ))}
       </div>

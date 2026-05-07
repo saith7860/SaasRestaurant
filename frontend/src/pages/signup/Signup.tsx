@@ -32,11 +32,12 @@ const navigate=useNavigate();
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
-      <h1 className="text-4xl font-black text-[#F4B400] pt-5 pb-8" >Signup</h1>
+    <div className="flex flex-col justify-center items-center h-screen w-screen text-white gap-2 p-5 m-auto">
+      
+      <h1 className="text-[clamp(2rem,5vw,2.5rem)] font-black text-[#F4B400] pt-5 pb-8" >Signup</h1>
 
       <form
-          className="bg-[#2A2633] mx-auto px-10 pt-6 pb-3 flex flex-col gap-3 rounded-md w-full max-w-md "
+          className="bg-[#2A2633] mx-auto px-10 pt-6 pb-3 flex flex-col gap-3 rounded-md w-full max-w-sm "
           onSubmit={handleSubmit}
         >
           {/* Name */}
@@ -50,6 +51,7 @@ const navigate=useNavigate();
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
               placeholder="Enter your full name"
+              required
             />
           </div>
 
@@ -64,6 +66,7 @@ const navigate=useNavigate();
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
               placeholder="Enter your email"  
+              required
             />
           </div>
 
@@ -78,6 +81,7 @@ const navigate=useNavigate();
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
               placeholder="Create a password"
+              required
             />
           </div>
 
@@ -92,6 +96,7 @@ const navigate=useNavigate();
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
               placeholder="Enter your phone number"
+              required
             />
           </div>
 
@@ -106,6 +111,7 @@ const navigate=useNavigate();
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
               placeholder="Enter your address"
+              required
             />
           </div>
 

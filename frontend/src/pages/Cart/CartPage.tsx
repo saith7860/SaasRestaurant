@@ -44,30 +44,33 @@ const CartPage = () => {
     <div className="p-5 text-white">
       {cart.length==0?
       <div className="">
-        <p className="text-[#F4B400] text-lg sm:text-xl font-black">Your cart is empty!</p>
+        <p className="text-[#F4B400] text-lg sm:text-xl font-black text-center">Your cart is empty!</p>
       </div>:
       cart.map((item)=>(
-        <section key={item.id}  className="bg-[#984447] flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 px-10 rounded-lg mb-4 gap-3">
+        <section key={item.id}  className="bg-[#2A2633] flex flex-col sm:flex-row sm:items-center sm:justify-between py-6 px-10 rounded-lg mb-4 gap-5">
 
 
             <div>
               <img className="hidden sm:block" src={item.image} alt={item.name} />
             </div>
-            <div className="">
+
+            <div className="items-start justify-center flex flex-col gap-2">
               <h1 className="text-[#F4B400] font-black text-lg sm:text-xl">{item.name}</h1>
               <p>{item.variation}</p>
-              <h3>Price:{item.price*item.quantity}</h3>
-              <h3>Qty:{item.quantity}</h3>
+              <h3>Price: {item.price*item.quantity}</h3>
+              <h3>Qty: {item.quantity}</h3>
             </div>
-            <div className="flex items-center gap-2 ">
+            
+
+            <div className="flex items-center justify-end gap-2 ">
               {/* Decrese quantity by 1 */}
-              <button onClick={() => decreaseQty(item.id)}>
+              <button className="bg-[#984447] text-white font-bold py-2 px-3 rounded-lg active:bg-[#F4B400] transition" onClick={() => decreaseQty(item.id)}>
                 <Minus/>
               </button>
 
               <span>{item.quantity}</span>
             {/* Increase quantity by 1 */}
-              <button onClick={() => increaseQty(item.id)}>
+              <button className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg active:bg-[#F4B400] transition" onClick={() => increaseQty(item.id)}>
                 <Plus/>
               </button>
               {/*Remove itemm from cart  */}
@@ -84,11 +87,11 @@ const CartPage = () => {
       <>
        <h2 className="m-auto mt-4 text-[#F4B400] text-2xl font-bold text-right">Total: {total}</h2>
 
-       <Link to={"/signup"}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-6 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
+       <Link to={"/signup"}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-2 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
        </>
        )}
 
-      <Link to="/"><button className=" w-[clamp(200px,50%,300px)]  block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-6 rounded-sm hover:bg-[#F4B400] transition">Return to Menu</button></Link>
+      <Link to="/"><button className=" w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-6 rounded-sm hover:bg-[#F4B400] transition">Return to Menu</button></Link>
 
     </div>
     
