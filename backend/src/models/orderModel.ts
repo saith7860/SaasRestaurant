@@ -7,7 +7,9 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
+   orderType:{
+    type:String
+   },
     items: [
       {
         variantId:String,
@@ -18,8 +20,13 @@ const orderSchema = new mongoose.Schema(
       },
     ],
    address:{
-    type:String,
-    required:true
+    city:{
+    type:String
+  },
+    street:{
+    type:String
+    }
+    
    },
     subtotal: {
       type: Number,

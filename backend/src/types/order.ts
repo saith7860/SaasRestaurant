@@ -8,15 +8,18 @@ export type item={
   variation:string
 
 }
-
+type address={
+  city:string,
+  street:string
+}
 
 export type OrderItem= {
  items:item[]
+ address:address
  user:Types.ObjectId
  subtotal:number
  deliveryFee:number
 totalAmount: number;
- address:string
   paymentMethod: "COD" | "CARD";
   paymentStatus: "pending" | "paid";
 

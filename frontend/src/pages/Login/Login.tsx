@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import api from "../../api/axios";
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(" http://localhost:3000/api/user/login", loginField);
+      const res = await api.post(" /api/user/login", loginField);
       console.log("Login success:", res.data);
       navigate("/checkout")
       // optional: store token
@@ -63,19 +63,17 @@ const Login = () => {
         />
 
 
-            <Link to="/checkout">
-              <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
-                Login
-              </button>
-            </Link>
-        
+        <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
+            Login
+       </button>
+
 
           {/* Signup link */}
           <div className="text-md text-gray-400 text-center">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-[#F4B400] hover:underline">
+            <button className="text-[#F4B400] hover:underline">
               Signup
-            </Link>
+            </button>
           </div>
 
       </form>
