@@ -1,4 +1,4 @@
-import { Routes,Route ,useNavigation} from "react-router";
+import { Routes,Route} from "react-router";
 import Home from "./pages/Home/Home";
 import CartPage from "./pages/Cart/CartPage";
 import { CartProvider } from "./CartContext";   //Making cart functionality global so that any component can access it
@@ -6,10 +6,7 @@ import Checkout from "./pages/Checkout/Checkout";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/Login/Login";
 const App = () => {
-  const navigate=useNavigation();
-  if (navigate.state==="loading") return <h1>Loading....</h1>
   return (
-    
     <CartProvider>
    <Routes>
     <Route path="/" element={<Home/>}/>

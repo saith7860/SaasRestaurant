@@ -8,7 +8,7 @@ const Categories = () => {
   const [selectedCategory,setSelectedCategory]=useState<string>('Burgers'); //selecting specific castegory and based on that fetch items
   const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
   const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
      const {cart,setCart}=useContext(CartContext)!;   
   const handleClick = (category: string) => {   
     console.log("You clicked", category);
@@ -60,7 +60,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchItems=async()=>{
     try {
-
+      setLoading(true)
       const res=await api.get(`/api/menu/category?category=${selectedCategory}`);
       const itemsArray=res.data.data.items;
       setItems(itemsArray);
@@ -69,11 +69,19 @@ const Categories = () => {
       console.log('error is fetching specific category items',error);
       
       setItems([]);
+    }finally{
+      setLoading(false)
     }}
     fetchItems()
   }, [selectedCategory])
   
-  
+  if (loading) {
+     return (
+      <div className="flex justify-center items-center h-40">
+        <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   useEffect(() => {
 
