@@ -43,6 +43,8 @@ const navigate=useNavigate();
           <div className="flex flex-col gap-1">
             <label htmlFor="name" className="text-sm text-gray-300">Name</label>
             <input 
+
+             required
               id="name" 
               type="text" 
               name="name" 
@@ -57,6 +59,7 @@ const navigate=useNavigate();
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-sm text-gray-300">Email</label>
             <input
+              required
               id="email"
               type="email"
               name="email"
@@ -71,9 +74,11 @@ const navigate=useNavigate();
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-sm text-gray-300">Password</label>
             <input
+            required
               id="password"
               type="password"
               name="password"
+
               value={formField.password}
               onChange={handleChange}
               className="px-3 py-1 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
@@ -85,6 +90,7 @@ const navigate=useNavigate();
           <div className="flex flex-col gap-1">
             <label htmlFor="phone" className="text-sm text-gray-300">Phone</label>
             <input
+            required
               id="phone"
               type="text"
               name="phone"
@@ -99,6 +105,7 @@ const navigate=useNavigate();
           <div className="flex flex-col gap-1">
             <label htmlFor="address" className="text-sm text-gray-300">Address</label>
             <input
+            required
               id="address"
               type="text"
               name="address"

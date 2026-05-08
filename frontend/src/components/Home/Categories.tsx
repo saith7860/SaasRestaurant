@@ -35,7 +35,7 @@ const Categories = ({search}:CategoriesProps) => {
 
     return;
   }
-      if (selectedVariant!==undefined||selectedVariant!==null) {
+   if (selectedVariant!==undefined||selectedVariant!==null) {
    
       console.log(selectedVariant);
       console.log(fullItem);
@@ -59,11 +59,12 @@ const Categories = ({search}:CategoriesProps) => {
           quantity:1
         }
         setCart([...cart,newItem])
+      
       }
       }
     
-    
-
+  
+  toast.success("Items added to cart")
    
   }
  

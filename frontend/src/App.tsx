@@ -10,7 +10,7 @@ import Login from "./pages/Login/Login";
 const App = () => {
   return (
     <>
-    <ToastContainer/>
+    <ToastContainer  position="top-right" autoClose={3000}/>
     <CartProvider>
    <Routes>
     <Route path="/" element={<Home/>}/>
