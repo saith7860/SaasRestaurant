@@ -11,6 +11,12 @@ const Checkout = () => {
   });
     const {cart}=useContext(CartContext)!;
     console.log(cart);
+    //subtotal
+  const total = cart.reduce(
+  (acc, item) => acc + item.price * item.quantity,
+  0
+);
+const deilveryFee=100;
     const handleChange = (e:any) => {
     const { name, value } = e.target;
 
@@ -104,7 +110,10 @@ const Checkout = () => {
 
     </form></div>
     <div>
-   
+       <h2>Order Summary</h2>
+       <h3>Subtotal:Rs.{total}</h3>
+       <h3>Delivery Fee:Rs.{deilveryFee}</h3>
+       <h3>Total:Rs.{total*deilveryFee}</h3>
     </div>
     
 
