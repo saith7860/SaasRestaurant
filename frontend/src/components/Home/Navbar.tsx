@@ -1,9 +1,9 @@
 import { Search, ShoppingCart } from "lucide-react";
 import type { FC } from "react";
-import  type { NavbarType } from "../../types/HomePageTypes";
+import type { NavbarProps } from "../../types/HomePageTypes";
 import { Link } from "react-router";
 
-const Navbar:FC<NavbarType> = ({restaurnatName}) => {
+const Navbar:FC<NavbarProps> = ({restaurnatName,search,setSearch}) => {
   return (
     <nav className=" w-full shadow-md px-4 py-3 bg-white">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -20,6 +20,8 @@ const Navbar:FC<NavbarType> = ({restaurnatName}) => {
             type="text"
             placeholder="Search food..."
             className="outline-none px-2 py-1 w-full"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
         </div>
 

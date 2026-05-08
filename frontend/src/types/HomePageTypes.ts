@@ -1,6 +1,11 @@
-export type NavbarType={
-restaurnatName:string
-}
+export type NavbarProps = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  restaurnatName:string
+};
+export type CategoriesProps = {
+  search: string;
+};
 export type CategoriesType={
     _id:string
     category:string 

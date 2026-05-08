@@ -63,8 +63,8 @@ const orderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-orderSchema.pre("save", function (next) {
-  this.totalAmount = this.subtotal + this.deliveryFee;
-});
+// orderSchema.pre("save", function (next) {
+//   this.totalAmount = this.subtotal + this.deliveryFee;
+// });
 const Order=mongoose.model("Order", orderSchema);
 export default Order;

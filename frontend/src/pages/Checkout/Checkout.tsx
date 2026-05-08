@@ -103,7 +103,9 @@ const Checkout = () => {
       </button>
 
     </form></div>
-    <div></div>
+    <div>
+   
+    </div>
     
 
   </>
