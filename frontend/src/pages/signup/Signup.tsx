@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link,useNavigate } from "react-router";
 import api from "../../api/api";
 import { toast } from "react-toastify";
+import handleApiError from "../../api/handleError.js";
 const Signup = () => {
   const [formField, setFormFields] = useState({
     name: "",
@@ -11,7 +12,7 @@ const Signup = () => {
     address: ""
   });
   const [errors,setErrors]=useState<Record<string,string>>({});
-const navigate=useNavigate();
+// const navigate=useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormFields({
       ...formField,
@@ -30,8 +31,25 @@ const navigate=useNavigate();
       toast.success(res.data.message);
     } catch (error) {
       console.error("Signup error:", error);
-    }
+      const validationErrors=handleApiError(error);
+
+  if (validationErrors) {
+
+    const formattedErrors:
+      Record<string, string> = {};
+
+    validationErrors.forEach(
+      (err: any) => {
+
+        formattedErrors[err.field] =
+          err.message;
+      }
+    );
+
+    setErrors(formattedErrors);
+  }
   };
+console.log(errors);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
@@ -141,5 +159,5 @@ const navigate=useNavigate();
     </div>
   );
 };
-
+}
 export default Signup;
