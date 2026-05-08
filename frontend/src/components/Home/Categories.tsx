@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import type { CategoriesProps, CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType ,variant} from "../../types/HomePageTypes";
+import { toast } from "react-toastify";
 import { CartContext } from "../../CartContext";
 const Categories = ({search}:CategoriesProps) => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
@@ -29,7 +30,11 @@ const Categories = ({search}:CategoriesProps) => {
   }));
   }
   const handleAddToCart=(selectedVariant:any,fullItem:ItemType)=>{
-  
+      if (!selectedVariant) {
+    toast.error("Please select a variant");
+
+    return;
+  }
       if (selectedVariant!==undefined||selectedVariant!==null) {
    
       console.log(selectedVariant);
