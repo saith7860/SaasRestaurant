@@ -5,7 +5,7 @@ import type { ItemType ,variant} from "../../types/HomePageTypes";
 import { CartContext } from "../../CartContext";
 const Categories = () => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
-  const [selectedCategory,setSelectedCategory]=useState<string>('Burgers'); //selecting specific castegory and based on that fetch items
+  const [selectedCategory,setSelectedCategory]=useState<string>('Desi Foods'); //selecting specific castegory and based on that fetch items
   const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
   const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
   const [loading, setLoading] = useState(false);
@@ -75,13 +75,7 @@ const Categories = () => {
     fetchItems()
   }, [selectedCategory])
   
-  if (loading) {
-     return (
-      <div className="flex justify-center items-center h-40">
-        <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
+  
 
   useEffect(() => {
 
@@ -96,7 +90,13 @@ const Categories = () => {
 
     fetchCategories();
   }, []);
-
+if (loading) {
+     return (
+      <div className="flex justify-center items-center h-40">
+        <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
   return (
     <div className="px-4 py-6">
       
