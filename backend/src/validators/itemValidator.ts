@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 const variantSchema = z.object({
-  variation: z.string().min(1, "Variant name is required"),
-  price: z.number().positive("Price must be positive"),
+  variation: z.string("variation name is required").min(1, "Variant name is required"),
+  price: z.number("price is required").positive("Price must be positive"),
 });
 
 export const ItemSchema = z.object({

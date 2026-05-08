@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link,useNavigate } from "react-router";
 import api from "../../api/api";
+import { toast } from "react-toastify";
 const Signup = () => {
   const [formField, setFormFields] = useState({
     name: "",
@@ -9,6 +10,7 @@ const Signup = () => {
     phone: "",
     address: ""
   });
+  const [errors,setErrors]=useState<Record<string,string>>({});
 const navigate=useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormFields({
@@ -22,10 +24,10 @@ const navigate=useNavigate();
     console.log(formField);
     
     try {
-      const res = await api.post(" http://localhost:3000/api/user/signup", formField);
+      const res = await api.post("/api/user/signup", formField);
       console.log("User created:", res.data);
-      navigate("/checkout")
-
+      // navigate("/checkout")
+      toast.success(res.data.message);
     } catch (error) {
       console.error("Signup error:", error);
     }
