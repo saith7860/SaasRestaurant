@@ -51,7 +51,7 @@ const Signup = () => {
       toast.success(res.data.message);
 
       // Navigate after success
-      navigate("/checkout");
+      navigate("/login");
 
     } catch (error) {
 
