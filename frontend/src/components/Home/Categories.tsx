@@ -107,10 +107,10 @@ const Categories = () => {
       </div>
 
       {/* Items Section */}
-  
+{/*   
       { selectedCategory && items.length == 0 && (
         <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
-      )}
+      )} */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => (
           <div
