@@ -5,7 +5,8 @@ import { Link } from "react-router";
 
 const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
   return (
-    <nav className=" w-full shadow-md px-4 py-3 bg-white">
+
+    <nav className=" w-full shadow-md px-4 py-3 bg-[#1A1A1A]">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
         {/* Logo / Restaurant Name */}
@@ -19,7 +20,7 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
           <input
             type="text"
             placeholder="Search food..."
-            className="outline-none px-2 py-1 w-full"
+            className="outline-none px-2 py-1 w-full text-white bg-transparent"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -32,7 +33,7 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
 
           {/* Cart */}
           <Link to={"/cart"}>
-            <button className="flex items-center gap-1 border px-3 py-1 rounded-lg hover:text-white hover:bg-[#F4B400]">
+            <button className="flex items-center gap-1 border px-3 py-1 rounded-lg text-white hover:bg-[#F4B400]">
               <ShoppingCart size={18} />
               <span className="hidden sm:inline">Cart</span>
             </button>

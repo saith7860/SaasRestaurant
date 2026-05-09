@@ -116,16 +116,26 @@ const Categories = ({ search }: CategoriesProps) => {
     <div className="px-4 py-6">
 
       {/* Categories */}
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide mb-6">
+      <div className="flex gap-6 overflow-x-auto scrollbar-hide mb-6 whitespace-nowrap">
         {categories.map((cat) => (
-          <div
+          <button
             key={cat._id}
-            className="flex flex-col justify-center items-center text-white hover:text-[#F4B400] hover:bg-[##984447] font-bold  hover:border-b-2 hover:border-[#F4B400] shadow-md px-3 py-2 hover:scale-105 transition cursor-pointer"
+            onClick={() => handleClick(cat.category)}
+            className={`relative pb-2 text-sm font-semibold transition-all duration-200 active:scale-95 hover:scale-105
+
+        ${selectedCategory === cat.category
+                ? "text-[#F4B400]"
+                : "text-white"
+              }
+      `}
           >
-            <button onClick={() => handleClick(cat.category)}>
-              {cat.category}
-            </button>
-          </div>
+            {cat.category}
+
+            {/* Active Underline */}
+            {selectedCategory === cat.category && (
+              <span className="absolute left-0 bottom-0 w-full h-1 bg-[#F4B400] rounded-full"></span>
+            )}
+          </button>
         ))}
       </div>
 
@@ -152,17 +162,17 @@ const Categories = ({ search }: CategoriesProps) => {
             {item.variants.map((variant) => (
               <div key={`${variant.variation}-${item._id}`} className="flex gap-2">
 
-                <input 
-                  name={`variant-${item._id}`} 
-                  checked={selectVariant[item._id]?._id == variant._id} 
-                  type="radio" 
+                <input
+                  name={`variant-${item._id}`}
+                  checked={selectVariant[item._id]?._id == variant._id}
+                  type="radio"
                   className="accent-[#F4B400]"
-                  id={`${variant.variation}-${variant._id}`} 
-                  value={variant.variation} 
+                  id={`${variant.variation}-${variant._id}`}
+                  value={variant.variation}
                   onChange={() => handleVariationChange(item._id, variant)} />
 
                 <label htmlFor={variant.variation}>{variant.variation}</label>
-              
+
               </div>
 
             ))}
