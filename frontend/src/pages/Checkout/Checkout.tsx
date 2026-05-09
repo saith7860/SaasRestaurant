@@ -1,6 +1,6 @@
-
 import { useContext,useState } from "react";
 import { CartContext } from "../../CartContext";
+import { toast } from "react-toastify";
 const Checkout = () => {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -31,6 +31,7 @@ const deilveryFee=100;
     e.preventDefault();
 
     console.log(formData);
+    toast.success("Order is placed");
   };
   return (
     <>
@@ -113,7 +114,7 @@ const deilveryFee=100;
        <h2>Order Summary</h2>
        <h3>Subtotal:Rs.{total}</h3>
        <h3>Delivery Fee:Rs.{deilveryFee}</h3>
-       <h3>Total:Rs.{total*deilveryFee}</h3>
+       <h3>Total:Rs.{total+deilveryFee}</h3>
     </div>
     
 
