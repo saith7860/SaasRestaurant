@@ -1,95 +1,96 @@
 import { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import type { CategoriesProps, CategoriesType } from "../../types/HomePageTypes";
-import type { ItemType ,variant} from "../../types/HomePageTypes";
+import type { ItemType, variant } from "../../types/HomePageTypes";
 import { toast } from "react-toastify";
 import { CartContext } from "../../CartContext";
-const Categories = ({search}:CategoriesProps) => {
+const Categories = ({ search }: CategoriesProps) => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
-  const [selectedCategory,setSelectedCategory]=useState<string>('Desi Foods'); //selecting specific castegory and based on that fetch items
-  const [items,setItems]=useState<ItemType[]>([]); //storing items of selected category
-  const [selectVariant,setSelectVariant]=useState<{[key:string]:variant}>({});
+  const [selectedCategory, setSelectedCategory] = useState<string>('Desi Foods'); //selecting specific castegory and based on that fetch items
+  const [items, setItems] = useState<ItemType[]>([]); //storing items of selected category
+  const [selectVariant, setSelectVariant] = useState<{ [key: string]: variant }>({});
   const [loading, setLoading] = useState(false);
-     const {cart,setCart}=useContext(CartContext)!; 
-     
-   //filter food based on user input
+  const { cart, setCart } = useContext(CartContext)!;
+
+  //filter food based on user input
   const filteredFoods = items.filter((food) =>
     food.name.toLowerCase().includes(search.toLowerCase())
-  );  
+  );
   console.log(filteredFoods);
-  
-  
-  const handleClick = (category: string) => {   
-    console.log("You clicked", category);
-    setSelectedCategory(category); 
-  };
-  const handleVariationChange=(itemID:string,variation:variant)=>{
-  setSelectVariant(prev=>({
-    ...prev,
-    [itemID]:variation
-  }));
-  }
-  const handleAddToCart=(selectedVariant:any,fullItem:ItemType)=>{
-      if (!selectedVariant) {
-    toast.error("Please select a variant");
 
-    return;
+
+  const handleClick = (category: string) => {
+    console.log("You clicked", category);
+    setSelectedCategory(category);
+  };
+  const handleVariationChange = (itemID: string, variation: variant) => {
+    setSelectVariant(prev => ({
+      ...prev,
+      [itemID]: variation
+    }));
   }
-   if (selectedVariant!==undefined||selectedVariant!==null) {
-   
+  const handleAddToCart = (selectedVariant: any, fullItem: ItemType) => {
+    if (!selectedVariant) {
+      toast.error("Please select a variant");
+
+      return;
+    }
+    if (selectedVariant !== undefined || selectedVariant !== null) {
+
       console.log(selectedVariant);
       console.log(fullItem);
-      const existing=cart.find((item)=>item.id==selectedVariant._id && selectedVariant.variation==item.variation)
+      const existing = cart.find((item) => item.id == selectedVariant._id && selectedVariant.variation == item.variation)
       if (existing) {
         const updatedCart = cart.map((item) =>
-      item.id === selectedVariant._id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    );
-    setCart(updatedCart);
-      } 
-      else{
-        const newItem={
-          id:selectedVariant._id,
-          name:fullItem.name,
-          image:fullItem.image,
-          variantId:selectedVariant._id,
-          variation:selectedVariant.variation,
-          price:selectedVariant.price,
-          quantity:1
+          item.id === selectedVariant._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+        setCart(updatedCart);
+      }
+      else {
+        const newItem = {
+          id: selectedVariant._id,
+          name: fullItem.name,
+          image: fullItem.image,
+          variantId: selectedVariant._id,
+          variation: selectedVariant.variation,
+          price: selectedVariant.price,
+          quantity: 1
         }
-        setCart([...cart,newItem])
-      
+        setCart([...cart, newItem])
+
       }
-      }
-    
-  
-  toast.success("Items added to cart")
-   
+    }
+
+
+    toast.success("Items added to cart")
+
   }
- 
- console.log(cart);
- 
+
+  console.log(cart);
+
 
   useEffect(() => {
-    const fetchItems=async()=>{
-    try {
-      setLoading(true)
-      const res=await api.get(`/api/menu/category?category=${selectedCategory}`);
-      const itemsArray=res.data.data.items;
-      setItems(itemsArray);
-      
-    } catch (error) {
-      console.log('error is fetching specific category items',error);
-      
-      setItems([]);
-    }finally{
-      setLoading(false)
-    }}
+    const fetchItems = async () => {
+      try {
+        setLoading(true)
+        const res = await api.get(`/api/menu/category?category=${selectedCategory}`);
+        const itemsArray = res.data.data.items;
+        setItems(itemsArray);
+
+      } catch (error) {
+        console.log('error is fetching specific category items', error);
+
+        setItems([]);
+      } finally {
+        setLoading(false)
+      }
+    }
     fetchItems()
   }, [selectedCategory])
-  
-  
+
+
 
   useEffect(() => {
 
@@ -104,8 +105,8 @@ const Categories = ({search}:CategoriesProps) => {
 
     fetchCategories();
   }, []);
-if (loading) {
-     return (
+  if (loading) {
+    return (
       <div className="flex justify-center items-center h-40">
         <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
@@ -113,7 +114,7 @@ if (loading) {
   }
   return (
     <div className="px-4 py-6">
-      
+
       {/* Categories */}
       <div className="flex gap-4 overflow-x-auto scrollbar-hide mb-6">
         {categories.map((cat) => (
@@ -129,7 +130,7 @@ if (loading) {
       </div>
 
       {/* Items Section */}
-{/*   
+      {/*   
       { selectedCategory && items.length == 0 && (
         <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
       )} */}
@@ -147,21 +148,30 @@ if (loading) {
 
             <h2 className="text-[#F4B400] font-black text-xl">{item.name}</h2>
             <p className="text-white">{item.description}</p>
-           
-            {item.variants.map((variant)=>(
+
+            {item.variants.map((variant) => (
               <div key={`${variant.variation}-${item._id}`} className="flex gap-2">
-            
-              <input name={`variant-${item._id}`} checked={selectVariant[item._id]?._id==variant._id} type="radio"  id={`${variant.variation}-${variant._id}`} value={variant.variation} onChange={()=>handleVariationChange(item._id,variant)} />
-              <label htmlFor={variant.variation}>{variant.variation}</label>
-              </div>
+
+                <input 
+                  name={`variant-${item._id}`} 
+                  checked={selectVariant[item._id]?._id == variant._id} 
+                  type="radio" 
+                  className="accent-[#F4B400]"
+                  id={`${variant.variation}-${variant._id}`} 
+                  value={variant.variation} 
+                  onChange={() => handleVariationChange(item._id, variant)} />
+
+                <label htmlFor={variant.variation}>{variant.variation}</label>
               
+              </div>
+
             ))}
-       {selectVariant && <p className="text-[#F4B400] font-bold text-lg" >Rs : { selectVariant[item._id]?.price||'Select Variant'}</p>}
-         <button onClick={()=>handleAddToCart(selectVariant[item._id],item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] transition" >Add to Cart</button>
+            {selectVariant && <p className="text-[#F4B400] font-bold text-lg" >Rs : {selectVariant[item._id]?.price || 'Select Variant'}</p>}
+            <button onClick={() => handleAddToCart(selectVariant[item._id], item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] active:bg-[#4CAF50]/60 transition" >Add to Cart</button>
           </div>
         ))}
       </div>
-      
+
     </div>
   );
 };

@@ -8,8 +8,8 @@ const Login = () => {
     email: "",
     password: ""
   });
-   const [errors, setErrors] =useState<Record<string, string>>({});
- const navigate=useNavigate();
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginField({
       ...loginField,
@@ -20,7 +20,7 @@ const Login = () => {
       [e.target.name]: "",
     }));
   };
-  
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const Login = () => {
       toast.success("User logged in successfully")
     } catch (error) {
       console.error("Login error:", error);
-       const validationErrors =
+      const validationErrors =
         handleApiError(error);
 
       if (validationErrors) {
@@ -56,62 +56,81 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen text-white gap-2 py-5">
-      <h1 className="text-4xl font-black text-[#F4B400] pt-5 pb-8">Login</h1>
+    <div className="min-h-screen flex items-center justify-center text-white px-4">
 
-      <form
-        className="bg-[#2A2633] mx-auto px-10 py-24 flex flex-col gap-3 rounded-lg w-full max-w-md"
-        onSubmit={handleSubmit}
-      >
-        <label htmlFor="email" className="text-lg text-gray-300">Email</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={loginField.email}
-          onChange={handleChange}
-          className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
-        />
- {
-            errors.email && (
-              <p className="text-red-500 text-sm">
-                {errors.email}
-              </p>
-            )
-          }
-        <label htmlFor="password" className="text-lg text-gray-300">Password</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          value={loginField.password}
-          onChange={handleChange}
-          className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
-        />
-        
- {
-            errors.password && (
-              <p className="text-red-500 text-sm">
-                {errors.password}
-              </p>
-            )
-          }
-        
-              <button type="submit" className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-8 py-2 rounded-md font-semibold text-lg">
-                Login
-              </button>
-        
-        
+      <div className="w-full max-w-md flex flex-col items-center">
 
-          {/* Signup link */}
-          <div className="text-md text-gray-400 text-center">
+        <h1 className="text-[clamp(2rem,5vw,2.5rem)] font-black text-[#F4B400] mb-8 text-center">
+          Login
+        </h1>
+
+        <form
+          className="bg-[#2A2633] w-full px-6 sm:px-10 py-16 sm:py-20 flex flex-col gap-3 rounded-lg"
+          onSubmit={handleSubmit}
+        >
+
+          {/* Email */}
+          <label htmlFor="email" className="text-lg text-gray-300">
+            Email
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            name="email"
+            required
+            placeholder="Enter your Email"
+            value={loginField.email}
+            onChange={handleChange}
+            className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+          />
+
+          {errors.email && (
+            <p className="text-red-500 text-sm">
+              {errors.email}
+            </p>
+          )}
+
+          {/* Password */}
+          <label htmlFor="password" className="text-lg text-gray-300 mt-2">
+            Password
+          </label>
+
+          <input
+            id="password"
+            type="password"
+            name="password"
+            required
+            placeholder="Enter your Password"
+            value={loginField.password}
+            onChange={handleChange}
+            className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+          />
+
+          {errors.password && (
+            <p className="text-red-500 text-sm">
+              {errors.password}
+            </p>
+          )}
+
+          {/* Button */}
+          <button
+            type="submit"
+            className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-6 py-2 rounded-md font-semibold text-lg"
+          >
+            Login
+          </button>
+
+          {/* Signup */}
+          <div className="text-md text-gray-400 text-center mt-3">
             Don't have an account?{" "}
             <Link to="/signup" className="text-[#F4B400] hover:underline">
               Signup
             </Link>
           </div>
 
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
