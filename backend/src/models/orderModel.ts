@@ -8,19 +8,23 @@ const orderSchema = new mongoose.Schema(
       required: true,
     },
 
-    items: [
-      {
-        variantId:String,
-        name: String,
-        price: Number,
-        quantity: Number,
-        variation:String
-      },
-    ],
-   address:{
-    type:String,
-    required:true
-   },
+    restaurant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Restaurant",
+      required: true,
+    },
+
+    branch: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch",
+      required: true,
+    },
+
+    address: {
+      type: String,
+      required: true,
+    },
+
     subtotal: {
       type: Number,
       required: true,
@@ -63,8 +67,7 @@ const orderSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-// orderSchema.pre("save", function (next) {
-//   this.totalAmount = this.subtotal + this.deliveryFee;
-// });
-const Order=mongoose.model("Order", orderSchema);
+
+const Order = mongoose.model("Order", orderSchema);
+
 export default Order;

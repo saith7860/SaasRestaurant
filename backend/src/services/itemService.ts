@@ -1,6 +1,7 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import * as itemRepo from '../repos/itemRepo.js'
 import type { ItemType } from '../types/itemType.js';
+//Fetch all items
 const fetchAllItems=async()=>{
    const items=await itemRepo.showAllItems();
    if (!items.length) {
@@ -16,6 +17,7 @@ if (!update) {
 }
 return update;
 }
+//Delete item
 const deleteSpecificItem=async(id:string)=>{
 const del=await itemRepo.deleteItemByName(id);
 if (!del) {
@@ -23,6 +25,7 @@ if (!del) {
 }
 return del;
 }
+//create item
 const createItem=async(category:string,itemData:ItemType)=>{
    console.log(category);
    

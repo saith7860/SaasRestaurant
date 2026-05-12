@@ -1,0 +1,57 @@
+import mongoose from "mongoose";
+const branchSchema = new mongoose.Schema({
+
+  restaurant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Restaurant",
+    required: true
+  },
+
+  name: {
+    type:String,
+    required:true
+  },
+
+  address: {
+    type:String,
+    required:true
+  },
+
+  city: {
+    type:String,
+    required:true
+  },
+
+  location: {
+    lat: Number,
+    lng: Number
+  },
+
+  contactNumber: {
+    type:String,
+    required:true
+  },
+
+  openingTime: {
+    type:String,
+    required:true
+  },
+
+  closingTime: {
+    type:String,
+    required:true
+  },
+
+  deliveryFee: {
+    type:Number,
+    required:true
+  },
+
+  isOpen: {
+    type: Boolean,
+    default: true
+  }
+
+}, { timestamps: true });
+const Branch = mongoose.model("Branch", branchSchema);
+export default Branch;

@@ -7,6 +7,11 @@ const categorySchema = new mongoose.Schema(
       trim:true,
       required: true
     },
+    branch: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch",
+      required: true
+    },
     image: {
      type: String
     },

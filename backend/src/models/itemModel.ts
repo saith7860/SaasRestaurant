@@ -11,8 +11,15 @@ const itemSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    basePrice:{
-      type:Number
+    category:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Category',
+      required:true
+    },
+    branch: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch",
+      required: true
     },
     isAvailable: {
       type: Boolean,
