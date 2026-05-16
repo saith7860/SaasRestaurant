@@ -1,4 +1,5 @@
 import {Request,Response,NextFunction} from "express"
+import { ApiError } from "../middlewares/errorHandler.js";
 //import service
 import * as resturantService from '../services/resturantService.js'
 //create resturant
@@ -13,19 +14,36 @@ try{
 }catch(error){
     next(error)
 }}
-
-//get profile
-const getProfile=async(req:Request,res:Response,next:NextFunction)=>{
+const getDashBoardData=async(req:Request,res:Response,next:NextFunction)=>{
 try{
-    const result=await resturantService.getProfile(req.user as string);
+    console.log(req.user);
+    const resturantId=req.user?.restaurantId;
+    if(!resturantId){
+        throw new ApiError(404,"Resturant not found")
+    }
+    
+    const result=await resturantService.getDashBoardData(resturantId);
     return res.json({
         success:"true",
-        message:"Resturant profile",
+        message:"Dashboard data",   
         result
     });
 }catch(error){
     next(error)
 }}
+//get profile
+// const getProfile=async(req:Request,res:Response,next:NextFunction)=>{
+// try{
+//     const userId=req.user?.userId;
+//     const result=await resturantService.getProfile(userId);
+//     return res.json({
+//         success:"true",
+//         message:"Resturant profile",
+//         result
+//     });
+// }catch(error){
+//     next(error)
+// }}
 
 //update resturant
 const updateResturant=async(req:Request,res:Response,next:NextFunction)=>{
@@ -79,4 +97,4 @@ const getSpecificResturantData=async(req:Request,res:Response,next:NextFunction)
     }
 }
 //export functions
-export {createResturant,getProfile,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData}
+export {createResturant,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData,getDashBoardData}

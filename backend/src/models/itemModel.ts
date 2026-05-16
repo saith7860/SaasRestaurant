@@ -11,6 +11,10 @@ const itemSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    resturant:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Restaurant'
+    },
     category:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Category',

@@ -6,6 +6,8 @@ interface CustomJwtPayload extends JwtPayload {
   password: string;
   email: string;
   role: string;
+  userId:string;
+  
 }
 //secret
  const secret=process.env.JWT_SECRET;
@@ -44,6 +46,12 @@ const createToken = (userData:userData) => {
     console.log("error in genterating token", error);
   }
 };
+const checkSuperAdmin=(req: any, res: Response, next: NextFunction) => {
+  if (req.user?.role !== "super_admin") {
+   throw new ApiError(401,'Only Super Admin can access this feature');
+  }
+  next();
+}
 const checkAdmin = (req: any, res: Response, next: NextFunction) => {
   if (req.user?.role !== "admin" && req.user?.role!=="super_admin") {
    throw new ApiError(401,'Not Authorized');
@@ -58,4 +66,4 @@ const attachRestaurantContext = (req:any, res:Response, next:NextFunction) =>
 next(); 
 };
 
-export { createToken, authMiddleware,checkAdmin,attachRestaurantContext};
+export { createToken, authMiddleware,checkAdmin,attachRestaurantContext,checkSuperAdmin};

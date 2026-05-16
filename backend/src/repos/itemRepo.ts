@@ -1,8 +1,9 @@
 import Item from "../models/itemModel.js";
 import Category from "../models/categoryModel.js";
 import type { ItemType } from "../types/itemType.js";
-const showAllItems=async()=>{  
-    return await Item.find({})
+const showAllItems=async(id:string)=>{
+    const items=await Item.find({resturant:id})
+    return items
 } 
 const createItem=async(data:ItemType)=>{
   const newItem=new Item(data);

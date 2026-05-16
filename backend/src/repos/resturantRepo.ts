@@ -26,4 +26,8 @@ const getSpecificResturantData=async(slug:string)=>{
     const getSpecificResturantData=await Restaurant.findOne({slug});
     return getSpecificResturantData;
 }   
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData}
+const getDashBoardData=async(id:string)=>{
+    const getDashBoardData=await Restaurant.findById(id);
+    return getDashBoardData;
+}
+export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}

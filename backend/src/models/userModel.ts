@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     enum: ["user", "admin","super_admin"],
     default: "user"
   },
-  resturant:{
+  restaurantId:{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Restaurant',
     default:null
