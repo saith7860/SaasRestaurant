@@ -23,7 +23,7 @@ const Signup = () => {
     console.log(formField);
 
     try {
-      const res = await api.post(" /api/user/signup", formField);
+      const res = await api.post("/api/user/signup", formField);
       console.log("User created:", res.data);
       navigate("/checkout")
 

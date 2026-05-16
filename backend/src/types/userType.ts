@@ -1,3 +1,4 @@
+import { Types } from "mongoose"
 export type userType={
     name:string
     email:string
@@ -9,6 +10,7 @@ export type loginUserType={
 }
 export type userData={
     email:string
-    password:string
     role:string
+    userId:Types.ObjectId
+    restaurantId:Types.ObjectId|null|undefined
 }

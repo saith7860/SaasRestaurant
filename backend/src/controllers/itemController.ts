@@ -4,17 +4,17 @@ import type { ItemType } from "../types/itemType.js";
 type Params={
   id:string
 }
-const getAllItems = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const items = await itemService.fetchAllItems();
-    return res.json({
-      success: "true",
-      data: items,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+// const getAllItems = async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+//     const items = await itemService.fetchAllItems();
+//     return res.json({
+//       success: "true",
+//       data: items,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 const postItem = async (req: Request, res: Response, next: NextFunction) => {
   try {
     console.log(req.body);
@@ -61,7 +61,6 @@ const {id}=req.params;
   }
 };
 export {
-  getAllItems,
   deleteSpecificItem,
   updateSpecificItem,
   getSpecificItem,

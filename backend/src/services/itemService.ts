@@ -2,13 +2,13 @@ import { ApiError } from '../middlewares/errorHandler.js';
 import * as itemRepo from '../repos/itemRepo.js'
 import type { ItemType } from '../types/itemType.js';
 //Fetch all items
-const fetchAllItems=async()=>{
-   const items=await itemRepo.showAllItems();
-   if (!items.length) {
-    throw new ApiError(404,'Items not found');
-   }
-   return items;
-}
+// const fetchAllItems=async()=>{
+//    const items=await itemRepo.showAllItems();
+//    if (!items.length) {
+//     throw new ApiError(404,'Items not found');
+//    }
+//    return items;
+// }
 //UPDATE ITEM
 const updateSpecItem=async(id:string,data:ItemType)=>{
 const update=await itemRepo.updateItemByName(id,data);
@@ -41,4 +41,4 @@ const createItem=async(category:string,itemData:ItemType)=>{
    return newItem;
 }
 
-export {fetchAllItems,createItem,updateSpecItem,deleteSpecificItem}
+export {createItem,updateSpecItem,deleteSpecificItem}

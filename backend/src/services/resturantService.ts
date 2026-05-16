@@ -12,6 +12,8 @@ const createResturant=async(data:restaurantType)=>{
     return newResturant
 }
 const getDashBoardData=async(id:string)=>{
+    console.log(id);
+    
     const resuturant=await resturantRepo.getDashBoardData(id);
         if (!resuturant) {
         throw new ApiError(404,"Resturant not found")

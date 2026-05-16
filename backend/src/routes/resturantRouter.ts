@@ -7,5 +7,5 @@ resturantRouter.post("/create-resturant",authMiddleware,checkAdmin,createRestura
 resturantRouter.patch("/update-resturant/:id",authMiddleware,checkAdmin,updateResturant);//update a resturant
 resturantRouter.delete("/delete-resturant/:id",authMiddleware,checkAdmin,deleteResturant);//delete a resturant
 resturantRouter.get("/:slug",getSpecificResturantData);
-resturantRouter.get("/admin/dasboard",authMiddleware,checkAdmin,getDashBoardData);
+resturantRouter.get("/admin/dashboard",authMiddleware,checkAdmin,getDashBoardData);
 export default resturantRouter;

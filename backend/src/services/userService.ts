@@ -1,5 +1,5 @@
 import { ApiError } from "../middlewares/errorHandler.js";
-import { userType, loginUserType } from "../types/userType.js";
+import { userType, loginUserType, userData } from "../types/userType.js";
 import * as userRepo from "../repos/userRepo.js";
 import bcrypt from "bcryptjs";
 import { createToken } from "../tokens/jwt.js";
@@ -29,10 +29,11 @@ const loginUser = async (data: loginUserType) => {
   const isMatch= await bcrypt.compare(password,findUser.password);
   if (isMatch) {
     //created payload
-    const payload={
+    const payload:userData={
       email:findUser.email,
-      password:findUser.password,
-      role:findUser.role
+      userId:findUser._id,
+      restaurantId:findUser.restaurantId,
+      role:findUser.role,
     }
     //generate token
     const token= createToken(payload)
