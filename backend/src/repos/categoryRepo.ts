@@ -4,6 +4,10 @@ const showAllMenu=async(id:string)=>{
     const menu=await Category.find({branch:id}).populate("items");
    return menu;
 } 
+const getAllCategoriesOfResturant=async(id:string)=>{
+    const categories=await Category.find({resturant:id});
+    return categories;
+}
 const createMenu=async(data:CategoryType)=>{
   const newCategory=new Category(data);
   await newCategory.save();
@@ -22,4 +26,4 @@ const deleteCategory=async(id:string)=>{
   const category=await Category.findByIdAndDelete(id);
   return category;
 }
-export {showAllMenu,createMenu,getSpecificCategory,updateCategory,deleteCategory}
+export {showAllMenu,createMenu,getSpecificCategory,updateCategory,deleteCategory,getAllCategoriesOfResturant}

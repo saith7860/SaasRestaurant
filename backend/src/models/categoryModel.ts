@@ -12,6 +12,11 @@ const categorySchema = new mongoose.Schema(
       ref: "Branch",
       required: true
     },
+    resturant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Resturant",
+      required: true
+    },
     image: {
      type: String
     },

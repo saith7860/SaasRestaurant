@@ -65,6 +65,18 @@ try{
 }catch(error){
     next(error)
 }}
-
+const getSpecificResturantData=async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+        const slug=req.params.slug as string;
+        const result=await resturantService.getSpecificResturantData(slug);
+        return res.json({
+            success:"true",
+            message:"Resturant data",
+            result
+        });
+    } catch (error) {
+        next(error)
+    }
+}
 //export functions
-export {createResturant,getProfile,updateResturant,deleteResturant,getAllBranches}
+export {createResturant,getProfile,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData}

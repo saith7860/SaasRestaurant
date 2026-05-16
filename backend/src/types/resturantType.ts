@@ -1,6 +1,7 @@
-import mongoose from "mongoose"
+import mongoose, { Types } from "mongoose"
 
 export type restaurantType={
+    _id:string,
     name:string,
     image:string,
     description:string,

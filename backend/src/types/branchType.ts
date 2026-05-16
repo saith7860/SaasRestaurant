@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 export type branchType={
-    restaurant:mongoose.Schema.Types.ObjectId;
+    restaurant:string;
     name:string;
     address:string;
     city:string;

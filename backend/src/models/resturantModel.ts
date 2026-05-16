@@ -32,10 +32,15 @@ const restaurantSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
-
+  slug:{
+    type:String,
+    required:true,
+    unique:true
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required:true
   }
 
 }, { timestamps: true });

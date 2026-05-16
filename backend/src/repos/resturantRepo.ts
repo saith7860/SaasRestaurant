@@ -22,4 +22,8 @@ const getAllBranches=async(id:string)=>{
     const getAllBranches=await Restaurant.findById(id).populate("branches");
     return getAllBranches;
 }
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches}
+const getSpecificResturantData=async(slug:string)=>{
+    const getSpecificResturantData=await Restaurant.findOne({slug});
+    return getSpecificResturantData;
+}   
+export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData}

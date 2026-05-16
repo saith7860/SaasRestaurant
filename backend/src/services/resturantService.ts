@@ -1,5 +1,7 @@
 import { restaurantType } from "../types/resturantType.js";
 import * as resturantRepo from "../repos/resturantRepo.js"
+import * as branchRepo from "../repos/branchRepo.js"
+import * as categoryRepo from "../repos/categoryRepo.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 const createResturant=async(data:restaurantType)=>{
     const newResturant=await resturantRepo.createResturant(data);
@@ -35,5 +37,20 @@ const getAllBranches=async(id:string)=>{
         throw new ApiError(404,"Resturant not found")
     }
     return getAllBranches
+} 
+const getSpecificResturantData=async(slug:string)=>{
+    const getSpecificResturantData=await resturantRepo.getSpecificResturantData(slug);
+    if (!getSpecificResturantData) {
+        throw new ApiError(404,"Resturant not found")
+    }
+    const branches=await branchRepo.getAllBranches(getSpecificResturantData._id as any);//typescript giving issues here
+    if (!branches) {
+        throw new ApiError(404,"Branches not found")
+    }
+    const category=await categoryRepo.getAllCategoriesOfResturant(getSpecificResturantData._id as any);//typescript giving issues here
+    if (!category) {
+        throw new ApiError(404,"Category not found");
+    }
+    return {getSpecificResturantData,branches,category}
 }
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches}
+export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData}
