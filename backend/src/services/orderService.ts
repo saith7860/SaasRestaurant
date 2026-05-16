@@ -1,7 +1,8 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
-import { OrderItem } from '../types/order.js';
+// import { OrderItem } from '../types/order.js';
+import { OrderItemType } from '../types/orderType.js';
 const fetchAllOrders=async()=>{
    const orders=await orderRepo.showAllOrders();
    if (!orders.length) {
@@ -18,7 +19,7 @@ const fetchAllOrders=async()=>{
 // return update;
 // }
 
-const createOrder=async(userId:string,data:OrderItem)=>{
+const createOrder=async(userId:string,data:OrderItemType)=>{
    console.log(userId);
    
    const foundUser=await User.findOne({_id:userId});

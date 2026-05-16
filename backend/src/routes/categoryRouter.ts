@@ -5,7 +5,7 @@ import validate from '../middlewares/validationMiddleware.js';
 import { categorySchema } from '../validators/categoryValidator.js';
 import { authMiddleware,checkAdmin } from '../tokens/jwt.js';
 const categoryRouter=express.Router();
-categoryRouter.get("/",getAllMenu); //SHOW WHOLE MENU
+categoryRouter.get("/:id/menu",getAllMenu); //SHOW WHOLE MENU
 categoryRouter.post("/",validate(categorySchema),authMiddleware,checkAdmin,postAllMenu); //CREATE A NEW CATEGORY
 categoryRouter.get("/category",getSpecificCategory) //GET SPECIFIC CATEGORY
 categoryRouter.patch("/:id",authMiddleware,checkAdmin,updateSpecificCategory) //UPDATE SPECIFIC CATEGORY

@@ -10,6 +10,7 @@ This project allows users to browse food categories, view menu items, add produc
 
 # 🚀 Features
 
+
 ## ✅ Authentication
 - User Signup
 - User Login

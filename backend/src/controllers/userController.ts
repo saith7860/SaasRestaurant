@@ -25,4 +25,16 @@ try {
     next(error)
 }
 }
+// export const getProfile=async(req:Request,res:Response,next:NextFunction)=>{
+// try {
+//     const user = await userService.getProfile(req.userId as string);
+//     return res.json({
+//         success: "true",
+//         message: "User profile",
+//         user
+//     });
+// } catch (error) {
+//     next(error)
+// }
+// }
 

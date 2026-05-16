@@ -1,12 +1,13 @@
+import mongoose from "mongoose";
 type variant={
-    variantion:string
+    variation:string
     price:number
 }
 export type ItemType={
-    _id:string
     name:string
     image:string
-    basePrice:number
+    category:mongoose.Schema.Types.ObjectId;
+    branch:mongoose.Schema.Types.ObjectId;
     description:string
     variants:variant[];
     isAvailable:boolean

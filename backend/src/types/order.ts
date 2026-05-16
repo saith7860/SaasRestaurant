@@ -1,33 +1,23 @@
-import { Types } from "mongoose"
+import mongoose from "mongoose";
 
-export type item={
-   variantId: string
-  name: string
-  price:number
-  quantity:number
-  variation:string
-
+export type OrderType={
+  user:mongoose.Schema.Types.ObjectId;
+  restaurant:mongoose.Schema.Types.ObjectId;
+  branch:mongoose.Schema.Types.ObjectId;
+  address:string;
+  subtotal:number;
+  deliveryFee:number;
+  totalAmount:number;
+  paymentMethod:string;
+  paymentStatus:string;
+  orderStatus:string;
 }
-
-
-export type OrderItem= {
- items:item[]
- user:Types.ObjectId
- subtotal:number
- deliveryFee:number
-totalAmount: number;
- address:string
-  paymentMethod: "COD" | "CARD";
-  paymentStatus: "pending" | "paid";
-
-  orderStatus:
-    | "pending"
-    | "confirmed"
-    | "preparing"
-    | "out_for_delivery"
-    | "delivered"
-    | "cancelled";
-
-  createdAt?: Date;
-  updatedAt?: Date;
+export type orderItemType={
+  order:mongoose.Schema.Types.ObjectId;
+  menuItem:mongoose.Schema.Types.ObjectId;
+  quantity:number;
+  price:number;
+  itemName:string;
+  variant:string;
+  variantId:string;
 }

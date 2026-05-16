@@ -1,0 +1,10 @@
+import express from 'express';
+const resturantRouter=express.Router();
+import { authMiddleware,checkAdmin } from '../tokens/jwt.js';
+import { getProfile,createResturant,updateResturant,deleteResturant,getAllBranches } from "../controllers/resturantController.js"
+resturantRouter.get("/resturant-profile",authMiddleware,checkAdmin,getProfile);//get the profile of a resturant
+resturantRouter.get("/:id/branches",authMiddleware,checkAdmin,getAllBranches)
+resturantRouter.post("/create-resturant",authMiddleware,checkAdmin,createResturant);//create a resturant
+resturantRouter.patch("/update-resturant/:id",authMiddleware,checkAdmin,updateResturant);//update a resturant
+resturantRouter.delete("/delete-resturant/:id",authMiddleware,checkAdmin,deleteResturant);//delete a resturant
+export default resturantRouter;

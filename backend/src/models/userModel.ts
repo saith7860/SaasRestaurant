@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     enum: ["user", "admin"],
     default: "user"
+  },
+  resturant:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'Restaurant',
+    default:null
   }
 });
 const User=mongoose.model('User',userSchema);

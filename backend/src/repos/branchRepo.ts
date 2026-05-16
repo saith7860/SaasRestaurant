@@ -1,0 +1,16 @@
+import Branch from "../models/branchModel.js";
+import { branchType } from "../types/branchType.js";
+const createBranch=async(data:branchType)=>{
+    const newBranch=new Branch(data);
+    await newBranch.save();
+    return newBranch;
+}
+const updateBranch=async(id:string,data:branchType)=>{
+    const updateBranch=await Branch.findByIdAndUpdate(id,data,{new:true});
+    return updateBranch;
+}
+const deleteBranch=async(id:string)=>{
+    const deleteBranch=await Branch.findByIdAndDelete(id);
+    return deleteBranch;
+}
+export {createBranch,updateBranch,deleteBranch}

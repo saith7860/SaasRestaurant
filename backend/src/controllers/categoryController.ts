@@ -4,7 +4,8 @@ import * as categoryService from '../services/categoryService.js'
 import { success } from "zod";
 const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const menu=await categoryService.fetchMenu();
+        const id=req.params.id as string;
+        const menu=await categoryService.fetchMenu(id);
        return res.json({
             success:"true",
             data:menu
@@ -15,10 +16,12 @@ const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 }
 const postAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-   await categoryService.createMenu(req.body);
+   const category= await categoryService.createMenu(req.body);
    return res.json({
         success:"True",
-        message:"Category saved successfully"
+        message:"Category saved successfully",
+        data:category
+
     });
 } catch (error) {
     next(error);
@@ -39,33 +42,30 @@ try {
     next(error)
 }
 }
-// const getSpecificCategoryItems=async(req:Request,res:Response,next:NextFunction)=>{
-//     try {
-   
-        
-//         const id=req.params.id as string;
-//        console.log(id);
-//         const items=await categoryService.fetchItems(id);
-//       return  res.json({
-//             success:"true",
-//             data:items
-//         });
-//     } catch (error) {
-//         next(error)
-//     }
-// }
-const updateSpecificCategory=(req:Request,res:Response)=>{
+const updateSpecificCategory=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    
+    const id=req.params.id as string;
+    const category=await categoryService.updateCategory(id,req.body);
+    return res.json({
+        success:true,
+        message:"Category updated successfully",
+        data:category
+    });
 } catch (error) {
-    
+    next(error)
 }
 }
-const deleteSpecificCategory=(req:Request,res:Response)=>{
+const deleteSpecificCategory=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    
+    const id=req.params.id as string;
+    const category=await categoryService.deleteCategory(id);
+    return res.json({
+        success:true,
+        message:"Category deleted successfully",
+        data:category
+    });
 } catch (error) {
-    
+    next(error)
 }
 }
 export {getAllMenu,postAllMenu,updateSpecificCategory,deleteSpecificCategory,getSpecificCategory}

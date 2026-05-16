@@ -2,25 +2,24 @@ import * as categoryRepo from '../repos/categoryRepo.js';
 import { ApiError } from '../middlewares/errorHandler.js';
 import { categorySchema } from '../validators/categoryValidator.js';
 import { CategoryType } from '../types/category.js';
-const fetchMenu=async()=>{
-   const menus=await categoryRepo.showAllMenu();
+const fetchMenu=async(id:string)=>{
+   const menus=await categoryRepo.showAllMenu(id);
    if (!menus.length) {
     throw new ApiError(404,'Menu not found');
    }
    return menus;
 }
-//fectch items
-// const fetchItems=async(id:string)=>{
-//    const items=await categoryRepo.showAllItems(id);
-//    if(items){
-//     return items;
-//    }
-//    throw new ApiError(401,'Items does not exist for this category');
-  
-  
-// }
-const createMenu=async(category:CategoryType)=>{
-   await categoryRepo.createMenu(category);
+
+const createMenu=async(data:CategoryType)=>{
+   const category=await categoryRepo.getSpecificCategory(data.category);
+   if (category) {
+    throw new ApiError(400,'Category already exists');
+   }
+   const newCategory= categoryRepo.createMenu(data);
+   if (!newCategory) {
+    throw new ApiError(400,'Category not created');
+   }
+   return newCategory;
 }
 const getSpecificCategory=async(category:string)=>{
 
@@ -31,11 +30,21 @@ const getSpecificCategory=async(category:string)=>{
     if (specificData.items.length==0) {
        throw new ApiError(404,'No items found for this cateogry')
     }
-   //  console.log(specificData.items);
-    
-   //  const findItems=await categoryRepo.showAllItems(specificData.items);
-   //  console.log(findItems);
     
     return specificData;
 }
-export {fetchMenu,createMenu,getSpecificCategory}
+const updateCategory=async(id:string,data:CategoryType)=>{
+   const category=await categoryRepo.updateCategory(id,data);
+   if (!category) {
+    throw new ApiError(400,"Category not updated")
+   }
+   return category;
+}
+const deleteCategory=async(id:string)=>{
+   const category=await categoryRepo.deleteCategory(id);
+   if (!category) {
+    throw new ApiError(400,"Category not deleted")
+   }
+   return category;
+}
+export {fetchMenu,createMenu,getSpecificCategory,updateCategory,deleteCategory}
