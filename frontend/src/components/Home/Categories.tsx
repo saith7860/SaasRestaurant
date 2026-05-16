@@ -3,7 +3,7 @@ import api from "../../api/api";
 import type { CategoriesProps, CategoriesType } from "../../types/HomePageTypes";
 import type { ItemType, variant } from "../../types/HomePageTypes";
 import { toast } from "react-toastify";
-import { CartContext } from "../../CartContext";
+import { CartContext } from "../../context/CartContext";
 const Categories = ({ search }: CategoriesProps) => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
   const [selectedCategory, setSelectedCategory] = useState<string>('Desi Foods'); //selecting specific castegory and based on that fetch items

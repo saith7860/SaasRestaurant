@@ -7,12 +7,12 @@ const categorySchema = new mongoose.Schema(
       trim:true,
       required: true
     },
-    branch: {
+    branchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
       required: true
     },
-    resturant: {
+    resturantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Resturant",
       required: true

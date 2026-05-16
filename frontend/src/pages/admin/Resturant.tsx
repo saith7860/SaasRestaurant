@@ -1,6 +1,10 @@
+import { useDashboard }from "../../context/DashBoardContext";
+
 const Resturant = () => {
+    const {restaurant}=useDashboard();
+    
   return (
-    <div>Resturant</div>
+    <div>{restaurant?.name}</div>
   )
 }
 

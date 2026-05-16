@@ -1,7 +1,6 @@
 import { createContext,useState,type ReactNode } from "react";
 import type { JSX } from "react";
-import type { CartItem,CartContextType } from "./types/CartType";
-
+import type { CartItem,CartContextType } from "../types/CartType";
 export const CartContext=createContext<CartContextType|null>(null);
 
 export const CartProvider=({children}:{children:ReactNode}):JSX.Element=>{

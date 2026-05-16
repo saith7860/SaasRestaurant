@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Plus, Minus, Trash2 } from "lucide-react";
-import { CartContext } from "../../CartContext";
+import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router";
 const CartPage = () => {
   const { cart, setCart } = useContext(CartContext)!;

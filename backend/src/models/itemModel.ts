@@ -11,16 +11,16 @@ const itemSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    resturant:{
+    resturantId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Restaurant'
     },
-    category:{
+    categoryId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Category',
       required:true
     },
-    branch: {
+    branchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
       required: true

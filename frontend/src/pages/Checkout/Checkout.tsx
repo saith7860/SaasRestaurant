@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { CartContext } from "../../CartContext";
+import { CartContext } from "../../context/CartContext";
 import { toast } from "react-toastify";
 const Checkout = () => {
   const [formData, setFormData] = useState({
