@@ -1,8 +1,8 @@
 import Order from "../models/orderModel.js";
 import { OrderType } from "../types/order.js";
 
-const showAllOrders=async()=>{  
-    return await Order.find({})
+const showAllOrders=async(resturantId:string)=>{  
+    return await Order.find({restaurant:resturantId});
 } 
 const createOrder=async(data:OrderType)=>{
   const newOrder=new Order(data);

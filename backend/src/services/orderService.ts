@@ -4,12 +4,24 @@ import * as orderRepo from '../repos/orderRepo.js'
 import * as orderItemRepo from '../repos/orderItemRepo.js';
 import { OrderType } from '../types/order.js';
 // import { OrderItem } from '../types/order.js';
-const fetchAllOrders=async()=>{
-   const orders=await orderRepo.showAllOrders();
-   if (!orders.length) {
-    throw new ApiError(404,'Items not found');
+// const fetchAllOrders=async()=>{
+//    const orders=await orderRepo.showAllOrders();
+//    if (!orders.length) {
+//     throw new ApiError(404,'Items not found');
+//    }
+//    return orders;
+// }
+const getOrdersByRestaurant=async(restaurantId:string)=>{
+  const orders=await orderRepo.showAllOrders(restaurantId);
+  if (!orders.length) {
+    throw new ApiError(404,'Orders not found');
    }
    return orders;
+//   const filteredOrders=orders.filter((order)=>order.restaurant===restaurantId);
+//   if (!filteredOrders.length) {
+//     throw new ApiError(404,'Orders not found');
+//   }
+//   return filteredOrders;
 }
 //UPDATE ITEM
 // const getSpecificOrder=async(id:string,data:OrderItem)=>{
@@ -37,4 +49,4 @@ const createOrder=async(userId:string,data:OrderType)=>{
    return {newOrder,orderItems};
 }
 
-export {fetchAllOrders,createOrder}
+export {createOrder,getOrdersByRestaurant}

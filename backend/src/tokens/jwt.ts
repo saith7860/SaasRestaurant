@@ -32,8 +32,6 @@ const authMiddleware = (req:Request, res:Response, next:NextFunction) => {
    next(error)
   }
 };
-
-
 //create token
 const createToken = (userData:userData) => {
   try {
@@ -47,9 +45,17 @@ const createToken = (userData:userData) => {
   }
 };
 const checkAdmin = (req: any, res: Response, next: NextFunction) => {
-  if (req.user?.role !== "admin") {
-   throw new ApiError(401,'Admin not found')
+  if (req.user?.role !== "admin" && req.user?.role!=="super_admin") {
+   throw new ApiError(401,'Not Authorized');
   }
   next();
 };
-export { createToken, authMiddleware,checkAdmin};
+const attachRestaurantContext = (req:any, res:Response, next:NextFunction) =>
+   { 
+    if (req.user?.role === "admin") {
+      req.restaurant = req.user.restaurant as JwtPayload;
+    } 
+next(); 
+};
+
+export { createToken, authMiddleware,checkAdmin,attachRestaurantContext};

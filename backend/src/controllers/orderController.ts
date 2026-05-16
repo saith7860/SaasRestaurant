@@ -15,6 +15,19 @@ type Params={
 //     next(error);
 //   }
 // };
+const getOrdersByRestaurant=async(req:any,res:Response,next:NextFunction)=>{
+  try {
+    console.log(req.restaurant);
+    
+    const result=await orderService.getOrdersByRestaurant(req.restaurant as string);
+    return res.json({
+      success:"true",
+      data:result
+    })
+  } catch (error) {
+    next(error)
+  }
+}
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId=req.user as JwtPayload;
@@ -27,17 +40,17 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
-const getMyOrders =async (req: Request, res: Response,next:NextFunction) => {
-  try {
-    const result=await orderService.fetchAllOrders();
-    return res.json({
-      success: "true",
-      data: result,
-    });
-  } catch (error) {
-    next(error)
-  }
-};
+// const getMyOrders =async (req: Request, res: Response,next:NextFunction) => {
+//   try {
+//     const result=await orderService.fetchAllOrders();
+//     return res.json({
+//       success: "true",
+//       data: result,
+//     });
+//   } catch (error) {
+//     next(error)
+//   }
+// };
 // const updateSpecificItem = async(req: Request<Params>, res: Response,next:NextFunction) => {
 //   try {
 //     const {id}=req.params;
@@ -67,6 +80,6 @@ const getMyOrders =async (req: Request, res: Response,next:NextFunction) => {
 //   }
 // };
 export {
-createOrder,getMyOrders
+createOrder,getOrdersByRestaurant
 };
  
