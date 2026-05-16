@@ -1,9 +1,10 @@
 import Order from "../models/orderModel.js";
-import { OrderItem } from "../types/order.js";
+import { OrderType } from "../types/order.js";
+
 const showAllOrders=async()=>{  
     return await Order.find({})
 } 
-const createOrder=async(data:OrderItem)=>{
+const createOrder=async(data:OrderType)=>{
   const newOrder=new Order(data);
   await newOrder.save();
   return newOrder;

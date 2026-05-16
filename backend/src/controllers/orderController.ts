@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as orderService from '../services/orderService.js';
+import { JwtPayload } from "jsonwebtoken";
 type Params={
   id:string
 }
@@ -16,9 +17,8 @@ type Params={
 // };
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
-
-    const result = await orderService.createOrder(req.body.id, req.body);
+    const userId=req.user as JwtPayload;
+    const result = await orderService.createOrder(userId._id, req.body);
     return res.json({
       success: "true",
       data: result,
