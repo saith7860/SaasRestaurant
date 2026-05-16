@@ -11,6 +11,7 @@ export type OrderType={
   paymentMethod:string;
   paymentStatus:string;
   orderStatus:string;
+  orderItems:orderItemType[];
 }
 export type orderItemType={
   order:mongoose.Schema.Types.ObjectId;

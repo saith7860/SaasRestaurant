@@ -1,6 +1,7 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
+import * as orderItemRepo from '../repos/orderItemRepo.js';
 import { OrderType } from '../types/order.js';
 // import { OrderItem } from '../types/order.js';
 const fetchAllOrders=async()=>{
@@ -29,7 +30,11 @@ const createOrder=async(userId:string,data:OrderType)=>{
     throw new ApiError(404,'User is not found')
    }
    const newOrder=await orderRepo.createOrder(data);
-   return newOrder;
+   if (!newOrder) {
+    throw new ApiError(400,'Server Error! Order not created');
+   }
+   const orderItems=await orderItemRepo.createOrderItem(newOrder._id,data.orderItems);
+   return {newOrder,orderItems};
 }
 
 export {fetchAllOrders,createOrder}

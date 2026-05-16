@@ -11,7 +11,6 @@ import { handleError } from './middlewares/errorHandler.js';
 import UserRouter from './routes/userRouter.js';
 import resturantRouter from './routes/resturantRouter.js';
 import orderRouter from './routes/orderRouter.js';
-import orderItemRouter from './routes/orderItemRouter.js';
 import branchRouter from './routes/branchRouter.js';
 //constants
 const PORT=process.env.PORT||3000;
@@ -30,7 +29,6 @@ app.use("/api/item",itemRouter) //ITEM ROUTER
 app.use("/api/user",UserRouter) //User ROUTER
 app.use("/api/resturant",resturantRouter) //Resturant ROUTER
 app.use("/api/order",orderRouter) //ORDER ROUTER
-app.use("/api/orderItem",orderItemRouter) //ORDER ITEM ROUTER
 app.use("/api/branch",branchRouter) //BRANCH ROUTER
 //handle error middleware
 app.use(handleError);
