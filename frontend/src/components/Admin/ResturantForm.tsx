@@ -31,7 +31,7 @@ const ResturantForm = ({restaurant,showForm,setShowForm}:{
         });
       } else {
         await api.post("/api/resturant/create-resturant", formField, {
-          headers: {
+            headers: {
             Authorization: `Bearer ${token}`
           }
         });
@@ -43,27 +43,35 @@ const ResturantForm = ({restaurant,showForm,setShowForm}:{
   };
   return (
     <form action="" onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" value={formField.name} onChange={handleChange} />
+      <div className="flex flex-col gap-3 text-sm sm:text-base md:text-lg bg-[#2A2633] p-5 mt-5 rounded-lg">
+        
+        <div>
+          <label htmlFor="name">Name : </label>
+          <input className="border border-white/30 rounded-md px-2 " type="text" name="name" value={formField.name} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="email">Email : </label>
+          <input className="border border-white/30 rounded-md px-2 " type="email" name="email" value={formField.email} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="contactNumber">Phone : </label>
+          <input className="border border-white/30 rounded-md px-2 " type="tel" name="contactNumber" value={formField.contactNumber} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="deliveryFee">Delivery Fee : </label>
+          <input className="border border-white/30 rounded-md px-2 " type="number" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="estimatedDeliveryTime">Estimated Delivery Time : </label>
+          <input className="border border-white/30 rounded-md px-2 " type="number" name="estimatedDeliveryTime"   value={formField.estimatedDeliveryTime} onChange={handleChange}/>
+        </div>
+
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" name="email" value={formField.email} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="contactNumber">Phone</label>
-        <input type="text" name="contactNumber" value={formField.contactNumber} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="deliveryFee">Delivery Fee</label>
-        <input type="text" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
-      </div>
-      <div>
-        <label htmlFor="estimatedDeliveryTime">Estimated Delivery Time</label>
-        <input type="text" name="estimatedDeliveryTime"   value={formField.estimatedDeliveryTime} onChange={handleChange}/>
-      </div>
-      <button type="submit">{restaurant ? "Update" : "Create"}</button>
+
+        <div
+          className="w-fit bg-[#984447] hover:bg-[#F4B400] transition text-white mt-6 mx-auto py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer">
+          <button type="submit">{restaurant ? "Update" : "Create"}</button>
+        </div>
     </form>
   )
 }
