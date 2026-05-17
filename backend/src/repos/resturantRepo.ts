@@ -7,7 +7,7 @@ const createResturant=async(data:restaurantType)=>{
     return newResturant;
 }
 const updateResturant=async(id:string,data:restaurantType)=>{
-    const updateResturant=await Restaurant.findByIdAndUpdate(id,data,{new:true});
+    const updateResturant=await Restaurant.findByIdAndUpdate(id,data,{returnDocument:"after"});
     return updateResturant;
 }
 const deleteResturant=async(id:string)=>{

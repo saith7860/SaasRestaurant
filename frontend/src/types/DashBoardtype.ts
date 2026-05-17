@@ -18,12 +18,11 @@ export interface Branch {
   address: string;
   restaurantId: string;
   city:string;
-  location:{
-    lat:number;
-    lng:number;
-  };
+  contactNumber:string;
   openingTime:string;
   closingTime:string;
+  deliveryFee:number;
+  isOpen:boolean;
 }
 
 export interface Category {

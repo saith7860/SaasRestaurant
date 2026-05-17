@@ -22,11 +22,6 @@ const branchSchema = new mongoose.Schema({
     required:true
   },
 
-  location: {
-    lat: Number,
-    lng: Number
-  },
-
   contactNumber: {
     type:String,
     required:true

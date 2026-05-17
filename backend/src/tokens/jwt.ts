@@ -53,7 +53,7 @@ const checkSuperAdmin=(req: any, res: Response, next: NextFunction) => {
   next();
 }
 const checkAdmin = (req: any, res: Response, next: NextFunction) => {
-  if (req.user?.role !== "admin" && req.user?.role!=="super_admin") {
+  if (req.user?.role !== "admin") {
    throw new ApiError(401,'Not Authorized');
   }
   next();

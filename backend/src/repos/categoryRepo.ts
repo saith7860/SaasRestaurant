@@ -19,7 +19,7 @@ const getSpecificCategory=async(category:string)=>{
   return categoryData;
 }
 const updateCategory=async(id:string,data:CategoryType)=>{
-  const category=await Category.findByIdAndUpdate(id,data,{new:true});
+  const category=await Category.findByIdAndUpdate(id,data,{returnDocument:"after"});
   return category;
 }
 const deleteCategory=async(id:string)=>{

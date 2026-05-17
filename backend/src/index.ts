@@ -17,7 +17,7 @@ const PORT=process.env.PORT||3000;
 const app:Express=express();
 app.use(cors({
    origin: ["https://foodordersystemonline.vercel.app","http://localhost:5173"],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   credentials: true
 }));
 app.use(express.json());

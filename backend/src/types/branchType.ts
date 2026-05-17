@@ -4,7 +4,6 @@ export type branchType={
     name:string;
     address:string;
     city:string;
-    location:{lat:number,lng:number};
     contactNumber:string;
     openingTime:string;
     closingTime:string;
