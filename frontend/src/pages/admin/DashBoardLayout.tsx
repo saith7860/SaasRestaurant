@@ -4,7 +4,7 @@ import SideBar from "../../components/Admin/SideBar"
 import { Outlet } from "react-router"
 import { useDashboard } from "../../context/DashBoardContext";
 const DashBoardLayout = () => {
-  const { setRestaurant, setBranches, setCategories, setItems } = useDashboard();
+  const { setRestaurant, setBranches, setCategory, setItems } = useDashboard();
   useEffect(() => {
     const fetchDashboardData =
       async () => {
@@ -32,8 +32,8 @@ const DashBoardLayout = () => {
             res.data.result.branches
           );
 
-          setCategories(
-            res.data.result.categories
+          setCategory(
+            res.data.result.category
           );
 
           setItems(

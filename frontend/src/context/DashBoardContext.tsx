@@ -14,7 +14,7 @@ import type {
 interface DashboardContextType {
     restaurant: Restaurant | null;
     branches: Branch[];
-    categories: Category[];
+    category: Category[];
     items: Item[];
 
     setRestaurant: React.Dispatch<
@@ -25,7 +25,7 @@ interface DashboardContextType {
         React.SetStateAction<Branch[]>
     >;
 
-    setCategories: React.Dispatch<
+    setCategory: React.Dispatch<
         React.SetStateAction<Category[]>
     >;
 
@@ -53,7 +53,7 @@ export const DashboardProvider = ({
     const [branches, setBranches] =
         useState<Branch[]>([]);
 
-    const [categories, setCategories] =
+    const [category, setCategory] =
         useState<Category[]>([]);
 
     const [items, setItems] =
@@ -64,12 +64,12 @@ export const DashboardProvider = ({
             value={{
                 restaurant,
                 branches,
-                categories,
+                category,
                 items,
 
                 setRestaurant,
                 setBranches,
-                setCategories,
+                setCategory,
                 setItems
             }}
         >

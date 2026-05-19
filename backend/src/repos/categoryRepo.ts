@@ -5,7 +5,7 @@ const showAllMenu=async(id:string)=>{
    return menu;
 } 
 const getAllCategoriesOfResturant=async(id:string)=>{
-    const categories=await Category.find({resturant:id});
+    const categories=await Category.find({restaurantId:id});
     return categories;
 }
 const createMenu=async(data:CategoryType)=>{
@@ -14,8 +14,7 @@ const createMenu=async(data:CategoryType)=>{
   return newCategory;
 }
 const getSpecificCategory=async(category:string)=>{
-  const categoryData=await Category.findOne({category}).populate("items");
-  console.log("POPULATED DATA:", categoryData);
+  const categoryData=await Category.findOne({category});
   return categoryData;
 }
 const updateCategory=async(id:string,data:CategoryType)=>{

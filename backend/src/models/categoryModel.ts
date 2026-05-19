@@ -12,9 +12,9 @@ const categorySchema = new mongoose.Schema(
       ref: "Branch",
       required: true
     },
-    resturantId: {
+    restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Resturant",
+      ref: "Restaurant",
       required: true
     },
     image: {
