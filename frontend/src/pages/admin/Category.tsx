@@ -34,7 +34,7 @@ const Category = () => {
   return (
     <div>
     {category?.map((category:Category)=>(
-        <div>
+        <div key={category._id}>
             <div>{category.category}</div>
             <img src={category.image} alt={category.category} width={200} height={200}/>
             <button onClick={()=>{
