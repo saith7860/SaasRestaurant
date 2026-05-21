@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-type variant={
+export type variantType={
+    itemId:string
     variation:string
     price:number
 }
@@ -9,6 +10,6 @@ export type ItemType={
     category:mongoose.Schema.Types.ObjectId;
     branch:mongoose.Schema.Types.ObjectId;
     description:string
-    variants:variant[];
+    variants?:mongoose.Schema.Types.ObjectId[];
     isAvailable:boolean
 }

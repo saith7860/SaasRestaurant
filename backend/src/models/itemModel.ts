@@ -31,15 +31,9 @@ const itemSchema = new mongoose.Schema(
     },
     variants: [
       {
-        variation: {
-          type: String,
-          required: true,
-        },
-        price: {
-          type: Number,
-          required: true,
-        },
-      },
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Variant"
+      }
     ],
   },
   { timestamps: true }, // adds createdAt & updatedAt automatically
