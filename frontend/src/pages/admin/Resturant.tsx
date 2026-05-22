@@ -1,7 +1,6 @@
 import { useDashboard } from "../../context/DashBoardContext";
 import { useState } from "react"
 import ResturantForm from "../../components/Admin/ResturantForm";
-import api from "../../api/api.js";
 const Resturant = () => {
   const [showForm, setShowForm] = useState(false);
   const { restaurant } = useDashboard();

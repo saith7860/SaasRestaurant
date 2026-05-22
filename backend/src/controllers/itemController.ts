@@ -17,9 +17,10 @@ type Params={
 // };
 const postItem = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
+    console.log("req.body is ",req.body);
+    console.log("category id is ",req.body.categoryId);
 
-    const result = await itemService.createItem(req.body.category, req.body);
+    const result = await itemService.createItem(req.body.categoryId, req.body);
     return res.json({
       success: "true",
       data: result,

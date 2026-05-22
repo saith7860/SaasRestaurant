@@ -1,25 +1,17 @@
 import { useState,useEffect } from "react"
 import api from "../../api/api"
-import type { Category, Item,Branch,Restaurant } from "../../types/DashBoardtype"
-const ItemForm = ({setShowForm,item,category,branches,restaurant}:{
-  restaurant:Restaurant|null
-  branches:Branch[]|null
-  category:Category[]|null
+import type { CategoryType, ItemType,Restaurant } from "../../types/DashBoardtype"
+const ItemForm = ({setShowForm,item,category,restaurant}:{
+  category:CategoryType[]|null
   setShowForm:React.Dispatch<React.SetStateAction<boolean>>,
-  item:Item|null
+  item:ItemType|null
+  restaurant:Restaurant|null
 }) => {
   const [formData,setFormData] = useState({
     name:"",
     image:"",
     description:"",
     categoryId:"",
-    branchId:"",
-     variants:[
-    {
-      variation:"",
-      price:0
-    }
-  ]
   })
 
   useEffect(()=>{
@@ -29,11 +21,6 @@ const ItemForm = ({setShowForm,item,category,branches,restaurant}:{
         image:item.image||"",
         description:item.description||"",
         categoryId:item.categoryId||"",
-        branchId:item.branchId||"",
-        variants:{
-          variation:item.variants?.[0].variation||"",
-          price:item.variants?.[0].price||0
-        }
       })
     }
   },[item])
@@ -94,23 +81,9 @@ const ItemForm = ({setShowForm,item,category,branches,restaurant}:{
     })
   } className="border border-white/30 rounded-md px-2">
        <option value="">Select Category</option>
-       {category?.map((cat:Category) => (
+       {category?.map((cat:CategoryType) => (
          <option key={cat._id} value={cat._id}>
            {cat.category}
-         </option>
-       ))}
-     </select>
-     {/* Select branch */}
-      <select name="branchId" value={formData.branchId} onChange={(e) =>
-    setFormData({
-      ...formData,
-      branchId: e.target.value,
-    })
-  } className="border border-white/30 rounded-md px-2">
-       <option value="">Select Branch</option>
-       {branches?.map((bran:Branch) => (
-         <option key={bran._id} value={bran._id}>
-           {bran.name}
          </option>
        ))}
      </select>

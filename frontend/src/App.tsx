@@ -13,6 +13,7 @@ import Branch from "./pages/admin/Branch";
 import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
 import Order from "./pages/admin/Order";
+import Variant from "./pages/admin/Variant";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 const App = () => {
   return (
@@ -38,6 +39,7 @@ const App = () => {
    <Route path="categories" element={<Category />} />
    <Route path="items" element={<Item />} />
    <Route path="orders" element={<Order />} />
+   <Route path="variants" element={<Variant />} />
 </Route>
    </Routes>
    </CartProvider>

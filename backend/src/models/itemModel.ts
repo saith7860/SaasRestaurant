@@ -11,20 +11,16 @@ const itemSchema = new mongoose.Schema(
     description: {
       type: String,
     },
-    resturantId:{
-      type:mongoose.Schema.Types.ObjectId,
-      ref:'Restaurant'
+    basePrice:{
+      type:Number,
+      default:0
     },
     categoryId:{
       type:mongoose.Schema.Types.ObjectId,
       ref:'Category',
       required:true
     },
-    branchId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Branch",
-      required: true
-    },
+ 
     isAvailable: {
       type: Boolean,
       default: true,
@@ -32,7 +28,7 @@ const itemSchema = new mongoose.Schema(
     variants: [
       {
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Variant"
+        ref:"Variant",
       }
     ],
   },

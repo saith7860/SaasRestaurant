@@ -20,6 +20,7 @@ const SideBar = () => {
         <Link to="categories"><li>Categories</li></Link>
         <Link to="items"><li>Items</li></Link>
         <Link to="orders"><li>Orders</li></Link>
+        <Link to="variants"><li>Variants</li></Link>
 
         {/* Logout */}
         <li

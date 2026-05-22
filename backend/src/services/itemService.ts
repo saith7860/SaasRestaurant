@@ -27,15 +27,18 @@ return del;
 }
 //create item
 const createItem=async(category:string,itemData:ItemType)=>{
-   console.log(category);
+   console.log("category id is ",category);
    
    const foundCategoryId=await itemRepo.getSpecificCategoryId(category);
-   console.log(foundCategoryId);
+   console.log("found category id is ",foundCategoryId);
    
    if (!foundCategoryId) {
     throw new ApiError(404,'Cateogory is not found')
    }
    const newItem=await itemRepo.createItem(itemData);
+   if(!newItem){
+    throw new ApiError(400,'Server Error! Item not created')
+   }
    foundCategoryId.items.push(newItem._id);
    await foundCategoryId.save();
    return newItem;

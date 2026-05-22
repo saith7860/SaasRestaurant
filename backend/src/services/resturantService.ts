@@ -26,6 +26,7 @@ const getDashBoardData=async(id:string)=>{
     if (!category) {
         throw new ApiError(404,"Categories not found")
     }
+    
     const items=await itemRepo.showAllItems(id);
     if (!items) {
         throw new ApiError(404,"Items not found")

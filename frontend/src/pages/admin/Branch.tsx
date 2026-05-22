@@ -2,10 +2,10 @@ import api from "../../api/api.js";
 import { useState } from "react"
 import { useDashboard } from "../../context/DashBoardContext"
 import BranchForm from "../../components/Admin/BranchForm";
-import type {Branch} from "../../types/DashBoardtype.js"
+import type {BranchType} from "../../types/DashBoardtype.js"
 const Branch = () => {
   const [showForm,setShowForm]=useState(false);
- const [selectedBranch, setSelectedBranch]=useState<Branch | null>(null);
+ const [selectedBranch, setSelectedBranch]=useState<BranchType | null>(null);
   const {branches,setBranches}=useDashboard();
   const handleDelete=async(id:string)=>{
      const confirmDelete = window.confirm(

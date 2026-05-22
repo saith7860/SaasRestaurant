@@ -12,7 +12,7 @@ export interface Restaurant {
   owner: string;
 }
 
-export interface Branch {
+export interface BranchType {
   _id: string;
   name: string;
   address: string;
@@ -25,25 +25,27 @@ export interface Branch {
   isOpen:boolean;
 }
 
-export interface Category {
+export interface CategoryType {
   _id: string;
   category: string;
   image?: string;
   restaurantId: string;
   branchId:string;
-  items:Item[];
+  items:ItemType[];
 }
 
-export interface variant {
+export interface variantType  {
+  _id: string;
+  itemId: string;
   variation:string;
   price:number;
 }
-export interface Item {
+export interface ItemType {
   _id: string;
   name: string;
   description:string;
   image?: string;
-  variants:variant[];
+  variants?:variantType[];
   resturantId: string;
   categoryId: string;
   branchId:string;
@@ -51,7 +53,7 @@ export interface Item {
 
 export interface DashboardData {
   restaurant: Restaurant | null;
-  branches: Branch[];
-  categories: Category[];
-  items: Item[];
+  branches: BranchType[];
+  categories: CategoryType[];
+  items: ItemType[];
 }

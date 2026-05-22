@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDashboard } from "../../context/DashBoardContext";
-import type {Category} from "../../types/DashBoardtype";
+import type {CategoryType} from "../../types/DashBoardtype";
 import CategoryForm from "../../components/Admin/CategoryForm";
 import api from "../../api/api";
 
 
 const Category = () => {
     const [showForm,setShowForm] = useState(false);
-    const [editCategory,setEditCategory] = useState<Category|null>(null);
+    const [editCategory,setEditCategory] = useState<CategoryType|null>(null);
     const {category,restaurant,branches}=useDashboard();
     console.log(category);
     console.log(restaurant);
@@ -33,7 +33,7 @@ const Category = () => {
     
   return (
     <div>
-    {category?.map((category:Category)=>(
+    {category?.map((category:CategoryType)=>(
         <div key={category._id}>
             <div>{category.category}</div>
             <img src={category.image} alt={category.category} width={200} height={200}/>

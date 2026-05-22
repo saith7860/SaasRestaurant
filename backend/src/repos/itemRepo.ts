@@ -11,9 +11,7 @@ const createItem=async(data:ItemType)=>{
   return newItem;
 }
 const getSpecificCategoryId=async(category:string)=>{
-const speficCategory=await Category.findOneAndUpdate({
-    category:category
-});
+const speficCategory=await Category.findById(category);
 
 return speficCategory;
 }

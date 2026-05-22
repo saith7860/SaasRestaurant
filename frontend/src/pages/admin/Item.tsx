@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDashboard } from "../../context/DashBoardContext";
-import type {Item} from "../../types/DashBoardtype";
+import type {ItemType} from "../../types/DashBoardtype";
 import ItemForm from "../../components/Admin/ItemForm";
 import api from "../../api/api";
 
 const Item = () => {
   const [showForm,setShowForm] = useState(false);
-  const [editItem,setEditItem] = useState<Item|null>(null);
-  const {items,category,branches,restaurant}=useDashboard();
+  const [editItem,setEditItem] = useState<ItemType|null>(null);
+  const {items,category,restaurant}=useDashboard();
   console.log(items);
   const deleteItem=async(id:string)=>{
   const confirmDelete = window.confirm(
@@ -41,7 +41,7 @@ const Item = () => {
       ))}
      {showForm && (
            <div>
-             <ItemForm setShowForm={setShowForm} item={editItem} category={category} branches={branches} restaurant={restaurant}/>
+             <ItemForm setShowForm={setShowForm} item={editItem} category={category} restaurant={restaurant}/>
            </div>
          )}
             <button onClick={()=>{
