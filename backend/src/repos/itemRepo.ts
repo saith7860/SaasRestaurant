@@ -2,9 +2,13 @@ import Item from "../models/itemModel.js";
 import Category from "../models/categoryModel.js";
 import type { ItemType } from "../types/itemType.js";
 const showAllItems=async(id:string)=>{
-    const items=await Item.find({resturant:id})
-    return items
+    const items=await Item.find({restaurantId:id})
+    return items;
 } 
+const getItemByName=async(name:string)=>{
+    const item=await Item.findOne({name});
+    return item;
+}
 const createItem=async(data:ItemType)=>{
   const newItem=new Item(data);
   await newItem.save();
@@ -27,4 +31,4 @@ const deleteItemByName=async(id:string)=> {
     )
     return delItem;
 }
-export {showAllItems,createItem,getSpecificCategoryId,updateItemByName,deleteItemByName}
+export {showAllItems,createItem,getSpecificCategoryId,updateItemByName,deleteItemByName,getItemByName}

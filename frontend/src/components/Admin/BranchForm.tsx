@@ -2,9 +2,9 @@
 import { useState ,useEffect} from "react";
 import api from "../../api/api";
 import {useDashboard} from "../../context/DashBoardContext";
-import type {Branch} from "../../types/DashBoardtype.js"
+import type {BranchType} from "../../types/DashBoardtype.js"
 const BranchForm = ({ branch,setShowForm }: {
-    branch:Branch | null;
+    branch:BranchType | null;
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
     const [formData, setFormData] = useState({

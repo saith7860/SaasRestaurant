@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import api from "../../api/api";
+import handleApiError from "../../api/handleError";
 const Signup = () => {
+  const [errors,setErrors]=useState<Record<string,string>>({});
   const [formField, setFormFields] = useState({
     name: "",
     email: "",
@@ -29,8 +31,26 @@ const Signup = () => {
 
     } catch (error) {
       console.error("Signup error:", error);
+      const validationErrors=handleApiError(error);
+
+  if (validationErrors) {
+
+    const formattedErrors:
+      Record<string, string> = {};
+
+    validationErrors.forEach(
+      (err: any) => {
+
+        formattedErrors[err.field] =
+          err.message;
+      }
+    );
+
+    setErrors(formattedErrors);
+  }
     }
   };
+console.log(errors);
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center text-white overflow-hidden">
@@ -54,13 +74,15 @@ const Signup = () => {
             <input
               name="name"
               value={formField.name}
-              required
+             
               placeholder="Enter your name"
               onChange={handleChange}
               className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
             />
           </div>
-
+          {
+            errors.name && <p className="text-red-500">{errors.name}</p>
+          }
           {/* Email */}
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-300">Email</label>
@@ -68,13 +90,15 @@ const Signup = () => {
               name="email"
               type="email"
               value={formField.email}
-              required
+          
               placeholder="Enter your email"
               onChange={handleChange}
               className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
             />
           </div>
-
+    {
+            errors.email && <p className="text-red-500">{errors.email}</p>
+          }
           {/* Password */}
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-300">Password</label>
@@ -82,12 +106,15 @@ const Signup = () => {
               name="password"
               type="password"
               value={formField.password}
-              required
+             
               placeholder="Enter your password"
               onChange={handleChange}
               className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
             />
           </div>
+            {
+            errors.password && <p className="text-red-500">{errors.password}</p>
+          }
 
           {/* Phone */}
           <div className="flex flex-col gap-1">
@@ -95,12 +122,15 @@ const Signup = () => {
             <input
               name="phone"
               value={formField.phone}
-              required
+              
               placeholder="Enter your phone number"
               onChange={handleChange}
               className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
             />
           </div>
+            {
+            errors.phone && <p className="text-red-500">{errors.phone}</p>
+          }
 
           {/* Address */}
           <div className="flex flex-col gap-1">
@@ -108,12 +138,15 @@ const Signup = () => {
             <input
               name="address"
               value={formField.address}
-              required
+       
               placeholder="Enter your address"
               onChange={handleChange}
               className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
             />
           </div>
+            {
+            errors.address && <p className="text-red-500">{errors.address}</p>
+          }
 
           {/* Button */}
           <button

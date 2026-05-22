@@ -1,15 +1,13 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import * as itemRepo from '../repos/itemRepo.js'
 import type { ItemType } from '../types/itemType.js';
-//Fetch all items
-// const fetchAllItems=async()=>{
-//    const items=await itemRepo.showAllItems();
-//    if (!items.length) {
+// const getAllItems=async(id:string)=>{
+//    const items=await itemRepo.getAllItems(id);
+//    if (!items) {
 //     throw new ApiError(404,'Items not found');
 //    }
 //    return items;
 // }
-//UPDATE ITEM
 const updateSpecItem=async(id:string,data:ItemType)=>{
 const update=await itemRepo.updateItemByName(id,data);
 if (!update) {
@@ -26,14 +24,20 @@ if (!del) {
 return del;
 }
 //create item
-const createItem=async(category:string,itemData:ItemType)=>{
-   console.log("category id is ",category);
+const createItem=async(categoryId:string,itemData:ItemType)=>{
+   console.log("category id is ",categoryId);
+   console.log("item data is",itemData);
    
-   const foundCategoryId=await itemRepo.getSpecificCategoryId(category);
+   
+   const foundCategoryId=await itemRepo.getSpecificCategoryId(categoryId);
    console.log("found category id is ",foundCategoryId);
    
    if (!foundCategoryId) {
     throw new ApiError(404,'Cateogory is not found')
+   }
+   const findItem=await itemRepo.getItemByName(itemData.name);
+   if (findItem) {
+    throw new ApiError(400,'Item already exists');
    }
    const newItem=await itemRepo.createItem(itemData);
    if(!newItem){

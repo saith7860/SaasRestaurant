@@ -29,7 +29,7 @@ const Resturant = () => {
 
       {showForm && (
         <div>
-          <ResturantForm restaurant={restaurant} showForm={showForm} setShowForm={setShowForm} />
+          <ResturantForm restaurant={restaurant}  setShowForm={setShowForm} />
         </div>
       )}
 

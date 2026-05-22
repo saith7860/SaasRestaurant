@@ -49,6 +49,7 @@ export interface ItemType {
   resturantId: string;
   categoryId: string;
   branchId:string;
+  basePrice:number;
 }
 
 export interface DashboardData {

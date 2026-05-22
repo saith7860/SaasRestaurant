@@ -20,7 +20,16 @@ const itemSchema = new mongoose.Schema(
       ref:'Category',
       required:true
     },
- 
+    restaurantId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Resturant',
+      required:true
+    },
+    branchId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'Branch',
+      required:true
+    },
     isAvailable: {
       type: Boolean,
       default: true,

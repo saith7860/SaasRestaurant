@@ -1,5 +1,3 @@
-
-
 const Variant = () => {
   return (
     <div>Variant</div>

@@ -1,9 +1,8 @@
 import {useState} from "react"
 import api from "../../api/api.js";
 import type { Restaurant } from "../../types/DashBoardtype";
-const ResturantForm = ({restaurant,showForm,setShowForm}:{
+const ResturantForm = ({restaurant,setShowForm}:{
   restaurant:Restaurant | null;
-  showForm:boolean;
   setShowForm:React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const [formField, setFormField] = useState({

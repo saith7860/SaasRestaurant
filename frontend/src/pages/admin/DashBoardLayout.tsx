@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import api from "../../api/api.js"
 import SideBar from "../../components/Admin/SideBar"
 import { Outlet } from "react-router"
 import { useDashboard } from "../../context/DashBoardContext";
 const DashBoardLayout = () => {
   const { setRestaurant, setBranches, setCategory, setItems } = useDashboard();
+   const [errors, setErrors] = useState<Record<string, string>>({});
   useEffect(() => {
     const fetchDashboardData =
       async () => {

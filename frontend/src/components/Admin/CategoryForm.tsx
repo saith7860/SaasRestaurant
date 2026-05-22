@@ -1,11 +1,11 @@
 import api from "../../api/api.js";
 import { useState,useEffect } from "react";
-import type { Category,Restaurant,Branch } from "../../types/DashBoardtype.js";
+import type { CategoryType,Restaurant,BranchType } from "../../types/DashBoardtype.js";
 const CategoryForm = ({ category,setShowForm,restaurant,branches }: {
-    category:Category | null;
+    category:CategoryType | null;
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
     restaurant: Restaurant | null;
-    branches: Branch[] | null;
+    branches: BranchType[] | null;
 }) => {
      const [formData, setFormData] = useState({
         category:"",

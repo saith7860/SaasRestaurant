@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 export type variantType={
     itemId:string
     variation:string
@@ -10,5 +10,8 @@ export type ItemType={
     categoryId:mongoose.Schema.Types.ObjectId;
     description:string
     variants?:mongoose.Schema.Types.ObjectId[];
-    isAvailable:boolean
+    restaurantId:mongoose.Schema.Types.ObjectId;
+    basePrice:number;
+    branchId:mongoose.Schema.Types.ObjectId;
+    isAvailable:boolean;
 }
