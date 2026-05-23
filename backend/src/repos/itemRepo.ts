@@ -2,7 +2,7 @@ import Item from "../models/itemModel.js";
 import Category from "../models/categoryModel.js";
 import type { ItemType } from "../types/itemType.js";
 const showAllItems=async(id:string)=>{
-    const items=await Item.find({restaurantId:id})
+    const items=await Item.find({restaurantId:id}).populate("variants")
     return items;
 } 
 const getItemByName=async(name:string)=>{

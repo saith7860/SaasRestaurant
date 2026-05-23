@@ -12,13 +12,37 @@ import UserRouter from './routes/userRouter.js';
 import resturantRouter from './routes/resturantRouter.js';
 import orderRouter from './routes/orderRouter.js';
 import branchRouter from './routes/branchRouter.js';
+import variantRouter from './routes/variantRouter.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
+// app.use(cors({
+//    origin: ["https://foodordersystemonline.vercel.app","http://localhost:5173","http://[IP_ADDRESS]"],
+//   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+//   credentials: true
+// }));
 app.use(cors({
-   origin: ["https://foodordersystemonline.vercel.app","http://localhost:5173"],
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  credentials: true
+  origin: function (origin, callback) {
+
+    const allowedOrigins = [
+      "http://localhost:5173",
+    ];
+
+    // allow localhost subdomains
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      origin.endsWith(".localhost:5173")
+    ) {
+      callback(null, true);
+    } else {
+      callback(
+        new Error("Not allowed by CORS")
+      );
+    }
+  },
+
+  credentials: true,
 }));
 app.use(express.json());
 
@@ -30,6 +54,7 @@ app.use("/api/user",UserRouter) //User ROUTER
 app.use("/api/resturant",resturantRouter) //Resturant ROUTER
 app.use("/api/order",orderRouter) //ORDER ROUTER
 app.use("/api/branch",branchRouter) //BRANCH ROUTER
+app.use("/api/variant",variantRouter) //VARIANT ROUTER
 //handle error middleware
 app.use(handleError);
 app.listen(PORT,async()=>{

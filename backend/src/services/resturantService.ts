@@ -63,18 +63,18 @@ const getAllBranches=async(id:string)=>{
     return getAllBranches
 } 
 const getSpecificResturantData=async(slug:string)=>{
-    const getSpecificResturantData=await resturantRepo.getSpecificResturantData(slug);
-    if (!getSpecificResturantData) {
+    const restaurantData=await resturantRepo.getSpecificResturantData(slug);
+    if (!restaurantData) {
         throw new ApiError(404,"Resturant not found")
     }
-    const branches=await branchRepo.getAllBranches(getSpecificResturantData._id as any);//typescript giving issues here
+    const branches=await branchRepo.getAllBranches(restaurantData._id as any);//typescript giving issues here
     if (!branches) {
         throw new ApiError(404,"Branches not found")
     }
-    const category=await categoryRepo.getAllCategoriesOfResturant(getSpecificResturantData._id as any);//typescript giving issues here
+    const category=await categoryRepo.getAllCategoriesOfResturant(restaurantData._id as any);//typescript giving issues here
     if (!category) {
         throw new ApiError(404,"Category not found");
     }
-    return {getSpecificResturantData,branches,category}
+    return {restaurantData,branches,category}
 }
 export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}
