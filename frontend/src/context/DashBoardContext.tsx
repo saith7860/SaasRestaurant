@@ -6,31 +6,31 @@ import {
 import type { ReactNode } from "react";
 import type {
     Restaurant,
-    Branch,
-    Category,
-    Item
+    BranchType,
+    CategoryType,
+    ItemType
 } from "../types/DashBoardtype"
 
 interface DashboardContextType {
     restaurant: Restaurant | null;
-    branches: Branch[];
-    category: Category[];
-    items: Item[];
+    branches: BranchType[];
+    category: CategoryType[];
+    items: ItemType[];
 
     setRestaurant: React.Dispatch<
         React.SetStateAction<Restaurant | null>
     >;
 
     setBranches: React.Dispatch<
-        React.SetStateAction<Branch[]>
+        React.SetStateAction<BranchType[]>
     >;
 
     setCategory: React.Dispatch<
-        React.SetStateAction<Category[]>
+        React.SetStateAction<CategoryType[]>
     >;
 
     setItems: React.Dispatch<
-        React.SetStateAction<Item[]>
+        React.SetStateAction<ItemType[]>
     >;
 }
 
@@ -51,13 +51,13 @@ export const DashboardProvider = ({
         useState<Restaurant | null>(null);
 
     const [branches, setBranches] =
-        useState<Branch[]>([]);
+        useState<BranchType[]>([]);
 
     const [category, setCategory] =
-        useState<Category[]>([]);
+        useState<CategoryType[]>([]);
 
     const [items, setItems] =
-        useState<Item[]>([]);
+        useState<ItemType[]>([]);
 
     return (
         <DashboardContext.Provider

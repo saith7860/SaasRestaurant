@@ -75,6 +75,10 @@ const getSpecificResturantData=async(slug:string)=>{
     if (!category) {
         throw new ApiError(404,"Category not found");
     }
-    return {restaurantData,branches,category}
+    const items=await itemRepo.showAllItems(restaurantData._id as any);//typescript giving issues here
+    if (!items) {
+        throw new ApiError(404,"Items not found");
+    }
+    return {restaurantData,branches,category,items}
 }
 export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}
