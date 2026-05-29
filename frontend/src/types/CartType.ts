@@ -1,9 +1,9 @@
 export type CartItem={
   id: string;
   name: string;
-  image: string;
-  variantId: string;
-  variation: string;
+  image?:string;
+  variantId?: string;
+  variation?: string;
   price: number;
   quantity: number;
 }   //type of one cart item
