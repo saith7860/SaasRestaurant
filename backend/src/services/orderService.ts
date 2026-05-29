@@ -35,18 +35,17 @@ const getOrdersByRestaurant=async(restaurantId:string)=>{
 const createOrder=async(userId:string,data:OrderType)=>{
    console.log(userId);
    
-   const foundUser=await User.findOne({_id:userId});
+   const foundUser=await User.findById(userId);
    console.log(foundUser);
    
    if (!foundUser) {
     throw new ApiError(404,'User is not found')
    }
-   const newOrder=await orderRepo.createOrder(data);
+   const newOrder=await orderRepo.createOrder(userId,data);
    if (!newOrder) {
     throw new ApiError(400,'Server Error! Order not created');
    }
-   const orderItems=await orderItemRepo.createOrderItem(newOrder._id,data.orderItems);
-   return {newOrder,orderItems};
+   return newOrder;
 }
 
 export {createOrder,getOrdersByRestaurant}

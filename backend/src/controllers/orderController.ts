@@ -30,8 +30,10 @@ const getOrdersByRestaurant=async(req:any,res:Response,next:NextFunction)=>{
 }
 const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId=req.user as JwtPayload;
-    const result = await orderService.createOrder(userId._id, req.body);
+    const userId=req.user?.userId;
+    console.log("user id is",userId);
+    
+    const result = await orderService.createOrder(userId as string, req.body);
     return res.json({
       success: "true",
       data: result,

@@ -4,6 +4,7 @@ import * as branchRepo from "../repos/branchRepo.js"
 import * as categoryRepo from "../repos/categoryRepo.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 import * as itemRepo from "../repos/itemRepo.js";
+import * as orderRepo from '../repos/orderRepo.js';
 const createResturant=async(data:restaurantType)=>{
     const newResturant=await resturantRepo.createResturant(data);
     if (!newResturant) {
@@ -79,6 +80,10 @@ const getSpecificResturantData=async(slug:string)=>{
     if (!items) {
         throw new ApiError(404,"Items not found");
     }
-    return {restaurantData,branches,category,items}
+    const orders=await orderRepo.showAllOrders(restaurantData._id as any)
+    if (!orders) {
+        throw new ApiError(404,"Orders not found")
+    }
+    return {restaurantData,branches,category,items,orders}
 }
 export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}

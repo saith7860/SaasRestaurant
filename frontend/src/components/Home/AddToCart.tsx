@@ -1,6 +1,6 @@
 import type { variantType } from "../../types/DashBoardtype";
 import type {ItemType } from "../../types/HomePageTypes";
-import type { CartItem, CartContextType } from "../../types/CartType";
+import type { CartItem } from "../../types/CartType";
 import { toast } from "react-toastify";
 interface AddToCartProps {
     item:ItemType

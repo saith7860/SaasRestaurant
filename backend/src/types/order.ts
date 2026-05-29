@@ -4,7 +4,7 @@ export type OrderType={
   user:mongoose.Schema.Types.ObjectId;
   restaurant:mongoose.Schema.Types.ObjectId;
   branch:mongoose.Schema.Types.ObjectId;
-  address:string;
+  deliveryAddress:string;
   subtotal:number;
   deliveryFee:number;
   totalAmount:number;

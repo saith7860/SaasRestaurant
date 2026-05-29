@@ -2,25 +2,25 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
 
-    restaurant: {
+    restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",
       required: true,
     },
 
-    branch: {
+    branchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
       required: true,
     },
 
-    address: {
+    deliveryAddress: {
       type: String,
       required: true,
     },

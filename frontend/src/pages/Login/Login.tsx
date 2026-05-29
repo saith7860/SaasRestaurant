@@ -28,14 +28,14 @@ const Login = () => {
     try {
       const res = await api.post("/api/user/login", loginField);
       console.log("Login success:", res.data);
+       localStorage.setItem("token", res.data.token);
+      toast.success("User logged in successfully")
       navigate("/checkout")
       // optional: store token
-      localStorage.setItem("token", res.data.token);
-      toast.success("User logged in successfully")
+    
     } catch (error) {
       console.error("Login error:", error);
-      const validationErrors =
-        handleApiError(error);
+      const validationErrors=handleApiError(error);
 
       if (validationErrors) {
 
