@@ -4,6 +4,7 @@ import * as orderController from '../controllers/orderController.js';
 import { authMiddleware,checkAdmin,attachRestaurantContext } from '../tokens/jwt.js';
 orderRouter.post("/create",authMiddleware,orderController.createOrder);
 orderRouter.get("/admin/orders",authMiddleware,checkAdmin,attachRestaurantContext,orderController.getOrdersByRestaurant);
+orderRouter.patch("/update-order-status",authMiddleware,checkAdmin,attachRestaurantContext,orderController.updateOrderStatus);
 // orderRouter.get("/my-orders",authMiddleware,orderController.getMyOrders);
 // orderRouter.get("/:id",authMiddleware,orderController.getSpecificOrder);
 // orderRouter.get("/branch/:id",authMiddleware,checkAdmin,orderController.getBranchOrders);

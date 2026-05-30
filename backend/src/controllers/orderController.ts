@@ -42,6 +42,22 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+const updateOrderStatus=async(req:Request,res:Response,next:NextFunction)=>{
+  try {
+    const {id,orderStatus}=req.body;
+    console.log('id is',id);
+    console.log('order status is',orderStatus);
+    
+    
+    const result=await orderService.updateOrderStatus(id,orderStatus);
+    return res.json({
+      success: "true",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 // const getMyOrders =async (req: Request, res: Response,next:NextFunction) => {
 //   try {
 //     const result=await orderService.fetchAllOrders();
@@ -82,6 +98,6 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
 //   }
 // };
 export {
-createOrder,getOrdersByRestaurant
+createOrder,getOrdersByRestaurant,updateOrderStatus
 };
  

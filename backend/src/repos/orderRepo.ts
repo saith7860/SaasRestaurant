@@ -10,7 +10,14 @@ const createOrder=async(userId:string,data:OrderType)=>{
   await newOrder.save();
   return newOrder;
 }
-
+const updateOrderStatus=async(id:string,orderStatus:string)=>{
+  console.log('id is',id);
+  console.log('order status is',orderStatus);
+  const updatedOrder=await Order.findByIdAndUpdate(id,{orderStatus:orderStatus},{returnDocument:'after'});
+  console.log(updatedOrder);
+  
+  return updatedOrder;
+}
 // const getSpecificCategoryId=async(category:string)=>{
 // const speficCategory=await Category.findOneAndUpdate({
 //     category:category
@@ -30,4 +37,4 @@ const createOrder=async(userId:string,data:OrderType)=>{
 //     )
 //     return delItem;
 // }
-export {showAllOrders,createOrder}
+export {showAllOrders,createOrder,updateOrderStatus}

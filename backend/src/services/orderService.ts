@@ -17,11 +17,13 @@ const getOrdersByRestaurant=async(restaurantId:string)=>{
     throw new ApiError(404,'Orders not found');
    }
    return orders;
-//   const filteredOrders=orders.filter((order)=>order.restaurant===restaurantId);
-//   if (!filteredOrders.length) {
-//     throw new ApiError(404,'Orders not found');
-//   }
-//   return filteredOrders;
+}
+const updateOrderStatus=async(id:string,orderStatus:string)=>{
+  const updatedOrder=await orderRepo.updateOrderStatus(id,orderStatus);
+  if (!updatedOrder) {
+    throw new ApiError(400,'Server Error! Order not updated');
+  }
+  return updatedOrder;
 }
 //UPDATE ITEM
 // const getSpecificOrder=async(id:string,data:OrderItem)=>{
@@ -48,4 +50,4 @@ const createOrder=async(userId:string,data:OrderType)=>{
    return newOrder;
 }
 
-export {createOrder,getOrdersByRestaurant}
+export {createOrder,getOrdersByRestaurant,updateOrderStatus}
