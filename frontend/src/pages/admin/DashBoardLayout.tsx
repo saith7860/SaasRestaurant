@@ -4,7 +4,7 @@ import SideBar from "../../components/Admin/SideBar"
 import { Outlet } from "react-router"
 import { useDashboard } from "../../context/DashBoardContext";
 const DashBoardLayout = () => {
-  const { setRestaurant, setBranches, setCategory, setItems } = useDashboard();
+  const { setRestaurant, setBranches, setCategory, setItems ,setOrders} = useDashboard();
    const [errors, setErrors] = useState<Record<string, string>>({});
   useEffect(() => {
     const fetchDashboardData =
@@ -40,7 +40,9 @@ const DashBoardLayout = () => {
           setItems(
             res.data.result.items
           );
-
+          setOrders(
+            res.data.result.orders
+          );
         } catch (error) {
           console.log(error);
         }

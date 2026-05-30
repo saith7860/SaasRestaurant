@@ -51,6 +51,22 @@ export interface ItemType {
   branchId:string;
   basePrice:number;
 }
+export interface OrderType{
+  _id:string;
+  restaurantId:string;
+  branchId:string;
+  deliveryAddress:string;
+  subtotal:number;
+  deliveryFee:number;
+  totalAmount:number;
+  paymentMethod:string;
+  paymentStatus:string;
+  orderStatus:string;
+  userId: {
+    name: string;
+    phone: string;
+  };
+}
 
 export interface DashboardData {
   restaurant: Restaurant | null;

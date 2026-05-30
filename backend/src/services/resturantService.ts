@@ -32,8 +32,12 @@ const getDashBoardData=async(id:string)=>{
     if (!items) {
         throw new ApiError(404,"Items not found")
     }
-
-    return {resuturant,branches,category,items}
+      const orders=await orderRepo.showAllOrders(id)
+    if (!orders) {
+        throw new ApiError(404,"Orders not found")
+    }
+    
+    return {resuturant,branches,category,items,orders}
 }
 const updateResturant=async(id:string,data:restaurantType)=>{
     const updateResturant=await resturantRepo.updateResturant(id,data);
@@ -80,10 +84,6 @@ const getSpecificResturantData=async(slug:string)=>{
     if (!items) {
         throw new ApiError(404,"Items not found");
     }
-    const orders=await orderRepo.showAllOrders(restaurantData._id as any)
-    if (!orders) {
-        throw new ApiError(404,"Orders not found")
-    }
-    return {restaurantData,branches,category,items,orders}
+    return {restaurantData,branches,category,items}
 }
 export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}

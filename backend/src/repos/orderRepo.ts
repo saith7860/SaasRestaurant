@@ -2,8 +2,8 @@ import Order from "../models/orderModel.js";
 import { OrderType } from "../types/order.js";
 
 const showAllOrders=async(restaurantId:string)=>{
-    const orders=await Order.find({restaurantId:restaurantId}).populate("userId");
-    return orders;
+    const orders=await Order.find({restaurantId:restaurantId}).populate("userId","name phone");
+    return orders
 } 
 const createOrder=async(userId:string,data:OrderType)=>{
   const newOrder=new Order({...data,userId:userId});

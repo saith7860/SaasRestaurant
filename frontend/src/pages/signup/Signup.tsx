@@ -27,7 +27,7 @@ const Signup = () => {
     try {
       const res = await api.post("/api/user/signup", formField);
       console.log("User created:", res.data);
-      navigate("/checkout")
+      navigate("/login")
 
     } catch (error) {
       console.error("Signup error:", error);

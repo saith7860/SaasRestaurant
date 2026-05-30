@@ -9,9 +9,7 @@ const Category = () => {
     const [showForm,setShowForm] = useState(false);
     const [editCategory,setEditCategory] = useState<CategoryType|null>(null);
     const {category,restaurant,branches}=useDashboard();
-    console.log(category);
-    console.log(restaurant);
-    console.log(branches);
+
     const deleteCategory=async(id:string)=>{
   const confirmDelete = window.confirm(
     "Are you sure you want to delete this branch?"

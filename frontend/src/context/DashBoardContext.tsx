@@ -8,7 +8,8 @@ import type {
     Restaurant,
     BranchType,
     CategoryType,
-    ItemType
+    ItemType,
+    OrderType
 } from "../types/DashBoardtype"
 
 interface DashboardContextType {
@@ -16,7 +17,7 @@ interface DashboardContextType {
     branches: BranchType[];
     category: CategoryType[];
     items: ItemType[];
-
+    orders: OrderType[];
     setRestaurant: React.Dispatch<
         React.SetStateAction<Restaurant | null>
     >;
@@ -31,6 +32,9 @@ interface DashboardContextType {
 
     setItems: React.Dispatch<
         React.SetStateAction<ItemType[]>
+    >;
+    setOrders:React.Dispatch<
+        React.SetStateAction<OrderType[]>
     >;
 }
 
@@ -58,6 +62,7 @@ export const DashboardProvider = ({
 
     const [items, setItems] =
         useState<ItemType[]>([]);
+    const [orders,setOrders]=useState<OrderType[]>([]);
 
     return (
         <DashboardContext.Provider
@@ -66,7 +71,8 @@ export const DashboardProvider = ({
                 branches,
                 category,
                 items,
-
+                orders,
+                setOrders,
                 setRestaurant,
                 setBranches,
                 setCategory,
