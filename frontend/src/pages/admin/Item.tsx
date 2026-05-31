@@ -42,9 +42,11 @@ const Item = () => {
 
     <div className="p-5 flex flex-col gap-5">
 
-      <form className="flex border-2 border-[#F4B400]/30 rounded-lg items-center justify-start gap-6 p-5 mx-3" action="">
+      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Manage Items</div>
 
-        <div>
+      <form className="flex flex-col lg:flex-row gap-8 border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3" action="">
+
+        <div className="flex flex-col sm:flex-row items-start justify-start gap-2 mb-5">
 
           <label htmlFor="category" className="text-[#984447] font-bold text-sm  sm:font-bold md:text-lg " >Select Category : </label>
 
@@ -62,7 +64,7 @@ const Item = () => {
           </select>
         </div>
 
-        <div>
+        <div className="flex flex-col sm:flex-row items-start justify-start gap-2 mb-5 ">
 
           <label htmlFor="category" className="text-[#984447] font-bold text-sm  sm:font-bold md:text-lg " >Select Branch : </label>
 

@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 const App = () => {
-  const {restaurantData,setRestaurantData} = useRestaurant();
+  const { restaurantData, setRestaurantData } = useRestaurant();
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
@@ -51,7 +51,7 @@ const App = () => {
     const slug = getSlug();
     getRestaurant(slug);
   }, [])
-console.log(restaurantData);
+  console.log(restaurantData);
 
   return (
     <>

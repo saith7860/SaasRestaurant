@@ -140,7 +140,9 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
         {/* Select category */}
       </div>
 
-      <div className="flex items-center gap-2 mb-5">
+      < hr className="text-[#F4B400]/70" />
+
+      <div className="flex items-center justify-between gap-2 my-5">
 
         <label htmlFor="categoryId" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Category : </label>
         <select name="categoryId" value={formData.categoryId} onChange={(e) =>
@@ -162,7 +164,7 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
 
       </div>
 
-      <div className="flex items-center gap-2 mb-5">
+      <div className="flex items-center justify-between gap-2 mb-5">
 
         <label htmlFor="branchId" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Branch : </label>
         <select name="branchId" value={formData.branchId} onChange={(e) =>
@@ -184,7 +186,7 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
       </div>
 
 
-      <div className="flex items-center justify-end w-full gap-4 mt-5">
+      <div className="flex items-center justify-center w-full gap-4 mt-5">
         <button type="submit"
           className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
         >{item ? "Update Item" : "Add Item"}</button>

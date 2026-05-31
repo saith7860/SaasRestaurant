@@ -7,6 +7,7 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
   return (
 
     <nav className=" w-full shadow-md px-4 py-3 bg-[#1A1A1A]">
+      
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
         {/* Logo / Restaurant Name */}
@@ -15,7 +16,7 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
         </h1></Link>
 
         {/* Search Bar */}
-        <div className="hidden md:flex items-center border rounded-lg px-2 py-1 w-full max-w-md">
+        <div className="hidden lg:flex items-center border rounded-lg px-2 py-1 w-full max-w-md">
           <Search size={18} className="text-gray-500" />
           <input
             type="text"
@@ -50,12 +51,12 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName, search, setSearch }) => {
 
 
       {/* Mobile Search Bar */}
-      <div className="mt-3 md:hidden flex items-center border rounded-lg px-2 py-1">
-        <Search size={18} className="text-gray-500" />
+      <div className="mt-3 lg:hidden flex items-center border rounded-lg px-2 py-1">
+        <Search size={18} className="text-white" />
         <input
           type="text"
           placeholder="Search food..."
-          className="outline-none px-2 py-1 w-full"
+          className="outline-none px-2 py-1 w-full text-white bg-transparent"
         />
       </div>
     </nav>

@@ -36,7 +36,7 @@ const Category = () => {
   return (
     <div>
 
-      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Categories</div>
+      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Manage Categories</div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {category?.map((category: CategoryType) => (
