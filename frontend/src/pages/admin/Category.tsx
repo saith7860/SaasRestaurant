@@ -1,59 +1,86 @@
 import { useState } from "react";
 import { useDashboard } from "../../context/DashBoardContext";
-import type {CategoryType} from "../../types/DashBoardtype";
+import type { CategoryType } from "../../types/DashBoardtype";
 import CategoryForm from "../../components/Admin/CategoryForm";
+
+import { FaEdit, FaTrash } from "react-icons/fa";
+
+
 import api from "../../api/api";
 
 
 const Category = () => {
-    const [showForm,setShowForm] = useState(false);
-    const [editCategory,setEditCategory] = useState<CategoryType|null>(null);
-    const {category,restaurant,branches}=useDashboard();
+  const [showForm, setShowForm] = useState(false);
+  const [editCategory, setEditCategory] = useState<CategoryType | null>(null);
+  const { category, restaurant, branches } = useDashboard();
 
-    const deleteCategory=async(id:string)=>{
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this branch?"
-  );
+  const deleteCategory = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this branch?"
+    );
 
-  if (!confirmDelete) return
-        try{
-            const token=localStorage.getItem("token");
-            const res=await api.delete(`/api/category/delete-category/${id}`,{
-                headers:{
-                    Authorization:`Bearer ${token}`
-                }
-            });
-            console.log(res.data);
-        }catch(error){
-            console.log(error);
+    if (!confirmDelete) return
+    try {
+      const token = localStorage.getItem("token");
+      const res = await api.delete(`/api/category/delete-category/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
     }
-    
+  }
+
   return (
     <div>
-    {category?.map((category:CategoryType)=>(
-        <div key={category._id}>
-            <div>{category.category}</div>
-            <img src={category.image} alt={category.category} width={200} height={200}/>
-            <button onClick={()=>{
-              setShowForm(true);
-              setEditCategory(category);
-            }}>Edit</button>
-            <button onClick={()=>{
-              deleteCategory(category._id);
-            }}>Delete</button>
-        </div>
-    ))}
-    {showForm && (
-      <div>
-        <CategoryForm setShowForm={setShowForm} category={editCategory} restaurant={restaurant} branches={branches}/>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {category?.map((category: CategoryType) => (
+
+          <div key={category._id} className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-center gap-3">
+
+            <img className="object-cover w-full h-50" src={category.image} alt={category.category} width={200} height={200} />
+
+            <div className="flex items-center justify-between p-5 gap-7 w-full">
+
+              <span className="font-black text-[#984447] cursor-default">{category.category}</span>
+
+              <div className="flex items-center gap-3">
+                <button onClick={() => {
+                  setShowForm(true);
+                  setEditCategory(category);
+                }} 
+                className="cursor-pointer text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaEdit /></button>
+
+                <button onClick={() => {
+                  deleteCategory(category._id);
+                }}
+                className="cursor-pointer text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaTrash /></button>
+              </div>
+            </div>
+          </div>
+        ))}
+
       </div>
-    )}
-       <button onClick={()=>{
-      setShowForm(true);
-      setEditCategory(null);
-    }}>Add Category</button>
-  </div>
+
+      {showForm && (
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-2">
+          <CategoryForm setShowForm={setShowForm} category={editCategory} restaurant={restaurant} branches={branches} />
+        </div>
+      )}
+
+      <button onClick={() => {
+        setShowForm(true);
+        setEditCategory(null);
+      }}
+      className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center mx-auto" 
+      >Add Category</button>
+
+
+    </div>
+
+
   )
 }
 
