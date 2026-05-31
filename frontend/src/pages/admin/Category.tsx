@@ -35,12 +35,15 @@ const Category = () => {
 
   return (
     <div>
+
+      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Categories</div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {category?.map((category: CategoryType) => (
 
-          <div key={category._id} className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-center gap-3">
+          <div key={category._id} className=" flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-center gap-3">
 
-            <img className="object-cover w-full h-50" src={category.image} alt={category.category} width={200} height={200} />
+            <img className="object-cover flex-1  w-full" src={category.image} alt={category.category} width={200} max-height={200} />
 
             <div className="flex items-center justify-between p-5 gap-7 w-full">
 
@@ -65,7 +68,7 @@ const Category = () => {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-2">
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-2 mx-2">
           <CategoryForm setShowForm={setShowForm} category={editCategory} restaurant={restaurant} branches={branches} />
         </div>
       )}

@@ -27,6 +27,9 @@ const Branch = () => {
   }
   return (
     <div>
+
+    <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Branches</div>
+
     {branches?.map((branch)=>(
         <div className="flex flex-col gap-3 text-sm sm:text-base md:text-lg bg-[#2A2633] p-5 mt-5 rounded-lg" key={branch._id}>
             <div className="flex gap-2"><h4>Name: </h4>{branch.name}</div>

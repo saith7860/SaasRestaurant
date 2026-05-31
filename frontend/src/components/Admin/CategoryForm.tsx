@@ -73,11 +73,11 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     }
   };
   return (
-    <form className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-start gap-3 p-5" action="" onSubmit={handleCategorySubmit}>
+    <form className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-start gap-3 p-5 mx-3 overflow-hidden" action="" onSubmit={handleCategorySubmit}>
 
       <div className="flex items-center gap-2 mb-5">
 
-        <label htmlFor="branch" className="text-[#984447] font-black" >Select Branch : </label>
+        <label htmlFor="branch" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Select Branch : </label>
 
         <select
           name="branchId"
@@ -104,8 +104,8 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
       </div>
 
       <div className="flex items-center gap-2 mb-5">
-        <label htmlFor="category"  className="text-[#984447] font-black">Category Name : </label>
-        <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Enter Category" className="border border-white/30 rounded-md px-2" />
+        <label htmlFor="category"  className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg ">Category Name : </label>
+        <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Enter Category" className="border border-white/30 rounded-md px-1" />
       </div>
 
 
@@ -118,7 +118,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
         className="underline  text-blue-400 font-medium" />
 
       <div className="flex items-center justify-end w-full gap-4 mt-5">
-        <button type="submit" className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center"
+        <button type="submit" className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-2 sm:px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center"
         >{category ? "Update Category" : "Add Category"}</button>
 
         <button onClick={() => { setShowForm(false) }} className="bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center">
