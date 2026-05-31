@@ -56,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white px-4">
+    <div className="min-h-screen flex items-center justify-center text-white px-4 overflow-hidden">
 
       <div className="w-full max-w-md flex flex-col items-center">
 
@@ -65,7 +65,7 @@ const Login = () => {
         </h1>
 
         <form
-          className="bg-[#2A2633] w-full px-6 sm:px-10 py-16 sm:py-20 flex flex-col gap-3 rounded-lg"
+          className="bg-[#2A2633] w-full px-6 sm:px-10 py-16 sm:py-20 flex flex-col gap-3 rounded-lg overflow-hidden shadow-lg"
           onSubmit={handleSubmit}
         >
 

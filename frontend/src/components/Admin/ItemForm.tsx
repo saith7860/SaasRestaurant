@@ -101,53 +101,99 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
     setFormData({
       ...formData,
       [name]:
-        type === "number" ?Number(value): value
+        type === "number" ? Number(value) : value
     });
   };
   console.log(formData);
 
   return (
-    <form action="" onSubmit={handleSubmit}>
-      <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Item Name" className="border border-white/30 rounded-md px-2" />
-      {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-      <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Enter Item Image" className="border border-white/30 rounded-md px-2" />
-      {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
-      <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Enter Item Description" className="border border-white/30 rounded-md px-2" />
-      {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
-      <input type="number" name="basePrice" value={formData.basePrice} onChange={handleChange} placeholder="Enter Base Price" className="border border-white/30 rounded-md px-2" />
-      {errors.basePrice && <p className="text-red-500 text-sm">{errors.basePrice}</p>}
-      {/* Select category */}
+    <form className="border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3 overflow-hidden" action="" onSubmit={handleSubmit}>
 
-      <select name="categoryId" value={formData.categoryId} onChange={(e) =>
-        setFormData({
-          ...formData,
-          categoryId: e.target.value,
-        })
-      } className="border border-white/30 rounded-md px-2">
-        <option value="">Select Category</option>
-        {category?.map((cat: CategoryType) => (
-          <option key={cat._id} value={cat._id}>
-            {cat.category}
-          </option>
-        ))}
-      </select>
-      {errors.categoryId && <p className="text-red-500 text-sm">{errors.categoryId}</p>}
-      <select name="branchId" value={formData.branchId} onChange={(e) =>
-        setFormData({
-          ...formData,
-          branchId: e.target.value,
-        })
-      } className="border border-white/30 rounded-md px-2">
-        <option value="">Select Branch</option>
-        {branches?.map((branch: BranchType) => (
-          <option key={branch._id} value={branch._id}>
-            {branch.name}
-          </option>
-        ))}
-      </select>
-      {errors.branchId && <p className="text-red-500 text-sm">{errors.branchId}</p>}
-      <button type="submit">{item ? "Update Item" : "Add Item"}</button>
-      <button onClick={() => setShowForm(false)}>Cancel</button>
+      <div className="flex-col items-start gap-2 mb-5">
+        <label htmlFor="name" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg block" >Item Name : </label>
+        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter Item Name" className="border border-white/30 rounded-md px-2 w-full" />
+
+        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+      </div>
+
+
+      <div className="flex-col items-start gap-2 mb-5">
+        <label htmlFor="image" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg block" >Item Image : </label>
+        <input type="file" name="image" value={formData.image} onChange={handleChange} className="border border-white/30 rounded-md px-2 underline text-blue-400 w-full" />
+
+        {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
+      </div>
+
+
+      <div className="flex-col items-start gap-4 mb-5">
+        <label htmlFor="description" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg block" >Item Description : </label>
+        <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Enter Item Description" className="border border-white/30 rounded-md px-2 w-full" />
+
+        {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
+      </div>
+
+      <div className="flex-col items-start gap-2 mb-5">
+        <label htmlFor="basePrice" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg block" >Base Price : </label>
+        <input type="number" name="basePrice" value={formData.basePrice} onChange={handleChange} placeholder="Enter Base Price" className="border border-white/30 rounded-md px-2 w-full" />
+
+        {errors.basePrice && <p className="text-red-500 text-sm">{errors.basePrice}</p>}
+        {/* Select category */}
+      </div>
+
+      <div className="flex items-center gap-2 mb-5">
+
+        <label htmlFor="categoryId" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Category : </label>
+        <select name="categoryId" value={formData.categoryId} onChange={(e) =>
+          setFormData({
+            ...formData,
+            categoryId: e.target.value,
+          })
+        }
+          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1">
+          <option value="">Select Category</option>
+          {category?.map((cat: CategoryType) => (
+            <option key={cat._id} value={cat._id}>
+              {cat.category}
+            </option>
+          ))}
+        </select>
+
+        {errors.categoryId && <p className="text-red-500 text-sm">{errors.categoryId}</p>}
+
+      </div>
+
+      <div className="flex items-center gap-2 mb-5">
+
+        <label htmlFor="branchId" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Branch : </label>
+        <select name="branchId" value={formData.branchId} onChange={(e) =>
+          setFormData({
+            ...formData,
+            branchId: e.target.value,
+          })
+        }
+          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1">
+          <option value="">Select Branch</option>
+          {branches?.map((branch: BranchType) => (
+            <option key={branch._id} value={branch._id}>
+              {branch.name}
+            </option>
+          ))}
+        </select>
+        {errors.branchId && <p className="text-red-500 text-sm">{errors.branchId}</p>}
+
+      </div>
+
+
+      <div className="flex items-center justify-end w-full gap-4 mt-5">
+        <button type="submit"
+          className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
+        >{item ? "Update Item" : "Add Item"}</button>
+        
+        <button
+          className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
+          onClick={() => setShowForm(false)}>Cancel</button>
+      </div>
+
     </form>
   )
 }

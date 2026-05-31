@@ -65,7 +65,7 @@ console.log(errors);
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="w-full bg-[#2A2633] p-6 sm:p-7 flex flex-col gap-3 rounded-md shadow-lg"
+          className="w-full bg-[#2A2633] p-6 sm:p-7 flex flex-col gap-3 rounded-md shadow-lg overflow-hidden"
         >
 
           {/* Name */}

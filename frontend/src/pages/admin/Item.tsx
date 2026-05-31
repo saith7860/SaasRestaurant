@@ -9,8 +9,8 @@ const Item = () => {
   const [editItem, setEditItem] = useState<ItemType | null>(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedBranchId, setSelectedBranchId] = useState("");
-  const [filteredItems,setFilteredItems]=useState<ItemType[]>([]);
-  const { items, category, restaurant ,branches} = useDashboard();
+  const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
+  const { items, category, restaurant, branches } = useDashboard();
   console.log(items);
   const deleteItem = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -31,20 +31,26 @@ const Item = () => {
     }
   }
   console.log(selectedCategoryId);
- 
-  useEffect(()=>{
-    if(selectedCategoryId&&selectedBranchId){
-     setFilteredItems(items.filter((item)=>item.categoryId==selectedCategoryId&&item.branchId==selectedBranchId));
-     
+
+  useEffect(() => {
+    if (selectedCategoryId && selectedBranchId) {
+      setFilteredItems(items.filter((item) => item.categoryId == selectedCategoryId && item.branchId == selectedBranchId));
+
     }
-  },[selectedCategoryId,selectedBranchId])
+  }, [selectedCategoryId, selectedBranchId])
   return (
-    <div>
-      <form action="">
+
+    <div className="p-5 flex flex-col gap-5">
+
+      <form className="flex border-2 border-[#F4B400]/30 rounded-lg items-center justify-start gap-6 p-5 mx-3" action="">
+
         <div>
-          
+
+          <label htmlFor="category" className="text-[#984447] font-bold text-sm  sm:font-bold md:text-lg " >Select Category : </label>
+
           <select
             value={selectedCategoryId}
+            className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
             onChange={(e) => setSelectedCategoryId(e.target.value)}
           >
             <option value="">Select a Category</option>
@@ -55,10 +61,14 @@ const Item = () => {
             ))}
           </select>
         </div>
+
         <div>
-          
+
+          <label htmlFor="category" className="text-[#984447] font-bold text-sm  sm:font-bold md:text-lg " >Select Branch : </label>
+
           <select
             value={selectedBranchId}
+            className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
             onChange={(e) => setSelectedBranchId(e.target.value)}
           >
             <option value="">Select a Branch</option>
@@ -69,26 +79,45 @@ const Item = () => {
             ))}
           </select>
         </div>
+
       </form>
+
+
       {filteredItems?.map((item) => (
-        <div key={item._id}>
-          <div>{item.name}</div>
-          <button onClick={() => {
-            setShowForm(true);
-            setEditItem(item)
-          }}>Edit</button>
-          <button onClick={() => deleteItem(item._id)}>Delete</button>
+
+        <div key={item._id}
+          className="flex items-center justify-between border-2 border-[#F4B400]/30 rounded-lg p-5">
+          <span>{item.name}</span>
+
+          <div className="flex items-center gap-4">
+            <button
+              className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center "
+              onClick={() => {
+                setShowForm(true);
+                setEditItem(item)
+              }}>Edit</button>
+
+            <button
+              className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
+              onClick={() => deleteItem(item._id)}>Delete</button>
+          </div>
+
         </div>
       ))}
+
       {showForm && (
-        <div>
-          <ItemForm setShowForm={setShowForm} item={editItem} category={category} restaurant={restaurant} branches={branches}/>
+        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-2 mx-2">
+          <ItemForm setShowForm={setShowForm} item={editItem} category={category} restaurant={restaurant} branches={branches} />
         </div>
       )}
+
       <button onClick={() => {
         setShowForm(true);
         setEditItem(null);
-      }}>Add Item</button>
+      }}
+        className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center mx-auto"
+      >Add Item</button>
+
     </div>
   )
 }
