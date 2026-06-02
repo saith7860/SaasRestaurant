@@ -9,10 +9,24 @@ const restaurantSchema = new mongoose.Schema({
   },
   description: String,
 
-  contactNumber: {
-    type:String,
-    required:true
-  },
+contactNumber: {
+  type: String,
+  required: true,
+  set: (value: string) => {
+
+    value = value.replace(/\s|-/g, "");
+
+    if (value.startsWith("+92")) {
+      return value.slice(1);
+    }
+
+    if (value.startsWith("0")) {
+      return `92${value.slice(1)}`;
+    }
+
+    return value;
+  }
+},
 
   email: {
     type:String,

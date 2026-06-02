@@ -109,13 +109,13 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
       </div>
 
 
-      <input
-        type="file"
-        accept="image/*"
+      {/* <input
+        type="text"
+        //accept="image/*"
         name="image"
         value={formData.image}
         onChange={handleChange}
-        className="underline  text-blue-400 font-medium" />
+        className="underline  text-blue-400 font-medium" /> */}
 
       <div className="flex items-center justify-end w-full gap-4 mt-5">
         <button type="submit" className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-2 sm:px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center"
