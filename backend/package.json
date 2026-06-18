@@ -14,6 +14,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "axios": "^1.16.1",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.2",
     "cors": "^2.8.6",
@@ -22,6 +23,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.4.1",
+    "nodemailer": "^8.0.10",
     "zod": "^4.3.6"
   },
   "devDependencies": {
