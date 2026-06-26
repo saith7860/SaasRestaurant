@@ -1,7 +1,10 @@
 
 import { toast } from "react-toastify";
 import api from "../../api/api";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 const OrderForm = ({ formData, handleChange,total ,orderData}) => {
+    const {setCart}=useContext(CartContext)
     const handleSubmit =async (e: any) => {
         e.preventDefault();
         if (total===0) {
@@ -22,6 +25,7 @@ const OrderForm = ({ formData, handleChange,total ,orderData}) => {
             }
          )
          console.log(res.data);
+         setCart([]);
          toast.success("Your order is placed.Restaurant will confirm it now")
        }catch(err:any){
         toast.error(err.response?.data?.message);
