@@ -1,79 +1,91 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRestaurant } from "../../context/RestaurantContext";
-import type { CategoryType, variantType } from "../../types/DashBoardtype";
+import ItemCard from "./ItemCard";
+import type { CategoryType } from "../../types/DashBoardtype";
 import type { ItemType } from "../../types/HomePageTypes";
-import { CartContext } from "../../context/CartContext";
-import Variants from "./Variants";
-import AddToCart from "./AddToCart";
-const SpecificCatogires = () => {
-  const [category, setCategory] = useState<CategoryType | null>(null);
-  const [items, setItems] = useState<ItemType[]>([]);
-   const [selectedVariant,setSelectedVariants] = useState<variantType | undefined>();
-  const { restaurantData } = useRestaurant();
-  const {cart,setCart} =useContext(CartContext);
-  const categories = restaurantData?.category;
- //setting cateogory bassed on user click
-  const handleCateogory = (category: CategoryType) => {
-    setCategory(category);
-  };
 
-  // first category pre-selected
+
+interface SpecificCatogiresProps {
+  search: string;
+}
+
+const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
+  const [category, setCategory] = useState<CategoryType | null>(null);
+  const { restaurantData } = useRestaurant();
+
+  const categories = restaurantData?.category || [];
+  const allItems = restaurantData?.items || [];
+
+  // First category pre-selected
   useEffect(() => {
-    if (categories?.length > 0 && !category) {
+    if (categories.length > 0 && !category) {
       setCategory(categories[0]);
     }
-  }, [categories]);
+  }, [categories, category]);
 
-  // // populate items of selected category
-  useEffect(() => {
-    if (!category || !restaurantData?.items) return;
+ const displayedItems = useMemo(() => {
+  const searchText = search.trim().toLowerCase();
 
-    const filteredItems = restaurantData.items.filter(
-      (item) =>
-        category.items.includes(item._id)
+  if (searchText) {
+    const matchedCategory = categories.find((cat: CategoryType) =>
+      cat.category.toLowerCase().includes(searchText)
     );
 
-    setItems(filteredItems);
-  }, [category, restaurantData]);
-  console.log(items);
-  
-  
+    if (matchedCategory) {
+      return allItems.filter((item: ItemType) =>
+        matchedCategory.items.includes(item._id)
+      );
+    }
+
+    return allItems.filter((item: ItemType) =>
+      item.name.toLowerCase().includes(searchText) ||
+      item.description?.toLowerCase().includes(searchText)
+    );
+  }
+
+  if (!category) return [];
+
+  return allItems.filter((item) =>
+    category.items.includes(item._id)
+  );
+}, [search, category, allItems, categories]);
+
+  const handleCategory = (selectedCategory: CategoryType) => {
+    setCategory(selectedCategory);
+  };
+
   return (
     <div>
-      <div className="flex gap-4 mb-5">
-        {categories?.map((category: CategoryType) => (
-          <button
-            key={category._id}
-            className="text-[#F4B400] text-xl"
-            onClick={() => handleCateogory(category)}
-          >
-            {category.category}
-          </button>
-        ))}
-      </div>
+      {/* Hide categories while searching, optional but cleaner */}
+      {!search.trim() && (
+        <div className="flex gap-4 mb-5">
+          {categories.map((category: CategoryType) => (
+            <button
+              key={category._id}
+              className="text-[#F4B400] text-xl"
+              onClick={() => handleCategory(category)}
+            >
+              {category.category}
+            </button>
+          ))}
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {items.map((item) => {
-   
-    return (
-      <div
-        key={item._id}
-        className="border p-4 rounded-lg shadow"
-      >
-        <h2 className="text-xl font-bold">
-          {item.name}
+      {search.trim() && (
+        <h2 className="text-xl font-semibold mb-4">
+          Search results for: "{search}"
         </h2>
+      )}
 
-        <p className="text-gray-500 mb-3">
-          {item.description}
-        </p>
-      {item.variants?.length>0?<Variants variant={item.variants} selectedVariant={selectedVariant} setSelectedVariants={setSelectedVariants}/>:<p>Rs {item.basePrice}</p>}
-
-      <AddToCart selectedVariant={selectedVariant} cart={cart} setCart={setCart} item={item}/>
-      </div>
-    );
-  })}
-</div>
+      {displayedItems.length === 0 ? (
+        <p className="text-gray-500 text-lg">No item found.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedItems.map((item: ItemType) => (
+            <ItemCard key={item._id} item={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

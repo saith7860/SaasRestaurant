@@ -4,7 +4,8 @@ import type { CategoriesProps, CategoriesType } from "../../types/HomePageTypes"
 import type { ItemType, variant } from "../../types/HomePageTypes";
 import { toast } from "react-toastify";
 import { CartContext } from "../../context/CartContext";
-const Categories = ({ search }: CategoriesProps) => {
+import ShowItems from "./ShowItems";
+const Categories = ({ search }: { search: string }) => {
   const [categories, setCategories] = useState<CategoriesType[]>([]);  //list of all categoires
   const [selectedCategory, setSelectedCategory] = useState<string>('Desi Foods'); //selecting specific castegory and based on that fetch items
   const [items, setItems] = useState<ItemType[]>([]); //storing items of selected category
@@ -12,11 +13,6 @@ const Categories = ({ search }: CategoriesProps) => {
   const [loading, setLoading] = useState(false);
   const { cart, setCart } = useContext(CartContext)!;
 
-  //filter food based on user input
-  const filteredFoods = items.filter((food) =>
-    food.name.toLowerCase().includes(search.toLowerCase())
-  );
-  console.log(filteredFoods);
 
 
   const handleClick = (category: string) => {
@@ -144,8 +140,10 @@ const Categories = ({ search }: CategoriesProps) => {
       { selectedCategory && items.length == 0 && (
         <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
       )} */}
+      <ShowItems items={items}/>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredFoods.map((item) => (
+        {items.map((item) => (
+          
           <div
             key={item._id}
             className="mb-2 p-4 text-white bg-[#2A2633] rounded-lg shadow-md flex flex-col gap-2"

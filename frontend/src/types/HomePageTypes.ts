@@ -1,7 +1,7 @@
 export type NavbarProps = {
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  restaurnatName:string
+  restaurnatName:string | null
 };
 export type CategoriesProps = {
   search: string;
@@ -13,6 +13,7 @@ export type CategoriesType={
 }
 export type variant={
     _id:string
+    itemId:string
     variation:string
     price:number
 }
@@ -20,6 +21,7 @@ export type ItemType={
     _id:string
     name:string
     image:string
+    basePrice:number
     description:string
     variants:variant[];
     isAvailable:boolean
