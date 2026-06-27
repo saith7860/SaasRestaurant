@@ -8,7 +8,7 @@ const Checkout = () => {
   const { restaurantData } = useRestaurant();  
 
   const [formData, setFormData] = useState({
-    
+    customerEmail:"",
     restaurantId: restaurantData?.restaurantData._id,
     branchId: restaurantData?.branches[0]._id,
     deliveryAddress: "",

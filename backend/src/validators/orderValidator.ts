@@ -9,6 +9,7 @@ const createOrderSchema = z.object({
     paymentMethod: z.enum(["COD","CARD"], "Payment method must be COD or CARD"),
     restaurantId: z.string().min(1, "Restaurant ID is required"),
     branchId: z.string().min(1, "Branch ID is required"),
+    customerEmail:z.string("Email is required").email("Invalid email address"),
 });
 
 export { createOrderSchema };

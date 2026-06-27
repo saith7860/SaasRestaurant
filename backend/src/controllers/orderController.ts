@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import * as orderService from '../services/orderService.js';
-import { JwtPayload } from "jsonwebtoken";
+
 type Params={
   id:string
 }

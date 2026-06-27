@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const orderSchema = new mongoose.Schema(
   {
     userId: {
@@ -7,7 +7,13 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
+    customerEmail:{
+      type:String,
+      required:true,
+      trim:true,
+      lowercase:true,
+      match:[emailRegex,"Invalid email address"]
+    },
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Restaurant",

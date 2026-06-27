@@ -104,6 +104,30 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
                         {
                             errors.deliveryAddress && <p className="text-red-500 text-2xl">{errors.deliveryAddress}</p>
                         }
+{/* Customer Email */}
+<div>
+    <label className="text-md  text-bold text-[#F4B400]">
+        Customer Email
+    </label>
+    <input
+        type="text"
+        name="customerEmail"
+        value={formData.customerEmail}
+        onChange={handleChange}
+        className="
+                w-full
+                rounded-xl
+                bg-[#171219]
+                px-4
+                py-3
+                outline-none
+                border border-gray-700
+                focus:border-[#F4B400]
+                transition
+              "
+    />
+</div>
+{errors.customerEmail && <p className="text-red-500 text-2xl">{errors.customerEmail}</p>}
 
                         {/* Payment Method */}
                         <div className="flex flex-col gap-3">
@@ -138,9 +162,7 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
                             errors.paymentMethod && <p className="text-red-500 text-2xl">{errors.paymentMethod}</p>
                         }
                         {/* Submit Button */}
-                        <button
-                            type="submit"
-                            className="
+                        <button   type="submit"   className="
               mt-4
               bg-[#984447]
               hover:bg-[#F4B400]
@@ -151,8 +173,7 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
               rounded-xl
               font-bold
               text-lg
-            "
-                        >
+            "  >
                             Place Order
                         </button>
                     </form>
