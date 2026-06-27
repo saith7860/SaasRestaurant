@@ -85,8 +85,7 @@ export const DashboardProvider = ({
 };
 
 export const useDashboard = () => {
-    const context =
-        useContext(DashboardContext);
+    const context=useContext(DashboardContext);
 
     if (!context) {
         throw new Error(

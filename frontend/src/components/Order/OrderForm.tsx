@@ -1,39 +1,61 @@
 
 import { toast } from "react-toastify";
 import api from "../../api/api";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import handleApiError from "../../api/handleError";
 import { CartContext } from "../../context/CartContext";
-const OrderForm = ({ formData, handleChange,total ,orderData}) => {
-    const {setCart}=useContext(CartContext)
-    const handleSubmit =async (e: any) => {
+import { useRestaurant } from "../../context/RestaurantContext";
+
+const OrderForm = ({ formData, handleChange, total, orderData }) => {
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const { setCart } = useContext(CartContext);
+    const {restaurantData}=useRestaurant();
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (total===0) {
+        if (total === 0) {
             toast.error("Your cart is empty")
             return
         }
-       try{
-        const token = localStorage.getItem("token")
-        console.log(token);
-        
-         const res=await api.post(
-            `/api/order/create`,
-            orderData,
-            {
-               headers: {
-            Authorization: `Bearer ${token}`
-          }
+        try {
+            const token = localStorage.getItem("token")
+            console.log(token);
+
+            const res = await api.post(
+                `/api/order/create`,
+                {...orderData,restaurantId:restaurantData.restaurantData?._id,branchId:restaurantData.branches[0]._id},
+                {
+                    headers: {  
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+            console.log(res.data);
+            setCart([]);
+            toast.success("Your order is placed.Restaurant will confirm it now")
+        } catch (error: any) {
+            console.error("Signup error:", error);
+            const validationErrors = handleApiError(error);
+
+            if (validationErrors) {
+
+                const formattedErrors:
+                    Record<string, string> = {};
+
+                validationErrors.forEach(
+                    (err: any) => {
+
+                        formattedErrors[err.field] =
+                            err.message;
+                    }
+                );
+
+                setErrors(formattedErrors);
             }
-         )
-         console.log(res.data);
-         setCart([]);
-         toast.success("Your order is placed.Restaurant will confirm it now")
-       }catch(err:any){
-        toast.error(err.response?.data?.message);
-       }
-        console.log(orderData);
+        }
+
     };
     return (
-       <>
+        <>
 
             <h1 className="text-4xl font-black text-[#F4B400] mb-6 text-center">
                 Checkout
@@ -73,6 +95,9 @@ const OrderForm = ({ formData, handleChange,total ,orderData}) => {
               "
                             />
                         </div>
+                        {
+                            errors.deliveryAddress && <p className="text-red-500">{errors.deliveryAddress}</p>
+                        }
 
                         {/* Payment Method */}
                         <div className="flex flex-col gap-3">
@@ -93,7 +118,7 @@ const OrderForm = ({ formData, handleChange,total ,orderData}) => {
                                 <input
                                     type="radio"
                                     name="paymentMethod"
-                                    value="COD"                                  
+                                    value="COD"
                                     checked={formData.paymentMethod === "COD"}
                                     onChange={handleChange}
                                     className="accent-[#F4B400] w-4 h-4"
@@ -103,7 +128,9 @@ const OrderForm = ({ formData, handleChange,total ,orderData}) => {
 
                             </label>
                         </div>
-
+                        {
+                            errors.paymentMethod && <p className="text-red-500">{errors.paymentMethod}</p>
+                        }
                         {/* Submit Button */}
                         <button
                             type="submit"
@@ -125,7 +152,7 @@ const OrderForm = ({ formData, handleChange,total ,orderData}) => {
                     </form>
                 </div>
 
-              
+
             </div>
         </>
     )
