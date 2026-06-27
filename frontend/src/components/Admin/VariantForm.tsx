@@ -2,7 +2,7 @@ import { useState } from "react"
 import type { variantType } from "../../types/DashBoardtype"
 import api from "../../api/api"
 import handleApiError from "../../api/handleError";
-
+import { useDashboard } from "../../context/DashBoardContext";
 const VariantForm = ({ itemId, variant }: {
   itemId: string,
   variant: variantType[] | null,
@@ -14,7 +14,8 @@ const VariantForm = ({ itemId, variant }: {
     price: "",
 
   })
-
+//refresh data after crud
+const {refreshDashboardData}=useDashboard();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -41,6 +42,7 @@ const VariantForm = ({ itemId, variant }: {
         }
         )
       }
+      await refreshDashboardData();
     } catch (error) {
       const validationErrors = handleApiError(error);
 
@@ -85,4 +87,4 @@ const VariantForm = ({ itemId, variant }: {
   )
 }
 
-export default VariantForm
+export default VariantForm;

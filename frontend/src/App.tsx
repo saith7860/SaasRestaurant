@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router";
+import { Routes, Route, Navigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
@@ -70,6 +70,7 @@ const App = () => {
               </DashboardProvider>
             </ProtectedAdminRoute>
           }>
+              <Route index element={<Navigate to="restaurant" replace />} />
             {/* <Route index element={<DashBoardLayout/>}/> */}
             <Route path="restaurant" element={<Resturant />} />
             <Route path="branches" element={<Branch />} />

@@ -1,5 +1,6 @@
 import api from "../../api/api.js";
 import { useState, useEffect } from "react";
+import { useDashboard } from "../../context/DashBoardContext.js";
 import type { CategoryType, Restaurant, BranchType } from "../../types/DashBoardtype.js";
 const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   category: CategoryType | null;
@@ -12,7 +13,8 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     image: "",
     branchId: "",
   });
-
+  //refresh data after crud operation
+  const {refreshDashboardData}=useDashboard();
 
   useEffect(() => {
     if (category) {
@@ -52,6 +54,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
             },
           }
         );
+        await refreshDashboardData();
       } else {
         await api.post(
           "/api/category/create-category",
@@ -65,8 +68,9 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
             },
           }
         );
-      }
 
+      }
+        await refreshDashboardData();
       setShowForm(false);
     } catch (err) {
       console.log(err);

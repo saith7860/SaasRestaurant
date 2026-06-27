@@ -1,5 +1,6 @@
 import {useState} from "react"
 import api from "../../api/api.js";
+import { useDashboard } from "../../context/DashBoardContext.js";
 import type { Restaurant } from "../../types/DashBoardtype";
 const ResturantForm = ({restaurant,setShowForm}:{
   restaurant:Restaurant | null;
@@ -12,6 +13,8 @@ const ResturantForm = ({restaurant,setShowForm}:{
     deliveryFee: restaurant?.deliveryFee || 0,
     estimatedDeliveryTime: restaurant?.estimatedDeliveryTime || 0,
   });
+  //refreseh when update data
+  const {refreshDashboardData}=useDashboard();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormField({
       ...formField,
@@ -28,6 +31,7 @@ const ResturantForm = ({restaurant,setShowForm}:{
             Authorization: `Bearer ${token}`
           }
         });
+        await refreshDashboardData();
       } else {
         await api.post("/api/resturant/create-resturant", formField, {
             headers: {
@@ -35,6 +39,7 @@ const ResturantForm = ({restaurant,setShowForm}:{
           }
         });
       }
+      await refreshDashboardData();
       setShowForm(false);
     } catch (error) {
       console.log(error);

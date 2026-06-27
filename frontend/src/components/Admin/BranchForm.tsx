@@ -16,7 +16,7 @@ const BranchForm = ({ branch,setShowForm }: {
         closingTime: "",
         deliveryFee: "",
     });
-    const {restaurant}=useDashboard();
+    const {restaurant,refreshDashboardData}=useDashboard();
 //populating form if branch is selected
  useEffect(() => {
     if (branch) {
@@ -60,6 +60,7 @@ const BranchForm = ({ branch,setShowForm }: {
                     },
                 }
             );
+            await refreshDashboardData();
         } else {
             await api.post(
                 "/api/branch/create-branch",
@@ -74,7 +75,7 @@ const BranchForm = ({ branch,setShowForm }: {
                 }
             );
         }
-
+        await refreshDashboardData();
         setShowForm(false);
     } catch (err) {
         console.log(err);

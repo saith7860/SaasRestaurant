@@ -1,6 +1,7 @@
 import api from "../../api/api"
 import { useState } from "react"
 import type { OrderType } from "../../types/DashBoardtype"
+import { useDashboard } from "../../context/DashBoardContext"
 const OrderStatusForm = ({ order, setShowOrderStatus }: {
   order: OrderType,
   setShowOrderStatus: React.Dispatch<React.SetStateAction<boolean>>
@@ -9,6 +10,8 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
     id:order._id || '',
     orderStatus:order.orderStatus||'pending'
   });
+  //refreseh data after changing status
+  const {refreshDashboardData}=useDashboard();
   //onSubmit function to change status of order
   const ChangeOrderStatus=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
@@ -22,6 +25,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
       if (res.status==200) {
         alert("Order status updated successfully");
         setShowOrderStatus(false);
+        await refreshDashboardData();
       }
     } catch (error) {
       console.log("error updating order status",error);
