@@ -1,8 +1,10 @@
 import express from 'express';
 const orderRouter=express.Router();
 import * as orderController from '../controllers/orderController.js';
+import validate from '../middlewares/validationMiddleware.js';
+import { createOrderSchema } from "../validators/orderValidator.js";
 import { authMiddleware,checkAdmin,attachRestaurantContext } from '../tokens/jwt.js';
-orderRouter.post("/create",authMiddleware,orderController.createOrder);
+orderRouter.post("/create",authMiddleware,validate(createOrderSchema),orderController.createOrder);
 orderRouter.get("/admin/orders",authMiddleware,checkAdmin,attachRestaurantContext,orderController.getOrdersByRestaurant);
 orderRouter.patch("/update-order-status",authMiddleware,checkAdmin,attachRestaurantContext,orderController.updateOrderStatus);
 // orderRouter.get("/my-orders",authMiddleware,orderController.getMyOrders);

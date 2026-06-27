@@ -10,6 +10,8 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const { setCart } = useContext(CartContext);
     const {restaurantData}=useRestaurant();
+
+    
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (total === 0) {
@@ -30,8 +32,10 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
                 }
             )
             console.log(res.data);
-            setCart([]);
+            
             toast.success("Your order is placed.Restaurant will confirm it now")
+            setCart([]);
+            setErrors({});
         } catch (error: any) {
             console.error("Signup error:", error);
             const validationErrors = handleApiError(error);
@@ -54,6 +58,8 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
         }
 
     };
+    console.log('errors ',errors);
+    
     return (
         <>
 
@@ -71,7 +77,7 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
 
                         {/* Address */}
                         <div className="flex flex-col gap-2">
-                            <label className="text-sm text-[#F4B400]">
+                            <label className="text-md  text-bold text-[#F4B400]">
                                 Full Delivery Address
                             </label>
 
@@ -96,7 +102,7 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
                             />
                         </div>
                         {
-                            errors.deliveryAddress && <p className="text-red-500">{errors.deliveryAddress}</p>
+                            errors.deliveryAddress && <p className="text-red-500 text-2xl">{errors.deliveryAddress}</p>
                         }
 
                         {/* Payment Method */}
@@ -129,7 +135,7 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
                             </label>
                         </div>
                         {
-                            errors.paymentMethod && <p className="text-red-500">{errors.paymentMethod}</p>
+                            errors.paymentMethod && <p className="text-red-500 text-2xl">{errors.paymentMethod}</p>
                         }
                         {/* Submit Button */}
                         <button
