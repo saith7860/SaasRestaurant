@@ -3,7 +3,7 @@ import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
 import * as orderItemRepo from '../repos/orderItemRepo.js';
 import { sendEmail } from "../utils/sendEmail.js";
-import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate } from "../utils/orderEmailTemplate.js";
+import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
 import { OrderType } from '../types/order.js';
 // import { OrderItem } from '../types/order.js';
@@ -21,13 +21,46 @@ const getOrdersByRestaurant=async(restaurantId:string)=>{
    }
    return orders;
 }
-const updateOrderStatus=async(id:string,orderStatus:string)=>{
-  const updatedOrder=await orderRepo.updateOrderStatus(id,orderStatus);
-  if (!updatedOrder) {
-    throw new ApiError(400,'Server Error! Order not updated');
+const updateOrderStatus = async (id: string, orderStatus: string) => {
+  const existingOrder = await orderRepo.findOrderById(id);
+
+  if (!existingOrder) {
+    throw new ApiError(404, "Order not found");
   }
+
+  if (existingOrder.orderStatus === orderStatus) {
+    return existingOrder;
+  }
+
+  const updatedOrder = await orderRepo.updateOrderStatus(id, orderStatus);
+
+  if (!updatedOrder) {
+    throw new ApiError(400, "Order status not updated");
+  }
+
+  const restaurant = await Restaurant.findById(updatedOrder.restaurantId);
+
+  if (!restaurant) {
+    throw new ApiError(404, "Restaurant not found");
+  }
+
+  if (updatedOrder.customerEmail) {
+    sendEmail({
+      to: updatedOrder.customerEmail,
+      subject: `Your order from ${restaurant.name} is now ${updatedOrder.orderStatus}`,
+      html: customerOrderStatusTemplate({
+        restaurantName: restaurant.name,
+        orderId: String(updatedOrder._id),
+        orderStatus: updatedOrder.orderStatus,
+        totalAmount: updatedOrder.totalAmount,
+      }),
+    }).catch((error) => {
+      console.log("Order status email failed:", error);
+    });
+  }
+
   return updatedOrder;
-}
+};
 //UPDATE ITEM
 // const getSpecificOrder=async(id:string,data:OrderItem)=>{
 // const getOrder=await orderRepo.updateItemByName(id,data);

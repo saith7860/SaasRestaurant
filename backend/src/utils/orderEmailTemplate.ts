@@ -52,3 +52,27 @@ export const restaurantOrderPlacedTemplate = ({
     </div>
   `;
 };
+
+export const customerOrderStatusTemplate = ({
+  restaurantName,
+  orderId,
+  orderStatus,
+  totalAmount,
+}: CustomerOrderPlacedTemplateData) => {
+  return `
+    <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+      <h2>Your order status has been updated</h2>
+
+      <p>Your order from <b>${restaurantName}</b> has a new status.</p>
+      
+      <p><b>Order ID:</b> ${orderId}</p>
+      <p><b>Total Amount:</b> Rs ${totalAmount}</p>
+      <p><b>Status:</b> ${orderStatus}</p>
+
+
+      <br />
+
+      <p>Thank you for ordering!</p>
+    </div>
+  `;
+};

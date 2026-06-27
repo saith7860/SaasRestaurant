@@ -14,9 +14,12 @@ const updateOrderStatus=async(id:string,orderStatus:string)=>{
   console.log('id is',id);
   console.log('order status is',orderStatus);
   const updatedOrder=await Order.findByIdAndUpdate(id,{orderStatus:orderStatus},{returnDocument:'after'});
-  console.log(updatedOrder);
+  // console.log(updatedOrder);
   
   return updatedOrder;
+}
+const findOrderById=async(id:string)=>{
+  return await Order.findById(id);
 }
 // const getSpecificCategoryId=async(category:string)=>{
 // const speficCategory=await Category.findOneAndUpdate({
@@ -37,4 +40,4 @@ const updateOrderStatus=async(id:string,orderStatus:string)=>{
 //     )
 //     return delItem;
 // }
-export {showAllOrders,createOrder,updateOrderStatus}
+export {showAllOrders,createOrder,updateOrderStatus,findOrderById}
