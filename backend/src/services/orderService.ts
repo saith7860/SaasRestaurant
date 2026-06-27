@@ -6,14 +6,7 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
 import { OrderType } from '../types/order.js';
-// import { OrderItem } from '../types/order.js';
-// const fetchAllOrders=async()=>{
-//    const orders=await orderRepo.showAllOrders();
-//    if (!orders.length) {
-//     throw new ApiError(404,'Items not found');
-//    }
-//    return orders;
-// }
+
 const getOrdersByRestaurant=async(restaurantId:string)=>{
   const orders=await orderRepo.showAllOrders(restaurantId);
   if (!orders.length) {
@@ -61,14 +54,7 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
 
   return updatedOrder;
 };
-//UPDATE ITEM
-// const getSpecificOrder=async(id:string,data:OrderItem)=>{
-// const getOrder=await orderRepo.updateItemByName(id,data);
-// if (!update) {
-//    return new ApiError(400,'Server Error! Item not updated');
-// }
-// return update;
-// }
+
 
 const createOrder = async (userId: string, data: OrderType) => {
   console.log(userId);
@@ -79,7 +65,10 @@ const createOrder = async (userId: string, data: OrderType) => {
   if (!foundUser) {
     throw new ApiError(404, "User is not found");
   }
-
+   // Admin should not be allowed to create order
+  if (foundUser.role === "admin") {
+    throw new ApiError(403, "Admin is not allowed to create orders");
+  }
   const restaurant = await Restaurant.findById(data.restaurantId);
 
   if (!restaurant) {

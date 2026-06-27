@@ -4,6 +4,8 @@ import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router";
 const CartPage = () => {
   const { cart, setCart } = useContext(CartContext)!;
+  const token = localStorage.getItem("token");
+const checkoutRoute = token ? "/checkout" : "/signup?redirect=/checkout";
   const decreaseQty = (itemId: string) => {
     const updatedCart = cart
       .map((item) =>
@@ -87,7 +89,7 @@ const CartPage = () => {
         <>
           <h2 className="m-auto mt-4 text-[#F4B400] text-2xl font-bold text-right">Total: {total}</h2>
 
-          <Link to={"/signup"}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-2 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
+          <Link to={checkoutRoute}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-2 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
         </>
       )}
 
