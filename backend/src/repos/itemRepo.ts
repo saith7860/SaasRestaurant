@@ -19,16 +19,16 @@ const speficCategory=await Category.findById(category);
 
 return speficCategory;
 }
-const updateItemByName=async(id:string,data:ItemType)=> {
-    const foundItem=await Item.findOneAndUpdate({name:id},data, { returnDocument: 'after' });
+const updateItem=async(id:string,data:ItemType)=> {
+    const foundItem=await Item.findByIdAndUpdate(id,data, { returnDocument: 'after' });
     return foundItem;
 }
-const deleteItemByName=async(id:string)=> {
-    const delItem=await Item.findOneAndDelete({name:id});
+const deleteItem=async(id:string)=> {
+    const delItem=await Item.findByIdAndDelete(id);
     await Category.updateMany(
         {items:delItem?._id},
         {$pull:{items:delItem?._id}}
     )
     return delItem;
 }
-export {showAllItems,createItem,getSpecificCategoryId,updateItemByName,deleteItemByName,getItemByName}
+export {showAllItems,createItem,getSpecificCategoryId,updateItem,deleteItem,getItemByName}

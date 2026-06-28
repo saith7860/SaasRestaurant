@@ -6,7 +6,7 @@ import type {BranchType} from "../../types/DashBoardtype.js"
 const Branch = () => {
   const [showForm,setShowForm]=useState(false);
  const [selectedBranch, setSelectedBranch]=useState<BranchType | null>(null);
-  const {branches,setBranches}=useDashboard();
+  const {branches,setBranches,refreshDashboardData}=useDashboard();
   const handleDelete=async(id:string)=>{
      const confirmDelete = window.confirm(
     "Are you sure you want to delete this branch?"
@@ -20,7 +20,8 @@ const Branch = () => {
           Authorization:`Bearer ${token}`
         }
       })
-      setBranches(branches.filter((branch)=>branch._id!==id))
+      setBranches(branches.filter((branch)=>branch._id!==id));
+      await refreshDashboardData();
     } catch (error) {
       console.log(error);
     }

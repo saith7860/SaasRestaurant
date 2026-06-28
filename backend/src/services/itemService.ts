@@ -9,7 +9,7 @@ import type { ItemType } from '../types/itemType.js';
 //    return items;
 // }
 const updateSpecItem=async(id:string,data:ItemType)=>{
-const update=await itemRepo.updateItemByName(id,data);
+const update=await itemRepo.updateItem(id,data);
 if (!update) {
    return new ApiError(400,'Server Error! Item not updated');
 }
@@ -17,7 +17,7 @@ return update;
 }
 //Delete item
 const deleteSpecificItem=async(id:string)=>{
-const del=await itemRepo.deleteItemByName(id);
+const del=await itemRepo.deleteItem(id);
 if (!del) {
    throw new ApiError(400,'Server Error! Item not Deleted');
 }

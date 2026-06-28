@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import api from "../../api/api";
 import handleApiError from "../../api/handleError";
 import type { CategoryType, ItemType, Restaurant, BranchType } from "../../types/DashBoardtype"
+import { useDashboard } from "../../context/DashBoardContext";
 const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
   category: CategoryType[] | null
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>,
@@ -18,7 +19,8 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
     basePrice: "",
     branchId: ""
   })
-
+  //refresh page after crud operations
+  const {refreshDashboardData}=useDashboard();
   useEffect(() => {
     if (item) {
       setFormData({
@@ -49,6 +51,7 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
             },
           }
         );
+        await refreshDashboardData();
       } else {
         await api.post(
           "/api/item/create-item",
@@ -62,7 +65,9 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
             },
           }
         );
+        await refreshDashboardData();
       }
+      await refreshDashboardData();
       setShowForm(false)
     }
     catch (error) {
@@ -119,7 +124,7 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
 
       <div className="flex-col items-start gap-2 mb-5">
         <label htmlFor="image" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg block" >Item Image : </label>
-        <input type="file" name="image" value={formData.image} onChange={handleChange} className="border border-white/30 rounded-md px-2 underline text-blue-400 w-full" />
+        <input type="text" name="image" value={formData.image} onChange={handleChange} className="border border-white/30 rounded-md px-2 underline text-blue-400 w-full" />
 
         {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
       </div>

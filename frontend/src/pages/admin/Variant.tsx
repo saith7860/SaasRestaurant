@@ -4,9 +4,10 @@ import api from "../../api/api";
 import VariantForm from "../../components/Admin/VariantForm";
 import type { variantType, ItemType } from "../../types/DashBoardtype";
 const Variant = () => {
-  const { items } = useDashboard();
+  const { items,refreshDashboardData } = useDashboard();
   const [itemId, setItemId] = useState<string | null>(null);
   const [variant, setVariant] = useState<variantType[] | null>(null);
+  
   const deleteVariant = async (id: string) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this branch?"
@@ -21,6 +22,7 @@ const Variant = () => {
           Authorization: `Bearer ${token}`
         }
       })
+      await refreshDashboardData();
     } catch (error) {
       console.log('error in deletion', error);
 

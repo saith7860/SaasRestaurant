@@ -10,7 +10,7 @@ const Item = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState("");
   const [selectedBranchId, setSelectedBranchId] = useState("");
   const [filteredItems, setFilteredItems] = useState<ItemType[]>([]);
-  const { items, category, restaurant, branches } = useDashboard();
+  const { items, category, restaurant, branches,refreshDashboardData } = useDashboard();
   console.log(items);
   const deleteItem = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -26,6 +26,7 @@ const Item = () => {
         }
       });
       console.log(res.data);
+      await refreshDashboardData();
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +97,7 @@ const Item = () => {
               className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center "
               onClick={() => {
                 setShowForm(true);
-                setEditItem(item)
+                setEditItem(item);
               }}>Edit</button>
 
             <button

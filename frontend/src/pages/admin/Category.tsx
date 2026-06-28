@@ -12,7 +12,7 @@ import api from "../../api/api";
 const Category = () => {
   const [showForm, setShowForm] = useState(false);
   const [editCategory, setEditCategory] = useState<CategoryType | null>(null);
-  const { category, restaurant, branches } = useDashboard();
+  const { category, restaurant, branches,refreshDashboardData } = useDashboard();
 
   const deleteCategory = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -28,6 +28,7 @@ const Category = () => {
         }
       });
       console.log(res.data);
+    await refreshDashboardData();
     } catch (error) {
       console.log(error);
     }
