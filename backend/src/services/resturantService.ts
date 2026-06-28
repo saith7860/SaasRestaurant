@@ -32,7 +32,7 @@ const getDashBoardData=async(id:string)=>{
     if (!items) {
         throw new ApiError(404,"Items not found")
     }
-      const orders=await orderRepo.showAllOrders(id)
+   const orders=await orderRepo.showAllOrders(id)
     if (!orders) {
         throw new ApiError(404,"Orders not found")
     }

@@ -25,16 +25,44 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
     return existingOrder;
   }
 
+  const restaurant = await Restaurant.findById(existingOrder.restaurantId);
+
+  if (!restaurant) {
+    throw new ApiError(404, "Restaurant not found");
+  }
+
+  // If new status is delivered or cancelled, send email first then delete order
+  if (orderStatus === "delivered" || orderStatus === "cancelled") {
+    if (existingOrder.customerEmail) {
+      sendEmail({
+        to: existingOrder.customerEmail,
+        subject: `Your order from ${restaurant.name} is now ${orderStatus}`,
+        html: customerOrderStatusTemplate({
+          restaurantName: restaurant.name,
+          orderId: String(existingOrder._id),
+          orderStatus: orderStatus,
+          totalAmount: existingOrder.totalAmount,
+        }),
+      }).catch((error) => {
+        console.log("Order status email failed:", error);
+      });
+    }
+
+    await orderRepo.deleteOrderById(String(existingOrder._id));
+
+    return {
+      message: `Order ${orderStatus} and removed from database`,
+      deleted: true,
+      orderId: existingOrder._id,
+      orderStatus,
+    };
+  }
+
+  // Otherwise only update status
   const updatedOrder = await orderRepo.updateOrderStatus(id, orderStatus);
 
   if (!updatedOrder) {
     throw new ApiError(400, "Order status not updated");
-  }
-
-  const restaurant = await Restaurant.findById(updatedOrder.restaurantId);
-
-  if (!restaurant) {
-    throw new ApiError(404, "Restaurant not found");
   }
 
   if (updatedOrder.customerEmail) {

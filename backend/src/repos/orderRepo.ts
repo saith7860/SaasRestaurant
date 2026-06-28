@@ -1,10 +1,22 @@
 import Order from "../models/orderModel.js";
 import { OrderType } from "../types/order.js";
 
+
 const showAllOrders=async(restaurantId:string)=>{
-    const orders=await Order.find({restaurantId:restaurantId}).populate("userId","name phone");
-    return orders
+const orders = await Order.find({
+  restaurantId: restaurantId,
+  orderStatus: {
+    $nin: ["delivered", "cancelled"],
+  },
+})
+  .populate("userId", "name phone")
+  .sort({ createdAt: -1 });
+  return orders
 } 
+//delete order if status is delivered or cancelled
+const deleteOrderById=async(id:string)=>{
+  return await Order.findByIdAndDelete(id);
+}
 const createOrder=async(userId:string,data:OrderType)=>{
   const newOrder=new Order({...data,userId:userId});
   await newOrder.save();
@@ -40,4 +52,4 @@ const findOrderById=async(id:string)=>{
 //     )
 //     return delItem;
 // }
-export {showAllOrders,createOrder,updateOrderStatus,findOrderById}
+export {showAllOrders,createOrder,updateOrderStatus,findOrderById,deleteOrderById}
