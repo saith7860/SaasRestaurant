@@ -2,6 +2,7 @@ import express from 'express';
 import type { Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import 'dotenv/config'
 //File imports
 import { connectDB } from './utils/db.js';
@@ -46,7 +47,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-
+app.use(cookieParser())
 app.use(helmet());
 //Routes
 app.use("/api/category",categoryRouter) //CATEGORY ROUTER

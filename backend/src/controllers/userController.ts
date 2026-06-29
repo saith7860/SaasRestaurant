@@ -15,12 +15,46 @@ try {
 }
 export const loginUser=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-     const loginUserToken=await userService.loginUser(req.body);
+    const {refreshToken,token:accessToken}=await userService.loginUser(req.body);
+    res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "strict",
+    maxAge: 60 * 60 * 24 * 7 * 1000, // 7 days in milliseconds
+  });
     return res.json({
       success: "true",
       message:"User logged in successfully",
-      token:loginUserToken
+      token:accessToken
     });
+} catch (error) {
+    next(error)
+}
+}
+export const createNewAccessToken=async(req:Request,res:Response,next:NextFunction)=>{
+try {
+   const refreshToken=req.cookies.refreshToken;
+   const accessToken=await userService.generateNewAccessToken(refreshToken);
+   return res.json({
+     success: "true",
+     message: "New access token created successfully",
+     token:accessToken
+   })
+} catch (error) {
+    next(error)
+}
+}
+export const logoutUser=async(req:Request,res:Response,next:NextFunction)=>{
+try {
+     res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "strict",
+    });
+  return res.json({
+    success: "true",
+    message: "User logged out successfully",
+  })
 } catch (error) {
     next(error)
 }

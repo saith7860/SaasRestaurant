@@ -1,10 +1,12 @@
 import express from 'express';
-import {  createUser,loginUser } from '../controllers/userController.js';
+import {  createUser,loginUser,createNewAccessToken,logoutUser } from '../controllers/userController.js';
 import validate from '../middlewares/validationMiddleware.js';
 import { loginSchemaZod, userSchemaZod } from '../validators/userValidator.js';
-import { authMiddleware, checkAdmin } from '../tokens/jwt.js';
+import { authMiddleware, checkAdmin} from '../tokens/jwt.js';
 const UserRouter =express.Router();
 UserRouter.post("/signup",validate(userSchemaZod),createUser);
 UserRouter.post("/login",validate(loginSchemaZod),loginUser);
+UserRouter.post("/refresh-token",createNewAccessToken);
+UserRouter.post("/logout",logoutUser)
 // UserRouter.get("/profile",authMiddleware,getProfile);
 export default UserRouter;

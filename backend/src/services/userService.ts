@@ -2,11 +2,10 @@ import { ApiError } from "../middlewares/errorHandler.js";
 import { userType, loginUserType, userData } from "../types/userType.js";
 import * as userRepo from "../repos/userRepo.js";
 import bcrypt from "bcryptjs";
-import { createToken } from "../tokens/jwt.js";
+import { createToken, createRefreshToken,verifyRefreshToken } from "../tokens/jwt.js";
 const saltRounds = 10;
 const createUser = async (data: userType) => {
   const { password, email } = data;
- console.log(data);
  
   const checkEmailExists = await userRepo.isEmailExists(email);
   if (checkEmailExists) {
@@ -36,12 +35,31 @@ const loginUser = async (data: loginUserType) => {
       role:findUser.role,
     }
     //generate token
-    const token= createToken(payload)
-    if (token) {
-      return token;
+    const acessToken= createToken(payload);
+    const refreshToken= createRefreshToken(payload);
+    
+    if (acessToken&& refreshToken) {
+      return {token:acessToken,refreshToken}
     }
     throw new ApiError(500,'Error in generating token');
   }
   throw new ApiError(401,'Password does not match')
 };
-export { createUser, loginUser };
+const generateNewAccessToken=async(refreshToken:string)=>{
+    const decoded = verifyRefreshToken(refreshToken);
+     if (!decoded) {
+      throw new ApiError(401,"Invalid refresh token");
+    }
+    const accessToken= createToken({
+      email:decoded.email,
+      userId:decoded.userId,
+      restaurantId:decoded.restaurantId,
+      role:decoded.role,
+    });
+    if (!accessToken) {
+        throw new ApiError(500,"Error in generating access token");
+    }
+    return accessToken;
+    
+}
+export { createUser, loginUser ,generateNewAccessToken};

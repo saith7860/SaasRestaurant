@@ -11,6 +11,6 @@ export type loginUserType={
 export type userData={
     email:string
     role:string
-    userId:Types.ObjectId
-    restaurantId:Types.ObjectId|null|undefined
+    userId:string|Types.ObjectId
+    restaurantId?:string|Types.ObjectId|null|undefined
 }
