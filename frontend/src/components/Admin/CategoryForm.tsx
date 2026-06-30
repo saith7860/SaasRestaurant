@@ -37,8 +37,6 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
 
     if (!restaurant?._id) return;
 
-    const token = localStorage.getItem("token");
-
     try {
       if (category?._id) {
 
@@ -47,11 +45,6 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
           {
             ...formData,
             restaurantId: restaurant._id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           }
         );
         await refreshDashboardData();
@@ -61,11 +54,6 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
           {
             ...formData,
             restaurantId: restaurant._id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           }
         );
 

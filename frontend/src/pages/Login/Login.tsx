@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import handleApiError from "../../api/handleError.js";
 import { toast } from "react-toastify";
 import api from "../../api/api";
+import { setAccessToken } from "../../api/tokenStore.js";
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
@@ -28,10 +29,9 @@ const Login = () => {
     try {
       const res = await api.post("/api/user/login", loginField);
       console.log("Login success:", res.data);
-       localStorage.setItem("token", res.data.token);
+      setAccessToken(res.data.token);
       toast.success("User logged in successfully")
-      navigate("/checkout")
-      // optional: store token
+      navigate("/checkout");
     
     } catch (error) {
       console.error("Login error:", error);

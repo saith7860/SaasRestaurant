@@ -1,14 +1,19 @@
 import { Link, useNavigate } from "react-router";
+import api from "../../api/api";
+import { clearAccessToken } from "../../api/tokenStore";
 
 const SideBar = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // 1. Remove auth data
+  const handleLogout = async () => {
+    try {
+      await api.post("/api/user/logout");
+    } catch (err) {
+      console.error("Logout API error:", err);
+    }
+    clearAccessToken();
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
-
-    // 2. Redirect to login
+      
     navigate("/login");
   };
 

@@ -24,20 +24,11 @@ const ResturantForm = ({restaurant,setShowForm}:{
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
       if (restaurant) {
-        await api.patch(`/api/resturant/update-resturant/${restaurant._id}`, formField, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        await api.patch(`/api/resturant/update-resturant/${restaurant._id}`, formField);
         await refreshDashboardData();
       } else {
-        await api.post("/api/resturant/create-resturant", formField, {
-            headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        await api.post("/api/resturant/create-resturant", formField);
       }
       await refreshDashboardData();
       setShowForm(false);

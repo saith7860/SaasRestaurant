@@ -16,11 +16,13 @@ import Item from "./pages/admin/Item";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
+import { setAccessToken } from "./api/tokenStore";
 const App = () => {
   const { restaurantData, setRestaurantData } = useRestaurant();
+  const [loadingAuth, setLoadingAuth] = useState(true);
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
@@ -48,9 +50,30 @@ const App = () => {
       }
     };
   useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await api.post("/api/user/refresh-token");
+        setAccessToken(res.data.token);
+      } catch (err) {
+        console.log("No valid session");
+      } finally {
+        setLoadingAuth(false);
+      }
+    };
+    checkAuth();
+
     const slug = getSlug();
     getRestaurant(slug);
   }, [])
+
+  if (loadingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#171219] text-[#F4B400] text-xl font-bold">
+        Loading...
+      </div>
+    );
+  }
+
   console.log(restaurantData);
 
   return (

@@ -43,8 +43,6 @@ const BranchForm = ({ branch,setShowForm }: {
 
     if (!restaurant?._id) return;
 
-    const token = localStorage.getItem("token");
-
     try {
         if (branch?._id) {
             
@@ -53,11 +51,6 @@ const BranchForm = ({ branch,setShowForm }: {
                 {
                     ...formData,
                     restaurant: restaurant._id,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
                 }
             );
             await refreshDashboardData();
@@ -67,11 +60,6 @@ const BranchForm = ({ branch,setShowForm }: {
                 {
                     ...formData,
                     restaurant: restaurant._id,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
                 }
             );
         }

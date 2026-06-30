@@ -92,14 +92,8 @@ const Variant = () => {
 
     if (!confirmDelete) return;
 
-    const token = localStorage.getItem("token");
-
     try {
-      await api.delete(`/api/variant/delete-variant/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api.delete(`/api/variant/delete-variant/${id}`);
 
       await refreshDashboardData();
       setEditVariant(null);

@@ -14,12 +14,7 @@ const Branch = () => {
 
   if (!confirmDelete) return
     try {
-      const token=localStorage.getItem("token");
-      await api.delete(`/api/branch/delete-branch/${id}`,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      })
+      await api.delete(`/api/branch/delete-branch/${id}`)
       setBranches(branches.filter((branch)=>branch._id!==id));
       await refreshDashboardData();
     } catch (error) {

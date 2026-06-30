@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { Plus, Minus, Trash2 } from "lucide-react";
 import { CartContext } from "../../context/CartContext";
 import { Link } from "react-router";
+import { getAccessToken } from "../../api/tokenStore";
 const CartPage = () => {
   const { cart, setCart } = useContext(CartContext)!;
-  const token = localStorage.getItem("token");
+  const token = getAccessToken();
 const checkoutRoute = token ? "/checkout" : "/signup?redirect=/checkout";
   const decreaseQty = (itemId: string) => {
     const updatedCart = cart

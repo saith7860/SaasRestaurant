@@ -36,7 +36,6 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!restaurant?._id) return;
-    const token = localStorage.getItem("token");
     try {
       if (item?._id) {
         await api.patch(
@@ -44,11 +43,6 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
           {
             ...formData,
             restaurantId: restaurant._id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           }
         );
         await refreshDashboardData();
@@ -58,11 +52,6 @@ const ItemForm = ({ setShowForm, item, category, restaurant, branches }: {
           {
             ...formData,
             restaurantId: restaurant._id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
           }
         );
         await refreshDashboardData();

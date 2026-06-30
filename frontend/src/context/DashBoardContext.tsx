@@ -83,15 +83,8 @@ export const DashboardProvider = ({
             setLoading(true);
             setError(null);
 
-            const token = localStorage.getItem("token");
-
             const res = await api.get(
-                "/api/resturant/admin/dashboard",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+                "/api/resturant/admin/dashboard"
             );
 
             console.log("Dashboard Data:", res.data.result);

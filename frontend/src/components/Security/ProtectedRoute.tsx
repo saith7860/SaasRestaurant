@@ -1,10 +1,13 @@
 import { Navigate } from "react-router";
 import {jwtDecode} from "jwt-decode";
+import { getAccessToken } from "../../api/tokenStore";
 const ProtectedAdminRoute = ({
     children
+}: {
+    children: React.ReactNode;
 }) => {
 
-    const token =localStorage.getItem("token");
+    const token = getAccessToken();
     console.log(token);
     if (!token) {
         return <Navigate to="/login" />;

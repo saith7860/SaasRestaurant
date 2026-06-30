@@ -21,12 +21,7 @@ const Category = () => {
 
     if (!confirmDelete) return
     try {
-      const token = localStorage.getItem("token");
-      const res = await api.delete(`/api/category/delete-category/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const res = await api.delete(`/api/category/delete-category/${id}`);
       console.log(res.data);
     await refreshDashboardData();
     } catch (error) {

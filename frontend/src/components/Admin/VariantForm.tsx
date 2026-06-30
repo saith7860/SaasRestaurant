@@ -168,9 +168,6 @@ const VariantForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-    if (!token) return;
-
     try {
       const payload = {
         itemId: itemId,
@@ -181,22 +178,12 @@ const VariantForm = ({
       if (editVariant) {
         await api.patch(
           `/api/variant/update-variant/${editVariant._id}`,
-          {...payload},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          {...payload}
         );
       } else {
         await api.post(
           "/api/variant/create-variant",
-          payload,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
+          payload
         );
       }
 

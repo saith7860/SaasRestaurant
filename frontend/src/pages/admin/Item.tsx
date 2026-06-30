@@ -19,12 +19,7 @@ const Item = () => {
 
     if (!confirmDelete) return
     try {
-      const token = localStorage.getItem("token");
-      const res = await api.delete(`/api/item/delete-item/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const res = await api.delete(`/api/item/delete-item/${id}`);
       console.log(res.data);
       await refreshDashboardData();
     } catch (error) {

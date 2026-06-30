@@ -19,17 +19,9 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
             return
         }
         try {
-            const token = localStorage.getItem("token")
-            console.log(token);
-
             const res = await api.post(
                 `/api/order/create`,
-                {...orderData,restaurantId:restaurantData.restaurantData?._id,branchId:restaurantData.branches[0]._id},
-                {
-                    headers: {  
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+                {...orderData,restaurantId:restaurantData.restaurantData?._id,branchId:restaurantData.branches[0]._id}
             )
             console.log(res.data);
             

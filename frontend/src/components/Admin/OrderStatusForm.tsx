@@ -16,12 +16,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
   const ChangeOrderStatus=async(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     try {
-      const token=localStorage.getItem("token");
-      const res=await api.patch("/api/order/update-order-status",formData,{
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      });
+      const res=await api.patch("/api/order/update-order-status",formData);
       if (res.status==200) {
         alert("Order status updated successfully");
         setShowOrderStatus(false);
