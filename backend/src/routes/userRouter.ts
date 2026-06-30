@@ -7,6 +7,6 @@ const UserRouter =express.Router();
 UserRouter.post("/signup",validate(userSchemaZod),createUser);
 UserRouter.post("/login",validate(loginSchemaZod),loginUser);
 UserRouter.post("/refresh-token",createNewAccessToken);
-UserRouter.post("/logout",logoutUser)
+UserRouter.post("/logout",logoutUser);  
 // UserRouter.get("/profile",authMiddleware,getProfile);
 export default UserRouter;

@@ -103,7 +103,7 @@ const checkAdmin = (req: any, res: Response, next: NextFunction) => {
 const attachRestaurantContext = (req:any, res:Response, next:NextFunction) =>
    { 
     if (req.user?.role === "admin") {
-      req.restaurant = req.user.restaurant as JwtPayload;
+       req.restaurant = req.user.restaurant as JwtPayload;
     } 
 next(); 
 };
