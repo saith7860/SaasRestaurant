@@ -1,6 +1,8 @@
 import { restaurantType } from "../types/resturantType.js"
 import Restaurant from "../models/resturantModel.js"
-
+import { ClientSession } from "mongoose";
+import { userType } from "../types/userType.js";
+import User from "../models/userModel.js";
 const createResturant=async(data:restaurantType)=>{
     const newResturant=new Restaurant(data);
     await newResturant.save();
@@ -30,4 +32,43 @@ const getDashBoardData=async(id:string)=>{
     const getDashBoardData=await Restaurant.findById(id);
     return getDashBoardData;
 }
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}
+const findRestaurantBySlug = async (
+  slug: string,
+  session?: ClientSession
+) => {
+  return Restaurant.findOne({ slug }).session(session || null);
+};
+
+const findUserByEmail = async (
+  email: string,
+  session?: ClientSession
+) => {
+  return User.findOne({ email }).session(session || null);
+};
+const createOwner = async (
+  ownerData: userType,
+  session: ClientSession
+) => {
+  const owner = new User(ownerData);
+
+  await owner.save({ session });
+
+  return owner;
+};
+const createRestaurant = async (
+  restaurantData:restaurantType,
+  session: ClientSession
+) => {
+  const restaurant = new Restaurant(restaurantData);
+
+  await restaurant.save({ session });
+
+  return restaurant;
+};
+const findRestaurantByEmail = async (
+  email: string,
+  session?: ClientSession
+) => {
+  return Restaurant.findOne({ restaurantEmail: email }).session(session || null);
+};
+export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData,createOwner,findRestaurantBySlug,findUserByEmail,createRestaurant,findRestaurantByEmail}

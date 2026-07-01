@@ -3,6 +3,10 @@ export type userType={
     name:string
     email:string
     password:string
+    phone:string
+    address:string
+    role:string
+    restaurantId?:string|Types.ObjectId|null|undefined
 }
 export type loginUserType={
     email:string

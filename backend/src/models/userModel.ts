@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
+import { required } from "zod/mini";
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type:String,
+    required:true
+  },
   email: {
     type:String,
-    require:true
+    required:true
   },
   password: {
     type:String,
-    require:true
+    required:true
   },
 phone: {
   type: String,

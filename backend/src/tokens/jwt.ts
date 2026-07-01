@@ -8,8 +8,7 @@ interface CustomJwtPayload extends JwtPayload {
   userId:string;
   restaurantId?:string;
 }
-//secret
- const secret=process.env.JWT_SECRET;
+
  const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 if (!accessTokenSecret) {
@@ -89,16 +88,24 @@ const verifyRefreshToken = (refreshToken: string) => {
   }
 };
 const checkSuperAdmin=(req: any, res: Response, next: NextFunction) => {
-  if (req.user?.role !== "super_admin") {
-   throw new ApiError(401,'Only Super Admin can access this feature');
+  try {
+ if (req.user?.role !== "super_admin") {
+   throw new ApiError(403,'Only Super Admin can access this feature');
   }
   next();
+  } catch (error) {
+    next(error);
+  }
 }
 const checkAdmin = (req: any, res: Response, next: NextFunction) => {
-  if (req.user?.role !== "admin") {
-   throw new ApiError(401,'Not Authorized');
+  try {
+    if (req.user?.role !== "admin") {
+   throw new ApiError(403,'Not Authorized');
   }
   next();
+  } catch (error) {
+    next(error);
+  }
 };
 const attachRestaurantContext = (req:any, res:Response, next:NextFunction) =>
    { 

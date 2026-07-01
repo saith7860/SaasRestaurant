@@ -1,14 +1,13 @@
 import mongoose, { Types } from "mongoose"
 
 export type restaurantType={
-    _id:string,
-    name:string,
-    image:string,
+    restaurantName:string,
+    slug:string,
+    restaurantImage:string,
     description:string,
     contactNumber:string,
-    email:string,
+    restaurantEmail:string,
     deliveryFee:number,
     estimatedDeliveryTime:string,
-    isActive:boolean,
-    owner:mongoose.Schema.Types.ObjectId
+    owner:mongoose.Schema.Types.ObjectId|string
 }

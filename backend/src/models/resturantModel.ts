@@ -1,13 +1,17 @@
 import mongoose from "mongoose";
 const restaurantSchema = new mongoose.Schema({
-  name: {
+  restaurantName: {
     type: String,
     required: true
   },
-  image:{
-    type:String
+  restaurnatImage:{
+    type:String,
+    // required:true
   },
-  description: String,
+  description: {
+    type:String,
+    required:true
+  },
 
 contactNumber: {
   type: String,
@@ -28,10 +32,13 @@ contactNumber: {
   }
 },
 
-  email: {
-    type:String,
-    required:true
-  },
+restaurantEmail: {
+  type: String,
+  required: true,
+  unique: true,
+  lowercase: true,
+  trim: true,
+},
 
   deliveryFee: {
     type: Number,
@@ -46,15 +53,18 @@ contactNumber: {
     type: Boolean,
     default: true
   },
-  slug:{
-    type:String,
-    required:true,
-    unique:true
-  },
+slug: {
+  type: String,
+  required: true,
+  unique: true,
+  lowercase: true,
+  trim: true,
+},
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required:true
+    required:true,
+    unique:true
   }
 
 }, { timestamps: true });
