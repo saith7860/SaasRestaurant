@@ -30,8 +30,13 @@ const Login = () => {
       const res = await api.post("/api/user/login", loginField);
       console.log("Login success:", res.data);
       setAccessToken(res.data.token);
+      console.log("user type",res.data.role)
       toast.success("User logged in successfully")
-      navigate("/checkout");
+      if(res.data.role === "admin")
+      navigate("/admin");
+      else{
+        navigate("/checkout");
+      }
     
     } catch (error) {
       console.error("Login error:", error);

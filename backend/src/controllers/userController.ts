@@ -15,7 +15,7 @@ try {
 }
 export const loginUser=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-    const {refreshToken,token:accessToken}=await userService.loginUser(req.body);
+    const {refreshToken,token:accessToken,role}=await userService.loginUser(req.body);
     res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: false,
@@ -25,7 +25,8 @@ try {
     return res.json({
       success: "true",
       message:"User logged in successfully",
-      token:accessToken
+      token:accessToken,
+      role:role
     });
 } catch (error) {
     next(error)

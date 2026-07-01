@@ -39,7 +39,7 @@ const loginUser = async (data: loginUserType) => {
     const refreshToken= createRefreshToken(payload);
     
     if (acessToken&& refreshToken) {
-      return {token:acessToken,refreshToken}
+      return {token:acessToken,refreshToken,role:findUser.role}
     }
     throw new ApiError(500,'Error in generating token');
   }
