@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { imageSchema } from "./resturantModel.js";
 const categorySchema = new mongoose.Schema(
   {
    category: {
@@ -17,9 +18,13 @@ const categorySchema = new mongoose.Schema(
       ref: "Restaurant",
       required: true
     },
-    image: {
-     type: String
-    },
+ image: {
+  type: imageSchema,
+  default: {
+    url: "",
+    publicId: "",
+  },
+},
   items: [
    {type:mongoose.Schema.Types.ObjectId,
       ref:'Item'

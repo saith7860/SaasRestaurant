@@ -6,7 +6,7 @@ import { createRestaurantValidator } from "../validators/resturantValidator.js";
 const superAdminRouter = express.Router();
 import validate from "../middlewares/validationMiddleware.js";
 superAdminRouter.post(
-  "/super-admin/create-restaurant",
+  "/create-restaurant",
   authMiddleware,
   checkSuperAdmin,
   validate(createRestaurantValidator),

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { imageSchema } from "./resturantModel.js";
 const itemSchema = new mongoose.Schema(
   {
     name: {
@@ -6,7 +7,11 @@ const itemSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: String
+     type: imageSchema,
+  default: {
+    url: "",
+    publicId: "",
+  },
     },
     description: {
       type: String,

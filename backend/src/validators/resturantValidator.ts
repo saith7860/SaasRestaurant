@@ -1,15 +1,14 @@
 import {z} from "zod";
 //restaurant validator 
 export const createRestaurantValidator = z.object({
-  restaurantName: z.string().min(1, "Name is required"),
-  restaurnatImage:z.url("Invalid image URL"),
-  description:z.string().min(1, "Description is required"),
+  restaurantName: z.string("Enter Restaurnat Name").min(1, "Name is required"),
+  restaurantImage:z.string("Invalid image URL"),
+  description:z.string("Enter a description").min(10, "Description is required"),
   contactNumber: z.string().min(1, "Contact number is required"),
-  slug:z.string().min(1, "Slug is required"),
+  slug:z.string("Enter a value").min(1, "Slug is required"),
   restaurantEmail:z.email("Invalid email"),
-  deliveryFee: z.string().min(1, "Delivery fee is required"),
+  deliveryFee: z.number("Enter number").min(1, "Delivery fee is required"),
   estimatedDeliveryTime:z.string().min(1, "Estimated delivery time is required"),
-  owner: z.string().min(1, "Owner is required"),
 });
 
 

@@ -6,7 +6,6 @@ import * as userRepo from '../repos/userRepo.js'
 interface CreateRestaurantBySuperAdminInput {
   restaurantName: string;
   description: string;
-  restaurantImage: string;
   slug: string;
   restaurantEmail: string;
   contactNumber: string;
@@ -18,7 +17,7 @@ interface CreateRestaurantBySuperAdminInput {
   password:string
   phone:string
   address:string
-  role:"admin"
+  role:string
 }
 
 const createRestaurantBySuperAdmin = async (
@@ -32,7 +31,6 @@ const createRestaurantBySuperAdmin = async (
     const {
       restaurantName,
       description,
-      restaurantImage,
       slug,
       restaurantEmail,
       contactNumber,
@@ -72,21 +70,22 @@ const createRestaurantBySuperAdmin = async (
     if (existingRestaurantByEmail) {
       throw new ApiError(409, "Restaurant email already exists");
     }
+    const hashPassword=await bcrypt.hash(password,10)
      const ownerUser = await userRepo.createUser(
       {
         name,
         email,
-        password,
+        password:hashPassword,
         phone,
         address,
-        role,
+        role:"admin",
       },
       session
     );
     if (!ownerUser) {
         throw new ApiError(500,'User not created');
     }
-  const restaurant = await resturantRepo.createRestaurant({restaurantName,restaurantImage,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,estimatedDeliveryTime,owner:ownerUser._id},session)
+  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,estimatedDeliveryTime,owner:ownerUser._id},session)
       const updatedOwner = await userRepo.updateUserRestaurantId(
       ownerUser._id,
       restaurant._id,
@@ -103,7 +102,6 @@ const createRestaurantBySuperAdmin = async (
         id: restaurant._id,
         name: restaurant.restaurantName,
         description: restaurant.description,
-        image: restaurant.restaurnatImage,
         slug: restaurant.slug,
         email: restaurant.restaurantEmail,
         contactNumber: restaurant.contactNumber,
