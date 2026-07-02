@@ -49,3 +49,11 @@ export const uploadImageToCloudinary = async ({
     publicId: result.public_id,
   };
 };
+
+export const deleteImageFromCloudinary = async (
+  publicId?: string
+) => {
+  if (!publicId) return;
+
+  await cloudinary.uploader.destroy(publicId);
+};

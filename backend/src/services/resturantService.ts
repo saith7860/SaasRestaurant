@@ -5,13 +5,69 @@ import * as categoryRepo from "../repos/categoryRepo.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 import * as itemRepo from "../repos/itemRepo.js";
 import * as orderRepo from '../repos/orderRepo.js';
-const createResturant=async(data:restaurantType)=>{
-    const newResturant=await resturantRepo.createResturant(data);
-    if (!newResturant) {
-        throw new ApiError(400,"Resturant not created")
-    }
-    return newResturant
+import {
+  uploadImageToCloudinary,
+  deleteImageFromCloudinary,
+} from "./uploadService.js";
+
+interface RestaurantImageFiles {
+  logo?: Express.Multer.File[];
+  banner?: Express.Multer.File[];
 }
+
+const updateRestaurantImages = async (
+  adminId: string,
+  files: RestaurantImageFiles
+) => {
+  const restaurant = await resturantRepo.findRestaurantByOwner(adminId);
+
+  if (!restaurant) {
+    throw new ApiError(404, "Restaurant not found for this admin");
+  }
+
+  const updateData: any = {};
+
+  const logoFile = files?.logo?.[0];
+  const bannerFile = files?.banner?.[0];
+
+  if (!logoFile || !bannerFile) {
+    throw new ApiError(400, "Logo or banner image is required");
+  }
+
+  if (logoFile) {
+    await deleteImageFromCloudinary(restaurant.logo?.publicId);
+
+    const logo = await uploadImageToCloudinary({
+      file: logoFile,
+      folder: `food-ordering/restaurants/${restaurant.slug}/logo`,
+      width: 300,
+      height: 300,
+    });
+
+    updateData.logo = logo;
+  }
+
+  if (bannerFile) {
+    await deleteImageFromCloudinary(restaurant.banner?.publicId);
+
+    const banner = await uploadImageToCloudinary({
+      file: bannerFile,
+      folder: `food-ordering/restaurants/${restaurant.slug}/banner`,
+      width: 1600,
+      height: 500,
+    });
+
+    updateData.banner = banner;
+  }
+
+  const updatedRestaurant = await resturantRepo.updateResturant(
+    restaurant._id.toString(),
+    updateData
+  );
+
+  return updatedRestaurant;
+};
+
 const getDashBoardData=async(id:string)=>{
     console.log(id);
     debugger;
@@ -86,4 +142,4 @@ const getSpecificResturantData=async(slug:string)=>{
     }
     return {restaurantData,branches,category,items}
 }
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}
+export {updateRestaurantImages,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}

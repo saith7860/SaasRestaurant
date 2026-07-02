@@ -22,10 +22,23 @@ const fileFilter = (
   cb(null, true);
 };
 
-export const uploadSingleImage = multer({
+const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 2 * 1024 * 1024, // 2 MB
+    fileSize: 2 * 1024 * 1024,
   },
-}).single("image");
+});
+
+export const uploadSingleImage = upload.single("image");
+
+export const uploadRestaurantImages = upload.fields([
+  {
+    name: "logo",
+    maxCount: 1,
+  },
+  {
+    name: "banner",
+    maxCount: 1,
+  },
+]);

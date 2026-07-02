@@ -2,18 +2,40 @@ import {Request,Response,NextFunction} from "express"
 import { ApiError } from "../middlewares/errorHandler.js";
 //import service
 import * as resturantService from '../services/resturantService.js'
-//create resturant
-const createResturant=async(req:Request,res:Response,next:NextFunction)=>{
-try{
-    const result=await resturantService.createResturant(req.body);
-    return res.json({
-        success:"true",
-        message:"Resturant created successfully",
-        result
+//update resturantImages
+const updateRestaurantImages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log("request files",req.files)
+    const files = req.files as {
+      logo?: Express.Multer.File[];
+      banner?: Express.Multer.File[];
+    };
+    const restaurantId=req.user?.restaurantId;
+    if(!restaurantId){
+        throw new ApiError(404,"Resturant not found")
+    }
+    console.log("restaurantId",restaurantId);
+    console.log("files",files);
+    
+    const result = await resturantService.updateRestaurantImages(
+      restaurantId,
+      files
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Restaurant images updated successfully",
+      data: result,
     });
-}catch(error){
-    next(error)
-}}
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getDashBoardData=async(req:Request,res:Response,next:NextFunction)=>{
 try{
     console.log(req.user);
@@ -97,4 +119,4 @@ const getSpecificResturantData=async(req:Request,res:Response,next:NextFunction)
     }
 }
 //export functions
-export {createResturant,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData,getDashBoardData}
+export {updateRestaurantImages,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData,getDashBoardData}

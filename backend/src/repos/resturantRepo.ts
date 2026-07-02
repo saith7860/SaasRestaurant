@@ -3,15 +3,17 @@ import Restaurant from "../models/resturantModel.js"
 import { ClientSession } from "mongoose";
 import { userType } from "../types/userType.js";
 import User from "../models/userModel.js";
-const createResturant=async(data:restaurantType)=>{
-    const newResturant=new Restaurant(data);
-    await newResturant.save();
-    return newResturant;
-}
 const updateResturant=async(id:string,data:restaurantType)=>{
     const updateResturant=await Restaurant.findByIdAndUpdate(id,data,{returnDocument:"after"});
     return updateResturant;
 }
+const findRestaurantByOwner = async (
+  owner: string,
+) => {
+  const resturant=await Restaurant.findById(owner);
+  return resturant;
+};
+
 const deleteResturant=async(id:string)=>{
     const deleteResturant=await Restaurant.findByIdAndDelete(id);
     return deleteResturant;
@@ -71,4 +73,4 @@ const findRestaurantByEmail = async (
 ) => {
   return Restaurant.findOne({ restaurantEmail: email }).session(session || null);
 };
-export {createResturant,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData,createOwner,findRestaurantBySlug,findUserByEmail,createRestaurant,findRestaurantByEmail}
+export {updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData,createOwner,findRestaurantBySlug,findUserByEmail,createRestaurant,findRestaurantByEmail,findRestaurantByOwner}
