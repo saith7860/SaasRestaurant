@@ -13,8 +13,8 @@ const createMenu=async(data:CategoryType)=>{
   await newCategory.save();
   return newCategory;
 }
-const getSpecificCategory=async(category:string)=>{
-  const categoryData=await Category.findOne({category});
+const getSpecificCategoryAndRestaurant=async(category:string,restaurantId:string)=>{
+  const categoryData=await Category.findOne({category,restaurantId});
   return categoryData;
 }
 const updateCategory=async(id:string,data:CategoryType)=>{
@@ -25,4 +25,4 @@ const deleteCategory=async(id:string)=>{
   const category=await Category.findByIdAndDelete(id);
   return category;
 }
-export {showAllMenu,createMenu,getSpecificCategory,updateCategory,deleteCategory,getAllCategoriesOfResturant}
+export {showAllMenu,createMenu,getSpecificCategoryAndRestaurant,updateCategory,deleteCategory,getAllCategoriesOfResturant}

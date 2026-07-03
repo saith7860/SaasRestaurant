@@ -2,6 +2,7 @@ import api from "../../api/api.js";
 import { useState, useEffect } from "react";
 import { useDashboard } from "../../context/DashBoardContext.js";
 import type { CategoryType, Restaurant, BranchType } from "../../types/DashBoardtype.js";
+import  handleApiError  from "../../api/handleError.js";
 const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   category: CategoryType | null;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,9 +11,9 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
 }) => {
   const [formData, setFormData] = useState({
     category: "",
-    image: "",
     branchId: "",
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   //refresh data after crud operation
   const {refreshDashboardData}=useDashboard();
 
@@ -20,7 +21,6 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     if (category) {
       setFormData({
         category: category.category || "",
-        image: category.image || "",
         branchId: category.branchId || "",
       });
     }
@@ -61,9 +61,27 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
         await refreshDashboardData();
       setShowForm(false);
     } catch (err) {
-      console.log(err);
+      const validationErrors = handleApiError(err);
+
+      if (validationErrors) {
+
+        const formattedErrors:
+          Record<string, string> = {};
+
+        validationErrors.forEach(
+          (err: any) => {
+
+            formattedErrors[err.field] =
+              err.message;
+          }
+        );
+
+        setErrors(formattedErrors);
+      }
     }
   };
+  console.log(errors);
+  
   return (
     <form className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-start gap-3 p-5 mx-3 overflow-hidden" action="" onSubmit={handleCategorySubmit}>
 
@@ -94,13 +112,17 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
         </select>
 
       </div>
-
+          {errors.branchId && (
+            <p className="text-white text-xs">{errors.branchId}</p>
+          )}
       <div className="flex items-center gap-2 mb-5">
         <label htmlFor="category"  className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg ">Category Name : </label>
         <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Enter Category" className="border border-white/30 rounded-md px-1" />
       </div>
 
-
+{errors.category && (
+            <p className="text-white text-xs">{errors.category}</p>
+          )}
       {/* <input
         type="text"
         //accept="image/*"

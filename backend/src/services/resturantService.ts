@@ -16,23 +16,23 @@ interface RestaurantImageFiles {
 }
 
 const updateRestaurantImages = async (
-  adminId: string,
+  restaurantId: string,
   files: RestaurantImageFiles
 ) => {
-  const restaurant = await resturantRepo.findRestaurantByOwner(adminId);
+  const restaurant = await resturantRepo.findRestaurantByOwner(restaurantId);
 
   if (!restaurant) {
-    throw new ApiError(404, "Restaurant not found for this admin");
+    throw new ApiError(404, "Restaurant not found");
   }
-
-  const updateData: any = {};
 
   const logoFile = files?.logo?.[0];
   const bannerFile = files?.banner?.[0];
 
-  if (!logoFile || !bannerFile) {
+  if (!logoFile && !bannerFile) {
     throw new ApiError(400, "Logo or banner image is required");
   }
+
+  const updateData: any = {};
 
   if (logoFile) {
     await deleteImageFromCloudinary(restaurant.logo?.publicId);
@@ -42,6 +42,13 @@ const updateRestaurantImages = async (
       folder: `food-ordering/restaurants/${restaurant.slug}/logo`,
       width: 300,
       height: 300,
+      validation: {
+        label: "Logo",
+        minWidth: 300,
+        minHeight: 300,
+        aspectRatio: 1,
+        tolerance: 0.5,
+      },
     });
 
     updateData.logo = logo;
@@ -55,6 +62,11 @@ const updateRestaurantImages = async (
       folder: `food-ordering/restaurants/${restaurant.slug}/banner`,
       width: 1600,
       height: 500,
+      validation: {
+        label: "Banner",
+        minWidth: 1200,
+        minHeight: 400,
+      },
     });
 
     updateData.banner = banner;

@@ -19,8 +19,8 @@ const postItem = async (req: Request, res: Response, next: NextFunction) => {
   try {
     console.log("req.body is ",req.body);
     console.log("category id is ",req.body.categoryId);
-
-    const result = await itemService.createItem(req.body.categoryId, req.body);
+   const restaurantId=req.user?.restaurantId;
+    const result = await itemService.createItem(req.body.categoryId, req.body,req.file,restaurantId as string);
     return res.json({
       success: "true",
       data: result,
@@ -29,6 +29,7 @@ const postItem = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+
 const getSpecificItem = (req: Request, res: Response) => {
   try {
   } catch (error) {}

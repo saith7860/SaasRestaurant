@@ -8,6 +8,7 @@ export const createRestaurantValidator = z.object({
   restaurantEmail:z.email("Invalid email"),
   deliveryFee: z.number("Enter number").min(1, "Delivery fee is required"),
   estimatedDeliveryTime:z.string().min(1, "Estimated delivery time is required"),
+  
 });
 
 

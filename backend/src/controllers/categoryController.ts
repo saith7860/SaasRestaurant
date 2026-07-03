@@ -1,7 +1,6 @@
 import { Request,Response,NextFunction } from "express"
 import mongoose, { Types } from "mongoose";
 import * as categoryService from '../services/categoryService.js'
-import { success } from "zod";
 const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
     try {
         const id=req.params.id as string;
@@ -16,7 +15,8 @@ const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 }
 const postAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-   const category= await categoryService.createMenu(req.body);
+   const restaurantId = (req as any).restaurantId as string;
+   const category= await categoryService.createMenu(req.body,restaurantId);
    return res.json({
         success:"True",
         message:"Category saved successfully",
@@ -30,10 +30,8 @@ try {
 const getSpecificCategory=async(req:Request,res:Response,next:NextFunction)=>{
 try {
     const category=req.query.category as string;
-    console.log(category);
-    
-   const result=await categoryService.getSpecificCategory(category);
-   console.log("SERVICE RESULT:", result);
+    const restaurantId = (req as any).restaurantId as string;
+   const result=await categoryService.getSpecificCategory(category,restaurantId);
    return  res.json({
        success:true,
        data:result

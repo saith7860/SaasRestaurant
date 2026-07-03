@@ -5,9 +5,10 @@ import SpecificCatogires from "../../components/Home/SpecificCatogires";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
+   
   return (
     <>
-     <Navbar restaurnatName={restaurantData?.restaurantData?.name ||null} setSearch={setSearch}   search={search}/>
+     <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <SpecificCatogires search={search}/>
      {/* <Categories search={search}/> */}
     </>

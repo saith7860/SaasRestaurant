@@ -6,7 +6,10 @@ export type variantType={
 }
 export type ItemType={
     name:string
-    image:string
+    image:{
+        url:string
+        publicId:string
+    }
     categoryId:mongoose.Schema.Types.ObjectId;
     description:string
     variants?:mongoose.Schema.Types.ObjectId[];

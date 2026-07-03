@@ -1,12 +1,8 @@
 import cloudinary from "../config/cloudinary.js";
 import { ApiError } from "../middlewares/errorHandler.js";
-
-interface UploadImageOptions {
-  file: Express.Multer.File | undefined;
-  folder: string;
-  width?: number;
-  height?: number;
-}
+import { validateImageDimensions } from "../utils/validateImageDimensions.js";
+import { ImageValidationRules } from "../types/imageUpload.js";
+import { UploadImageOptions } from "../types/imageUpload.js";
 
 export const uploadImageToCloudinary = async ({
   file,
@@ -17,6 +13,8 @@ export const uploadImageToCloudinary = async ({
   if (!file) {
     throw new ApiError(400, "Image file is required");
   }
+
+
 
   const base64File = `data:${file.mimetype};base64,${file.buffer.toString(
     "base64"
@@ -50,9 +48,7 @@ export const uploadImageToCloudinary = async ({
   };
 };
 
-export const deleteImageFromCloudinary = async (
-  publicId?: string
-) => {
+export const deleteImageFromCloudinary = async (publicId?: string) => {
   if (!publicId) return;
 
   await cloudinary.uploader.destroy(publicId);

@@ -20,7 +20,10 @@ export type variant={
 export type ItemType={
     _id:string
     name:string
-    image:string
+    image:{
+      url:string
+      publicId:string
+    }
     basePrice:number
     description:string
     variants:variant[];

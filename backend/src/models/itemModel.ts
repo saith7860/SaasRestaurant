@@ -8,7 +8,7 @@ const itemSchema = new mongoose.Schema(
     },
     image: {
      type: imageSchema,
-  default: {
+    default: {
     url: "",
     publicId: "",
   },

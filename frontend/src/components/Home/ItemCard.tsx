@@ -18,7 +18,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
       <h2 className="text-xl font-bold">{item.name}</h2>
 
       <p className="text-gray-500 mb-3">{item.description}</p>
-
+      <img className="h-32 w-32" src={item.image?.url} alt={item.name} />
       {item.variants && item.variants.length > 0 ? (
         <Variants
           itemId={item._id}

@@ -10,20 +10,20 @@ const fetchMenu=async(id:string)=>{
    return menus;
 }
 
-const createMenu=async(data:CategoryType)=>{
-   const category=await categoryRepo.getSpecificCategory(data.category);
+const createMenu=async(data:CategoryType,restaurantId:string)=>{
+   const category=await categoryRepo.getSpecificCategoryAndRestaurant(data.category,restaurantId);
    if (category) {
     throw new ApiError(400,'Category already exists');
    }
    const newCategory= categoryRepo.createMenu(data);
    if (!newCategory) {
-    throw new ApiError(400,'Category not created');
+    throw new ApiError(500,'Category not created');
    }
    return newCategory;
 }
-const getSpecificCategory=async(category:string)=>{
+const getSpecificCategory=async(category:string,restaurantId:string)=>{
 
-    const specificData=await categoryRepo.getSpecificCategory(category);
+    const specificData=await categoryRepo.getSpecificCategoryAndRestaurant(category,restaurantId);
       if (!specificData) {
        throw new ApiError(404,'Category does not found')
     }

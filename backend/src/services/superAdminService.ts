@@ -45,7 +45,6 @@ const createRestaurantBySuperAdmin = async (
       role
     } = payload;
 
-   
 
     const formattedSlug = slug
       .toLowerCase()
