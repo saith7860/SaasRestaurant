@@ -9,12 +9,12 @@ const Resturant = () => {
     <div className="px-auto mx-[clamp(1rem,28px,2rem)]">
 
       <div>
-        <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >{restaurant?.name}</div>
+        <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >{restaurant?.restaurantName}</div>
         <div className="flex flex-col gap-3 text-sm sm:text-base md:text-lg bg-[#2A2633] p-5 rounded-lg">
           {/* <img src={restaurant?.image} alt="" /> */}
           {/* <div>{restaurant?.description}</div> */}
           <div>Contact Number:  {restaurant?.contactNumber}</div>
-          <div>Email: {restaurant?.email}</div>
+          <div>Email: {restaurant?.restaurantEmail}</div>
           <div>Delivery Fee: {restaurant?.deliveryFee}</div>
           <div>Delivery Time: {restaurant?.estimatedDeliveryTime}</div>
         </div>

@@ -38,7 +38,7 @@ const loginUser = async (data: loginUserType) => {
     const acessToken= createToken(payload);
     const refreshToken= createRefreshToken(payload);
     
-    if (acessToken&& refreshToken) {
+    if (acessToken && refreshToken) {
       return {token:acessToken,refreshToken,role:findUser.role}
     }
     throw new ApiError(500,'Error in generating token');
@@ -46,16 +46,22 @@ const loginUser = async (data: loginUserType) => {
   throw new ApiError(401,'Password does not match')
 };
 const generateNewAccessToken=async(refreshToken:string)=>{
+  console.log("refreshToken in serice layer is ",refreshToken);
+  if (!refreshToken) {
+    throw new ApiError(401,"refresh token not found");
+  }
     const decoded = verifyRefreshToken(refreshToken);
      if (!decoded) {
       throw new ApiError(401,"Invalid refresh token");
     }
-    const accessToken= createToken({
+    const accessToken=createToken({
       email:decoded.email,
       userId:decoded.userId,
       restaurantId:decoded.restaurantId,
       role:decoded.role,
     });
+    console.log("Access token is ",accessToken);
+    
     if (!accessToken) {
         throw new ApiError(500,"Error in generating access token");
     }

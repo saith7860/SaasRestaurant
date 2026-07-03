@@ -49,32 +49,37 @@ const createToken = (userData:userData) => {
     if (!accessTokenSecret) {
       throw new ApiError(500,'Bad Request!Error in creating JWT SECRET');
     }
-    return jwt.sign(userData,accessTokenSecret,{expiresIn:"15min",algorithm: "HS256"});
+    const accesstoken= jwt.sign(userData,accessTokenSecret,{expiresIn:"15min",algorithm: "HS256"});
+    if(!accesstoken){
+      throw new ApiError(500,'Bad Request!Error in creating JWT TOKEN')
+    }
+    return accesstoken;
   } catch (error) {
     console.log("error in genterating token", error);
   }
 };
 const createRefreshToken = (userData: userData) => {
-    const payload = {
-    userId: userData.userId,
-    role: userData.role,
-    email: userData.email,
-    restaurantId: userData.restaurantId,
-  };
+
   try {
     if (!refreshTokenSecret) {
       throw new ApiError(500,"Refresh token secret is not defined");
     }
-    return jwt.sign(payload, refreshTokenSecret, {
+    const refreshToken=jwt.sign(userData, refreshTokenSecret, {
       expiresIn: "7d",
       algorithm: "HS256",
     });
+    if(!refreshToken){
+      throw new ApiError(500,'Bad Request!Error in creating REFRESH TOKEN')
+    }
+    return refreshToken;
   } catch (error) {
     console.error("Error in creating refresh token:", error);
     throw error;
   }
 };
 const verifyRefreshToken = (refreshToken: string) => {
+  console.log("refreshToken is",refreshToken);
+  
   try {
     if (!refreshTokenSecret) {
       throw new ApiError(500, "Refresh token secret is not defined");

@@ -7,11 +7,11 @@ const ResturantForm = ({restaurant,setShowForm}:{
   setShowForm:React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const [formField, setFormField] = useState({
-    name: restaurant?.name || "",
-    email: restaurant?.email || "",
+    name: restaurant?.restaurantName || "",
+    email: restaurant?.restaurantEmail || "",
     contactNumber: restaurant?.contactNumber || "",
     deliveryFee: restaurant?.deliveryFee || 0,
-    estimatedDeliveryTime: restaurant?.estimatedDeliveryTime || 0,
+    estimatedDeliveryTime: restaurant?.estimatedDeliveryTime || "",
   });
   //refreseh when update data
   const {refreshDashboardData}=useDashboard();
@@ -27,9 +27,7 @@ const ResturantForm = ({restaurant,setShowForm}:{
       if (restaurant) {
         await api.patch(`/api/resturant/update-resturant/${restaurant._id}`, formField);
         await refreshDashboardData();
-      } else {
-        await api.post("/api/resturant/create-resturant", formField);
-      }
+      } 
       await refreshDashboardData();
       setShowForm(false);
     } catch (error) {

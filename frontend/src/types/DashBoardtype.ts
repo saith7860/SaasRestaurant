@@ -1,10 +1,10 @@
 export interface Restaurant {
   _id: string;
-  name: string;
+  restaurantName: string;
   image?: string;
   description?: string;
   contactNumber: string;
-  email: string;
+  restaurantEmail: string;
   deliveryFee: number;
   estimatedDeliveryTime?: string;
   isActive: boolean;

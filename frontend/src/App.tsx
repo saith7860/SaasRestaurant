@@ -53,8 +53,11 @@ const App = () => {
     const checkAuth = async () => {
       try {
         const res = await api.post("/api/user/refresh-token");
+        console.log('response in refresh token',res);
+        
         setAccessToken(res.data.token);
       } catch (err) {
+        console.log('error in refresh token',err)
         console.log("No valid session");
       } finally {
         setLoadingAuth(false);

@@ -36,9 +36,9 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
     if (existingOrder.customerEmail) {
       sendEmail({
         to: existingOrder.customerEmail,
-        subject: `Your order from ${restaurant.name} is now ${orderStatus}`,
+        subject: `Your order from ${restaurant.restaurantName} is now ${orderStatus}`,
         html: customerOrderStatusTemplate({
-          restaurantName: restaurant.name,
+          restaurantName: restaurant.restaurantName,
           orderId: String(existingOrder._id),
           orderStatus: orderStatus,
           totalAmount: existingOrder.totalAmount,
@@ -68,9 +68,9 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
   if (updatedOrder.customerEmail) {
     sendEmail({
       to: updatedOrder.customerEmail,
-      subject: `Your order from ${restaurant.name} is now ${updatedOrder.orderStatus}`,
+      subject: `Your order from ${restaurant.restaurantName} is now ${updatedOrder.orderStatus}`,
       html: customerOrderStatusTemplate({
-        restaurantName: restaurant.name,
+        restaurantName: restaurant.restaurantName,
         orderId: String(updatedOrder._id),
         orderStatus: updatedOrder.orderStatus,
         totalAmount: updatedOrder.totalAmount,
@@ -112,9 +112,9 @@ const createOrder = async (userId: string, data: OrderType) => {
   Promise.all([
     sendEmail({
       to: data.customerEmail,
-      subject: `Your order from ${restaurant.name} is in progress`,
+      subject: `Your order from ${restaurant.restaurantName} is in progress`,
       html: customerOrderPlacedTemplate({
-        restaurantName: restaurant.name,
+        restaurantName: restaurant.restaurantName,
         orderId: String(newOrder._id),
         totalAmount: newOrder.totalAmount,
         orderStatus: newOrder.orderStatus,
@@ -122,10 +122,10 @@ const createOrder = async (userId: string, data: OrderType) => {
     }),
 
     sendEmail({
-      to: restaurant.email,
-      subject: `New order received at ${restaurant.name}`,
+      to: restaurant.restaurantEmail,
+      subject: `New order received at ${restaurant.restaurantName}`,
       html: restaurantOrderPlacedTemplate({
-        restaurantName: restaurant.name,
+        restaurantName: restaurant.restaurantName,
         orderId: String(newOrder._id),
         totalAmount: newOrder.totalAmount,
         customerEmail: newOrder.customerEmail,
