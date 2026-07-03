@@ -97,6 +97,9 @@ const createOrder = async (userId: string, data: OrderType) => {
   if (foundUser.role === "admin") {
     throw new ApiError(403, "Admin is not allowed to create orders");
   }
+    if (foundUser.role === "super_admin") {
+    throw new ApiError(403, "Super Admin is not allowed to create orders");
+  }
   const restaurant = await Restaurant.findById(data.restaurantId);
 
   if (!restaurant) {
