@@ -34,28 +34,26 @@ const Category = () => {
 
       <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Manage Categories</div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="flex flex-col gap-5">
         {category?.map((category: CategoryType) => (
 
-          <div key={category._id} className=" flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-center gap-3">
-
-            <img className="object-cover flex-1  w-full" src={category.image} alt={category.category} width={200} max-height={200} />
+          <div key={category._id} className=" inline-block w-full border-2 border-[#F4B400]/30 rounded-lg items-center gap-3">
 
             <div className="flex items-center justify-between p-5 gap-7 w-full">
 
-              <span className="font-black text-[#984447] cursor-default">{category.category}</span>
+              <span className="font-black text-xl sm:text-2xl text-[#984447] cursor-default">{category.category}</span>
 
               <div className="flex items-center gap-3">
                 <button onClick={() => {
                   setShowForm(true);
                   setEditCategory(category);
                 }} 
-                className="cursor-pointer text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaEdit /></button>
+                className="cursor-pointer text-xl sm:text-2xl text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaEdit /></button>
 
                 <button onClick={() => {
                   deleteCategory(category._id);
                 }}
-                className="cursor-pointer text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaTrash /></button>
+                className="cursor-pointer text-xl sm:text-2xl text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaTrash /></button>
               </div>
             </div>
           </div>

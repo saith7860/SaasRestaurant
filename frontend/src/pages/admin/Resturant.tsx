@@ -6,6 +6,7 @@ const Resturant = () => {
   const { restaurant } = useDashboard();
 
   return (
+    
     <div className="px-auto mx-[clamp(1rem,28px,2rem)]">
 
       <div>
@@ -14,6 +15,7 @@ const Resturant = () => {
           {/* <img src={restaurant?.image} alt="" /> */}
           {/* <div>{restaurant?.description}</div> */}
           <div>Contact Number:  {restaurant?.contactNumber}</div>
+
           <div>Email: {restaurant?.restaurantEmail}</div>
           <div>Delivery Fee: {restaurant?.deliveryFee}</div>
           <div>Delivery Time: {restaurant?.estimatedDeliveryTime}</div>

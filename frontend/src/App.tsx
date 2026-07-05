@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
 import CartPage from "./pages/Cart/CartPage";
-import { DashboardProvider } from "./context/DashBoardContext";
+import { DashboardProvider, useDashboard } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
 import Checkout from "./pages/Checkout/Checkout";
 import Signup from "./pages/signup/Signup";
@@ -20,6 +20,8 @@ import { useEffect, useState } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 import { setAccessToken } from "./api/tokenStore";
+
+
 const App = () => {
   const { restaurantData, setRestaurantData } = useRestaurant();
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -53,11 +55,11 @@ const App = () => {
     const checkAuth = async () => {
       try {
         const res = await api.post("/api/user/refresh-token");
-        console.log('response in refresh token',res);
-        
+        console.log('response in refresh token', res);
+
         setAccessToken(res.data.token);
       } catch (err) {
-        console.log('error in refresh token',err)
+        console.log('error in refresh token', err)
         console.log("No valid session");
       } finally {
         setLoadingAuth(false);
@@ -79,34 +81,40 @@ const App = () => {
 
   console.log(restaurantData);
 
+  const bgColor = restaurantData?.restaurantData?.theme?.backgroundColor;
+
+  console.log(bgColor);
+  
+
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} />
-      <CartProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={
-            <ProtectedAdminRoute>
-              <DashboardProvider>
-                <DashBoardLayout />
-              </DashboardProvider>
-            </ProtectedAdminRoute>
-          }>
+      <div style={{ backgroundColor: bgColor }} className="min-h-screen">
+        <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={
+              <ProtectedAdminRoute>
+                <DashboardProvider>
+                  <DashBoardLayout />
+                </DashboardProvider>
+              </ProtectedAdminRoute>
+            }>
               <Route index element={<Navigate to="restaurant" replace />} />
-            {/* <Route index element={<DashBoardLayout/>}/> */}
-            <Route path="restaurant" element={<Resturant />} />
-            <Route path="branches" element={<Branch />} />
-            <Route path="categories" element={<Category />} />
-            <Route path="items" element={<Item />} />
-            <Route path="orders" element={<Order />} />
-            <Route path="variants" element={<Variant />} />
-          </Route>
-        </Routes>
-      </CartProvider>
+              {/* <Route index element={<DashBoardLayout/>}/> */}
+              <Route path="restaurant" element={<Resturant />} />
+              <Route path="branches" element={<Branch />} />
+              <Route path="categories" element={<Category />} />
+              <Route path="items" element={<Item />} />
+              <Route path="orders" element={<Order />} />
+              <Route path="variants" element={<Variant />} />
+            </Route>
+          </Routes>
+        </CartProvider>
+      </div>
     </>
   )
 }

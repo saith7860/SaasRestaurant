@@ -1,3 +1,7 @@
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
+
+
 // import { useEffect, useState } from "react"
 // import { useDashboard } from "../../context/DashBoardContext"
 // import api from "../../api/api";
@@ -120,14 +124,14 @@ const Variant = () => {
 
   return (
     <div>
-      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10">
+      <h3 className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10">
         Manage Variants
-      </div>
+      </h3>
 
-      <form className="flex flex-col lg:flex-row gap-8 border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3">
+      <form className="flex flex-row gap-8 border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3 mb-8">
         <label
           htmlFor="itemId"
-          className="text-[#984447] font-bold text-sm sm:font-bold md:text-lg"
+          className="text-[#984447] font-bold text-xl md:text-2xl"
         >
           Select Item :
         </label>
@@ -136,7 +140,7 @@ const Variant = () => {
           name="itemId"
           id="itemId"
           value={itemId}
-          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
+          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1 w-auto"
           onChange={handleItemChange}
         >
           <option value="">Select Item</option>
@@ -149,21 +153,29 @@ const Variant = () => {
         </select>
       </form>
 
-      {variants.length > 0 &&
-        variants.map((v: variantType) => (
-          <div key={v._id} className="mx-3 my-3">
-            <p>{v.variation}</p>
-            <p>{v.price}</p>
+          
 
-            <button onClick={() => setEditVariant(v)}>
-              Edit
-            </button>
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 my-3">
+        {variants.length > 0 &&
+          variants.map((v: variantType) => (
 
-            <button onClick={() => deleteVariant(v._id)}>
-              Delete
-            </button>
-          </div>
-        ))}
+            <div key={v._id} className="relative border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3 w-auto">
+
+              <p className="font-bold text-xl sm:text-2xl">Variant : <span className="text-[#F4B400] font-light text-md"> {v.variation} </span> </p>
+              <p className="font-bold text-xl md:text-2xl">Price : <span className="text-[#F4B400]"> {v.price} </span> </p>
+
+              <div className="flex items-center justify-end gap-4 mt-6 ">
+                <button className="text-2xl" onClick={() => setEditVariant(v)}>
+                  <CiEdit />
+                </button>
+
+                <button className="text-2xl" onClick={() => deleteVariant(v._id)}>
+                  <MdDelete />
+                </button>
+              </div>
+            </div>
+          ))}
+      </div>
 
       {itemId && (
         <VariantForm

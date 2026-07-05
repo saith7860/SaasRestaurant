@@ -31,7 +31,7 @@ const Categories = ({ search }: { search: string }) => {
 
       return;
     }
-    if (selectedVariant !== undefined || selectedVariant !== null) {
+    if (selectedVariant !== undefined && selectedVariant !== null) {
 
       console.log(selectedVariant);
       console.log(fullItem);
@@ -108,11 +108,12 @@ const Categories = ({ search }: { search: string }) => {
       </div>
     );
   }
+
   return (
-    <div className="px-4 py-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
       {/* Categories */}
-      <div className="flex gap-6 overflow-x-auto scrollbar-hide mb-6 whitespace-nowrap">
+      <div className="flex gap-3 overflow-x-auto scrollbar-hide mb-10 pb-2 whitespace-nowrap">
         {categories.map((cat) => (
           <button
             key={cat._id}
@@ -140,25 +141,22 @@ const Categories = ({ search }: { search: string }) => {
       { selectedCategory && items.length == 0 && (
         <p className="text-[#F4B400] m-auto p-4 text-xl font-bold">No items in this category</p>
       )} */}
-      <ShowItems items={items}/>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <ShowItems items={items} />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mx-6">
         {items.map((item) => (
-          
+
           <div
             key={item._id}
-            className="mb-2 p-4 text-white bg-[#2A2633] rounded-lg shadow-md flex flex-col gap-2"
-          >
-            {/* <img
-              src={item.image}
-              alt={item.name}
-              className=""
-            /> */}
+            className=" group flex flex-col justify-between bg-[#2A2633] border border-[#3B3645] rounded-2xl  p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-[#F4B400] hover:shadow-2xl">
 
-            <h2 className="text-[#F4B400] font-black text-xl">{item.name}</h2>
-            <p className="text-white">{item.description}</p>
+
+            <h2 className="text-2xl font-extrabold tracking-wide text-[#F4B400] ">{item.name}</h2>
+            <p className="text-gray-300 leading-7 text-sm ">{item.description}</p>
 
             {item.variants.map((variant) => (
-              <div key={`${variant.variation}-${item._id}`} className="flex gap-2">
+              <div key={`${variant.variation}-${item._id}`} className="items-center flex rounded-lg gap-3 py-2 bg-[#1E1B26] px-3 hover:bg-[#24202F] transition ">
 
                 <input
                   name={`variant-${item._id}`}

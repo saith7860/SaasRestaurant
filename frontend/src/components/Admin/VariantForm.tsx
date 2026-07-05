@@ -178,7 +178,7 @@ const VariantForm = ({
       if (editVariant) {
         await api.patch(
           `/api/variant/update-variant/${editVariant._id}`,
-          {...payload}
+          { ...payload }
         );
       } else {
         await api.post(
@@ -215,46 +215,68 @@ const VariantForm = ({
   return (
     <>
       <form
-        className="flex flex-col lg:flex-row gap-8 border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3"
+        className="mt-20 max-w-lg mx-auto w-full bg-[#2A2633] border border-[#F4B400]/20 rounded-2xl shadow-xl p-6 space-y-6"
         onSubmit={handleSubmit}
       >
-        <label htmlFor="variation">Enter Variation:</label>
-
-        <input
-          type="text"
-          name="variation"
-          value={formData.variation}
-          onChange={handleChange}
-          className="border border-white/30 rounded-md px-2 w-full"
-        />
-
-        {error.variation && (
-          <p className="text-red-500 text-sm">{error.variation}</p>
-        )}
-
-        <label htmlFor="price">Enter Price:</label>
-
-        <input
-          type="number"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          className="border border-white/30 rounded-md px-2 w-full"
-        />
-
-        {error.price && (
-          <p className="text-red-500 text-sm">{error.price}</p>
-        )}
-
-        <button type="submit">
+        <h2 className="text-2xl font-bold text-[#F4B400]">
           {editVariant ? "Update Variant" : "Add Variant"}
-        </button>
+        </h2>
 
-        {editVariant && (
-          <button type="button" onClick={onCancelEdit}>
-            Cancel
+        <div className="space-y-2 ">
+
+          <label
+            htmlFor="variation"
+            className="block text-sm font-semibold text-white">
+            Enter Variation:</label>
+
+          <input
+            type="text"
+            name="variation"
+            value={formData.variation}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-gray-600 bg-[#1F1B29] text-white px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F4B400] focus:border-[#F4B400] transition" />
+
+          {error.variation && (
+            <p className="text-red-400 text-sm">{error.variation}</p>
+          )}
+
+        </div>
+
+        <div className="space-y-2">
+
+          <label
+            htmlFor="price"
+            className="block text-sm font-semibold text-white">
+            Enter Price:</label>
+
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full rounded-lg border border-gray-600 bg-[#1F1B29] text-white px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F4B400] focus:border-[#F4B400] transition" />
+
+          {error.price && (
+            <p className="text-red-500 text-sm">{error.price}</p>
+          )}
+
+        </div>
+
+        <div className="flex gap-3 pt-2">
+
+          <button type="submit"
+            className=" flex-1 bg-[#984447]  hover:bg-[#F4B400] hover:text-black text-white  font-semibold py-3 rounded-lg transition-all duration-300 ">
+            {editVariant ? "Update Variant" : "Add Variant"}
           </button>
-        )}
+
+          {editVariant && (
+            <button type="button" onClick={onCancelEdit} className=" flex-1 border border-gray-500 text-gray-300 hover:bg-gray-700 py-3 rounded-lg transition ">
+              Cancel
+            </button>
+          )}
+
+        </div>
+
       </form>
     </>
   );

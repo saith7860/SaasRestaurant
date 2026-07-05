@@ -382,7 +382,7 @@ const ItemForm = ({
           value={formData.description}
           onChange={handleChange}
           placeholder="Enter Item Description"
-          className="border border-white/30 rounded-md px-2 py-1 w-full"
+          className="border border-white/30 rounded-md px-2 py-1 w-full min-h-5 max-h-20"
         />
 
         {errors.description && (

@@ -2,6 +2,12 @@ import { Link, useNavigate } from "react-router";
 import api from "../../api/api";
 import { clearAccessToken } from "../../api/tokenStore";
 
+import { FaStore , FaLayerGroup , FaUtensils , FaClipboardList , FaSlidersH  } from "react-icons/fa";
+import { MdOutlineLocationOn } from "react-icons/md";
+import { CiLogout } from "react-icons/ci";
+
+
+
 const SideBar = () => {
   const navigate = useNavigate();
 
@@ -20,18 +26,19 @@ const SideBar = () => {
   return (
     <div>
       <ul>
-        <Link to="restaurant"><li>Resturant</li></Link>
-        <Link to="branches"><li>Branches</li></Link>
-        <Link to="categories"><li>Categories</li></Link>
-        <Link to="items"><li>Items</li></Link>
-        <Link to="orders"><li>Orders</li></Link>
-        <Link to="variants"><li>Variants</li></Link>
+        <Link to="restaurant"><li className="flex gap-2 items-center justify-start"> <span><FaStore /></span> Resturant</li></Link>
+        <Link to="branches"><li className="flex gap-2 items-center justify-start"> <span><MdOutlineLocationOn /></span> Branches</li></Link>
+        <Link to="categories"><li className="flex gap-2 items-center justify-start"> <span><FaLayerGroup /></span> Categories</li></Link>
+        <Link to="items"><li className="flex gap-2 items-center justify-start"> <span><FaUtensils /></span> Items</li></Link>
+        <Link to="orders"><li className="flex gap-2 items-center justify-start"> <span><FaClipboardList /></span> Orders</li></Link>
+        <Link to="variants"><li className="flex gap-2 items-center justify-start"> <span><FaSlidersH  /></span> Variants</li></Link>
 
         {/* Logout */}
         <li
           onClick={handleLogout}
-          className="absolute bottom-5 cursor-pointer"
+          className="absolute bottom-5 cursor-pointer flex gap-2 items-center justify-start" 
         >
+          <span><CiLogout /></span> 
           Logout
         </li>
       </ul>

@@ -55,17 +55,18 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
   };
 
   return (
-    <div>
+    <div className="mx-5 my-3">
       {/* Hide categories while searching, optional but cleaner */}
       {!search.trim() && (
-        <div className="flex gap-4 mb-5">
-          {categories.map((category: CategoryType) => (
+        <div className="flex gap-4 m-3 mb-8">
+
+          {categories.map((cat: CategoryType) => (
             <button
-              key={category._id}
-              className="text-[#F4B400] text-xl"
-              onClick={() => handleCategory(category)}
+              key={cat._id}
+              className={` ${category?._id == cat._id ? 'bg-[#F4B400] text-black' : 'bg-[#3B3647] text-white'} text-xl font-medium px-4 py-2 rounded-lg hover:bg-[#F4B400]/90 transition`}
+              onClick={() => handleCategory(cat)}
             >
-              {category.category}
+              {cat.category}
             </button>
           ))}
         </div>
@@ -80,7 +81,7 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
       {displayedItems.length === 0 ? (
         <p className="text-gray-500 text-lg">No item found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-6">
           {displayedItems.map((item: ItemType) => (
             <ItemCard key={item._id} item={item} />
           ))}
