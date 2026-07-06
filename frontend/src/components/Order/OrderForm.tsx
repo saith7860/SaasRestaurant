@@ -9,9 +9,9 @@ import { useRestaurant } from "../../context/RestaurantContext";
 const OrderForm = ({ formData, handleChange, total, orderData }) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const { setCart } = useContext(CartContext);
-    const {restaurantData}=useRestaurant();
+    const { restaurantData } = useRestaurant();
 
-    
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         if (total === 0) {
@@ -21,10 +21,10 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
         try {
             const res = await api.post(
                 `/api/order/create`,
-                {...orderData,restaurantId:restaurantData.restaurantData?._id,branchId:restaurantData.branches[0]._id}
+                { ...orderData, restaurantId: restaurantData.restaurantData?._id, branchId: restaurantData.branches[0]._id }
             )
             console.log(res.data);
-            
+
             toast.success("Your order is placed.Restaurant will confirm it now")
             setCart([]);
             setErrors({});
@@ -50,129 +50,94 @@ const OrderForm = ({ formData, handleChange, total, orderData }) => {
         }
 
     };
-    console.log('errors ',errors);
-    
+    console.log('errors ', errors);
+
     return (
         <>
 
-            <h1 className="text-4xl font-black text-[#F4B400] mb-6 text-center">
-                Checkout
-            </h1>
-
-            <div className="max-w-6xl mx-auto flex flex-col-reverse md:grid  grid-cols-2 gap-10 items-start">
-
-                {/* Checkout Form */}
-                <div className=" rounded-3xl p-6 shadow-lg w-full">
-
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
 
 
-                        {/* Address */}
-                        <div className="flex flex-col gap-2">
-                            <label className="text-md  text-bold text-[#F4B400]">
-                                Full Delivery Address
-                            </label>
+            {/* Checkout Form */}
+            <div className="w-full rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-xl">
 
-                            <textarea
-                                name="deliveryAddress"
-                                rows={1}
-                                placeholder="Enter delivery address"
-                                value={formData.deliveryAddress}
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+
+
+                    {/* Address */}
+                    <div className="flex flex-col gap-2">
+                        <label className="text-sm font-semibold tracking-wide text-[var(--primary-color)]">
+                            Full Delivery Address
+                        </label>
+
+                        <textarea
+                            name="deliveryAddress"
+                            rows={1}
+                            placeholder="Enter delivery address"
+                            value={formData.deliveryAddress}
+                            onChange={handleChange}
+                            className="w-full rounded-xl border border-white/10  bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] outline-none transition-all duration-200 placeholder:text-white/40 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 resize-none "
+                        />
+                    </div>
+
+
+                    {
+                        errors.deliveryAddress && <p className="text-red-500 text-2xl">{errors.deliveryAddress}</p>
+                    }
+
+                    {/* Customer Email */}
+                    <div>
+                        <label className="text-sm font-semibold tracking-wide text-[var(--primary-color)]">
+                            Customer Email
+                        </label>
+                        <input
+                            type="text"
+                            name="customerEmail"
+                            value={formData.customerEmail}
+                            onChange={handleChange}
+                            className=" w-full rounded-xl border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] outline-none transition-all duration-200 placeholder:text-white/40 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 "
+                        />
+                    </div>
+
+                    {errors.customerEmail && <p className="text-red-500 text-2xl">{errors.customerEmail}</p>}
+
+
+                    {/* Payment Method */}
+                    <div className="flex flex-col gap-3">
+
+                        <h3 className="text-lg font-bold tracking-wide text-[var(--primary-color)]">
+                            Payment Method
+                        </h3>
+
+                        <label
+                            className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-[var(--background-color)] px-4 py-3 transition-all duration-200 hover:border-[var(--primary-color)]/40 hover:bg-[var(--card-color)] ">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="COD"
+                                checked={formData.paymentMethod === "COD"}
                                 onChange={handleChange}
-                                className="
-                w-full
-                rounded-xl
-                bg-[#171219]
-                px-4
-                py-3
-                outline-none
-                border border-gray-700
-                focus:border-[#F4B400]
-                transition
-                resize-none
-              "
+                                className="h-4 w-4 accent-[var(--primary-color)]"
                             />
-                        </div>
-                        {
-                            errors.deliveryAddress && <p className="text-red-500 text-2xl">{errors.deliveryAddress}</p>
-                        }
-{/* Customer Email */}
-<div>
-    <label className="text-md  text-bold text-[#F4B400]">
-        Customer Email
-    </label>
-    <input
-        type="text"
-        name="customerEmail"
-        value={formData.customerEmail}
-        onChange={handleChange}
-        className="
-                w-full
-                rounded-xl
-                bg-[#171219]
-                px-4
-                py-3
-                outline-none
-                border border-gray-700
-                focus:border-[#F4B400]
-                transition
-              "
-    />
-</div>
-{errors.customerEmail && <p className="text-red-500 text-2xl">{errors.customerEmail}</p>}
 
-                        {/* Payment Method */}
-                        <div className="flex flex-col gap-3">
+                            <span className="font-medium text-[var(--text-color)]">
+                                Cash on Delivery
+                            </span>
 
-                            <h3 className="font-semibold text-lg text-[#F4B400]">
-                                Payment Method
-                            </h3>
-
-                            <label className="
-              flex items-center gap-3
-              bg-[#171219]
-              border border-gray-700
-              rounded-xl
-              px-4 py-3
-              cursor-pointer
-            ">
-
-                                <input
-                                    type="radio"
-                                    name="paymentMethod"
-                                    value="COD"
-                                    checked={formData.paymentMethod === "COD"}
-                                    onChange={handleChange}
-                                    className="accent-[#F4B400] w-4 h-4"
-                                />
-
-                                <span>Cash on Delivery</span>
-
-                            </label>
-                        </div>
-                        {
-                            errors.paymentMethod && <p className="text-red-500 text-2xl">{errors.paymentMethod}</p>
-                        }
-                        {/* Submit Button */}
-                        <button   type="submit"   className="
-              mt-4
-              bg-[#984447]
-              hover:bg-[#F4B400]
-              active:scale-95
-              transition-all
-              duration-200
-              py-3
-              rounded-xl
-              font-bold
-              text-lg
-            "  >
-                            Place Order
-                        </button>
-                    </form>
-                </div>
-
-
+                        </label>
+                    </div>
+                    {
+                        errors.paymentMethod && <p className="text-sm font-medium text-red-400">{errors.paymentMethod}</p>
+                    }
+                    {/* Submit Button */}
+                    <button type="submit"
+                        className="mt-2 rounded-xl bg-[var(--button-color)] py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95 " >
+                        Place Order
+                    </button>
+                </form>
             </div>
+
+
         </>
     )
 }

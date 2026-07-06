@@ -30,19 +30,19 @@ const Login = () => {
       const res = await api.post("/api/user/login", loginField);
       console.log("Login success:", res.data);
       setAccessToken(res.data.token);
-      console.log("user type",res.data.role)
+      console.log("user type", res.data.role)
       toast.success("User logged in successfully")
-      if(res.data.role === "admin")
-      navigate("/admin");
-      else if(res.data.role=="super_admin")
-      navigate("/super_admin")
-      else{
+      if (res.data.role === "admin")
+        navigate("/admin");
+      else if (res.data.role == "super_admin")
+        navigate("/super_admin")
+      else {
         navigate("/checkout");
       }
-    
+
     } catch (error) {
       console.error("Login error:", error);
-      const validationErrors=handleApiError(error);
+      const validationErrors = handleApiError(error);
 
       if (validationErrors) {
 
@@ -63,21 +63,21 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center text-white px-4 overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--text-color)] px-4 py-10">
 
       <div className="w-full max-w-md flex flex-col items-center">
 
-        <h1 className="text-[clamp(2rem,5vw,2.5rem)] font-black text-[#F4B400] mb-8 text-center">
+        <h1 className="mb-8 text-center text-[clamp(2rem,5vw,2.75rem)] font-extrabold tracking-wide text-[var(--primary-color)]">
           Login
         </h1>
 
         <form
-          className="bg-[#2A2633] w-full px-6 sm:px-10 py-16 sm:py-20 flex flex-col gap-3 rounded-lg overflow-hidden shadow-lg"
+          className="w-full rounded-2xl border border-[var(--primary-color)]/15 bg-[var(--card-color)] px-6 sm:px-10 py-12 sm:py-14 shadow-2xl backdrop-blur-sm flex flex-col gap-4 transition-all duration-300"
           onSubmit={handleSubmit}
         >
 
           {/* Email */}
-          <label htmlFor="email" className="text-lg text-gray-300">
+          <label htmlFor="email" className="text-sm font-medium text-[var(--text-color)]/80">
             Email
           </label>
 
@@ -85,21 +85,21 @@ const Login = () => {
             id="email"
             type="email"
             name="email"
-          
+
             placeholder="Enter your Email"
             value={loginField.email}
             onChange={handleChange}
-            className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+           className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
           />
 
           {errors.email && (
-            <p className="text-red-500 text-sm">
+            <p className="text-sm font-medium text-red-400">
               {errors.email}
             </p>
           )}
 
           {/* Password */}
-          <label htmlFor="password" className="text-lg text-gray-300 mt-2">
+          <label htmlFor="password" className="mt-2 text-sm font-medium text-[var(--text-color)]/80">
             Password
           </label>
 
@@ -107,15 +107,14 @@ const Login = () => {
             id="password"
             type="password"
             name="password"
-    
+
             placeholder="Enter your Password"
             value={loginField.password}
             onChange={handleChange}
-            className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
-          />
+            className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20" />
 
           {errors.password && (
-            <p className="text-red-500 text-sm">
+            <p className="text-sm font-medium text-red-400">
               {errors.password}
             </p>
           )}
@@ -123,15 +122,15 @@ const Login = () => {
           {/* Button */}
           <button
             type="submit"
-            className="w-full bg-[#984447] hover:bg-[#F4B400] transition text-white mt-6 py-2 rounded-md font-semibold text-lg"
+            className="mt-6 w-full rounded-lg bg-[var(--button-color)] py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]"
           >
             Login
           </button>
 
           {/* Signup */}
-          <div className="text-md text-gray-400 text-center mt-3">
+          <div className="mt-4 text-center text-sm text-[var(--text-color)]/60">
             Don't have an account?{" "}
-            <Link to="/signup" className="text-[#F4B400] hover:underline">
+            <Link to="/signup" className="font-semibold text-[var(--primary-color)] transition-colors duration-200 hover:text-[var(--secondary-color)]">
               Signup
             </Link>
           </div>

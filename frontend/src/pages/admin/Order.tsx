@@ -10,75 +10,78 @@ const Order = () => {
 
 
     return (
-       
-        <div className="overflow-x-auto">
-            
-            <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Manage Orders</div>
-            
-            <table className="w-full border-collapse">
-                <thead>
-                    <tr className="bg-[#2A2633] text-white">
-                        <th className="p-3 text-left">Customer</th>
-                        <th className="p-3 text-left">Phone</th>
-                        <th className="p-3 text-left">Address</th>
-                        <th className="p-3 text-left">Amount</th>
-                        <th className="p-3 text-left">Status</th>
-                        <th className="p-3 text-center">Actions</th>
-                    </tr>
-                </thead>
+        <>
+            <div className="my-8 text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl" >Manage Orders</div>
 
-                <tbody>
-                    {orders?.map(
-                        (order) =>
-                            order.userId && (
-                                <tr
-                                    key={order._id}
-                                    className="border-b border-white/20 hover:bg-[#2A2633]/50"
-                                >
-                                    <td className="p-3">{order.userId.name}</td>
+            <div className="overflow-x-auto rounded-2xl border border-[var(--primary-color)]/15 bg-[var(--card-color)] shadow-xl">
 
-                                    <td className="p-3">
-                                        {order.userId.phone}
-                                    </td>
+                <table className="w-full border-separate border-spacing-0">
+                    <thead>
+                        <tr className="bg-[var(--card-color)] text-[var(--text-color)]">
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Customer</th>
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Phone</th>
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Address</th>
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Amount</th>
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-left text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Status</th>
+                            <th className="border-b border-[var(--primary-color)]/15 px-5 py-4 text-center text-sm font-semibold uppercase tracking-wide text-[var(--primary-color)]">Actions</th>
+                        </tr>
+                    </thead>
 
-                                    <td className="p-3 max-w-xs truncate">
-                                        {order.deliveryAddress}
-                                    </td>
+                    <tbody>
+                        {orders?.map(
+                            (order) =>
+                                order.userId && (
+                                    <tr
+                                        key={order._id}
+                                        className="border-b border-white/10 transition-colors duration-200 hover:bg-white/5"
+                                    >
+                                        <td className="px-5 py-4 text-[var(--text-color)]">{order.userId.name}</td>
 
-                                    <td className="p-3">
-                                        Rs. {order.totalAmount}
-                                    </td>
+                                        <td className="px-5 py-4 text-[var(--text-color)]">
+                                            {order.userId.phone}
+                                        </td>
 
-                                    <td className="p-3">
-                                        <span className="px-3 py-2 rounded-full bg-[#984447] text-white text-sm">
-                                            {order.orderStatus}
-                                        </span>
-                                    </td>
+                                        <td className="max-w-xs truncate px-5 py-4 text-[var(--text-color)]/90">
+                                            {order.deliveryAddress}
+                                        </td>
 
-                                    <td className="p-3 text-center">
-                                        <button
-                                            onClick={() => {
-                                                setShowOrderStatus(true);
-                                                setSelectedOrder(order);
-                                            }}
-                                            className="bg-[#984447] hover:bg-[#F4B400] active:scale-95 transition-all duration-200 py-2   rounded-xl font-bold w-30"
-                                        >
-                                            Edit Status
-                                        </button>
-                                    </td>
-                                </tr>
-                            )
-                    )}
-                </tbody>
-            </table>
+                                        <td className="px-5 py-4 text-[var(--text-color)]">
+                                            Rs. {order.totalAmount}
+                                        </td>
 
-            {showOrderStatus && selectedOrder && (
-                <OrderStatusForm
-                    order={selectedOrder}
-                    setShowOrderStatus={setShowOrderStatus}
-                />
-            )}
-        </div>
+                                        <td className="px-5 py-4 text-[var(--text-color)]">
+                                            <span className="inline-flex rounded-full bg-[var(--button-color)] px-4 py-2 text-sm font-medium text-[var(--button-text-color)] shadow">
+                                                {order.orderStatus}
+                                            </span>
+                                        </td>
+
+                                        <td className="px-5 py-4 text-center">
+                                            <button
+                                                onClick={() => {
+                                                    setShowOrderStatus(true);
+                                                    setSelectedOrder(order);
+                                                }}
+                                                className="w-32 rounded-xl bg-[var(--button-color)] px-4 py-2.5 font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95"
+                                            >
+                                                Edit Status
+                                            </button>
+                                        </td>
+                                    </tr>
+                                )
+                        )}
+                    </tbody>
+                </table>
+
+                {showOrderStatus && selectedOrder && (
+                    <OrderStatusForm
+                        order={selectedOrder}
+                        setShowOrderStatus={setShowOrderStatus}
+                    />
+                )}
+            </div>
+
+        </>
+
     )
 }
 

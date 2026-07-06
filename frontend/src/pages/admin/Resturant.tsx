@@ -6,36 +6,72 @@ const Resturant = () => {
   const { restaurant } = useDashboard();
 
   return (
-    
-    <div className="px-auto mx-[clamp(1rem,28px,2rem)]">
+
+    <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6">
 
       <div>
-        <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >{restaurant?.restaurantName}</div>
-        <div className="flex flex-col gap-3 text-sm sm:text-base md:text-lg bg-[#2A2633] p-5 rounded-lg">
+        <div className="mb-10 text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl" >{restaurant?.restaurantName}</div>
+        <div className="flex flex-col gap-5 rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-xl">
           {/* <img src={restaurant?.image} alt="" /> */}
           {/* <div>{restaurant?.description}</div> */}
-          <div>Contact Number:  {restaurant?.contactNumber}</div>
 
-          <div>Email: {restaurant?.restaurantEmail}</div>
-          <div>Delivery Fee: {restaurant?.deliveryFee}</div>
-          <div>Delivery Time: {restaurant?.estimatedDeliveryTime}</div>
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <span className="font-semibold text-[var(--primary-color)]">
+              Contact Number:
+            </span>
+            <span className="text-[var(--text-color)]">
+              {restaurant?.contactNumber}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <span className="font-semibold text-[var(--primary-color)]">
+              Email:
+            </span>
+            <span className="text-[var(--text-color)]">
+              {restaurant?.restaurantEmail}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <span className="font-semibold text-[var(--primary-color)]">
+              Delivery Fee:
+            </span>
+            <span className="text-[var(--text-color)]">
+              {restaurant?.deliveryFee}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between ">
+            <span className="font-semibold text-[var(--primary-color)]">
+              Delivery Time:
+            </span>
+            <span className="text-[var(--text-color)]">
+              {restaurant?.estimatedDeliveryTime}
+            </span>
+          </div>
+
         </div>
       </div>
 
-      <div 
-            className="w-fit bg-[#984447] hover:bg-[#F4B400] transition text-white mt-6 mx-auto p-2 rounded-md font-semibold text-lg text-center cursor-pointer">
-        <button onClick={() => {
-          setShowForm(true);
-        }}>Update Resturant</button>
+      <div
+        className="mt-8 flex justify-center">
+        <button
+          className="rounded-xl bg-[var(--button-color)] px-8 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]"
+          onClick={() => {
+            setShowForm(true);
+          }}>Update Resturant</button>
       </div>
 
-      {showForm && (
-        <div>
-          <ResturantForm restaurant={restaurant}  setShowForm={setShowForm} />
-        </div>
-      )}
+      {
+        showForm && (
+          <div>
+            <ResturantForm restaurant={restaurant} setShowForm={setShowForm} />
+          </div>
+        )
+      }
 
-    </div>
+    </div >
   )
 }
 

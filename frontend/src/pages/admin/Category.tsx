@@ -12,7 +12,7 @@ import api from "../../api/api";
 const Category = () => {
   const [showForm, setShowForm] = useState(false);
   const [editCategory, setEditCategory] = useState<CategoryType | null>(null);
-  const { category, restaurant, branches,refreshDashboardData } = useDashboard();
+  const { category, restaurant, branches, refreshDashboardData } = useDashboard();
 
   const deleteCategory = async (id: string) => {
     const confirmDelete = window.confirm(
@@ -23,37 +23,43 @@ const Category = () => {
     try {
       const res = await api.delete(`/api/category/delete-category/${id}`);
       console.log(res.data);
-    await refreshDashboardData();
+      await refreshDashboardData();
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
 
-      <div className="text-center font-bold sm:font-black text-xl sm:text-2xl md:text-3xl mb-10 " >Manage Categories</div>
+      <div className="mb-8 text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl" >Manage Categories</div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-6">
         {category?.map((category: CategoryType) => (
 
-          <div key={category._id} className=" inline-block w-full border-2 border-[#F4B400]/30 rounded-lg items-center gap-3">
+          <div key={category._id} className="w-full rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] shadow-lg transition-all duration-300 hover:border-[var(--primary-color)]/50 hover:shadow-2xl">
 
-            <div className="flex items-center justify-between p-5 gap-7 w-full">
+            <div className="flex items-center justify-between gap-6 p-6">
 
-              <span className="font-black text-xl sm:text-2xl text-[#984447] cursor-default">{category.category}</span>
+              <span className="cursor-default text-xl font-bold text-[var(--primary-color)] sm:text-2xl">{category.category}</span>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+
                 <button onClick={() => {
                   setShowForm(true);
                   setEditCategory(category);
-                }} 
-                className="cursor-pointer text-xl sm:text-2xl text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaEdit /></button>
+                }}
+
+                  className="rounded-lg bg-[var(--button-color)] p-2 text-lg text-[var(--button-text-color)] shadow transition-all duration-200 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95 sm:text-xl">
+                  <FaEdit />
+                </button>
 
                 <button onClick={() => {
                   deleteCategory(category._id);
                 }}
-                className="cursor-pointer text-xl sm:text-2xl text-[#F4B400] hover:text-[#F4B400]/70 focus:text-[#984447]/70"><FaTrash /></button>
+                  className="rounded-lg border border-red-500/20 p-2 text-lg text-red-400 transition-all duration-200 hover:bg-red-500/10 hover:text-red-300 active:scale-95 sm:text-xl">
+                  <FaTrash />
+                </button>
               </div>
             </div>
           </div>
@@ -62,7 +68,7 @@ const Category = () => {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-2 mx-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
           <CategoryForm setShowForm={setShowForm} category={editCategory} restaurant={restaurant} branches={branches} />
         </div>
       )}
@@ -71,8 +77,10 @@ const Category = () => {
         setShowForm(true);
         setEditCategory(null);
       }}
-      className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center mx-auto" 
-      >Add Category</button>
+        className="mt-8 ml-auto rounded-xl bg-[var(--button-color)] px-8 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95"
+      >
+        Add Category
+      </button>
 
 
     </div>

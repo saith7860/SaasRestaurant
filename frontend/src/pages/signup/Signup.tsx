@@ -53,31 +53,31 @@ const Signup = () => {
 console.log(errors);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center text-white overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[var(--background-color)] text-[var(--text-color)] px-4 py-10">
 
-      <div className="w-full max-w-md flex flex-col items-center px-4">
+      <div className="w-full max-w-md flex flex-col items-center">
 
         {/* Title */}
-        <h1 className="text-[clamp(1.8rem,4vw,2.5rem)] font-black text-[#F4B400] mb-6 text-center">
+        <h1 className="mb-8 text-center text-[clamp(2rem,4vw,2.75rem)] font-extrabold tracking-wide text-[var(--primary-color)]">
           Signup
         </h1>
 
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="w-full bg-[#2A2633] p-6 sm:p-7 flex flex-col gap-3 rounded-md shadow-lg overflow-hidden"
+          className="w-full rounded-2xl border border-[var(--primary-color)]/15 bg-[var(--card-color)] p-7 sm:p-8 shadow-2xl backdrop-blur-sm flex flex-col gap-4 transition-all duration-300"
         >
 
           {/* Name */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-300">Name</label>
+            <label className="text-sm font-medium text-[var(--text-color)]/80">Name</label>
             <input
               name="name"
               value={formField.name}
              
               placeholder="Enter your name"
               onChange={handleChange}
-              className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+             className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
             />
           </div>
           {
@@ -85,7 +85,7 @@ console.log(errors);
           }
           {/* Email */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-300">Email</label>
+            <label className="text-sm font-medium text-[var(--text-color)]/80">Email</label>
             <input
               name="email"
               type="email"
@@ -93,7 +93,7 @@ console.log(errors);
           
               placeholder="Enter your email"
               onChange={handleChange}
-              className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
             />
           </div>
     {
@@ -101,7 +101,7 @@ console.log(errors);
           }
           {/* Password */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-300">Password</label>
+            <label className="text-sm font-medium text-[var(--text-color)]/80">Password</label>
             <input
               name="password"
               type="password"
@@ -109,7 +109,7 @@ console.log(errors);
              
               placeholder="Enter your password"
               onChange={handleChange}
-              className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
             />
           </div>
             {
@@ -118,15 +118,15 @@ console.log(errors);
 
           {/* Phone */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-300">Phone</label>
+            <label className="text-sm font-medium text-[var(--text-color)]/80">Phone</label>
             <input
               name="phone"
               value={formField.phone}
               
               placeholder="Enter your phone number"
               onChange={handleChange}
-              className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
-            />
+              className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
+              />
           </div>
             {
             errors.phone && <p className="text-red-500">{errors.phone}</p>
@@ -134,32 +134,32 @@ console.log(errors);
 
           {/* Address */}
           <div className="flex flex-col gap-1">
-            <label className="text-sm text-gray-300">Address</label>
+            <label className="text-sm font-medium text-[var(--text-color)]/80">Address</label>
             <input
               name="address"
               value={formField.address}
        
               placeholder="Enter your address"
               onChange={handleChange}
-              className="px-3 py-2 rounded-md bg-[#171219] text-white outline-none border border-gray-600 focus:border-[#984447]"
+              className="w-full rounded-lg border border-white/10 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/35 outline-none transition-all duration-200 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20"
             />
           </div>
             {
-            errors.address && <p className="text-red-500">{errors.address}</p>
+            errors.address && <p className="text-sm font-medium text-red-400">{errors.address}</p>
           }
 
           {/* Button */}
           <button
             type="submit"
-            className="w-full mt-2 bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 rounded-md font-semibold"
+            className="mt-3 w-full rounded-lg bg-[var(--button-color)] py-3 font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]"
           >
             Signup
           </button>
 
           {/* Login link */}
-          <div className="text-sm text-gray-400 text-center mt-2">
+          <div className="mt-3 text-center text-sm text-white/60">
             Have an account?{" "}
-            <Link to="/login" className="text-[#F4B400] hover:underline">
+            <Link to="/login" className="font-semibold text-[var(--primary-color)] transition-colors hover:text-[var(--secondary-color)]">
               Login
             </Link>
           </div>

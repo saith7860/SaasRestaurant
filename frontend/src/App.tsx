@@ -21,6 +21,8 @@ import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 import { setAccessToken } from "./api/tokenStore";
 
+import { applyTheme } from "./utils/applyTheme";
+
 
 const App = () => {
   const { restaurantData, setRestaurantData } = useRestaurant();
@@ -38,19 +40,24 @@ const App = () => {
     async (slug: string) => {
       try {
 
-        const response =
-          await api.get(
-            `/api/resturant/${slug}`
-          );
+        const response = await api.get(`/api/resturant/${slug}`);
 
-        setRestaurantData(
-          response.data.result
-        );
+        const restaurant = response.data.result;
+
+        setRestaurantData(restaurant);
+
+        applyTheme(restaurant.theme);
+
 
       } catch (error) {
         console.log(error);
       }
     };
+
+
+
+
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -73,22 +80,30 @@ const App = () => {
 
   if (loadingAuth) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#171219] text-[#F4B400] text-xl font-bold">
-        Loading...
+
+      <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--primary-color)]">
+        <div className="flex items-center gap-3 rounded-xl bg-[var(--card-color)] px-8 py-5 shadow-xl border border-[var(--primary-color)]/20">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--primary-color)] border-t-transparent"></div>
+          <span className="text-lg font-semibold tracking-wide">
+            Loading...
+          </span>
+        </div>
       </div>
+
     );
   }
 
   console.log(restaurantData);
 
-  const bgColor = restaurantData?.restaurantData?.theme?.backgroundColor;
+  const bgColor = restaurantData?.restaurantData?.theme;
 
   console.log(bgColor);
-  
+
 
   return (
     <>
-      <div style={{ backgroundColor: bgColor }} className="min-h-screen">
+      <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-300">
+        
         <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -5,10 +5,10 @@ import OrderForm from "../../components/Order/OrderForm";
 import OrderSummary from "../../components/Order/OrderSummary";
 import type { CartItem } from "../../types/CartType";
 const Checkout = () => {
-  const { restaurantData } = useRestaurant();  
+  const { restaurantData } = useRestaurant();
 
   const [formData, setFormData] = useState({
-    customerEmail:"",
+    customerEmail: "",
     restaurantId: restaurantData?.restaurantData._id,
     branchId: restaurantData?.branches[0]._id,
     deliveryAddress: "",
@@ -29,13 +29,38 @@ const Checkout = () => {
       [name]: value,
     }));
   };
-  const orderData={...formData,subtotal,deliveryFee,totalAmount}
-  
+  const orderData = { ...formData, subtotal, deliveryFee, totalAmount }
+
   return (
-    <div className="min-h-screen px-4 py-8 text-white">
-    <OrderForm formData={formData} handleChange={handleChange} total={subtotal} orderData={orderData} />
-    <OrderSummary deliveryFee={deliveryFee} total={subtotal}/>
+    <div className="h-screen bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
+      <h1 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-4xl">
+        Checkout
+      </h1>
+
+      <div
+        className=" mx-auto  mt-12 flex  flex-col  items-center  justify-center  gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:justify-center lg:gap-10 lg:max-w-7xl    " >   
+        
+        <div className="w-full">
+     
+          <OrderForm
+            formData={formData}
+            handleChange={handleChange}
+            total={subtotal}
+            orderData={orderData}
+          />
+
+        </div>
+
+        <div className="w-full max-w-xl lg:max-w-none lg:w-full">
+          <OrderSummary
+            deliveryFee={deliveryFee}
+            total={subtotal}
+          />
+        </div>
+
+      </div>
     </div>
+
   )
 };
 export default Checkout;
