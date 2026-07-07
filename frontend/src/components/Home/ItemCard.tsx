@@ -14,19 +14,23 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { cart, setCart } = useContext(CartContext);
 
   return (
-    <div className="relative group flex flex-col overflow-hidden rounded-2xl bg-[#2A2633] border border-[#3B3647] shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div className="group flex flex-col h-full overflow-hidden rounded-2xl bg-[var(--card-color)] border border-[var(--primary-color)]/15 shadow-lg hover:border-[var(--primary-color)]/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
 
-      <div className="w-full h-40  sm:h-45 lg:h-55 xl:h-60 2xl:h-90 overflow-hidden">
+      <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
         <img src={item.image?.url} alt={item.name}
-          className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-98 group-hover:rounded-2xl"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
       </div>
 
-      <div className="px-3 flex flex-col flex-1 p-1">
+      <div className="flex flex-col flex-1 p-4">
 
-        <h2 className="pt-2 text-md font-black sm:text-2xl sm:font-bold text-[#F4B400] tracking-wide">{item.name}</h2>
+        <h2 className="text-lg sm:text-xl font-bold text-[var(--primary-color)] tracking-wide leading-tight">
+          {item.name}
+        </h2>
 
-        <p className="text-sm font-light text-gray-300 leading-relaxed mt-2">{item.description}</p>
+        <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/70 line-clamp-2">
+          {item.description}
+        </p>
 
 
         {item.variants && item.variants.length > 0 ? (
@@ -37,10 +41,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
             setSelectedVariant={setSelectedVariant}
           />
         ) : (
-          <p className="py-2 text-md font-bold text-[#984447] mt-auto">Rs {item.basePrice}</p>
+          <p className="mt-auto py-3 text-xl font-bold text-[var(--primary-color)]">
+            Rs {item.basePrice}
+          </p>
         )}
 
-        <button className=" bg-[#984447] text-white font-bold py-2 rounded-lg mt-auto mb-4 hover:bg-[#F4B400] active:bg-[#4CAF50]/60 transition">
+        <span className="flex-1"></span>
+
+        <button className="mt-auto w-full rounded-xl bg-[var(--button-color)] py-3 font-semibold text-[var(--button-text-color)] shadow-md transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] hover:shadow-xl active:scale-[0.98]">
           <AddToCart
             selectedVariant={selectedVariant}
             cart={cart}

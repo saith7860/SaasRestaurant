@@ -9,10 +9,13 @@ const Home = () => {
    
   return (
     <>
+    <div className="overflow-x-hidden">
+
      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <SpecificCatogires search={search}/>
      <WhatsAppButton/>
      {/* <Categories search={search}/> */}
+    </div>
     </>
     
   )

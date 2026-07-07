@@ -111,6 +111,9 @@
 // }
 
 // export default VariantForm;
+
+
+
 import { useEffect, useState } from "react";
 import type { variantType } from "../../types/DashBoardtype";
 import api from "../../api/api";
@@ -215,18 +218,18 @@ const VariantForm = ({
   return (
     <>
       <form
-        className="mt-20 max-w-lg mx-auto w-full bg-[#2A2633] border border-[#F4B400]/20 rounded-2xl shadow-xl p-6 space-y-6"
+        className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-6"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-2xl font-bold text-[#F4B400]">
+        <h2 className="text-3xl font-extrabold text-[var(--primary-color)] text-center tracking-wide">
           {editVariant ? "Update Variant" : "Add Variant"}
         </h2>
 
-        <div className="space-y-2 ">
+        <div className="flex flex-col gap-2">
 
           <label
             htmlFor="variation"
-            className="block text-sm font-semibold text-white">
+            className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
             Enter Variation:</label>
 
           <input
@@ -234,10 +237,11 @@ const VariantForm = ({
             name="variation"
             value={formData.variation}
             onChange={handleChange}
-            className="w-full rounded-lg border border-gray-600 bg-[#1F1B29] text-white px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F4B400] focus:border-[#F4B400] transition" />
+            className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
+          />
 
           {error.variation && (
-            <p className="text-red-400 text-sm">{error.variation}</p>
+            <p className="text-red-400 text-sm font-medium mt-1">{error.variation}</p>
           )}
 
         </div>
@@ -246,7 +250,7 @@ const VariantForm = ({
 
           <label
             htmlFor="price"
-            className="block text-sm font-semibold text-white">
+            className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
             Enter Price:</label>
 
           <input
@@ -254,23 +258,26 @@ const VariantForm = ({
             name="price"
             value={formData.price}
             onChange={handleChange}
-            className="w-full rounded-lg border border-gray-600 bg-[#1F1B29] text-white px-4 py-3 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#F4B400] focus:border-[#F4B400] transition" />
+            className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
+          />
 
           {error.price && (
-            <p className="text-red-500 text-sm">{error.price}</p>
+            <p className="text-red-400 text-sm font-medium mt-1">{error.price}</p>
           )}
 
         </div>
 
-        <div className="flex gap-3 pt-2">
+        <div className="flex flex-col sm:flex-row gap-4 pt-4">
 
           <button type="submit"
-            className=" flex-1 bg-[#984447]  hover:bg-[#F4B400] hover:text-black text-white  font-semibold py-3 rounded-lg transition-all duration-300 ">
+            className="flex-1 bg-[var(--button-color)] text-[var(--button-text-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-black active:scale-95 transition-all duration-300 shadow-lg shadow-black/20">
             {editVariant ? "Update Variant" : "Add Variant"}
           </button>
 
           {editVariant && (
-            <button type="button" onClick={onCancelEdit} className=" flex-1 border border-gray-500 text-gray-300 hover:bg-gray-700 py-3 rounded-lg transition ">
+            <button type="button" onClick={onCancelEdit}
+              className="flex-1 border border-[var(--primary-color)]/25 bg-transparent text-[var(--text-color)] hover:bg-[var(--card-color)] hover:border-[var(--primary-color)] py-3 rounded-xl transition-all duration-300"
+            >
               Cancel
             </button>
           )}

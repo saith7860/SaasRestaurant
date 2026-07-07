@@ -103,34 +103,30 @@ const Categories = ({ search }: { search: string }) => {
   }, []);
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-40">
-        <div className="w-10 h-10 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="flex items-center justify-center h-40">
+        <div className="w-10 h-10 rounded-full border-4 border-[var(--primary-color)] border-t-transparent animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Categories */}
-      <div className="flex gap-3 overflow-x-auto scrollbar-hide mb-10 pb-2 whitespace-nowrap">
+      <div className="flex gap-3 overflow-x-auto scrollbar-hide whitespace-nowrap rounded-2xl bg-[var(--card-color)] p-3 mb-8 border border-[var(--primary-color)]/15 shadow-lg">
         {categories.map((cat) => (
           <button
             key={cat._id}
             onClick={() => handleClick(cat.category)}
-            className={`relative pb-2 text-sm font-semibold transition-all duration-200 active:scale-95 hover:scale-105
 
-        ${selectedCategory === cat.category
-                ? "text-[#F4B400]"
-                : "text-white"
-              }
-      `}
+            className={`relative rounded-xl px-5 py-2 text-sm font-semibold transition-all duration-300 active:scale-95 
+              ${selectedCategory === cat.category ? "bg-[var(--primary-color)] text-[var(--background-color)] shadow-lg" : "bg-transparent text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"}`}
+
           >
             {cat.category}
 
             {/* Active Underline */}
             {selectedCategory === cat.category && (
-              <span className="absolute left-0 bottom-0 w-full h-1 bg-[#F4B400] rounded-full"></span>
+              <span className="absolute left-3 right-3 -bottom-1 h-1 rounded-full bg-[var(--primary-color)]"></span>
             )}
           </button>
         ))}
@@ -144,36 +140,42 @@ const Categories = ({ search }: { search: string }) => {
 
       <ShowItems items={items} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8 mx-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
         {items.map((item) => (
 
           <div
             key={item._id}
-            className=" group flex flex-col justify-between bg-[#2A2633] border border-[#3B3645] rounded-2xl  p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:border-[#F4B400] hover:shadow-2xl">
+            className="group flex flex-col justify-between rounded-2xl border border-[var(--primary-color)]/15 bg-[var(--card-color)] p-5 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--primary-color)] hover:shadow-2xl">
 
 
-            <h2 className="text-2xl font-extrabold tracking-wide text-[#F4B400] ">{item.name}</h2>
-            <p className="text-gray-300 leading-7 text-sm ">{item.description}</p>
+            <h2 className="text-xl font-bold tracking-wide text-[var(--primary-color)]">{item.name}</h2>
+            <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/70">{item.description}</p>
 
+            {selectVariant && <p className="mt-4 text-xl font-bold text-[var(--primary-color)]">Rs : {selectVariant[item._id]?.price || 'Select Variant'}</p>}
+            
             {item.variants.map((variant) => (
-              <div key={`${variant.variation}-${item._id}`} className="items-center flex rounded-lg gap-3 py-2 bg-[#1E1B26] px-3 hover:bg-[#24202F] transition ">
+              <div key={`${variant.variation}-${item._id}`}
+                className="flex items-center gap-3 rounded-xl border border-[var(--primary-color)]/10 bg-[var(--background-color)] px-3 py-2 transition-all duration-300 hover:border-[var(--primary-color)]/40 hover:bg-[var(--secondary-color)]/10">
 
                 <input
                   name={`variant-${item._id}`}
                   checked={selectVariant[item._id]?._id == variant._id}
                   type="radio"
-                  className="accent-[#F4B400]"
+                  className="accent-[var(--primary-color)] w-4 h-4"
                   id={`${variant.variation}-${variant._id}`}
                   value={variant.variation}
                   onChange={() => handleVariationChange(item._id, variant)} />
 
-                <label htmlFor={variant.variation}>{variant.variation}</label>
+                <label htmlFor={variant.variation} className="cursor-pointer text-sm font-medium text-[var(--text-color)]">{variant.variation}</label>
 
               </div>
 
             ))}
-            {selectVariant && <p className="text-[#F4B400] font-bold text-lg" >Rs : {selectVariant[item._id]?.price || 'Select Variant'}</p>}
-            <button onClick={() => handleAddToCart(selectVariant[item._id], item)} className="bg-[#984447] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#F4B400] active:bg-[#4CAF50]/60 transition" >Add to Cart</button>
+
+            <button onClick={() => handleAddToCart(selectVariant[item._id], item)}
+              className="mt-4 w-full rounded-xl bg-[var(--button-color)] py-3 px-4 font-semibold text-[var(--button-text-color)] shadow-md transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] hover:shadow-xl active:scale-[0.98]" >
+              Add to Cart
+            </button>
           </div>
         ))}
       </div>

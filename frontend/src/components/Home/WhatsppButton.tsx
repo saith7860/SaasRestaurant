@@ -8,7 +8,7 @@ const WhatsAppButton = () => {
   if (!restaurantData?.branches[0].contactNumber) {
     return null;
   }
- const whatsappNumber=restaurantData?.branches[0].contactNumber;
+  const whatsappNumber = restaurantData?.branches[0].contactNumber;
 
   const message = `Hello ${restaurantData?.restaurantData?.restaurantName}, I want to place an order.`;
 
@@ -21,7 +21,7 @@ const WhatsAppButton = () => {
       href={whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg w-14 h-14 flex items-center justify-center transition"
+      className="fixed bottom-5 right-5 z-50 flex h-16 w-16 animate-bounce items-center justify-center rounded-full bg-[#25D366] text-white border-2 border-[var(--primary-color)]/40 shadow-2xl shadow-[var(--primary-color)]/20 transition-all duration-300 hover:scale-110 hover:bg-[#20BA5A] hover:shadow-[var(--primary-color)]/40 active:scale-95"
       title="Chat on WhatsApp"
     >
       <svg

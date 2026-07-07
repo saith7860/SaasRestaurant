@@ -184,9 +184,9 @@
 //         <button type="submit"
 //           className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
 //         >{item ? "Update Item" : "Add Item"}</button>
-        
+
 //         <button
-          
+
 //           className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
 //           onClick={() => setShowForm(false)}>Cancel</button>
 //       </div>
@@ -271,7 +271,7 @@ const ItemForm = ({
     if (!file) return;
 
     setImageFile(file);
-  
+
 
     setErrors((prev) => ({
       ...prev,
@@ -323,13 +323,13 @@ const ItemForm = ({
 
   return (
     <form
-      className="border-2 border-[#F4B400]/30 rounded-lg p-5 mx-3 overflow-hidden"
+      className="mx-auto mt-8 w-full max-w-3xl rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-2xl shadow-black/30 backdrop-blur-sm"
       onSubmit={handleSubmit}
     >
-      <div className="flex-col items-start gap-2 mb-5">
+      <div className="flex flex-col items-start sm:grid grid-cols-[1fr_5fr] sm:items-center gap-2 mb-5">
         <label
           htmlFor="name"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg block"
+          className="mb-2 block text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Item Name :
         </label>
@@ -340,16 +340,16 @@ const ItemForm = ({
           value={formData.name}
           onChange={handleChange}
           placeholder="Enter Item Name"
-          className="border border-white/30 rounded-md px-2 w-full"
+          className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
       </div>
 
-      <div className="flex-col items-start gap-2 mb-5">
+      <div className="flex flex-col items-start sm:grid grid-cols-[1fr_5fr] sm:items-center gap-2 mb-5">
         <label
           htmlFor="image"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg block"
+          className="mb-2 block text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Item Image :
         </label>
@@ -359,20 +359,20 @@ const ItemForm = ({
           name="image"
           accept="image/*"
           onChange={handleImageChange}
-          className="border border-white/30 rounded-md px-2 py-1 w-full"
+          className="w-full cursor-pointer rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--button-color)] file:px-4 file:py-2 file:font-medium file:text-[var(--button-text-color)] hover:file:bg-[var(--primary-color)] hover:file:text-black"
         />
 
-   
+
 
         {errors.image && (
           <p className="text-red-500 text-sm">{errors.image}</p>
         )}
       </div>
 
-      <div className="flex-col items-start gap-4 mb-5">
+      <div className="flex flex-col items-start sm:grid grid-cols-[1fr_4fr] sm:items-center gap-2 mb-5">
         <label
           htmlFor="description"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg block"
+          className="mb-2 block text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Item Description :
         </label>
@@ -382,7 +382,7 @@ const ItemForm = ({
           value={formData.description}
           onChange={handleChange}
           placeholder="Enter Item Description"
-          className="border border-white/30 rounded-md px-2 py-1 w-full min-h-5 max-h-20"
+          className="min-h-12 max-h-15 overflow-y-hidden w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
         {errors.description && (
@@ -390,10 +390,10 @@ const ItemForm = ({
         )}
       </div>
 
-      <div className="flex-col items-start gap-2 mb-5">
+      <div className="flex flex-col items-start sm:grid grid-cols-[1fr_5fr] sm:items-center gap-2 mb-5">
         <label
           htmlFor="basePrice"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg block"
+          className="mb-2 block text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Base Price :
         </label>
@@ -404,7 +404,7 @@ const ItemForm = ({
           value={formData.basePrice}
           onChange={handleChange}
           placeholder="Enter Base Price"
-          className="border border-white/30 rounded-md px-2 w-full"
+          className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
         {errors.basePrice && (
@@ -412,12 +412,12 @@ const ItemForm = ({
         )}
       </div>
 
-      <hr className="text-[#F4B400]/70" />
+      <hr className="my-5 border-[var(--primary-color)]/15" />
 
-      <div className="flex items-center justify-between gap-2 my-5">
+      <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <label
           htmlFor="categoryId"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg"
+          className="text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Category :
         </label>
@@ -431,7 +431,7 @@ const ItemForm = ({
               categoryId: e.target.value,
             })
           }
-          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
+          className="rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         >
           <option value="">Select Category</option>
 
@@ -447,10 +447,10 @@ const ItemForm = ({
         <p className="text-red-500 text-sm mb-3">{errors.categoryId}</p>
       )}
 
-      <div className="flex items-center justify-between gap-2 mb-5">
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <label
           htmlFor="branchId"
-          className="text-[#984447] font-bold text-sm sm:font-bold sm:text-lg"
+          className="text-sm font-semibold text-[var(--primary-color)] sm:text-base"
         >
           Branch :
         </label>
@@ -464,7 +464,7 @@ const ItemForm = ({
               branchId: e.target.value,
             })
           }
-          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
+          className="rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         >
           <option value="">Select Branch</option>
 
@@ -477,20 +477,20 @@ const ItemForm = ({
       </div>
 
       {errors.branchId && (
-        <p className="text-red-500 text-sm mb-3">{errors.branchId}</p>
+        <p className="mt-2 text-sm font-medium text-red-400">{errors.branchId}</p>
       )}
 
-      <div className="flex items-center justify-center w-full gap-4 mt-5">
+      <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
         <button
           type="submit"
-          className="bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
+          className="flex flex-1 justify-center rounded-xl bg-[var(--button-color)] px-6 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-black"
         >
           {item ? "Update Item" : "Add Item"}
         </button>
 
         <button
           type="button"
-          className="bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer mt-10 flex justify-center"
+          className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black"
           onClick={() => setShowForm(false)}
         >
           Cancel

@@ -2,7 +2,7 @@ import api from "../../api/api.js";
 import { useState, useEffect } from "react";
 import { useDashboard } from "../../context/DashBoardContext.js";
 import type { CategoryType, Restaurant, BranchType } from "../../types/DashBoardtype.js";
-import  handleApiError  from "../../api/handleError.js";
+import handleApiError from "../../api/handleError.js";
 const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   category: CategoryType | null;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +15,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   //refresh data after crud operation
-  const {refreshDashboardData}=useDashboard();
+  const { refreshDashboardData } = useDashboard();
 
   useEffect(() => {
     if (category) {
@@ -58,7 +58,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
         );
 
       }
-        await refreshDashboardData();
+      await refreshDashboardData();
       setShowForm(false);
     } catch (err) {
       const validationErrors = handleApiError(err);
@@ -81,13 +81,15 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     }
   };
   console.log(errors);
-  
+
   return (
-    <form className="flex-col border-2 border-[#F4B400]/30 rounded-lg flex items-start gap-3 p-5 mx-3 overflow-hidden" action="" onSubmit={handleCategorySubmit}>
+    <form
+      className="mx-auto mt-8 flex w-full max-w-2xl flex-col gap-6 rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-2xl shadow-black/30"
+      action="" onSubmit={handleCategorySubmit}>
 
-      <div className="flex items-center gap-2 mb-5">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 
-        <label htmlFor="branch" className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg " >Select Branch : </label>
+        <label htmlFor="branch" className="text-sm font-semibold text-[var(--primary-color)] sm:text-base" >Select Branch : </label>
 
         <select
           name="branchId"
@@ -98,44 +100,41 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
               branchId: e.target.value,
             })
           }
-
-          className="border border-white/30 text-[#F4B400] bg-[#984447] rounded-md px-2 py-1"
-
+          className="w-full sm:w-64 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         >
-          <option className="text-[#F4B400] bg-[#984447]" value="">Select Branch</option>
+          <option className="bg-[var(--card-color)] text-[var(--text-color)]" value="">Select Branch</option>
 
           {branches?.map((branch) => (
-            <option className="text-[#F4B400] bg-[#984447]" key={branch._id} value={branch._id}>
+            <option className="bg-[var(--card-color)] text-[var(--text-color)]" key={branch._id} value={branch._id}>
               {branch.name}
             </option>
           ))}
         </select>
 
       </div>
-          {errors.branchId && (
-            <p className="text-white text-xs">{errors.branchId}</p>
-          )}
-      <div className="flex items-center gap-2 mb-5">
-        <label htmlFor="category"  className="text-[#984447] font-bold text-sm  sm:font-bold sm:text-lg ">Category Name : </label>
-        <input type="text" name="category" value={formData.category} onChange={handleChange} placeholder="Enter Category" className="border border-white/30 rounded-md px-1" />
+      {errors.branchId && (
+        <p className="mt-1 text-sm font-medium text-red-400">{errors.branchId}</p>
+      )}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <label htmlFor="category" className="text-sm font-semibold text-[var(--primary-color)] sm:text-base">Category Name : </label>
+        <input type="text" name="category" value={formData.category} onChange={handleChange}
+          placeholder="Enter Category"
+          className="w-full sm:w-64 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
+        />
       </div>
 
-{errors.category && (
-            <p className="text-white text-xs">{errors.category}</p>
-          )}
-      {/* <input
-        type="text"
-        //accept="image/*"
-        name="image"
-        value={formData.image}
-        onChange={handleChange}
-        className="underline  text-blue-400 font-medium" /> */}
+      {errors.category && (
+        <p className="mt-1 text-sm font-medium text-red-400">{errors.category}</p>
+      )}
 
-      <div className="flex items-center justify-end w-full gap-4 mt-5">
-        <button type="submit" className=" bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-2 sm:px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center"
+      <div className="mt-6 flex w-full flex-col gap-4 sm:flex-row sm:justify-end">
+        <button type="submit"
+          className="flex flex-1 justify-center rounded-xl bg-[var(--button-color)] px-6 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-black sm:flex-none"
         >{category ? "Update Category" : "Add Category"}</button>
 
-        <button onClick={() => { setShowForm(false) }} className="bg-[#984447] hover:bg-[#F4B400] transition text-white py-2 px-4 rounded-md font-semibold text-lg text-center cursor-pointer flex justify-center">
+        <button onClick={() => { setShowForm(false) }}
+          className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black sm:flex-none"
+        >
           Cancel
         </button>
       </div>
