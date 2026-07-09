@@ -25,6 +25,7 @@ const AddToCart = ({item,selectedVariant,cart,setCart}: AddToCartProps) => {
       (item.variants.length === 0 ||
         cartItem.variantId === selectedVariant?._id)
   );
+
   if(existingItem) {
     const updatedCart = cart.map((cartItem) =>
       cartItem.id === item._id &&
@@ -58,7 +59,7 @@ const AddToCart = ({item,selectedVariant,cart,setCart}: AddToCartProps) => {
   }
     
   return (
-  <button onClick={(e)=>handleAddToCart(e)}>Add To Cart</button>
+   <button onClick={(e)=>handleAddToCart(e)} className="w-full">Add To Cart</button>
   )
 }
 

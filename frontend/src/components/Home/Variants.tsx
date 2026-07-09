@@ -15,23 +15,29 @@ const Variants = ({
   setSelectedVariant,
 }: VariantsProps) => {
   return (
-    <div className="my-3 flex flex-col gap-3">
-      {variants.map((variant) => (
-        <label key={variant._id} 
-        className={`flex items-center justify-between rounded-xl border px-4 py-3 cursor-pointer transition-all duration-300 ${selectedVariant?._id === variant._id ? "border-[var(--primary-color)] bg-[var(--primary-color)]/10 shadow-lg shadow-[var(--primary-color)]/10" : "border-white/10 bg-[var(--card-color)] hover:border-[var(--primary-color)]/50 hover:bg-[var(--background-color)]"}`}>
-          <input
-            type="radio"
-            className="h-2 w-2 accent-[var(--primary-color)] cursor-pointer"
-            name={`variant-${itemId}`}
-            checked={selectedVariant?._id === variant._id}
-            onChange={() => setSelectedVariant(variant)}
-          />
+    <div className="my-3">
+      <select
+        value={selectedVariant?._id || ""}
+        onChange={(e) => {
+          const variant = variants.find((v) => v._id === e.target.value);
+          if (variant) setSelectedVariant(variant);
+        }}
+        className="w-full rounded-xl border border-white/10 bg-[var(--card-color)] px-4 py-3 text-[var(--text-color)] text-sm font-medium outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 hover:border-[var(--primary-color)]/50 cursor-pointer"
+      >
+        <option className=" py-3 text-xl font-bold text-[var(--primary-color)]" value="" disabled>
+          Select Variant
+        </option>
 
-          <span className={`ml-3 flex-1 text-sm font-normal transition-colors duration-300 ${selectedVariant?._id===variant._id?"text-[var(--primary-color)]":"text-[var(--text-color)]"}`}>
+        {variants.map((variant) => (
+          <option
+            key={variant._id}
+            value={variant._id}
+            className="bg-[var(--card-color)] text-[var(--text-color)]"
+          >
             {variant.variation} - Rs {variant.price}
-          </span>
-        </label>
-      ))}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

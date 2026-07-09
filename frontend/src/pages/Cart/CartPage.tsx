@@ -90,7 +90,7 @@ const checkoutRoute = token ? "/checkout" : "/signup?redirect=/checkout";
         <>
           <h2 className="mt-8 text-right text-3xl font-bold text-[var(--primary-color)]">Total: {total}</h2>
 
-          <Link to={checkoutRoute}><button className="w-[clamp(200px,50%,300px)] block text-center bg-[#984447] text-white font-bold mx-auto mt-5 py-2 px-2 rounded-sm hover:bg-[#F4B400] transition">Proceed To Checkout</button></Link>
+          <Link to={checkoutRoute}><button className="mx-auto mt-6 block w-[clamp(220px,50%,320px)] rounded-xl bg-[var(--button-color)] px-6 py-3 text-center font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]">Proceed To Checkout</button></Link>
         </>
       )}
 

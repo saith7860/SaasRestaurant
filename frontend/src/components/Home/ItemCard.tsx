@@ -4,6 +4,7 @@ import type { variantType } from "../../types/DashBoardtype";
 import { CartContext } from "../../context/CartContext";
 import Variants from "./Variants";
 import AddToCart from "./AddToCart";
+import Variant from "../../pages/admin/Variant";
 
 interface ItemCardProps {
   item: ItemType;
@@ -42,11 +43,12 @@ const ItemCard = ({ item }: ItemCardProps) => {
           />
         ) : (
           <p className="mt-auto py-3 text-xl font-bold text-[var(--primary-color)]">
-            Rs {item.basePrice}
+              Rs {item.basePrice}
           </p>
         )}
 
         <span className="flex-1"></span>
+
 
         <button className="mt-auto w-full rounded-xl bg-[var(--button-color)] py-3 font-semibold text-[var(--button-text-color)] shadow-md transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] hover:shadow-xl active:scale-[0.98]">
           <AddToCart

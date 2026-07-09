@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import api from "../../api/api";
 import { clearAccessToken } from "../../api/tokenStore";
 
@@ -24,25 +24,98 @@ const SideBar = () => {
   };
 
   return (
-    <div>
-      <ul className="flex flex-col gap-3 h-full py-4 pr-4">
-        <Link to="restaurant"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><FaStore /></span> Resturant</li></Link>
-        <Link to="branches"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><MdOutlineLocationOn /></span> Branches</li></Link>
-        <Link to="categories"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><FaLayerGroup /></span> Categories</li></Link>
-        <Link to="items"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><FaUtensils /></span> Items</li></Link>
-        <Link to="orders"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><FaClipboardList /></span> Orders</li></Link>
-        <Link to="variants"><li className="flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)] transition-all duration-300 cursor-pointer"> <span><FaSlidersH /></span> Variants</li></Link>
 
-        {/* Logout */}
-        <li
-          onClick={handleLogout}
-          className="absolute bottom-6 left-4 right-4 flex items-center gap-4 px-4 py-3 rounded-xl text-[var(--primary-color)] hover:bg-red-500/15 hover:text-red-400 transition-all duration-300 cursor-pointer border border-transparent hover:border-red-500/30"
-        >
-          <span><CiLogout /></span>
-          Logout
+    <ul className="flex h-full w-full items-center justify-around md:flex-col md:items-stretch md:justify-start md:gap-3">
+
+      <NavLink to="restaurant" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+
+        <li className="flex flex-row gap-3">
+          <span><FaStore className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block"> Resturant </span>
         </li>
-      </ul>
-    </div>
+
+      </NavLink>
+
+      <NavLink to="branches" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><MdOutlineLocationOn className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block">Branches</span>
+        </li>
+
+      </NavLink>
+
+      <NavLink to="categories" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><FaLayerGroup className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block">Categories</span>
+        </li>
+
+      </NavLink>
+
+      <NavLink to="items" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><FaUtensils className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block">Items</span>
+        </li>
+
+      </NavLink>
+
+      <NavLink to="orders" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><FaClipboardList className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block">Orders</span>
+        </li>
+
+      </NavLink>
+
+      <NavLink to="variants" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3"><span>
+          <FaSlidersH className="text-3xl md:text-lg" /></span>
+          <span className="hidden md:block">Variants</span>
+        </li>
+
+      </NavLink>
+
+      {/* Logout */}
+      <li
+        onClick={handleLogout}
+        className="hidden  absolute bottom-5 left-5 md:flex items-center  gap-3 rounded-xl border border-red-500/20 px-4 py-3 text-red-300 transition-all duration-300 hover:bg-red-500/10 hover:border-red-500/40 hover:text-red-400"
+      >
+        <span className="text-lg"><CiLogout /></span>
+        <span>Logout</span>
+      </li>
+
+    </ul>
   );
 };
 

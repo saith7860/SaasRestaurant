@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link } from "react-router";
 import { CartContext } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
 import OrderForm from "../../components/Order/OrderForm";
@@ -59,6 +60,10 @@ const Checkout = () => {
         </div>
 
       </div>
+
+
+      <Link to="/"><button className="mx-auto mt-16 block w-[clamp(220px,50%,320px)] rounded-xl bg-[var(--button-color)] px-6 py-3 text-center font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]">Return to Menu</button></Link>
+
     </div>
 
   )
