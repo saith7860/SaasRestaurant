@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { z } from "zod";
 
 export const ItemSchema = z.object({
@@ -10,8 +9,5 @@ export const ItemSchema = z.object({
   categoryId:z.string("category Id is required"),
   isAvailable:z.boolean().default(true),
   variants:z.array(z.string()).default([]),
-  image:z.object({
-    url:z.string('image url is required'),
-    publicId:z.string('public Id is required'),
-  }).optional()
+  image:z.file("Image file is required")
 });

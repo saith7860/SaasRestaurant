@@ -8,7 +8,7 @@ const WhatsAppButton = () => {
   if (!restaurantData?.branches[0].contactNumber) {
     return null;
   }
-  const whatsappNumber = restaurantData?.branches[0].contactNumber;
+  const whatsappNumber = restaurantData?.branches[0]?.contactNumber;
 
   const message = `Hello ${restaurantData?.restaurantData?.restaurantName}, I want to place an order.`;
 

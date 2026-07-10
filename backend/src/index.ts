@@ -19,6 +19,7 @@ import superAdminRouter from './routes/superAdminRoute.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
+app.use(cookieParser())
 // app.use(cors({
 //    origin: ["https://foodordersystemonline.vercel.app","http://localhost:5173","http://[IP_ADDRESS]"],
 //   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
@@ -48,7 +49,7 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-app.use(cookieParser())
+
 app.use(helmet());
 //Routes
 app.use("/api/category",categoryRouter) //CATEGORY ROUTER

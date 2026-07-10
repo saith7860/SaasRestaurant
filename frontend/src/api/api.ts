@@ -5,7 +5,7 @@ import {
   setAccessToken,
   clearAccessToken,
 } from "./tokenStore";
-const hostname = window.location.hostname;
+const hostname=window.location.hostname;
 const api = axios.create({
   baseURL: `http://${hostname}:3000`,
   withCredentials: true,

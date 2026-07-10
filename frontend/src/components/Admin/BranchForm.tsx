@@ -136,6 +136,37 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
+                {/* Opening Time */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
+                        Opening Time
+                    </label>
+
+                    <input
+                        name="openingTime"
+                        type="text"
+                        value={formData.openingTime}
+                        onChange={handleChange}
+                        placeholder="Enter Opening Time"
+                        className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
+                    />
+                  </div>
+
+      {/* Closing Time */}
+                  <div>
+                    <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
+                        Opening Time
+                    </label>
+
+                    <input
+                        name="closingTime"
+                        type="text"
+                        value={formData.closingTime}
+                        onChange={handleChange}
+                        placeholder="Enter Closing Time"
+                        className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
+                    />
+                  </div>
 
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">

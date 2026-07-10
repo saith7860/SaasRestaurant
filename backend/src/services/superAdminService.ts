@@ -36,13 +36,13 @@ const createRestaurantBySuperAdmin = async (
       contactNumber,
       deliveryFee,
       estimatedDeliveryTime,
-      owner,
+      
       name,
       email,
       password,
       phone,
       address,
-      role
+        
     } = payload;
 
 

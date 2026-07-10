@@ -36,7 +36,10 @@ try {
 export const createNewAccessToken=async(req:Request,res:Response,next:NextFunction)=>{
 try {
    const refreshToken=req.cookies.refreshToken;
-   console.log("refresh token from cookies is",refreshToken);
+   console.log("cookies",req.cookies);
+   console.log("refresh token is",refreshToken);
+   console.log("Headers",req.headers);
+   
    
     if (!refreshToken) {
      throw new ApiError(401,'Refresh token not found in cookies')
