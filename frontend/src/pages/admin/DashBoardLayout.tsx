@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import SideBar from "../../components/Admin/SideBar";
-import { clearAccessToken } from "../../api/tokenStore";
 import { Outlet } from "react-router";
 import { useDashboard } from "../../context/DashBoardContext";
 

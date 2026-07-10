@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import api from "../../api/api";
 import { useDashboard } from "../../context/DashBoardContext";
-import type { BranchType } from "../../types/DashBoardtype.js"
+import type { BranchType } from "../../types/DashBoardtype.js";
+import handleApiError from "../../api/handleError.js";
 const BranchForm = ({ branch, setShowForm }: {
     branch: BranchType | null;
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -16,6 +17,7 @@ const BranchForm = ({ branch, setShowForm }: {
         closingTime: "",
         deliveryFee: "",
     });
+      const [errors, setErrors] = useState<Record<string, string>>({});
     const { restaurant, refreshDashboardData } = useDashboard();
     //populating form if branch is selected
     useEffect(() => {
@@ -66,7 +68,17 @@ const BranchForm = ({ branch, setShowForm }: {
             await refreshDashboardData();
             setShowForm(false);
         } catch (err) {
-            console.log(err);
+               const validationErrors = handleApiError(err);
+
+      if (validationErrors) {
+        const formattedErrors: Record<string, string> = {};
+
+        validationErrors.forEach((err: any) => {
+          formattedErrors[err.field] = err.message;
+        });
+
+        setErrors(formattedErrors);
+      }
         }
     };
     return (
@@ -91,7 +103,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
-
+            {errors.name && <span className="text-red-500">{errors.name}</span>}
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
                         Contact Number
@@ -106,7 +118,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
-
+    {errors.contactNumber && <span className="text-red-500">{errors.contactNumber}</span>}
                 <div className="md:col-span-2">
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
                         Branch Address
@@ -121,7 +133,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
-
+{errors.address && <span className="text-red-500">{errors.address}</span>}
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
                         City
@@ -136,6 +148,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
+ {errors.city && <span className="text-red-500">{errors.city}</span>}               
                 {/* Opening Time */}
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
@@ -151,7 +164,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                   </div>
-
+ {errors.openingTime && <span className="text-red-500">{errors.openingTime}</span>}
       {/* Closing Time */}
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
@@ -167,7 +180,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                   </div>
-
+ {errors.closingTime && <span className="text-red-500">{errors.closingTime}</span>}
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
                         Delivery Fee
@@ -182,7 +195,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                 </div>
-
+{errors.deliveryFee && <span className="text-red-500">{errors.deliveryFee}</span>}
             </div>
 
             <div
