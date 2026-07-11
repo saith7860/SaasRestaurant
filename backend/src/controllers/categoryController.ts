@@ -15,8 +15,10 @@ const getAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 }
 const postAllMenu=async(req:Request,res:Response,next:NextFunction)=>{
 try {
-   const restaurantId = (req as any).restaurantId as string;
-   const category= await categoryService.createMenu(req.body,restaurantId);
+   const restaurantId = req.user?.restaurantId;
+   console.log("restaurnt id is ",restaurantId);
+   
+   const category= await categoryService.createMenu(req.body,restaurantId as string);
    return res.json({
         success:"True",
         message:"Category saved successfully",

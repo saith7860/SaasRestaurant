@@ -24,5 +24,14 @@ const categorySchema = new mongoose.Schema(
   },
   { timestamps: true } // adds createdAt & updatedAt automatically
 );
+categorySchema.index(
+  {
+    restaurantId: 1,
+    category: 1,
+  },
+  {
+    unique: true,
+  }
+);
 const Category=mongoose.model("Category",categorySchema);
 export default Category;

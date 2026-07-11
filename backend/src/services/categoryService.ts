@@ -2,6 +2,7 @@ import * as categoryRepo from '../repos/categoryRepo.js';
 import { ApiError } from '../middlewares/errorHandler.js';
 import { categorySchema } from '../validators/categoryValidator.js';
 import { CategoryType } from '../types/category.js';
+import * as restaurantRepo from "../repos/resturantRepo.js"
 const fetchMenu=async(id:string)=>{
    const menus=await categoryRepo.showAllMenu(id);
    if (!menus.length) {
@@ -11,7 +12,12 @@ const fetchMenu=async(id:string)=>{
 }
 
 const createMenu=async(data:CategoryType,restaurantId:string)=>{
-   const category=await categoryRepo.getSpecificCategoryAndRestaurant(data.category,restaurantId);
+   const restaurant=await restaurantRepo.findRestaurantByOwner(restaurantId);
+
+   if (!restaurant) {
+    throw new ApiError(404,'Restaurant not found');
+   }
+   const category=await categoryRepo.getSpecificCategoryAndRestaurant(data.category,restaurant._id);
    if (category) {
     throw new ApiError(400,'Category already exists');
    }
@@ -22,8 +28,11 @@ const createMenu=async(data:CategoryType,restaurantId:string)=>{
    return newCategory;
 }
 const getSpecificCategory=async(category:string,restaurantId:string)=>{
-
-    const specificData=await categoryRepo.getSpecificCategoryAndRestaurant(category,restaurantId);
+    const restaurant=await restaurantRepo.findRestaurantByOwner(restaurantId);
+   if (!restaurant) {
+    throw new ApiError(404,'Restaurant not found');
+   }
+    const specificData=await categoryRepo.getSpecificCategoryAndRestaurant(category,restaurant._id);
       if (!specificData) {
        throw new ApiError(404,'Category does not found')
     }

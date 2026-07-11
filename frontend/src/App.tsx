@@ -16,7 +16,7 @@ import Item from "./pages/admin/Item";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 

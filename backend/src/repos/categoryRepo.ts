@@ -1,5 +1,6 @@
 import Category from "../models/categoryModel.js"
 import { CategoryType } from '../types/category.js';
+import { Types } from 'mongoose';
 const showAllMenu=async(id:string)=>{
     const menu=await Category.find({branch:id}).populate("items");
    return menu;
@@ -13,9 +14,9 @@ const createMenu=async(data:CategoryType)=>{
   await newCategory.save();
   return newCategory;
 }
-const getSpecificCategoryAndRestaurant=async(category:string,restaurantId:string)=>{
+const getSpecificCategoryAndRestaurant=async(category:string,restaurantId:Types.ObjectId)=>{
   const categoryData=await Category.findOne({category,restaurantId});
-  return categoryData;
+  return categoryData; 
 }
 const updateCategory=async(id:string,data:CategoryType)=>{
   const category=await Category.findByIdAndUpdate(id,data,{returnDocument:"after"});
