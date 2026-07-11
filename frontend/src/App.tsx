@@ -15,7 +15,6 @@ import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
-
 import { useEffect } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
@@ -25,7 +24,7 @@ import { applyTheme } from "./utils/applyTheme";
 
 
 const App = () => {
-  const { restaurantData, setRestaurantData } = useRestaurant();
+  const {setRestaurantData,restaurantData } = useRestaurant();
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
@@ -43,10 +42,11 @@ const App = () => {
         console.log("response in getting restaurant data",response);
         
         const restaurant = response.data.result;
-
+       console.log("resturant data is",restaurant?.restaurantData?.restaurantName);
+       
         setRestaurantData(restaurant);
 
-        applyTheme(restaurant?.theme);
+        applyTheme(restaurant?.restaurantData?.theme);
 
         
       } catch (error) {
@@ -61,7 +61,11 @@ const App = () => {
   
    
   },[])
-  
+  useEffect(() => {
+  if (restaurantData?.restaurantData?.restaurantName) {
+    document.title = restaurantData.restaurantData.restaurantName;
+  }
+}, [restaurantData]);
  
   // if (loadingAuth) {
   //   return (
@@ -78,11 +82,7 @@ const App = () => {
   //   );
   // }
 
-  console.log(restaurantData);
 
-  const bgColor = restaurantData?.restaurantData?.theme;
-
-  console.log(bgColor);
 
 
   return (
