@@ -1,41 +1,25 @@
 import { Navigate } from "react-router";
-import {jwtDecode} from "jwt-decode";
-import { getAccessToken } from "../../api/tokenStore";
+import { useAuth } from "../../context/AuthContext";
 const ProtectedAdminRoute = ({
-    children
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) => {
+  const { user,loading } = useAuth();
 
-    const token = getAccessToken();
-    console.log(token);
-    if (!token) {
-        return <Navigate to="/login" />;
-    }
-  
-    let user;
-
-  try {
-    user = jwtDecode(token);
-  } catch (err) {
-    console.log("error is ",err);
-    
-    return <Navigate to="/login" />;
+ if (loading) {
+    return <h1>Loading...</h1>;
   }
 
-    console.log(user);
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
-    // not logged in
+  if (user.role !== "admin") {
+    return <Navigate to="/" replace />;
+  }
 
-    // not admin
-    if (
-    user?.role !==
-        "admin"
-    ) {
-        return <Navigate to="/" />;
-    }
-
-    return children;
+  return children;
 };
 
 export default ProtectedAdminRoute;

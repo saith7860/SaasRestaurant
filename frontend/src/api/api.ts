@@ -1,10 +1,7 @@
 
 import axios from "axios";
-import {
-  getAccessToken,
-  setAccessToken,
-  clearAccessToken,
-} from "./tokenStore";
+import { getAccessToken } from "./tokenStore";
+import { refreshAccessToken } from "./authApi";
 const hostname=window.location.hostname;
 const api = axios.create({
   baseURL: `http://${hostname}:3000`,
@@ -13,10 +10,9 @@ const api = axios.create({
 
 // Har request ke sath access token attach hoga
 api.interceptors.request.use((config) => {
-  const token = getAccessToken();
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+ const accessToken=getAccessToken();
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
   return config;
@@ -38,18 +34,12 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const res = await api.post("/api/user/refresh-token");
-
-        const newAccessToken = res.data.token;
-
-        setAccessToken(newAccessToken);
-
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        
+        const token=await refreshAccessToken();
+        originalRequest.headers.Authorization = `Bearer ${token}`;
 
         return api(originalRequest);
       } catch (refreshError) {
-        clearAccessToken();
-
         // Optional: user ko login page par bhej do
         window.location.href = "/login";
 

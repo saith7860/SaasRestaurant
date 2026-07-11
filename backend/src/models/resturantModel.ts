@@ -105,10 +105,6 @@ restaurantEmail: {
     default: 0
   },
 
-  estimatedDeliveryTime: {
-    type:String,
-  },
-
   isActive: {
     type: Boolean,
     default: true

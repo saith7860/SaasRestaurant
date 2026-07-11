@@ -13,6 +13,8 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     deliveryFee: restaurant?.deliveryFee || 0,
     estimatedDeliveryTime: restaurant?.estimatedDeliveryTime || "",
   });
+  console.log("delivery time is",restaurant?.estimatedDeliveryTime);
+  
   //refreseh when update data
   const { refreshDashboardData } = useDashboard();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,10 +58,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
           <label htmlFor="deliveryFee" className="font-semibold text-[var(--primary-color)] tracking-wide">Delivery Fee : </label>
           <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="number" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
         </div>
-        <div>
-          <label htmlFor="estimatedDeliveryTime" className="font-semibold text-[var(--primary-color)] tracking-wide">Estimated Delivery Time : </label>
-          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="number" name="estimatedDeliveryTime" value={formField.estimatedDeliveryTime} onChange={handleChange} />
-        </div>
+    
 
       </div>
 

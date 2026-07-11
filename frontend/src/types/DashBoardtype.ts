@@ -6,7 +6,6 @@ export interface Restaurant {
   contactNumber: string;
   restaurantEmail: string;
   deliveryFee: number;
-  estimatedDeliveryTime?: string;
   isActive: boolean;
   slug: string;
   owner: string;

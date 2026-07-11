@@ -18,7 +18,8 @@ const ItemCard = ({ item }: ItemCardProps) => {
     <div className="group flex flex-col h-full overflow-hidden rounded-2xl bg-[var(--card-color)] border border-[var(--primary-color)]/15 shadow-lg hover:border-[var(--primary-color)]/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
 
       <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
-        <img src={item.image?.url} alt={item.name}
+
+     <img src={item?.image?.url} alt={item.name}  
           className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -50,14 +51,14 @@ const ItemCard = ({ item }: ItemCardProps) => {
         <span className="flex-1"></span>
 
 
-        <button className="mt-auto w-full rounded-xl bg-[var(--button-color)] py-3 font-semibold text-[var(--button-text-color)] shadow-md transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] hover:shadow-xl active:scale-[0.98]">
+       
           <AddToCart
             selectedVariant={selectedVariant}
             cart={cart}
             setCart={setCart}
             item={item}
           />
-        </button>
+      
       </div>
     </div>
   );

@@ -3,8 +3,10 @@ const resturantRouter=express.Router();
 import { authMiddleware,checkAdmin, checkSuperAdmin } from '../tokens/jwt.js';
 import { uploadRestaurantImages } from '../middlewares/uploadMiddleware.js';
 import {updateRestaurantImages,updateResturant,deleteResturant,getAllBranches,getSpecificResturantData,getDashBoardData } from "../controllers/resturantController.js"
+import validate from '../middlewares/validationMiddleware.js';
+import { createRestaurantValidator } from '../validators/resturantValidator.js';
 resturantRouter.get("/:id/branches",authMiddleware,checkAdmin,getAllBranches)
-resturantRouter.patch("/update-resturant/:id",authMiddleware,checkAdmin,updateResturant);//update a resturant
+resturantRouter.patch("/update-resturant/:id",authMiddleware,checkAdmin,validate(createRestaurantValidator),updateResturant);//update a resturant
 resturantRouter.delete("/delete-resturant/:id",authMiddleware,checkAdmin,deleteResturant);//delete a resturant
 resturantRouter.get("/:slug",getSpecificResturantData);
 resturantRouter.patch("/update-images",authMiddleware,checkAdmin,uploadRestaurantImages,updateRestaurantImages)

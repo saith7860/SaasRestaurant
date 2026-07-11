@@ -8,6 +8,6 @@ const categoryRouter=express.Router();
 categoryRouter.get("/:id/menu",getAllMenu); //SHOW WHOLE MENU
 categoryRouter.post("/create-category",validate(categorySchema),authMiddleware,checkAdmin,postAllMenu); //CREATE A NEW CATEGORY
 categoryRouter.get("/category",getSpecificCategory) //GET SPECIFIC CATEGORY
-categoryRouter.patch("/update-category/:id",authMiddleware,checkAdmin,updateSpecificCategory) //UPDATE SPECIFIC CATEGORY
+categoryRouter.patch("/update-category/:id",authMiddleware,checkAdmin,validate(categorySchema),updateSpecificCategory) //UPDATE SPECIFIC CATEGORY
 categoryRouter.delete("/delete-category/:id",authMiddleware,checkAdmin,deleteSpecificCategory) //DELETE SPECIFIC CATEGORY
 export default categoryRouter;

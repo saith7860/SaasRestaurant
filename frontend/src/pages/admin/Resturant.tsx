@@ -42,15 +42,6 @@ const Resturant = () => {
             </span>
           </div>
 
-          <div className="flex items-center justify-between ">
-            <span className="font-semibold text-[var(--primary-color)]">
-              Delivery Time:
-            </span>
-            <span className="text-[var(--text-color)]">
-              {restaurant?.estimatedDeliveryTime}
-            </span>
-          </div>
-
         </div>
       </div>
 

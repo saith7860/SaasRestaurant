@@ -10,7 +10,6 @@ interface CreateRestaurantBySuperAdminInput {
   restaurantEmail: string;
   contactNumber: string;
   deliveryFee: number;
-  estimatedDeliveryTime: string;
   owner:mongoose.Schema.Types.ObjectId
   name:string
   email:string
@@ -35,14 +34,14 @@ const createRestaurantBySuperAdmin = async (
       restaurantEmail,
       contactNumber,
       deliveryFee,
-      estimatedDeliveryTime,
+      
       
       name,
       email,
       password,
       phone,
       address,
-        
+
     } = payload;
 
 
@@ -84,7 +83,7 @@ const createRestaurantBySuperAdmin = async (
     if (!ownerUser) {
         throw new ApiError(500,'User not created');
     }
-  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,estimatedDeliveryTime,owner:ownerUser._id},session)
+  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,owner:ownerUser._id},session)
       const updatedOwner = await userRepo.updateUserRestaurantId(
       ownerUser._id,
       restaurant._id,
@@ -105,7 +104,6 @@ const createRestaurantBySuperAdmin = async (
         email: restaurant.restaurantEmail,
         contactNumber: restaurant.contactNumber,
         deliveryFee: restaurant.deliveryFee,
-        estimatedDeliveryTime: restaurant.estimatedDeliveryTime,
         isActive: restaurant.isActive,
         owner: restaurant.owner,
       },

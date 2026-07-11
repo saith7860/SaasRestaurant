@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
 import CartPage from "./pages/Cart/CartPage";
-import { DashboardProvider, useDashboard } from "./context/DashBoardContext";
+import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
 import Checkout from "./pages/Checkout/Checkout";
 import Signup from "./pages/signup/Signup";
@@ -19,14 +19,13 @@ import Variant from "./pages/admin/Variant";
 import { useEffect, useState } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
-import { setAccessToken } from "./api/tokenStore";
+
 
 import { applyTheme } from "./utils/applyTheme";
 
 
 const App = () => {
   const { restaurantData, setRestaurantData } = useRestaurant();
-  const [loadingAuth, setLoadingAuth] = useState(true);
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
@@ -41,57 +40,43 @@ const App = () => {
       try {
 
         const response = await api.get(`/api/resturant/${slug}`);
-
+        console.log("response in getting restaurant data",response);
+        
         const restaurant = response.data.result;
 
         setRestaurantData(restaurant);
 
-        applyTheme(restaurant.theme);
+        applyTheme(restaurant?.theme);
 
-
+        
       } catch (error) {
         console.log(error);
       }
     };
 
 
-
-
-
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await api.post("/api/user/refresh-token");
-        console.log('response in refresh token', res);
+  const slug = getSlug();
+  getRestaurant(slug);
+  
+   
+  },[])
+  
+ 
+  // if (loadingAuth) {
+  //   return (
 
-        setAccessToken(res.data.token);
-      } catch (err) {
-        console.log('error in refresh token', err)
-        console.log("No valid session");
-      } finally {
-        setLoadingAuth(false);
-      }
-    };
-    checkAuth();
+  //     <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--primary-color)]">
+  //       <div className="flex items-center gap-3 rounded-xl bg-[var(--card-color)] px-8 py-5 shadow-xl border border-[var(--primary-color)]/20">
+  //         <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--primary-color)] border-t-transparent"></div>
+  //         <span className="text-lg font-semibold tracking-wide">
+  //           Loading...
+  //         </span>
+  //       </div>
+  //     </div>
 
-    const slug = getSlug();
-    getRestaurant(slug);
-  }, [])
-
-  if (loadingAuth) {
-    return (
-
-      <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--primary-color)]">
-        <div className="flex items-center gap-3 rounded-xl bg-[var(--card-color)] px-8 py-5 shadow-xl border border-[var(--primary-color)]/20">
-          <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--primary-color)] border-t-transparent"></div>
-          <span className="text-lg font-semibold tracking-wide">
-            Loading...
-          </span>
-        </div>
-      </div>
-
-    );
-  }
+  //   );
+  // }
 
   console.log(restaurantData);
 
