@@ -33,7 +33,7 @@ const Checkout = () => {
   const orderData = { ...formData, subtotal, deliveryFee, totalAmount }
 
   return (
-    <div className="h-screen bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-4xl">
         Checkout
       </h1>
@@ -61,7 +61,7 @@ const Checkout = () => {
       </div>
 
 
-      <Link to="/"><button className="mx-auto mt-16 block w-[clamp(220px,50%,320px)] rounded-xl bg-[var(--button-color)] px-6 py-3 text-center font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]">Return to Menu</button></Link>
+      <Link to="/"><button className="mx-auto my-16 block w-[clamp(220px,50%,320px)] rounded-xl bg-[var(--button-color)] px-6 py-3 text-center font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]">Return to Menu</button></Link>
 
     </div>
 
