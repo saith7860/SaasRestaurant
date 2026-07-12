@@ -15,6 +15,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     description: restaurant?.description || "",
     slug:restaurant?.slug || "",
   });
+  console.log("deliver fee is",formField.deliveryFee);
     const [errors, setErrors] = useState<Record<string, string>>({});
   //refreseh when update data
   const { refreshDashboardData } = useDashboard();
@@ -28,7 +29,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     e.preventDefault();
     try {
       if (restaurant) {
-        await api.patch(`/api/resturant/update-resturant/${restaurant._id}`, formField);
+        await api.put(`/api/resturant/update-resturant/${restaurant._id}`, formField);
         await refreshDashboardData();
       }
       await refreshDashboardData();
@@ -73,7 +74,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
         )}
         <div>
           <label htmlFor="deliveryFee" className="font-semibold text-[var(--primary-color)] tracking-wide">Delivery Fee : </label>
-          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="number" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
+          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" name="deliveryFee" value={Number(formField.deliveryFee) || 0} onChange={handleChange} />
         </div>
         {errors.deliveryFee && (
           <p className="text-red-500 text-sm mt-1">{errors.deliveryFee}</p>

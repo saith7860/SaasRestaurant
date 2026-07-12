@@ -6,9 +6,9 @@ import {updateRestaurantImages,updateResturant,deleteResturant,getAllBranches,ge
 import validate from '../middlewares/validationMiddleware.js';
 import { createRestaurantValidator } from '../validators/resturantValidator.js';
 resturantRouter.get("/:id/branches",authMiddleware,checkAdmin,getAllBranches)
-resturantRouter.patch("/update-resturant/:id",authMiddleware,checkAdmin,validate(createRestaurantValidator),updateResturant);//update a resturant
+resturantRouter.put("/update-resturant/:id",authMiddleware,checkAdmin,validate(createRestaurantValidator),updateResturant);//update a resturant
 resturantRouter.delete("/delete-resturant/:id",authMiddleware,checkAdmin,deleteResturant);//delete a resturant
 resturantRouter.get("/:slug",getSpecificResturantData);
-resturantRouter.patch("/update-images",authMiddleware,checkAdmin,uploadRestaurantImages,updateRestaurantImages)
+resturantRouter.put("/update-images",authMiddleware,checkAdmin,uploadRestaurantImages,updateRestaurantImages)
 resturantRouter.get("/admin/dashboard",authMiddleware,checkAdmin,getDashBoardData);
 export default resturantRouter;

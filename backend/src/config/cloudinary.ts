@@ -6,5 +6,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET as string,
   secure: true,
 });
-
+export const deleteOldImage=async(publicId:string)=>{
+    await cloudinary.uploader.destroy(publicId);
+}
 export default cloudinary;

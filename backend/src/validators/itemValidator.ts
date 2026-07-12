@@ -7,6 +7,6 @@ export const ItemSchema = z.object({
   branchId:z.string("branch Id is required"),
   restaurantId:z.string("Restaurant Id is required"),
   categoryId:z.string("category Id is required"),
-  isAvailable:z.boolean().default(true),
+  isAvailable:z.boolean().default(true), 
   variants:z.array(z.string()).default([])
 });

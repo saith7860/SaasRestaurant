@@ -14,7 +14,7 @@ const Item = () => {
   console.log(items);
   const deleteItem = async (id: string) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this branch?"
+      "Are you sure you want to delete this Item?"
     );
 
     if (!confirmDelete) return

@@ -33,6 +33,7 @@ const ItemForm = ({
     categoryId: "",
     basePrice: "",
     branchId: "",
+    image:null
   });
 
   const { refreshDashboardData } = useDashboard();
@@ -52,7 +53,11 @@ const ItemForm = ({
         categoryId: getId(item.categoryId),
         basePrice: String(item.basePrice || ""),
         branchId: getId(item.branchId),
-      });
+        image:{
+          url:item?.image?.url,
+          publicId:item?.image?.publicId
+        }
+      }); 
     }
   }, [item]);
 
@@ -77,7 +82,7 @@ const ItemForm = ({
 
     setErrors((prev) => ({
       ...prev,
-      image: "",
+      image: null,
     }));
   };
 
@@ -163,10 +168,16 @@ const ItemForm = ({
           onChange={handleImageChange}
           className="w-full cursor-pointer rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--button-color)] file:px-4 file:py-2 file:font-medium file:text-[var(--button-text-color)] hover:file:bg-[var(--primary-color)] hover:file:text-black"
         />
+     {formData.image && (
+  <img
+    src={formData.image.url}
+    alt="Current item"
+    className="w-32 h-32 rounded object-cover mb-3"
+  />
+)}
 
 
-
-        {errors.image && (
+     {errors.image && (
           <p className="text-red-500 text-sm">{errors.image}</p>
         )}
       </div>
@@ -235,6 +246,7 @@ const ItemForm = ({
           }
           className="rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         >
+         
           <option value="">Select Category</option>
 
           {category?.map((cat: CategoryType) => (
