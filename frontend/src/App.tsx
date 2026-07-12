@@ -15,16 +15,17 @@ import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
-
+import { SplashScreen } from "./components/Animation/SplashScreen";
 
 import { applyTheme } from "./utils/applyTheme";
 
 
 const App = () => {
-  const {setRestaurantData,restaurantData } = useRestaurant();
+  const { setRestaurantData, restaurantData } = useRestaurant();
+  const [loadingRestaurant, setLoadingRestaurant] = useState(true);
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
@@ -37,50 +38,40 @@ const App = () => {
   const getRestaurant =
     async (slug: string) => {
       try {
-
+        setLoadingRestaurant(true);
         const response = await api.get(`/api/resturant/${slug}`);
-        console.log("response in getting restaurant data",response);
-        
+        console.log("response in getting restaurant data", response);
+
         const restaurant = response.data.result;
-       console.log("resturant data is",restaurant?.restaurantData?.restaurantName);
-       
-        setRestaurantData(restaurant);
+        console.log("resturant data is", restaurant?.restaurantData?.restaurantName);
 
         applyTheme(restaurant?.restaurantData?.theme);
+        setRestaurantData(restaurant);
 
-        
+
+
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoadingRestaurant(false);
       }
     };
 
 
   useEffect(() => {
-  const slug = getSlug();
-  getRestaurant(slug);
+    const slug = getSlug();
+    getRestaurant(slug);
+  }, [])
   
-   
-  },[])
   useEffect(() => {
-  if (restaurantData?.restaurantData?.restaurantName) {
-    document.title = restaurantData.restaurantData.restaurantName;
+    if (restaurantData?.restaurantData?.restaurantName) {
+      document.title = restaurantData.restaurantData.restaurantName;
+    }
+  }, [restaurantData]);
+  if (loadingRestaurant) {
+    return <SplashScreen />;
   }
-}, [restaurantData]);
- 
-  // if (loadingAuth) {
-  //   return (
 
-  //     <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--primary-color)]">
-  //       <div className="flex items-center gap-3 rounded-xl bg-[var(--card-color)] px-8 py-5 shadow-xl border border-[var(--primary-color)]/20">
-  //         <div className="h-5 w-5 animate-spin rounded-full border-2 border-[var(--primary-color)] border-t-transparent"></div>
-  //         <span className="text-lg font-semibold tracking-wide">
-  //           Loading...
-  //         </span>
-  //       </div>
-  //     </div>
-
-  //   );
-  // }
 
 
 
@@ -88,7 +79,7 @@ const App = () => {
   return (
     <>
       <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-300">
-        
+
         <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
           <Routes>
             <Route path="/" element={<Home />} />
