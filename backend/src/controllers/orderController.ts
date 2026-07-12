@@ -32,6 +32,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId=req.user?.userId;
     console.log("user id is",userId);
+    console.log("req.body",req.body);
     
     const result = await orderService.createOrder(userId as string, req.body);
     return res.json({

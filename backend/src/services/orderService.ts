@@ -6,7 +6,8 @@ import { sendEmail } from "../utils/sendEmail.js";
 import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
 import { OrderType } from '../types/order.js';
-
+import { verifyOrderItems } from './verifyOrderItem.js';
+import { calculateOrderTotals } from './calculateOrderTotal.js';
 const getOrdersByRestaurant=async(restaurantId:string)=>{
   const orders=await orderRepo.showAllOrders(restaurantId);
   if (!orders.length) {
@@ -84,9 +85,10 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
 };
 
 
-const createOrder = async (userId: string, data: OrderType) => {
+const createOrder = async (userId: string, data: any) => {
   console.log(userId);
-
+  console.log("data of order is",data);
+  
   const foundUser = await User.findById(userId);
   console.log(foundUser);
 
@@ -97,7 +99,7 @@ const createOrder = async (userId: string, data: OrderType) => {
   if (foundUser.role === "admin") {
     throw new ApiError(403, "Admin is not allowed to create orders");
   }
-    if (foundUser.role === "super_admin") {
+  if (foundUser.role === "super_admin") {
     throw new ApiError(403, "Super Admin is not allowed to create orders");
   }
   const restaurant = await Restaurant.findById(data.restaurantId);
@@ -105,8 +107,20 @@ const createOrder = async (userId: string, data: OrderType) => {
   if (!restaurant) {
     throw new ApiError(404, "Restaurant is not found");
   }
-
-  const newOrder = await orderRepo.createOrder(userId, data);
+  //check if restaurant is active
+  if (!restaurant.isActive) {
+    throw new ApiError(400, "Restaurant is not active");
+  }
+  const {verifiedItems,subtotal}=await verifyOrderItems(data.orderItems);
+  const {deliveryFee,totalAmount}=calculateOrderTotals(subtotal,restaurant.deliveryFee);
+  const orderData = {
+    ...data,
+    orderItems: verifiedItems,
+    subtotal,
+    deliveryFee,
+    totalAmount,
+};
+  const newOrder = await orderRepo.createOrder(userId, orderData);
 
   if (!newOrder) {
     throw new ApiError(400, "Server Error! Order not created");

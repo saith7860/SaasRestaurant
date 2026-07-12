@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
-
-const orderItemSchema = new mongoose.Schema(
+export const orderItemSchema = new mongoose.Schema(
   {
-    order: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-      required: true,
-    },
-
-    menuItem: {
+    itemId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Item",
       required: true,
     },
 
-    quantity: {
+    itemName: {
+      type: String,
+      required: true,
+    },
+   quantity: {
       type: Number,
       required: true,
       min: 1,
@@ -25,22 +22,12 @@ const orderItemSchema = new mongoose.Schema(
       required: true,
     },
 
-    variation: {
-      type: String,
-    },
+    variation: String,
 
     variantId: {
-      type: String,
-    },
-
-    itemName: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Variant",
     },
   },
-  { timestamps: true }
+  { _id: false }
 );
-
-const OrderItem = mongoose.model("OrderItem", orderItemSchema);
-
-export default OrderItem;

@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
-const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import {orderItemSchema} from "./orderItemModel.js";
 const orderSchema = new mongoose.Schema(
   {
+    orderItems: {
+      type:[orderItemSchema],
+      require:true
+    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -19,13 +24,12 @@ const orderSchema = new mongoose.Schema(
       ref: "Restaurant",
       required: true,
     },
-
     branchId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
       required: true,
     },
-
+   
     deliveryAddress: {
       type: String,
       required: true,

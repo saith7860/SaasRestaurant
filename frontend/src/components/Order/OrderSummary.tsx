@@ -1,5 +1,3 @@
-
-
 const OrderSummary = ({deliveryFee,total}:{
     deliveryFee:number;
     total:number;

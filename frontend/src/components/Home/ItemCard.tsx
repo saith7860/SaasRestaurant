@@ -4,7 +4,6 @@ import type { variantType } from "../../types/DashBoardtype";
 import { CartContext } from "../../context/CartContext";
 import Variants from "./Variants";
 import AddToCart from "./AddToCart";
-import Variant from "../../pages/admin/Variant";
 
 interface ItemCardProps {
   item: ItemType;
@@ -19,10 +18,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
       <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
 
-     <img src={item?.image?.url} alt={item.name}  
+     <img src={item?.image?.url||null} alt={item.name}  
           className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
-      </div>
+      </div> 
 
       <div className="flex flex-col flex-1 p-4">
 

@@ -46,7 +46,7 @@ const loginUser = async (data: loginUserType) => {
   throw new ApiError(401,'Password does not match')
 };
 const generateNewAccessToken=async(refreshToken:string)=>{
-  console.log("refreshToken in serice layer is ",refreshToken);
+  
   if (!refreshToken) {
     throw new ApiError(401,"refresh token not found");
   }
@@ -60,7 +60,6 @@ const generateNewAccessToken=async(refreshToken:string)=>{
       restaurantId:decoded.restaurantId,
       role:decoded.role,
     });
-    console.log("Access token is ",accessToken);
     
     if (!accessToken) {
         throw new ApiError(500,"Error in generating access token");

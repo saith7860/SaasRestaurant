@@ -32,11 +32,13 @@ const Login = () => {
       setAccessToken(res.data.token);
       console.log("user type", res.data.role)
       toast.success("User logged in successfully")
-      if (res.data.role === "admin")
+      if (res.data.role == "admin") {
         navigate("/admin");
-      else if (res.data.role == "super_admin")
+      }
+      if (res.data.role == "super_admin") {
         navigate("/super_admin")
-      else {
+      }
+      if (res.data.role == "user") {
         navigate("/checkout");
       }
 

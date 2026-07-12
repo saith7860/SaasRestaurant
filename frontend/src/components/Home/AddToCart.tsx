@@ -41,7 +41,6 @@ const AddToCart = ({item,selectedVariant,cart,setCart}: AddToCartProps) => {
     const newItem: CartItem = {
       id: item._id,
       name: item.name,
-      image: item.image,
       price:
         item.variants.length > 0
           ? selectedVariant?.price || item.basePrice

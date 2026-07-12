@@ -6,22 +6,25 @@ import handleApiError from "../../api/handleError";
 import { CartContext } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
 
-const OrderForm = ({ formData, handleChange, total, orderData }) => {
+const OrderForm = ({ formData, handleChange, orderData }) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const { setCart } = useContext(CartContext);
+    const { cart,setCart } = useContext(CartContext);
     const { restaurantData } = useRestaurant();
 
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (total === 0) {
+        if (cart.length === 0) {
             toast.error("Your cart is empty")
             return
         }
         try {
+            const data={...orderData,orderItems:cart,restaurantId: restaurantData.restaurantData?._id, branchId: restaurantData.branches[0]._id}
+            console.log("data is ",data);
+            
             const res = await api.post(
-                `/api/order/create`,
-                { ...orderData, restaurantId: restaurantData.restaurantData?._id, branchId: restaurantData.branches[0]._id }
+                `/api/order/create`,data
+                
             )
             console.log(res.data);
 

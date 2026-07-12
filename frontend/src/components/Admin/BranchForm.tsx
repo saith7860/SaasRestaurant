@@ -9,30 +9,16 @@ const BranchForm = ({ branch, setShowForm }: {
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
     const [formData, setFormData] = useState({
-        name: "",
-        address: "",
-        city: "",
-        contactNumber: "",
-        openingTime: "",
-        closingTime: "",
-        deliveryFee: "",
+        name: branch?.name || "",
+        address: branch?.address || "",
+        city: branch?.city || "",
+        contactNumber: branch?.contactNumber || "",
+        openingTime: branch?.openingTime || "",
+        closingTime: branch?.closingTime || "",
+        deliveryFee: branch?.deliveryFee || "",
     });
       const [errors, setErrors] = useState<Record<string, string>>({});
     const { restaurant, refreshDashboardData } = useDashboard();
-    //populating form if branch is selected
-    useEffect(() => {
-        if (branch) {
-            setFormData({
-                name: branch.name || "",
-                address: branch.address || "",
-                city: branch.city || "",
-                contactNumber: branch.contactNumber || "",
-                openingTime: branch.openingTime || "",
-                closingTime: branch.closingTime || "",
-                deliveryFee: branch.deliveryFee,
-            });
-        }
-    }, [branch]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({
@@ -40,6 +26,8 @@ const BranchForm = ({ branch, setShowForm }: {
             [e.target.name]: e.target.value
         })
     }
+    console.log("formdata is",formData);
+    
     const handleBranchSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -48,7 +36,7 @@ const BranchForm = ({ branch, setShowForm }: {
         try {
             if (branch?._id) {
 
-                await api.patch(
+                await api.put(
                     `/api/branch/update-branch/${branch._id}`,
                     {
                         ...formData,
@@ -168,7 +156,7 @@ const BranchForm = ({ branch, setShowForm }: {
       {/* Closing Time */}
                   <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
-                        Opening Time
+                        Closing Time
                     </label>
 
                     <input
@@ -180,7 +168,7 @@ const BranchForm = ({ branch, setShowForm }: {
                         className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
                     />
                   </div>
- {errors.closingTime && <span className="text-red-500">{errors.closingTime}</span>}
+{errors.closingTime && <span className="text-red-500">{errors.closingTime}</span>}
                 <div>
                     <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
                         Delivery Fee

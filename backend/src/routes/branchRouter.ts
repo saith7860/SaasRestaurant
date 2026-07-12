@@ -5,6 +5,6 @@ import {createBranch,updateBranch,deleteBranch } from '../controllers/branchCont
 import validate from '../middlewares/validationMiddleware.js';
 import { BranchValidator } from '../validators/branchValidator.js';
 branchRouter.post("/create-branch",authMiddleware,checkAdmin,validate(BranchValidator),createBranch);//create a resturant
-branchRouter.patch("/update-branch/:id",authMiddleware,checkAdmin,validate(BranchValidator),updateBranch);//update a resturant
+branchRouter.put("/update-branch/:id",authMiddleware,checkAdmin,validate(BranchValidator),updateBranch);//update a resturant
 branchRouter.delete("/delete-branch/:id",authMiddleware,checkAdmin,deleteBranch);//delete a resturant
 export default branchRouter;
