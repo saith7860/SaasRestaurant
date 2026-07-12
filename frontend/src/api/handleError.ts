@@ -19,7 +19,25 @@ const handleApiError = (error: unknown) => {
       fieldErrors,
     };
   }
+  if (error.code === "ERR_NETWORK") {
+    toast.error(
+        "Unable to connect to the server. Please check your internet connection."
+    );
+    return;
+}
+if(error.code==="ERR_CONNECTION_REFUSED"){
+  toast.error(
+    "Unable to connect to the server. Please check your internet connection."
+  );
+  return;
+}
 
+if (error.code === "ECONNABORTED") {
+    toast.error(
+        "The request took too long. Please try again."
+    );
+    return;
+}
   // Backend message
   if (error.response?.data?.message) {
     toast.error(error.response.data.message);
