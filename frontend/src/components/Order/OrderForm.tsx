@@ -6,7 +6,7 @@ import handleApiError from "../../api/handleError";
 import { CartContext } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
 
-const OrderForm = ({ formData, handleChange, total,orderData }:{formData:any,handleChange:any,total:number,orderData:any}) => {
+const OrderForm = ({ formData, handleChange,orderData }:{formData:any,handleChange:any,orderData:any}) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const { cart,setCart } = useContext(CartContext);
     const { restaurantData } = useRestaurant();

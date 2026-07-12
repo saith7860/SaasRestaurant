@@ -88,9 +88,7 @@ const createItem=async(categoryid:string,itemData:ItemType,file?: Express.Multer
     console.log("image is ",image);
    const newItem = await itemRepo.createItem({
     ...itemData,
-    basePrice:Number(itemData.basePrice),
-    categoryId:foundCategoryId._id,
-    restaurantId:restaurant._id,
+    basePrice:itemData.basePrice,
     image:image,
   });
    if(!newItem){

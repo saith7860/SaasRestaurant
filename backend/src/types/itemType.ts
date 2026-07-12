@@ -10,11 +10,11 @@ export type ItemType={
         url:string
         publicId:string
     }
-    categoryId:mongoose.Schema.Types.ObjectId;
+    categoryId:mongoose.Types.ObjectId;
     description:string
-    variants?:mongoose.Schema.Types.ObjectId[];
+    variants?:mongoose.Types.ObjectId[];
     restaurantId:string
     basePrice:number;
-    branchId:mongoose.Schema.Types.ObjectId;
+    branchId:mongoose.Types.ObjectId;
     isAvailable:boolean;
 }

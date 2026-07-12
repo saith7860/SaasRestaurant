@@ -10,7 +10,7 @@ interface CreateRestaurantBySuperAdminInput {
   restaurantEmail: string;
   contactNumber: string;
   deliveryFee: number;
-  owner:mongoose.Schema.Types.ObjectId
+  owner:string|mongoose.Types.ObjectId
   name:string
   email:string
   password:string
@@ -34,8 +34,6 @@ const createRestaurantBySuperAdmin = async (
       restaurantEmail,
       contactNumber,
       deliveryFee,
-      
-      
       name,
       email,
       password,

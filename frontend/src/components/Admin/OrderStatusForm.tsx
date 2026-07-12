@@ -11,7 +11,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
     id: order._id || '',
     orderStatus: order.orderStatus || 'pending'
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors,setErrors] = useState<Record<string, string>>({});
   //refreseh data after changing status
   const { refreshDashboardData } = useDashboard();
   //onSubmit function to change status of order
@@ -68,7 +68,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
               <option value="cancelled">Cancelled</option>
             </select>
           </div>
-
+{errors.orderStatus&&<p className="text-red-500">{errors.orderStatus}</p>}
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               type="button"
@@ -84,6 +84,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
               Update Status
             </button>
           </div>
+          
         </form>
       </div>
 

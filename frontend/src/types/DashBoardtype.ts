@@ -22,7 +22,7 @@ export interface BranchType {
   closingTime:string;
   deliveryFee:number;
   isOpen:boolean;
-}
+} 
 
 export interface CategoryType {
   _id: string;
@@ -43,7 +43,10 @@ export interface ItemType {
   _id: string;
   name: string;
   description:string;
-  image?: string;
+  image?: {
+    url: string;
+    publicId: string;
+  };
   variants?:variantType[];
   resturantId: string;
   categoryId: string;

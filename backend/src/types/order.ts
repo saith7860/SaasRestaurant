@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 export type OrderType={
-  user:mongoose.Schema.Types.ObjectId;
-  restaurantId:mongoose.Schema.Types.ObjectId;
-  branchId:mongoose.Schema.Types.ObjectId;
+  user:mongoose.Types.ObjectId;
+  restaurantId:mongoose.Types.ObjectId;
+  branchId:mongoose.Types.ObjectId;
   deliveryAddress:string;
   customerEmail:string
   subtotal:number;
@@ -15,8 +15,8 @@ export type OrderType={
   orderItems:orderItemType[];
 }
 export type orderItemType={
-  order:mongoose.Schema.Types.ObjectId;
-  menuItem:mongoose.Schema.Types.ObjectId;
+  order:mongoose.Types.ObjectId;
+  menuItem:mongoose.Types.ObjectId;
   quantity:number;
   price:number;
   itemName:string;

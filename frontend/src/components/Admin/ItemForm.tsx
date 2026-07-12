@@ -26,13 +26,20 @@ const ItemForm = ({
   const [imageFile, setImageFile] = useState<File | null>(null);
 
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    description: string;
+    categoryId: string;
+    basePrice: string;
+    branchId: string;
+    image: { url?: string; publicId?: string } | null;
+  }>({
     name: "",
     description: "",
     categoryId: "",
     basePrice: "",
     branchId: "",
-    image:null
+    image: null
   });
 
   const { refreshDashboardData } = useDashboard();
@@ -52,10 +59,12 @@ const ItemForm = ({
         categoryId: getId(item.categoryId),
         basePrice: String(item.basePrice || ""),
         branchId: getId(item.branchId),
-        image:{
-          url:item?.image?.url,
-          publicId:item?.image?.publicId
-        }
+        image: item.image
+          ? {
+              url: item.image.url,
+              publicId: item.image.publicId,
+            }
+          : null
       }); 
     }
   }, [item]);
@@ -68,7 +77,7 @@ const ItemForm = ({
     setFormData({
       ...formData,
       [name]: value,
-    });
+    } as any);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {

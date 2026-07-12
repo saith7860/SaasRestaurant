@@ -46,7 +46,6 @@ const Checkout = () => {
           <OrderForm
             formData={formData}
             handleChange={handleChange}
-            total={subtotal}
             orderData={orderData}
           />
 

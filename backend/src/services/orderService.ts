@@ -1,7 +1,6 @@
 import { ApiError } from '../middlewares/errorHandler.js';
 import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
-import * as orderItemRepo from '../repos/orderItemRepo.js';
 import { sendEmail } from "../utils/sendEmail.js";
 import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
@@ -112,7 +111,7 @@ const createOrder = async (userId: string, data: any) => {
     throw new ApiError(400, "Restaurant is not active");
   }
   const {verifiedItems,subtotal}=await verifyOrderItems(data.orderItems);
-  const {deliveryFee,totalAmount}=calculateOrderTotals(subtotal,restaurant.deliveryFee);
+  const {deliveryFee,totalAmount}=calculateOrderTotals(subtotal,restaurant.deliveryFee as number);
   const orderData = {
     ...data,
     orderItems: verifiedItems,
