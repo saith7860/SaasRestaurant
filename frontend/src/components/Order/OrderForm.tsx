@@ -6,7 +6,7 @@ import handleApiError from "../../api/handleError";
 import { CartContext } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
 
-const OrderForm = ({ formData, handleChange, orderData }) => {
+const OrderForm = ({ formData, handleChange, total,orderData }:{formData:any,handleChange:any,total:number,orderData:any}) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const { cart,setCart } = useContext(CartContext);
     const { restaurantData } = useRestaurant();
@@ -33,23 +33,11 @@ const OrderForm = ({ formData, handleChange, orderData }) => {
             setErrors({});
         } catch (error: any) {
             console.error("Signup error:", error);
-            const validationErrors = handleApiError(error);
+    const result = handleApiError(error);
 
-            if (validationErrors) {
-
-                const formattedErrors:
-                    Record<string, string> = {};
-
-                validationErrors.forEach(
-                    (err: any) => {
-
-                        formattedErrors[err.field] =
-                            err.message;
-                    }
-                );
-
-                setErrors(formattedErrors);
-            }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
         }
 
     };

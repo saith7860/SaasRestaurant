@@ -12,7 +12,7 @@ const handleError=(err:ApiError,req:Request,res:Response,next:NextFunction)=>{
     const {message,statusCode}=err;
     res.status(statusCode||500).json({
         status:'error',
-        message:message||'Internal server error',
+        message:message||'Internal server error.Try again later',
         statusCode:statusCode
 
     })

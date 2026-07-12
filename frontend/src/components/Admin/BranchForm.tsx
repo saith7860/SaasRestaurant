@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import api from "../../api/api";
 import { useDashboard } from "../../context/DashBoardContext";
 import type { BranchType } from "../../types/DashBoardtype.js";
@@ -15,17 +15,24 @@ const BranchForm = ({ branch, setShowForm }: {
         contactNumber: branch?.contactNumber || "",
         openingTime: branch?.openingTime || "",
         closingTime: branch?.closingTime || "",
-        deliveryFee: branch?.deliveryFee || "",
+        deliveryFee: branch?.deliveryFee|| ""
     });
       const [errors, setErrors] = useState<Record<string, string>>({});
     const { restaurant, refreshDashboardData } = useDashboard();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        })
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type } = e.target;
+
+    setFormData(prev => ({
+        ...prev,
+        [name]:
+            type === "number"
+                ? value === ""
+                    ? null
+                    : Number(value)
+                : value,
+    }));
+};
     console.log("formdata is",formData);
     
     const handleBranchSubmit = async (e: React.FormEvent) => {
@@ -56,17 +63,11 @@ const BranchForm = ({ branch, setShowForm }: {
             await refreshDashboardData();
             setShowForm(false);
         } catch (err) {
-               const validationErrors = handleApiError(err);
+    const result = handleApiError(err);
 
-      if (validationErrors) {
-        const formattedErrors: Record<string, string> = {};
-
-        validationErrors.forEach((err: any) => {
-          formattedErrors[err.field] = err.message;
-        });
-
-        setErrors(formattedErrors);
-      }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
         }
     };
     return (

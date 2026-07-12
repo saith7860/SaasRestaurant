@@ -1,48 +1,42 @@
-// src/api/handleApiError.ts
-
+import axios from "axios";
 import { toast } from "react-toastify";
 
-const handleApiError = (error: any) => {
+const handleApiError = (error: unknown) => {
+  if (!axios.isAxiosError(error)) {
+    toast.error("Something unexpected happened.");
+    return null;
+  }
 
-  // Backend Validation Errors
+  // Validation errors
   if (error.response?.data?.errors) {
+    const fieldErrors: Record<string, string> = {};
 
-    return error.response.data.errors;
+    error.response.data.errors.forEach((err: any) => {
+      fieldErrors[err.field] = err.message;
+    });
+
+    return {
+      fieldErrors,
+    };
   }
 
-  // Normal Backend Errors
+  // Backend message
   if (error.response?.data?.message) {
-
-    toast.error(
-      error.response.data.message
-    );
-
-    return;
+    toast.error(error.response.data.message);
+    return null;
   }
 
-  // Server Errors
-  if (error.response?.status === 500) {
-
+  // Network error
+  if (!error.response) {
     toast.error(
-      "Internal server error"
+      "Unable to connect to the server. Please check your internet connection."
     );
-
-    return;
+    return null;
   }
 
-  // Network Errors
-  if (error.code === "ERR_NETWORK") {
-
-    toast.error(
-      "Network error"
-    );
-
-    return;
-  }
-
-  toast.error(
-    "Something went wrong"
-  );
+  // Fallback
+  toast.error("Something went wrong. Please try again.");
+  return null;
 };
 
 export default handleApiError;

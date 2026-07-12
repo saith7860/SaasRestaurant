@@ -1,5 +1,6 @@
 import api from "../../api/api"
 import { useState } from "react"
+import handleApiError from "../../api/handleError"
 import type { OrderType } from "../../types/DashBoardtype"
 import { useDashboard } from "../../context/DashBoardContext"
 const OrderStatusForm = ({ order, setShowOrderStatus }: {
@@ -10,6 +11,7 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
     id: order._id || '',
     orderStatus: order.orderStatus || 'pending'
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
   //refreseh data after changing status
   const { refreshDashboardData } = useDashboard();
   //onSubmit function to change status of order
@@ -24,6 +26,11 @@ const OrderStatusForm = ({ order, setShowOrderStatus }: {
       }
     } catch (error) {
       console.log("error updating order status", error);
+        const result = handleApiError(error);
+
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
     }
   }
   console.log(formData);

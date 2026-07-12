@@ -13,7 +13,7 @@ export type ItemType={
     categoryId:mongoose.Schema.Types.ObjectId;
     description:string
     variants?:mongoose.Schema.Types.ObjectId[];
-    restaurantId:mongoose.Schema.Types.ObjectId;
+    restaurantId:string
     basePrice:number;
     branchId:mongoose.Schema.Types.ObjectId;
     isAvailable:boolean;

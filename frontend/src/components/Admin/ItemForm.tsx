@@ -8,7 +8,6 @@ import type {
   BranchType,
 } from "../../types/DashBoardtype";
 import { useDashboard } from "../../context/DashBoardContext";
-
 const ItemForm = ({
   setShowForm,
   item,
@@ -106,7 +105,7 @@ const ItemForm = ({
       }
 
       if (item?._id) {
-        await api.patch(`/api/item/update-item/${item._id}`, data);
+        await api.put(`/api/item/update-item/${item._id}`, data);
       } else {
         await api.post("/api/item/create-item", data);
       }
@@ -114,17 +113,11 @@ const ItemForm = ({
       await refreshDashboardData();
       setShowForm(false);
     } catch (error) {
-      const validationErrors = handleApiError(error);
+    const result = handleApiError(error);
 
-      if (validationErrors) {
-        const formattedErrors: Record<string, string> = {};
-
-        validationErrors.forEach((err: any) => {
-          formattedErrors[err.field] = err.message;
-        });
-
-        setErrors(formattedErrors);
-      }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
     }
   };
 

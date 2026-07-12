@@ -32,4 +32,8 @@ const deleteItem=async(id:string)=> {
     )
     return delItem;
 }
-export {showAllItems,createItem,getSpecificCategoryId,updateItem,deleteItem,getItemByNameAndRestaurant}
+const findById=async(id:string)=>{
+    const item=await Item.findById(id);
+    return item;
+}
+export {showAllItems,createItem,getSpecificCategoryId,updateItem,deleteItem,getItemByNameAndRestaurant,findById}

@@ -3,7 +3,7 @@ import * as itemRepo from '../repos/itemRepo.js'
 import type { ItemType } from '../types/itemType.js';
 import { uploadImageToCloudinary } from './uploadService.js';
 import * as resturantRepo from "../repos/resturantRepo.js";
-import { NextFunction } from 'express';
+import { deleteOldImage } from '../config/cloudinary.js';
 // const getAllItems=async(id:string)=>{
 //    const items=await itemRepo.getAllItems(id);
 //    if (!items) {
@@ -11,8 +11,34 @@ import { NextFunction } from 'express';
 //    }
 //    return items;
 // }
-const updateSpecItem=async(id:string,data:ItemType)=>{
-const update=await itemRepo.updateItem(id,data);
+const updateSpecItem=async(id:string,data:ItemType,file?: Express.Multer.File)=>{
+    const restaurant = await resturantRepo.findRestaurantByOwner(data.restaurantId as string);
+   if (!restaurant) {
+    throw new ApiError(404, "Restaurant not found");
+  }
+  const item=await itemRepo.findById(id);
+  if (!item) {
+   throw new ApiError(404,"Item not found");
+  }
+if (file) {
+
+    if (item.image?.publicId) {
+        await deleteOldImage(item.image.publicId);
+    }
+
+    const newImage = await uploadImageToCloudinary({
+        file,
+        folder: `food-ordering/restaurants/${restaurant.slug}/items`,
+    });
+
+    data.image = {
+        url: newImage.url,
+        publicId: newImage.publicId,
+    };
+}
+
+  const update=await itemRepo.updateItem(id,data);
+
 if (!update) {
    return new ApiError(400,'Server Error! Item not updated');
 }
@@ -68,7 +94,7 @@ const createItem=async(categoryid:string,itemData:ItemType,file?: Express.Multer
     image:image,
   });
    if(!newItem){
-    throw new ApiError(400,'Server Error! Item not created')
+    throw new ApiError(500,'Server Error! Item not created')
    }
    foundCategoryId.items.push(newItem._id);
    await foundCategoryId.save();

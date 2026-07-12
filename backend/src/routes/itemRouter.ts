@@ -11,6 +11,6 @@ const itemRouter=express.Router();
 itemRouter.post("/create-item",authMiddleware,checkAdmin,uploadSingleImage,validate(ItemSchema),validateItem,postItem); //CREATE A NEW ITEM
 // itemRouter.get("/all-items/:id",authMiddleware,checkAdmin,getAllItems); //GET ALL ITEMS
 itemRouter.get("/:id",getSpecificItem) //GET SPECIFIC ITEM
-itemRouter.patch("/update-item/:id",authMiddleware,checkAdmin,uploadSingleImage,validateItem,validate(ItemSchema),updateSpecificItem) //UPDATE SPECIFIC Item
+itemRouter.put("/update-item/:id",authMiddleware,checkAdmin,uploadSingleImage,validate(ItemSchema),updateSpecificItem) //UPDATE SPECIFIC Item
 itemRouter.delete("/delete-item/:id",authMiddleware,checkAdmin,deleteSpecificItem) //DELETE SPECIFIC Item
 export default itemRouter;

@@ -61,23 +61,11 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
       await refreshDashboardData();
       setShowForm(false);
     } catch (err) {
-      const validationErrors = handleApiError(err);
+        const result = handleApiError(err);
 
-      if (validationErrors) {
-
-        const formattedErrors:
-          Record<string, string> = {};
-
-        validationErrors.forEach(
-          (err: any) => {
-
-            formattedErrors[err.field] =
-              err.message;
-          }
-        );
-
-        setErrors(formattedErrors);
-      }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
     }
   };
   console.log(errors);

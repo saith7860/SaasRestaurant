@@ -7,6 +7,9 @@ cloudinary.config({
   secure: true,
 });
 export const deleteOldImage=async(publicId:string)=>{
-    await cloudinary.uploader.destroy(publicId);
+  if (!publicId) {
+    return
+  }
+  await cloudinary.uploader.destroy(publicId);
 }
 export default cloudinary;

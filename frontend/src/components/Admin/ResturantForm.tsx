@@ -11,7 +11,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     restaurantName: restaurant?.restaurantName || "",
     restaurantEmail: restaurant?.restaurantEmail || "",
     contactNumber: restaurant?.contactNumber || "",
-    deliveryFee: restaurant?.deliveryFee || 0,
+    deliveryFee: restaurant?.deliveryFee||"",
     description: restaurant?.description || "",
     slug:restaurant?.slug || "",
   });
@@ -19,12 +19,25 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     const [errors, setErrors] = useState<Record<string, string>>({});
   //refreseh when update data
   const { refreshDashboardData } = useDashboard();
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setFormField({
+  //     ...formField,
+  //     [e.target.name]: e.target.value
+  //   });
+  // };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormField({
-      ...formField,
-      [e.target.name]: e.target.value
-    });
-  };
+    const { name, value, type } = e.target;
+
+    setFormField(prev => ({
+        ...prev,
+        [name]:
+            type === "number"
+                ? value === ""
+                    ? null
+                    : Number(value)
+                : value,
+    }));
+};
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -35,19 +48,15 @@ const ResturantForm = ({ restaurant, setShowForm }: {
       await refreshDashboardData();
       setShowForm(false);
     } catch (error) {
-      const validationErrors = handleApiError(error);
+         const result = handleApiError(error);
 
-      if (validationErrors) {
-        const formattedErrors: Record<string, string> = {};
-
-        validationErrors.forEach((err: any) => {
-          formattedErrors[err.field] = err.message;
-        });
-
-        setErrors(formattedErrors);
-      }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
     }
   };
+  console.log("formData of restaurnat is",formField);
+  
   return (
     <form action="" onSubmit={handleSubmit}>
       <div
@@ -74,7 +83,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
         )}
         <div>
           <label htmlFor="deliveryFee" className="font-semibold text-[var(--primary-color)] tracking-wide">Delivery Fee : </label>
-          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" name="deliveryFee" value={Number(formField.deliveryFee) || 0} onChange={handleChange} />
+          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="number" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
         </div>
         {errors.deliveryFee && (
           <p className="text-red-500 text-sm mt-1">{errors.deliveryFee}</p>

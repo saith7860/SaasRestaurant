@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const ItemSchema = z.object({
   name: z.string("Name is required").min(3,{message:'Item name should be more than 3 charachters'}),
-  basePrice:z.string("Base Price is required"),
+  basePrice:z.string("Base Price is required").min(1,"Base price is required"),
   description:z.string("Description is required").min(10,{message:'Description should be larger than 10 characters'}),
   branchId:z.string("branch Id is required"),
   restaurantId:z.string("Restaurant Id is required"),

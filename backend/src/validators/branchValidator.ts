@@ -16,7 +16,7 @@ export const BranchValidator = z.object({
   }, {
     message: "Closing time must be in HH:MM format",
   }),
-  deliveryFee: z.string("Enter Delviery fee").min(1, "Delivery fee is required"),
+  deliveryFee: z.number("Enter Delviery fee").min(1, "Delivery fee is required"),
   restaurant: z.string().min(1, "Restaurant id is required")
   
 });

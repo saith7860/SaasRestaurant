@@ -64,7 +64,7 @@ const VariantForm = ({
       };
 
       if (editVariant) {
-        await api.patch(
+        await api.put(
           `/api/variant/update-variant/${editVariant._id}`,
           { ...payload }
         );
@@ -86,17 +86,11 @@ const VariantForm = ({
 
       await refreshDashboardData();
     } catch (error) {
-      const validationErrors = handleApiError(error);
+    const result = handleApiError(error);
 
-      if (validationErrors) {
-        const formattedErrors: Record<string, string> = {};
-
-        validationErrors.forEach((err: any) => {
-          formattedErrors[err.field] = err.message;
-        });
-
-        setErrors(formattedErrors);
-      }
+    if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+    }
     }
   };
 

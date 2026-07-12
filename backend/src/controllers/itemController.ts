@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as itemService from "../services/itemService.js";
 import type { ItemType } from "../types/itemType.js";
+import { deleteOldImage } from "../config/cloudinary.js";
 type Params={
   id:string
 }
@@ -38,7 +39,7 @@ const updateSpecificItem = async(req: Request<Params>, res: Response,next:NextFu
   try {
     const {id}=req.params;
     const data:ItemType=req.body;
-    const updateItem=await itemService.updateSpecItem(id,data);
+    const updateItem=await itemService.updateSpecItem(id,data,req.file);
     return res.json({
       success: "true",
       data: updateItem,
