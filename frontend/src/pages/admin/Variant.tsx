@@ -179,6 +179,8 @@ const Variant = () => {
           ))}
       </div>
 
+      
+
       {itemId && (
         <VariantForm
           itemId={itemId}

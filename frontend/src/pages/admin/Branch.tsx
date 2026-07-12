@@ -29,56 +29,50 @@ const Branch = () => {
       {branches?.map((branch) => (
         <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-lg transition-all duration-300 hover:border-[var(--primary-color)]/40 hover:shadow-xl" key={branch._id}>
 
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-              Name:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              Name :
             </h4>
             {branch.name}
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
               Address:
             </h4>
             {branch.address}
           </div>
-
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-
-              City:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              City :
             </h4>
             {branch.city}
           </div>
           
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-
-              Contact Number:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              Contact Number :
             </h4>
             {branch.contactNumber}
           </div>
           
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-
-              Opening Time:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              Opening Time :
             </h4>
             {branch.openingTime}
           </div>
           
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-
-              Closing Time:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              Closing Time :
             </h4>
             {branch.closingTime}
           </div>
           
-          <div className="flex flex-wrap items-center gap-2 text-[var(--text-color)]">
-            <h4 className="min-w-32 font-semibold text-[var(--primary-color)]">
-
-              Delivery Fee:
+          <div className="flex gap-6 items-center text-[var(--text-color)]">
+            <h4 className="flex font-semibold text-[var(--primary-color)]">
+              Delivery Fee :
             </h4>
             {branch.deliveryFee}
           </div>

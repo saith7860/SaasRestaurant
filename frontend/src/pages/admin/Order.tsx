@@ -18,7 +18,7 @@ const Order = () => {
                     Manage Orders
                 </h3>
 
-                <span className="absolute right-0 rounded-lg bg-[var(--background-color)] px-4 py-2 text-sm text-[var(--text-color)]">
+                <span className="absolute right-0 top-10 rounded-lg bg-[var(--background-color)] px-4 py-2 text-sm text-[var(--text-color)]">
                     {orders?.length} Orders
                 </span>
             </div>

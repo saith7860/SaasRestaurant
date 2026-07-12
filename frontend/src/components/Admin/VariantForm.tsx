@@ -95,82 +95,84 @@ const VariantForm = ({
   };
 
   return (
-    <>
-      <form
-        className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-6"
-        onSubmit={handleSubmit}
-      >
-        <h2 className="text-3xl font-extrabold text-[var(--primary-color)] text-center tracking-wide">
-          {editVariant ? "Update Variant" : "Add Variant"}
-        </h2>
-
-        <div className="flex flex-col gap-2">
-
-          <label
-            htmlFor="variation"
-            className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
-            Enter Variation:</label>
-
-          <input
-            type="text"
-            name="variation"
-            value={formData.variation}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
-          />
-          <p className="mt-1 min-h-5 text-sm text-red-500">
-
-            {error.variation && (
-              <span>{error.variation}</span>
-            )}
-
-          </p>
-
-        </div>
-
-        <div className="space-y-2">
-
-          <label
-            htmlFor="price"
-            className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
-            Enter Price:</label>
-
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
-          />
-
-          <p className="mt-1 min-h-5 text-sm text-red-500">
-
-            {error.price && (
-              <span>{error.price}</span>
-            )}
-          </p>
-
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-
-          <button type="submit"
-            className="flex-1 bg-[var(--button-color)] text-[var(--button-text-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-black active:scale-95 transition-all duration-300 shadow-lg shadow-black/20">
+    <div className="flex items-center justify-center bg-black/60 p-4">
+      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl">
+        <form
+          className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-6"
+          onSubmit={handleSubmit}
+        >
+          <h2 className="text-3xl font-extrabold text-[var(--primary-color)] text-center tracking-wide">
             {editVariant ? "Update Variant" : "Add Variant"}
-          </button>
+          </h2>
 
-          {editVariant && (
-            <button type="button" onClick={onCancelEdit}
-              className="flex-1 border border-[var(--primary-color)]/25 bg-transparent text-[var(--text-color)] hover:bg-[var(--card-color)] hover:border-[var(--primary-color)] py-3 rounded-xl transition-all duration-300"
-            >
-              Cancel
+          <div className="flex flex-col gap-2">
+
+            <label
+              htmlFor="variation"
+              className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
+              Enter Variation:</label>
+
+            <input
+              type="text"
+              name="variation"
+              value={formData.variation}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
+            />
+            <p className="mt-1 min-h-5 text-sm text-red-500">
+
+              {error.variation && (
+                <span>{error.variation}</span>
+              )}
+
+            </p>
+
+          </div>
+
+          <div className="space-y-2">
+
+            <label
+              htmlFor="price"
+              className="text-sm font-semibold text-[var(--primary-color)] tracking-wide">
+              Enter Price:</label>
+
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
+            />
+
+            <p className="mt-1 min-h-5 text-sm text-red-500">
+
+              {error.price && (
+                <span>{error.price}</span>
+              )}
+            </p>
+
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+
+            <button type="submit"
+              className="flex-1 bg-[var(--button-color)] text-[var(--button-text-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-black active:scale-95 transition-all duration-300 shadow-lg shadow-black/20">
+              {editVariant ? "Update Variant" : "Add Variant"}
             </button>
-          )}
 
-        </div>
+            {editVariant && (
+              <button type="button" onClick={onCancelEdit}
+                className="flex-1 border border-[var(--primary-color)]/25 bg-transparent text-[var(--text-color)] hover:bg-[var(--card-color)] hover:border-[var(--primary-color)] py-3 rounded-xl transition-all duration-300"
+              >
+                Cancel
+              </button>
+            )}
 
-      </form>
-    </>
+          </div>
+
+        </form>
+      </div>
+    </div>
   );
 };
 

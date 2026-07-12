@@ -75,7 +75,7 @@ const Login = () => {
 
       <TrackingNav restaurnatName={restaurantData?.restaurantData?.restaurantName||null} />
 
-      <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--text-color)] px-4 py-10">
+      <div className="min-h-screen flex items-center justify-center bg-[var(--background-color)] text-[var(--text-color)] px-4 py-auto">
 
         <div className="w-full max-w-md flex flex-col items-center">
 

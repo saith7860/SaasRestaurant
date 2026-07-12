@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import api from "../../api/api";
 import { clearAccessToken } from "../../api/tokenStore";
 
@@ -35,7 +35,7 @@ const SideBar = () => {
       }>
 
         <li className="flex flex-row gap-3">
-          <span><FaStore className="text-3xl md:text-lg" /></span>
+          <span><FaStore className="text-xl md:text-lg" /></span>
           <span className="hidden md:block"> Resturant </span>
         </li>
 
@@ -61,7 +61,7 @@ const SideBar = () => {
         }`
       }>
         <li className="flex flex-row gap-3">
-          <span><FaLayerGroup className="text-3xl md:text-lg" /></span>
+          <span><FaLayerGroup className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Categories</span>
         </li>
 
@@ -74,7 +74,7 @@ const SideBar = () => {
         }`
       }>
         <li className="flex flex-row gap-3">
-          <span><FaUtensils className="text-3xl md:text-lg" /></span>
+          <span><FaUtensils className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Items</span>
         </li>
 
@@ -87,7 +87,7 @@ const SideBar = () => {
         }`
       }>
         <li className="flex flex-row gap-3">
-          <span><FaClipboardList className="text-3xl md:text-lg" /></span>
+          <span><FaClipboardList className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Orders</span>
         </li>
 
@@ -100,7 +100,7 @@ const SideBar = () => {
         }`
       }>
         <li className="flex flex-row gap-3"><span>
-          <FaSlidersH className="text-3xl md:text-lg" /></span>
+          <FaSlidersH className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Variants</span>
         </li>
 
