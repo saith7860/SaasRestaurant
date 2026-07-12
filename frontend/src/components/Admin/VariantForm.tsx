@@ -86,11 +86,11 @@ const VariantForm = ({
 
       await refreshDashboardData();
     } catch (error) {
-    const result = handleApiError(error);
+      const result = handleApiError(error);
 
-    if (result?.fieldErrors) {
+      if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
-    }
+      }
     }
   };
 
@@ -118,10 +118,13 @@ const VariantForm = ({
             onChange={handleChange}
             className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
           />
+          <p className="mt-1 min-h-5 text-sm text-red-500">
 
-          {error.variation && (
-            <p className="text-red-400 text-sm font-medium mt-1">{error.variation}</p>
-          )}
+            {error.variation && (
+              <span>{error.variation}</span>
+            )}
+
+          </p>
 
         </div>
 
@@ -140,9 +143,12 @@ const VariantForm = ({
             className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-3 placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 transition-all duration-300"
           />
 
-          {error.price && (
-            <p className="text-red-400 text-sm font-medium mt-1">{error.price}</p>
-          )}
+          <p className="mt-1 min-h-5 text-sm text-red-500">
+
+            {error.price && (
+              <span>{error.price}</span>
+            )}
+          </p>
 
         </div>
 

@@ -14,7 +14,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { cart, setCart } = useContext(CartContext);
 
   return (
-    <div className="group flex flex-col h-full overflow-hidden rounded-2xl bg-[var(--card-color)] border border-[var(--primary-color)]/15 shadow-lg hover:border-[var(--primary-color)]/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div className="group flex flex-col h-full overflow-hidden rounded-2xl mx-1 bg-[var(--card-color)] border border-[var(--primary-color)]/15 shadow-lg hover:border-[var(--primary-color)]/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
 
       <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
 

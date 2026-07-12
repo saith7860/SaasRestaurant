@@ -61,11 +61,11 @@ const ItemForm = ({
         branchId: getId(item.branchId),
         image: item.image
           ? {
-              url: item.image.url,
-              publicId: item.image.publicId,
-            }
+            url: item.image.url,
+            publicId: item.image.publicId,
+          }
           : null
-      }); 
+      });
     }
   }, [item]);
 
@@ -122,11 +122,11 @@ const ItemForm = ({
       await refreshDashboardData();
       setShowForm(false);
     } catch (error) {
-    const result = handleApiError(error);
+      const result = handleApiError(error);
 
-    if (result?.fieldErrors) {
+      if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
-    }
+      }
     }
   };
 
@@ -152,7 +152,10 @@ const ItemForm = ({
           className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
-        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.name && <span>{errors.name}</span>}
+        </p>
+
       </div>
 
       <div className="flex flex-col items-start sm:grid grid-cols-[1fr_5fr] sm:items-center gap-2 mb-5">
@@ -170,18 +173,18 @@ const ItemForm = ({
           onChange={handleImageChange}
           className="w-full cursor-pointer rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] file:mr-4 file:rounded-lg file:border-0 file:bg-[var(--button-color)] file:px-4 file:py-2 file:font-medium file:text-[var(--button-text-color)] hover:file:bg-[var(--primary-color)] hover:file:text-black"
         />
-     {formData.image && (
-  <img
-    src={formData.image.url}
-    alt="Current item"
-    className="w-32 h-32 rounded object-cover mb-3"
-  />
-)}
-
-
-     {errors.image && (
-          <p className="text-red-500 text-sm">{errors.image}</p>
+        {formData.image && (
+          <img
+            src={formData.image.url}
+            alt="Current item"
+            className="w-32 h-32 rounded object-cover mb-3"
+          />
         )}
+
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.image && ( <span>{errors.image}</span> )}
+        </p>
+
       </div>
 
       <div className="flex flex-col items-start sm:grid grid-cols-[1fr_4fr] sm:items-center gap-2 mb-5">
@@ -200,9 +203,10 @@ const ItemForm = ({
           className="min-h-12 max-h-15 overflow-y-hidden w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
-        {errors.description && (
-          <p className="text-red-500 text-sm">{errors.description}</p>
-        )}
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.description && ( <span>{errors.description}</span> )}
+        </p>
+
       </div>
 
       <div className="flex flex-col items-start sm:grid grid-cols-[1fr_5fr] sm:items-center gap-2 mb-5">
@@ -222,9 +226,10 @@ const ItemForm = ({
           className="w-full rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
 
-        {errors.basePrice && (
-          <p className="text-red-500 text-sm">{errors.basePrice}</p>
-        )}
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.basePrice && ( <span>{errors.basePrice}</span> )}
+        </p>
+
       </div>
 
       <hr className="my-5 border-[var(--primary-color)]/15" />
@@ -248,7 +253,7 @@ const ItemForm = ({
           }
           className="rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         >
-         
+
           <option value="">Select Category</option>
 
           {category?.map((cat: CategoryType) => (
@@ -257,11 +262,13 @@ const ItemForm = ({
             </option>
           ))}
         </select>
-      </div>
 
-      {errors.categoryId && (
-        <p className="text-red-500 text-sm mb-3">{errors.categoryId}</p>
-      )}
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+
+          {errors.categoryId && ( <span>{errors.categoryId}</span> )}
+        </p>
+
+      </div>
 
       <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <label
@@ -290,11 +297,14 @@ const ItemForm = ({
             </option>
           ))}
         </select>
-      </div>
 
-      {errors.branchId && (
-        <p className="mt-2 text-sm font-medium text-red-400">{errors.branchId}</p>
-      )}
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.branchId && (
+            <span>{errors.branchId}</span>
+          )}
+        </p>
+
+      </div>
 
       <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
         <button

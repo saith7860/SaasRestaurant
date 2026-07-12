@@ -11,12 +11,12 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     restaurantName: restaurant?.restaurantName || "",
     restaurantEmail: restaurant?.restaurantEmail || "",
     contactNumber: restaurant?.contactNumber || "",
-    deliveryFee: restaurant?.deliveryFee||"",
+    deliveryFee: restaurant?.deliveryFee || "",
     description: restaurant?.description || "",
-    slug:restaurant?.slug || "",
+    slug: restaurant?.slug || "",
   });
-  console.log("deliver fee is",formField.deliveryFee);
-    const [errors, setErrors] = useState<Record<string, string>>({});
+  console.log("deliver fee is", formField.deliveryFee);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   //refreseh when update data
   const { refreshDashboardData } = useDashboard();
   // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,15 +29,15 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     const { name, value, type } = e.target;
 
     setFormField(prev => ({
-        ...prev,
-        [name]:
-            type === "number"
-                ? value === ""
-                    ? null
-                    : Number(value)
-                : value,
+      ...prev,
+      [name]:
+        type === "number"
+          ? value === ""
+            ? null
+            : Number(value)
+          : value,
     }));
-};
+  };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -48,47 +48,46 @@ const ResturantForm = ({ restaurant, setShowForm }: {
       await refreshDashboardData();
       setShowForm(false);
     } catch (error) {
-         const result = handleApiError(error);
+      const result = handleApiError(error);
 
-    if (result?.fieldErrors) {
+      if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
-    }
+      }
     }
   };
-  console.log("formData of restaurnat is",formField);
-  
+  console.log("formData of restaurnat is", formField);
+
   return (
     <form action="" onSubmit={handleSubmit}>
       <div
         className="w-full max-w-2xl mx-auto flex flex-col gap-6 bg-[var(--card-color)] border border-[var(--primary-color)]/20 rounded-3xl shadow-2xl shadow-black/30 p-8 mt-6"
       >
 
-        {/* <div>
-          <label htmlFor="name" className="font-semibold text-[var(--primary-color)] tracking-wide">Name : </label>
-          <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="text" name="name" value={formField.name} onChange={handleChange} />
-        </div> */}
         <div>
           <label htmlFor="restauratEmail" className="font-semibold text-[var(--primary-color)] tracking-wide">Email : </label>
           <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="email" name="restaurantEmail" value={formField.restaurantEmail} onChange={handleChange} />
+          <p className="mt-1 min-h-5 text-sm text-red-500">
+            {errors.restaurantEmail && (<span>{errors.restaurantEmail}</span>)}
+          </p>
         </div>
-        {errors.restaurantEmail && (
-          <p className="text-red-500 text-sm mt-1">{errors.restaurantEmail}</p>
-        )}
+        
         <div>
           <label htmlFor="contactNumber" className="font-semibold text-[var(--primary-color)] tracking-wide">Phone : </label>
           <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="tel" name="contactNumber" value={formField.contactNumber} onChange={handleChange} />
+          <p className="mt-1 min-h-5 text-sm text-red-500">
+            {errors.contactNumber && (<span>{errors.contactNumber}</span>)}
+          </p>
+
         </div>
-        {errors.contactNumber && (
-          <p className="text-red-500 text-sm mt-1">{errors.contactNumber}</p>
-        )}
+
         <div>
           <label htmlFor="deliveryFee" className="font-semibold text-[var(--primary-color)] tracking-wide">Delivery Fee : </label>
           <input className="w-full mt-2 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder:text-white/40 focus:outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/25 transition-all duration-300" type="number" name="deliveryFee" value={formField.deliveryFee} onChange={handleChange} />
+          <p className="mt-1 min-h-5 text-sm text-red-500">
+            {errors.deliveryFee && (<span>{errors.deliveryFee}</span>)}
+          </p>
         </div>
-        {errors.deliveryFee && (
-          <p className="text-red-500 text-sm mt-1">{errors.deliveryFee}</p>
-        )}
-    
+
 
       </div>
 

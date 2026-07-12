@@ -61,11 +61,11 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
       await refreshDashboardData();
       setShowForm(false);
     } catch (err) {
-        const result = handleApiError(err);
+      const result = handleApiError(err);
 
-    if (result?.fieldErrors) {
+      if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
-    }
+      }
     }
   };
   console.log(errors);
@@ -99,21 +99,25 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
           ))}
         </select>
 
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.branchId && (<span>{errors.branchId}</span>)}
+        </p>
+
       </div>
-      {errors.branchId && (
-        <p className="mt-1 text-sm font-medium text-red-400">{errors.branchId}</p>
-      )}
+
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <label htmlFor="category" className="text-sm font-semibold text-[var(--primary-color)] sm:text-base">Category Name : </label>
         <input type="text" name="category" value={formData.category} onChange={handleChange}
           placeholder="Enter Category"
           className="w-full sm:w-64 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30 focus:outline-none"
         />
+        
+        <p className="mt-1 min-h-5 text-sm text-red-500">
+          {errors.category && (<span>{errors.category}</span>)}
+        </p>
+
       </div>
 
-      {errors.category && (
-        <p className="mt-1 text-sm font-medium text-red-400">{errors.category}</p>
-      )}
 
       <div className="mt-6 flex w-full flex-col gap-4 sm:flex-row sm:justify-end">
         <button type="submit"
