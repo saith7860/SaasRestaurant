@@ -17,9 +17,11 @@ type User = {
 type AuthContextType = {
   user: User | null;
   loading: boolean;
+  login: (token: string) => void;
   refreshAccessToken: () => Promise<string | null>;
   logout: () => void;
 };
+
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -89,6 +91,13 @@ export const AuthProvider = ({
     setLoading(false);
   }
 };
+const login = (token: string) => {
+  setAccessToken(token);
+
+  const decoded = jwtDecode<User>(token);
+
+  setUser(decoded);
+};
   const logout = () => {
     setAccessToken(null);
 
@@ -104,6 +113,7 @@ export const AuthProvider = ({
       value={{
         user,
         loading,
+        login,
         refreshAccessToken,
         logout,
       }}

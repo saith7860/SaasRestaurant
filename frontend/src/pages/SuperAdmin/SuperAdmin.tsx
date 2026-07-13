@@ -38,13 +38,13 @@ const SuperAdmin = () => {
     phone: "",
     address: "",
      theme: {
-    primaryColor: "",
-    secondaryColor: "",
-    backgroundColor: "",
-    cardColor: "",
-    textColor: "",
-    buttonColor: "",
-    buttonTextColor: "",
+    primaryColor: "#F4B400",
+    secondaryColor: "#984447",
+    backgroundColor: "#171219",
+    cardColor: "#2A2633",
+    textColor: "#FFFFFF",
+    buttonColor: "#984447",
+    buttonTextColor: "#FFFFFF",
   },
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -121,7 +121,7 @@ const SuperAdmin = () => {
             }
     }
   };
-
+console.log(form)
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto p-8 rounded-lg shadow">
@@ -258,7 +258,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="primaryColor"
-      value={form.theme.primaryColor || "#F4B400"}
+      value={form.theme.primaryColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -269,7 +269,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="secondaryColor"
-      value={form.theme.secondaryColor || "#984447"}
+      value={form.theme.secondaryColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -280,7 +280,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="backgroundColor"
-      value={form.theme.backgroundColor || "#171219"}
+      value={form.theme.backgroundColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -291,7 +291,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="cardColor"
-      value={form.theme.cardColor || "#2A2633"}
+      value={form.theme.cardColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -302,7 +302,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="textColor"
-      value={form.theme.textColor || "#FFFFFF"}
+      value={form.theme.textColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -313,7 +313,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="buttonColor"
-      value={form.theme.buttonColor || "#984447"}
+      value={form.theme.buttonColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />
@@ -324,7 +324,7 @@ const SuperAdmin = () => {
     <input
       type="color"
       name="buttonTextColor"
-      value={form.theme.buttonTextColor || "#FFFFFF"}
+      value={form.theme.buttonTextColor}
       onChange={handleThemeChange}
       className="w-full h-12 border rounded"
     />

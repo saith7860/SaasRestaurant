@@ -74,6 +74,7 @@ const App = () => {
     if (restaurantData?.restaurantData?.restaurantName) {
       document.title = restaurantData.restaurantData.restaurantName;
     }
+    document.title=window.location.hostname.split(".")[0]
   }, [restaurantData]);
    if (!slug) {
     return <LandingPage />;

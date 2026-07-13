@@ -5,12 +5,20 @@ import { Link, useNavigate } from "react-router";
 import handleApiError from "../../api/handleError.js";
 import { toast } from "react-toastify";
 import api from "../../api/api";
+import { useAuth } from "../../context/AuthContext.js";
 import { setAccessToken } from "../../api/tokenStore.js";
+import { jwtDecode } from "jwt-decode";
+type User = {
+  id: string;
+  role: string;
+  email: string;
+};
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
     password: ""
   });
+  const {login} = useAuth()
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,16 +43,23 @@ const Login = () => {
       setAccessToken(res.data.token);
       console.log("user type", res.data.role)
       toast.success("User logged in successfully")
-      if (res.data.role == "admin") {
-        navigate("/admin");
-      }
-      if (res.data.role == "super_admin") {
-        navigate("/super_admin")
-      }
-      if (res.data.role == "user") {
-        navigate("/checkout");
-      }
+     login(res.data.token);
 
+  const decoded = jwtDecode<User>(res.data.token);
+
+switch (decoded.role) {
+  case "admin":
+    navigate("/admin");
+    break;
+
+  case "super_admin":
+    navigate("/super_admin");
+    break;
+
+  case "user":
+    navigate("/checkout");
+    break;
+}
     } catch (error) {
       console.error("Login error:", error);
       const result = handleApiError(error);

@@ -3,21 +3,8 @@ import mongoose from "mongoose";
 import { ApiError } from "../middlewares/errorHandler.js";
 import * as resturantRepo from '../repos/resturantRepo.js' 
 import * as userRepo from '../repos/userRepo.js'    
-interface CreateRestaurantBySuperAdminInput {
-  restaurantName: string;
-  description: string;
-  slug: string;
-  restaurantEmail: string;
-  contactNumber: string;
-  deliveryFee: number;
-  owner:string|mongoose.Types.ObjectId
-  name:string
-  email:string
-  password:string
-  phone:string
-  address:string
-  role:string
-}
+import {CreateRestaurantBySuperAdminInput} from '../types/CreateResturant.js'
+
 
 const createRestaurantBySuperAdmin = async (
   payload: CreateRestaurantBySuperAdminInput
@@ -39,7 +26,7 @@ const createRestaurantBySuperAdmin = async (
       password,
       phone,
       address,
-
+     theme
     } = payload;
 
 
@@ -81,7 +68,9 @@ const createRestaurantBySuperAdmin = async (
     if (!ownerUser) {
         throw new ApiError(500,'User not created');
     }
-  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,owner:ownerUser._id},session)
+
+
+  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,owner:ownerUser._id,theme:theme},session)
       const updatedOwner = await userRepo.updateUserRestaurantId(
       ownerUser._id,
       restaurant._id,
