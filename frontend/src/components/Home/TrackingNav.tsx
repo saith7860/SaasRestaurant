@@ -8,8 +8,6 @@ import { Link } from "react-router";
 const TrackingNav: FC<TrackingNavProps> = ({ restaurnatName }) => {
 
   const { cart } = useContext(CartContext)!;
-
-
   const totalItems = cart.reduce(
     (acc, item) => acc + item.quantity,
     0
@@ -43,7 +41,7 @@ const TrackingNav: FC<TrackingNavProps> = ({ restaurnatName }) => {
             </button>
           </Link>
         </div>
-        
+
       </div>
     </nav>
   );
