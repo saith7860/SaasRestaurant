@@ -32,24 +32,11 @@ const Signup = () => {
       navigate("/login")
 
     } catch (error) {
-      console.error("Signup error:", error);
-      const validationErrors = handleApiError(error);
+    const result = handleApiError(error);
 
-      if (validationErrors) {
-
-        const formattedErrors:
-          Record<string, string> = {};
-
-        validationErrors.forEach(
-          (err: any) => {
-
-            formattedErrors[err.field] =
-              err.message;
-          }
-        );
-
-        setErrors(formattedErrors);
-      }
+            if (result?.fieldErrors) {
+                setErrors(result.fieldErrors);
+            }
     }
   };
 

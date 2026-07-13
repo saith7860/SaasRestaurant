@@ -19,22 +19,23 @@ import { useEffect, useState } from "react";
 import { useRestaurant } from "./context/RestaurantContext";
 import ProtectedAdminRoute from "./components/Security/ProtectedRoute";
 import { SplashScreen } from "./components/Animation/SplashScreen";
-
+import LandingPage from "./pages/landingpage/LandingPage";
 import { applyTheme } from "./utils/applyTheme";
-
-
+import SuperAdmin from "./pages/SuperAdmin/SuperAdmin";
+import ProtectedSuperAdminRoute from "./components/Security/ProtectedSuperAdminRoute";
 const App = () => {
   const { setRestaurantData, restaurantData } = useRestaurant();
   const [loadingRestaurant, setLoadingRestaurant] = useState(true);
   const hostname = window.location.hostname;
   console.log(hostname);
   const getSlug = () => {
-    const parts = hostname.split(".");
-    if (parts.length > 1) {
-      return parts[0];
-    }
-    return "al-hadi";
+  const host = window.location.hostname;
+  const parts = host.split(".");
+  if (parts.length >= 2 && parts[0]!=="www" ) {
+    return parts[0]; 
   }
+  return null; 
+};
   const getRestaurant =
     async (slug: string) => {
       try {
@@ -57,24 +58,29 @@ const App = () => {
       }
     };
 
-
+ const slug = getSlug();
   useEffect(() => {
-    const slug = getSlug();
+   
+  if (!slug) {
+    return;
+  }
+  
+  else{
     getRestaurant(slug);
-  }, [])
+  }
+  }, [slug])
   
   useEffect(() => {
     if (restaurantData?.restaurantData?.restaurantName) {
       document.title = restaurantData.restaurantData.restaurantName;
     }
   }, [restaurantData]);
+   if (!slug) {
+    return <LandingPage />;
+    }
   if (loadingRestaurant) {
     return <SplashScreen />;
   }
-
-
-
-
 
   return (
     <>
@@ -87,6 +93,13 @@ const App = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/super_admin" element={
+              <ProtectedSuperAdminRoute>
+                <SuperAdmin />
+              </ProtectedSuperAdminRoute>
+            }>
+              
+            </Route>
             <Route path="/admin" element={
               <ProtectedAdminRoute>
                 <DashboardProvider>
@@ -94,6 +107,7 @@ const App = () => {
                 </DashboardProvider>
               </ProtectedAdminRoute>
             }>
+          
               <Route index element={<Navigate to="restaurant" replace />} />
               {/* <Route index element={<DashBoardLayout/>}/> */}
               <Route path="restaurant" element={<Resturant />} />

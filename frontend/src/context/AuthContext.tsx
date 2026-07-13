@@ -34,32 +34,61 @@ export const AuthProvider = ({
 
   const [loading, setLoading] = useState(true);
 
+  // const refreshAccessToken = async () => {
+  //   try {
+  //     const res = await api.post("/api/user/refresh-token");
+
+  //     const token = res.data.token;
+
+  //     setAccessToken(token);
+
+  //     const decoded: User = jwtDecode(token);
+
+  //     setUser(decoded);
+
+  //     return token;
+  //   } catch (err) {
+  //     console.log(err);
+
+  //     setAccessToken(null);
+
+  //     setUser(null);
+
+  //     return null;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const refreshAccessToken = async () => {
-    try {
-      const res = await api.post("/api/user/refresh-token");
+  try {
+    console.log("Refreshing access token...");
 
-      const token = res.data.token;
+    const res = await api.post("/api/user/refresh-token");
 
-      setAccessToken(token);
+    console.log("Refresh response", res.data);
 
-      const decoded: User = jwtDecode(token);
+    const token = res.data.token;
 
-      setUser(decoded);
+    const decoded:User = jwtDecode(token);
 
-      return token;
-    } catch (err) {
-      console.log(err);
+    console.log("Decoded refresh token", decoded);
 
-      setAccessToken(null);
+    setAccessToken(token);
 
-      setUser(null);
+    setUser(decoded);
 
-      return null;
-    } finally {
-      setLoading(false);
-    }
-  };
+    return token;
+  } catch (err) {
+    console.log(err);
 
+    setAccessToken(null);
+    setUser(null);
+
+    return null;
+  } finally {
+    setLoading(false);
+  }
+};
   const logout = () => {
     setAccessToken(null);
 

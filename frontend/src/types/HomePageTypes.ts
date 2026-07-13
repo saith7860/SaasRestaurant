@@ -3,6 +3,9 @@ export type NavbarProps = {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   restaurnatName:string | null
 };
+export type TrackingNavProps = {
+  restaurnatName: string | null;
+};
 export type CategoriesProps = {
   search: string;
 };
