@@ -24,7 +24,7 @@ const Variants = ({
         }}
         className="w-full rounded-xl border border-white/10 bg-[var(--card-color)] px-4 py-3 text-[var(--text-color)] text-sm font-medium outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 hover:border-[var(--primary-color)]/50 cursor-pointer"
       >
-        <option className=" py-3 text-xl font-bold text-[var(--primary-color)]" value="" disabled>
+        <option className=" py-3 text-lg font-bold text-[var(--primary-color)]" value="" disabled>
           Select Variant
         </option>
 

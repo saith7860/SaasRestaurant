@@ -9,3 +9,12 @@
   --button-color: #984447;
   --button-text-color: #FFFFFF;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

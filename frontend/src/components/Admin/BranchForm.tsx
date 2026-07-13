@@ -73,12 +73,12 @@ const BranchForm = ({ branch, setShowForm }: {
     return (
 
 
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-            <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl">
+        <div className="fixed inset-0 z-50 scrollbar-hide flex items-center justify-center bg-black/60 p-4">
+            <div className="w-full max-w-4xl max-h-[90vh] no-scrollbar overflow-y-auto rounded-2xl">
 
                 <form onSubmit={handleBranchSubmit} className="mx-auto py-4 sm:py-6 my-6 w-full max-w-4xl rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-6 shadow-2xl shadow-black/30">
 
-                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <div className="grid grid-cols-1 scrollbar-hide gap-6 md:grid-cols-2">
 
                         <div>
                             <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">

@@ -96,7 +96,7 @@ const VariantForm = ({
 
   return (
     <div className="flex items-center justify-center bg-black/60 p-4">
-      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl">
+      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar rounded-2xl">
         <form
           className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-6"
           onSubmit={handleSubmit}

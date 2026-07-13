@@ -133,7 +133,7 @@ const ItemForm = ({
   return (
 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl">
+      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar rounded-2xl">
 
         <form
           className="mx-auto mt-8 w-full max-w-3xl rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] p-4 sm:p-6 shadow-2xl shadow-black/30 backdrop-blur-sm"

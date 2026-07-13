@@ -18,20 +18,23 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
       <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
 
-     <img src={item?.image?.url||null} alt={item.name}  
+        <img src={item?.image?.url || null} alt={item.name}
           className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
-      </div> 
+      </div>
 
-      <div className="flex flex-col flex-1 p-4">
+      <div className="flex flex-col flex-1 p-2">
 
-        <h2 className="text-lg sm:text-xl font-bold text-[var(--primary-color)] tracking-wide leading-tight">
+        <h2 className="text-md sm:text-lg lg:text-xl font-bold text-[var(--primary-color)] tracking-wide leading-tight">
           {item.name}
         </h2>
 
         <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/70 line-clamp-2">
           {item.description}
         </p>
+
+
+        <span className="flex-1"></span>
 
 
         {item.variants && item.variants.length > 0 ? (
@@ -43,21 +46,20 @@ const ItemCard = ({ item }: ItemCardProps) => {
           />
         ) : (
           <p className="mt-auto py-3 text-xl font-bold text-[var(--primary-color)]">
-              Rs {item.basePrice}
+            Rs {item.basePrice}
           </p>
         )}
 
-        <span className="flex-1"></span>
 
 
-       
-          <AddToCart
-            selectedVariant={selectedVariant}
-            cart={cart}
-            setCart={setCart}
-            item={item}
-          />
-      
+
+        <AddToCart
+          selectedVariant={selectedVariant}
+          cart={cart}
+          setCart={setCart}
+          item={item}
+        />
+
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   return (
 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl">
+      <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar rounded-2xl">
 
         <form
           className="p-4 sm:p-6 mx-auto mt-8 flex w-full max-w-2xl flex-col gap-6 rounded-2xl border border-[var(--primary-color)]/20 bg-[var(--card-color)] shadow-2xl shadow-black/30"
