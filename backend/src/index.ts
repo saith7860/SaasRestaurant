@@ -29,28 +29,52 @@ const allowedOrigins = [
   "http://localhost:5173",
   "https://saas-restaurantl.vercel.app",
 ];
-
 app.use(
   cors({
     origin(origin, callback) {
-      // Allow requests without an Origin header (Postman, mobile apps, etc.)
+      console.log("Incoming Origin:", origin);
+
       if (!origin) {
+        console.log("Allowed (no origin)");
         return callback(null, true);
       }
 
       if (
         allowedOrigins.includes(origin) ||
-        origin.endsWith(".localhost:5173")||origin.endsWith(".saas-restaurantl.vercel.app")
+        origin.endsWith(".localhost:5173") ||
+        origin.endsWith(".saas-restaurantl.vercel.app")
       ) {
+        console.log("Allowed:", origin);
         return callback(null, true);
       }
 
+      console.log("Blocked:", origin);
       return callback(new Error("Not allowed by CORS"));
     },
-
     credentials: true,
   })
 );
+// app.use(
+//   cors({
+//     origin(origin, callback) {
+//       // Allow requests without an Origin header (Postman, mobile apps, etc.)
+//       if (!origin) {
+//         return callback(null, true);
+//       }
+
+//       if (
+//         allowedOrigins.includes(origin) ||
+//         origin.endsWith(".localhost:5173")||origin.endsWith(".saas-restaurantl.vercel.app")
+//       ) {
+//         return callback(null, true);
+//       }
+
+//       return callback(new Error("Not allowed by CORS"));
+//     },
+
+//     credentials: true,
+//   })
+// );
 app.use(express.json());
 
 app.use(helmet());
