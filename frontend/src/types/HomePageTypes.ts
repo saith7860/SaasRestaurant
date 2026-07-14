@@ -6,6 +6,11 @@ export type NavbarProps = {
 export type TrackingNavProps = {
   restaurnatName: string | null;
 };
+export type User = {
+  id: string;
+  role: string;
+  email: string;
+};
 export type CategoriesProps = {
   search: string;
 };

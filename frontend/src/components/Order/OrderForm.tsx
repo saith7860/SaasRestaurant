@@ -1,19 +1,19 @@
-
 import { toast } from "react-toastify";
 import api from "../../api/api";
 import { useContext, useState } from "react";
 import handleApiError from "../../api/handleError";
 import { CartContext } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
-
+import LoadingButton from "../LoadingState/LoadingState";
 const OrderForm = ({ formData, handleChange,orderData }:{formData:any,handleChange:any,orderData:any}) => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const { cart,setCart } = useContext(CartContext);
     const { restaurantData } = useRestaurant();
-
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsLoading(true);
         if (cart.length === 0) {
             toast.error("Your cart is empty")
             return
@@ -38,6 +38,8 @@ const OrderForm = ({ formData, handleChange,orderData }:{formData:any,handleChan
     if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
     }
+        }finally{
+          setIsLoading(false);
         }
 
     };
@@ -121,10 +123,14 @@ const OrderForm = ({ formData, handleChange,orderData }:{formData:any,handleChan
                         errors.paymentMethod && <p className="text-sm font-medium text-red-400">{errors.paymentMethod}</p>
                     }
                     {/* Submit Button */}
-                    <button type="submit"
+                    {/* <button type="submit"
                         className="mt-2 rounded-xl bg-[var(--button-color)] py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95 " >
                         Place Order
-                    </button>
+                    </button> */}
+
+                    <LoadingButton loading={isLoading} type="submit">
+                        {isLoading ? "Placing Order..." : "Place Order"}
+                    </LoadingButton>
                 </form>
             </div>
 

@@ -7,17 +7,15 @@ import { toast } from "react-toastify";
 import api from "../../api/api";
 import { useAuth } from "../../context/AuthContext.js";
 import { setAccessToken } from "../../api/tokenStore.js";
+import LoadingButton from "../../components/LoadingState/LoadingState.js";
 import { jwtDecode } from "jwt-decode";
-type User = {
-  id: string;
-  role: string;
-  email: string;
-};
+import type { User } from "../../types/HomePageTypes.js";
 const Login = () => {
   const [loginField, setLoginField] = useState({
     email: "",
     password: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
   const {login} = useAuth()
   const [errors, setErrors] = useState<Record<string, string>>({});
   const navigate = useNavigate();
@@ -36,6 +34,7 @@ const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await api.post("/api/user/login", loginField);
@@ -67,6 +66,8 @@ switch (decoded.role) {
       if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
       }
+    }finally{
+      setIsLoading(false);
     }
   };
 
@@ -135,12 +136,15 @@ switch (decoded.role) {
             )}
 
             {/* Button */}
-            <button
+            {/* <button
               type="submit"
               className="mt-6 w-full rounded-lg bg-[var(--button-color)] py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]"
             >
               Login
-            </button>
+            </button> */}
+  <LoadingButton loading={isLoading} type="submit">
+  {isLoading ? "Logging in..." : "Login"}
+</LoadingButton>
 
             {/* Signup */}
             <div className="mt-4 text-center text-sm text-[var(--text-color)]/60">

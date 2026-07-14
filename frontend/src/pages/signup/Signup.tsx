@@ -4,6 +4,7 @@ import { useRestaurant } from "../../context/RestaurantContext";
 import { Link, useNavigate } from "react-router";
 import api from "../../api/api";
 import handleApiError from "../../api/handleError";
+import LoadingButton from "../../components/LoadingState/LoadingState.js";
 const Signup = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formField, setFormFields] = useState({
@@ -13,6 +14,7 @@ const Signup = () => {
     phone: "",
     address: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormFields({
@@ -24,7 +26,7 @@ const Signup = () => {
   const handleSubmit = async (e: any) => {
 
     e.preventDefault();
-    console.log(formField);
+    setIsLoading(true);
 
     try {
       const res = await api.post("/api/user/signup", formField);
@@ -37,6 +39,8 @@ const Signup = () => {
             if (result?.fieldErrors) {
                 setErrors(result.fieldErrors);
             }
+    } finally{
+      setIsLoading(false);
     }
   };
 
@@ -144,13 +148,15 @@ const Signup = () => {
             }
 
             {/* Button */}
-            <button
+            {/* <button
               type="submit"
               className="mt-3 w-full rounded-lg bg-[var(--button-color)] py-3 font-semibold text-[var(--button-text-color)] shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-[0.98]"
             >
               Signup
-            </button>
-
+            </button> */}
+<LoadingButton loading={isLoading} type="submit">
+  {isLoading ? "Signing up..." : "Signup"}
+</LoadingButton>
             {/* Login link */}
             <div className="mt-3 text-center text-sm text-white/60">
               Have an account?{" "}
