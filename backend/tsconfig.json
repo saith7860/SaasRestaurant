@@ -4,6 +4,10 @@
     "sourceMap": true,
     "rootDir": "src",
     "outDir": "dist",
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "types": ["node"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
   }
 }
