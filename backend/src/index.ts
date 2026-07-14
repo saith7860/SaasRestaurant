@@ -25,29 +25,32 @@ app.use(cookieParser())
 //   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
 //   credentials: true
 // }));
-app.use(cors({
-  origin: function (origin, callback) {
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://saas-restaurantl.vercel.app",
+];
 
-    const allowedOrigins = [
-      "http://localhost:5173",
-    ];
+app.use(
+  cors({
+    origin(origin, callback) {
+      // Allow requests without an Origin header (Postman, mobile apps, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
 
-    // allow localhost subdomains
-    if (
-      !origin ||
-      allowedOrigins.includes(origin) ||
-      origin.endsWith(".localhost:5173")
-    ) {
-      callback(null, true);
-    } else {
-      callback(
-        new Error("Not allowed by CORS")
-      );
-    }
-  },
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".localhost:5173")
+      ) {
+        return callback(null, true);
+      }
 
-  credentials: true,
-}));
+      return callback(new Error("Not allowed by CORS"));
+    },
+
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use(helmet());
