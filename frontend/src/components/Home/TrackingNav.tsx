@@ -14,7 +14,7 @@ const TrackingNav: FC<TrackingNavProps> = ({ restaurnatName }) => {
   );
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[var(--background-color)]/95 backdrop-blur-lg border-b border-[var(--primary-color)]/15 shadow-lg px-4 py-3">
+    <nav className="fixed top-0 z-50 w-full bg-[var(--background-color)]/95 backdrop-blur-lg border-b border-[var(--primary-color)]/15 shadow-lg px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
 
         {/* Logo / Restaurant Name */}

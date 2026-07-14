@@ -36,7 +36,7 @@ const Item = () => {
   }, [selectedCategoryId, selectedBranchId])
   return (
 
-    <div className="flex flex-col gap-8 px-4 py-6 sm:px-6">
+    <div className="flex flex-col gap-8 px-0  py-6 sm:px-6">
 
       <div className="mb-4 text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl" >Manage Items</div>
 

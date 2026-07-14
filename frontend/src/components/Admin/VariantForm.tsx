@@ -95,13 +95,13 @@ const VariantForm = ({
   };
 
   return (
-    <div className="flex items-center justify-center bg-black/60 p-4">
+    <div className="flex items-center justify-center p-4">
       <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar rounded-2xl">
         <form
-          className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 p-8 space-y-6"
+          className="mt-16 w-full max-w-xl mx-auto bg-[var(--card-color)] border border-[var(--primary-color)]/25 rounded-3xl shadow-2xl shadow-black/40 px-8 py-6"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-3xl font-extrabold text-[var(--primary-color)] text-center tracking-wide">
+          <h2 className="mb-8 text-3xl font-extrabold text-[var(--primary-color)] text-center tracking-wide">
             {editVariant ? "Update Variant" : "Add Variant"}
           </h2>
 
@@ -153,7 +153,7 @@ const VariantForm = ({
 
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-2">
 
             <button type="submit"
               className="flex-1 bg-[var(--button-color)] text-[var(--button-text-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-black active:scale-95 transition-all duration-300 shadow-lg shadow-black/20">
