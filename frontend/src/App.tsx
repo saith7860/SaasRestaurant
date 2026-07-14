@@ -30,11 +30,21 @@ const App = () => {
   console.log(hostname);
   const getSlug = () => {
   const host = window.location.hostname;
-  const parts = host.split(".");
-  if (parts.length >= 2 && parts[0]!=="www" ) {
-    return parts[0]; 
-  }
-  return null; 
+
+const rootDomain =
+  import.meta.env.VITE_ROOT_DOMAIN
+    ? "saas-restaurantl.vercel.app"
+    : "localhost";
+
+if (host === rootDomain) {
+  return null;
+}
+
+if (host.endsWith("." + rootDomain)) {
+  return host.replace("." + rootDomain, "");
+}
+
+return null;
 };
   const getRestaurant =
     async (slug: string) => {
