@@ -19,8 +19,8 @@ try {
     const {refreshToken,token:accessToken,role}=await userService.loginUser(req.body);
     res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
     maxAge: 60 * 60 * 24 * 7 * 1000, // 7 days in milliseconds
   });
     return res.json({

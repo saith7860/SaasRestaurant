@@ -40,7 +40,7 @@ app.use(
 
       if (
         allowedOrigins.includes(origin) ||
-        origin.endsWith(".localhost:5173")
+        origin.endsWith(".localhost:5173")||origin.endsWith(".saas-restaurantl.vercel.app")
       ) {
         return callback(null, true);
       }
