@@ -9,6 +9,9 @@
     "build": "tsc",
     "start": "tsx src/index.ts"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
