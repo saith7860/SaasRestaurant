@@ -2,14 +2,12 @@ import type { Dispatch, SetStateAction } from "react";
 import type { variantType } from "../../types/DashBoardtype";
 
 interface VariantsProps {
-  itemId: string;
   variants: variantType[];
   selectedVariant: variantType | undefined;
   setSelectedVariant: Dispatch<SetStateAction<variantType | undefined>>;
 }
 
 const Variants = ({
-  itemId,
   variants,
   selectedVariant,
   setSelectedVariant,

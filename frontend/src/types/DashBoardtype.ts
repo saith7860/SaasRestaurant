@@ -68,6 +68,15 @@ export interface OrderType{
     name: string;
     phone: string;
   };
+  orderItems:[{
+    itemId:string;
+    itemName:string;
+    quantity:number;
+    price:number;
+    totalAmount:number;
+    variation?:string;
+    variantPrice?:number;
+  }]
 }
 
 export interface DashboardData {

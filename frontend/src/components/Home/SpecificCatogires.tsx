@@ -45,7 +45,7 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
 
     if (!category) return [];
 
-    return allItems.filter((item) =>
+    return allItems.filter((item: any) =>
       category.items.includes(item._id)
     );
   }, [search, category, allItems, categories]);

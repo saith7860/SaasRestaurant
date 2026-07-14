@@ -18,7 +18,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
       <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
 
-        <img src={item?.image?.url || null} alt={item.name}
+        <img src={item?.image?.url || undefined} alt={item.name}
           className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -39,7 +39,6 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
         {item.variants && item.variants.length > 0 ? (
           <Variants
-            itemId={item._id}
             variants={item.variants}
             selectedVariant={selectedVariant}
             setSelectedVariant={setSelectedVariant}

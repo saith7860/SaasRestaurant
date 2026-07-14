@@ -21,7 +21,7 @@ const ItemForm = ({
   restaurant: Restaurant | null;
   branches: BranchType[] | null;
 }) => {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Record<string, string|null>>({});
 
   const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -32,7 +32,7 @@ const ItemForm = ({
     categoryId: string;
     basePrice: string;
     branchId: string;
-    image: { url?: string; publicId?: string } | null;
+    image: { url?: string; publicId?: string } |null;
   }>({
     name: "",
     description: "",
