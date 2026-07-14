@@ -2,6 +2,7 @@
 import axios from "axios";
 import { getAccessToken } from "./tokenStore";
 import { refreshAccessToken } from "./authApi";
+console.log("API URL:", import.meta.env.VITE_API_URL);
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
