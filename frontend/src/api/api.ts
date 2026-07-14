@@ -2,9 +2,8 @@
 import axios from "axios";
 import { getAccessToken } from "./tokenStore";
 import { refreshAccessToken } from "./authApi";
-const hostname=window.location.hostname;
 const api = axios.create({
-  baseURL: `http://${hostname}:3000`,
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
 
