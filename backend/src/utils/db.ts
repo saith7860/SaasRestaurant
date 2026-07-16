@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 import { ApiError } from "../middlewares/errorHandler.js";
-const mongoUrl = process.env.DBCONNECTION;
 //connecting database
 const connectDB = async () => {
   try {
-    if (mongoUrl) {
-      await mongoose.connect(mongoUrl);
+    if (process.env.NODE_ENV=="development"||process.env.NODE_ENV=="testing") {
+      await mongoose.connect(process.env.DBCONNECTION_TESTING as string);
       console.log("database connected successfully");
-    } else {
-      console.log("Mongo url is undefined");
+    }else{
+      await mongoose.connect(process.env.DBCONNECTION as string);
+      console.log("database connected successfully");
     }
   } catch (error) {
-    throw new ApiError(500,'Database connection failed')
+    throw new ApiError(500,'Database connection failed');
   }
 };
 //discoonecting database

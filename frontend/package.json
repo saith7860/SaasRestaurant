@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build --mode production",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:test": "tsc -b && vite build --mode test",
+    "build:production": "tsc -b && vite build --mode production"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
