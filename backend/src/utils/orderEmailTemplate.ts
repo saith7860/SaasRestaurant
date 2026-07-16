@@ -32,6 +32,7 @@ export const restaurantOrderPlacedTemplate = ({
   totalAmount,
   customerEmail,
   deliveryAddress,
+  adminUrl
 }: RestaurantOrderPlacedTemplateData) => {
   return `
     <div style="font-family: Arial, sans-serif; line-height: 1.6;">
@@ -48,7 +49,7 @@ export const restaurantOrderPlacedTemplate = ({
 
       <br />
       <p>Please update the order status from your dashboard.</p>
-      <a href="http://localhost:5173/admin/orders">view order</a>
+      <a href="${adminUrl}/admin/orders">view order</a>
     </div>
   `;
 };

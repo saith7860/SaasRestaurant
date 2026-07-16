@@ -38,4 +38,5 @@ export interface RestaurantOrderPlacedTemplateData {
   totalAmount: number;
   customerEmail: string;
   deliveryAddress: string;
+  adminUrl:string;
 }
