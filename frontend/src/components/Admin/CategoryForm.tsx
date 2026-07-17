@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDashboard } from "../../context/DashBoardContext.js";
 import type { CategoryType, Restaurant, BranchType } from "../../types/DashBoardtype.js";
 import handleApiError from "../../api/handleError.js";
+import LoadingButton from "../LoadingState/LoadingState.js";
 const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
   category: CategoryType | null;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,6 +15,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     branchId: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading,setIsLoading]=useState(false);
   //refresh data after crud operation
   const { refreshDashboardData } = useDashboard();
 
@@ -36,7 +38,7 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
     e.preventDefault();
 
     if (!restaurant?._id) return;
-
+    setIsLoading(true);
     try {
       if (category?._id) {
 
@@ -66,9 +68,17 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
       if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
       }
+    }finally{
+      setIsLoading(false);
     }
   };
-  console.log(errors);
+  const buttonText = isLoading
+    ? category
+        ? "Updating Category..."
+        : "Adding Category..."
+    : category
+        ? "Update Category"
+        : "Add Category";
 
   return (
 
@@ -124,11 +134,13 @@ const CategoryForm = ({ category, setShowForm, restaurant, branches }: {
 
 
           <div className="mt-6 flex w-full flex-col gap-4 sm:flex-row sm:justify-end">
-            <button type="submit"
+            {/* <button type="submit"
               className="flex flex-1 justify-center rounded-xl bg-[var(--button-color)] px-6 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-black sm:flex-none"
-            >{category ? "Update Category" : "Add Category"}</button>
-
+            >{category ? "Update Category" : "Add Category"}</button> */}
+          <LoadingButton type="submit" loading={isLoading}>{buttonText}</LoadingButton>
             <button onClick={() => { setShowForm(false) }}
+            type="button"
+            disabled={isLoading}
               className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black sm:flex-none"
             >
               Cancel
