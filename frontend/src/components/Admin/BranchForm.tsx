@@ -4,6 +4,7 @@ import api from "../../api/api";
 import { useDashboard } from "../../context/DashBoardContext";
 import type { BranchType } from "../../types/DashBoardtype.js";
 import handleApiError from "../../api/handleError.js";
+import LoadingButton from "../LoadingState/LoadingState.js";
 const BranchForm = ({ branch, setShowForm }: {
     branch: BranchType | null;
     setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -18,6 +19,7 @@ const BranchForm = ({ branch, setShowForm }: {
         deliveryFee: branch?.deliveryFee || ""
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [isLoading, setIsLoading] = useState(false);
     const { restaurant, refreshDashboardData } = useDashboard();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,9 +39,9 @@ const BranchForm = ({ branch, setShowForm }: {
 
     const handleBranchSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        
         if (!restaurant?._id) return;
-
+        setIsLoading(true);
         try {
             if (branch?._id) {
 
@@ -68,8 +70,17 @@ const BranchForm = ({ branch, setShowForm }: {
             if (result?.fieldErrors) {
                 setErrors(result.fieldErrors);
             }
+        }finally{
+            setIsLoading(false);
         }
     };
+    const buttonText = isLoading
+    ? branch
+        ? "Updating Branch..."
+        : "Adding Branch..."
+    : branch
+        ? "Update Branch"
+        : "Add Branch";
     return (
 
 
@@ -214,13 +225,16 @@ const BranchForm = ({ branch, setShowForm }: {
 
                     <div
                         className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-                        <button
+                        {/* <button
                             className="flex flex-1 justify-center rounded-xl bg-[var(--button-color)] px-6 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-black"
                         >
                             {branch ? "Update Branch" : "Add Branch"}
-                        </button>
+                        </button> */}
 
+                        <LoadingButton type="submit" loading={isLoading} >{buttonText}</LoadingButton>
                         <button
+                            type="button"
+                            disabled={isLoading}
                             className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black"
                             onClick={() => { setShowForm(false) }}>
                             Cancel
