@@ -6,7 +6,7 @@ export interface CreateResturantForm {
   banner?:File,
   restaurantEmail: string;
   contactNumber: string;
-  deliveryFee: number | "";
+  deliveryFee: string;
   name: string;
   email: string;
   password: string;
