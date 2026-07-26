@@ -16,6 +16,7 @@ import branchRouter from './routes/branchRouter.js';
 import variantRouter from './routes/variantRouter.js';
 import whatsappRouter from './routes/whatappRouter.js';
 import superAdminRouter from './routes/superAdminRoute.js';
+import dealRouter from './routes/dealRoute.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
@@ -27,7 +28,8 @@ app.use(cookieParser())
 // }));
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://orderva.com"
+  "https://orderva.com",
+  "https://saas-restaurantl.vercel.app/"
 ];
 app.use(
   cors({
@@ -55,27 +57,7 @@ app.use(
     credentials: true,
   })
 );
-// app.use(
-//   cors({
-//     origin(origin, callback) {
-//       // Allow requests without an Origin header (Postman, mobile apps, etc.)
-//       if (!origin) {
-//         return callback(null, true);
-//       }
 
-//       if (
-//         allowedOrigins.includes(origin) ||
-//         origin.endsWith(".localhost:5173")||origin.endsWith(".saas-restaurantl.vercel.app")
-//       ) {
-//         return callback(null, true);
-//       }
-
-//       return callback(new Error("Not allowed by CORS"));
-//     },
-
-//     credentials: true,
-//   })
-// );
 app.use(express.json());
 
 app.use(helmet());
@@ -89,6 +71,7 @@ app.use("/api/branch",branchRouter) //BRANCH ROUTER
 app.use("/api/variant",variantRouter) //VARIANT ROUTER
 app.use("/whatsapp",whatsappRouter);
 app.use("/api/super_admin",superAdminRouter);
+app.use("/api/deal",dealRouter);
 //handle error middleware
 app.use(handleError);
 app.listen(PORT,async()=>{
