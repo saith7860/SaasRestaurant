@@ -4,6 +4,9 @@ import * as dealService from '../services/dealService.js'
 export const createDeal=async(req:Request,res:Response,next:NextFunction)=>{
     try { 
         const restuatntId=req.user?.restaurantId;
+        if (req.body.items) {
+        req.body.items = JSON.parse(req.body.items);
+        }
         const deal=await dealService.createDeal(req.body,req.file,restuatntId as string);
         return res.status(201).json({success:true,message:'Deal created successfully',deal});
     } catch (error) {

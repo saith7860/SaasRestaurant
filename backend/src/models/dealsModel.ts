@@ -17,7 +17,7 @@ const DealSchema = new mongoose.Schema({
     },
 
     image: {
-     type: imageSchema,
+    type: imageSchema,
     default: {
     url: "",
     publicId: "",
