@@ -11,8 +11,8 @@ superAdminRouter.post(
   "/create-restaurant",
   authMiddleware,
   checkSuperAdmin,
-  validate(createRestaurantValidator),
   validateRestaurantImages,
+  validate(createRestaurantValidator),
   createRestaurantBySuperAdmin
 );
 
