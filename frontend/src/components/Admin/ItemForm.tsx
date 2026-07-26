@@ -8,6 +8,7 @@ import type {
   BranchType,
 } from "../../types/DashBoardtype";
 import { useDashboard } from "../../context/DashBoardContext";
+import LoadingButton from "../LoadingState/LoadingState";
 const ItemForm = ({
   setShowForm,
   item,
@@ -22,7 +23,7 @@ const ItemForm = ({
   branches: BranchType[] | null;
 }) => {
   const [errors, setErrors] = useState<Record<string, string|null>>({});
-
+  const [isLoading, setIsLoading] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
 
@@ -98,7 +99,7 @@ const ItemForm = ({
     e.preventDefault();
 
     if (!restaurant?._id) return;
-
+    setIsLoading(true);
     try {
       const data = new FormData();
 
@@ -127,9 +128,17 @@ const ItemForm = ({
       if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
       }
+    } finally {
+      setIsLoading(false);
     }
   };
-
+  const buttonText = isLoading
+    ? item
+        ? "Updating Item..."
+        : "Adding Item..."
+    : item
+        ? "Update Item"
+        : "Add Item";
   return (
 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
@@ -311,15 +320,16 @@ const ItemForm = ({
           </div>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <button
+            {/* <button
               type="submit"
               className="flex flex-1 justify-center rounded-xl bg-[var(--button-color)] px-6 py-3 text-lg font-semibold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--primary-color)] hover:text-black"
             >
               {item ? "Update Item" : "Add Item"}
-            </button>
-
+            </button> */}
+      <LoadingButton loading={isLoading} type="submit">{buttonText}</LoadingButton>
             <button
               type="button"
+              disabled={isLoading}
               className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black"
               onClick={() => setShowForm(false)}
             >

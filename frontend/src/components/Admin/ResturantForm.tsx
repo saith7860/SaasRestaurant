@@ -3,6 +3,7 @@ import api from "../../api/api.js";
 import { useDashboard } from "../../context/DashBoardContext.js";
 import type { Restaurant } from "../../types/DashBoardtype";
 import handleApiError from "../../api/handleError.js";
+import LoadingButton from "../LoadingState/LoadingState.js";
 const ResturantForm = ({ restaurant, setShowForm }: {
   restaurant: Restaurant | null;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,14 +18,9 @@ const ResturantForm = ({ restaurant, setShowForm }: {
   });
   console.log("deliver fee is", formField.deliveryFee);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading,setIsLoading]=useState(false)
   //refreseh when update data
   const { refreshDashboardData } = useDashboard();
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFormField({
-  //     ...formField,
-  //     [e.target.name]: e.target.value
-  //   });
-  // };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
 
@@ -42,6 +38,7 @@ const ResturantForm = ({ restaurant, setShowForm }: {
     e.preventDefault();
     try {
       if (restaurant) {
+        setIsLoading(true)
         await api.put(`/api/resturant/update-resturant/${restaurant._id}`, formField);
         await refreshDashboardData();
       }
@@ -53,10 +50,12 @@ const ResturantForm = ({ restaurant, setShowForm }: {
       if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
       }
+    }finally{
+      setIsLoading(false)
     }
   };
   console.log("formData of restaurnat is", formField);
-
+  const buttonText=isLoading?"Updating":"Update Restaurant"
   return (
 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
@@ -96,11 +95,13 @@ const ResturantForm = ({ restaurant, setShowForm }: {
 
           <div className="mt-6 flex w-full flex-col gap-4 sm:flex-row sm:justify-end">
             
-            <button type="submit" className="w-full rounded-xl bg-[var(--button-color)] py-3 text-lg font-bold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-black active:scale-95">
+            {/* <button type="submit" className="w-full rounded-xl bg-[var(--button-color)] py-3 text-lg font-bold text-[var(--button-text-color)] shadow-lg shadow-black/20 transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-black active:scale-95">
               {restaurant ? "Update" : "Create"}
-            </button>
-
+            </button> */}
+            <LoadingButton loading={isLoading} type="submit" >{buttonText}</LoadingButton>
             <button onClick={() => { setShowForm(false) }}
+              type="button"
+              disabled={isLoading}
               className="flex flex-1 justify-center rounded-xl border border-white/15 bg-transparent px-6 py-3 text-lg font-semibold text-[var(--text-color)] transition-all duration-300 hover:border-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-black sm:flex-none"
             >
               Cancel
