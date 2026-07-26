@@ -1,33 +1,13 @@
 import { useState } from "react";
 import api from "../../api/api";
 import handleApiError from "../../api/handleError";
-interface FormData {
-  restaurantName: string;
-  description: string;
-  slug: string;
-  restaurantEmail: string;
-  contactNumber: string;
-  deliveryFee: number | "";
-  name: string;
-  email: string;
-  password: string;
-  phone: string;
-  address: string;
-   theme: {
-    primaryColor: string;
-    secondaryColor: string;
-    backgroundColor: string;
-    cardColor: string;
-    textColor: string;
-    buttonColor: string;
-    buttonTextColor: string;
-  };
-}
-
+import type { CreateResturantForm } from "../../types/SuperAdmin";
 const SuperAdmin = () => {
-  const [form, setForm] = useState<FormData>({
+  const [form, setForm] = useState<CreateResturantForm>({
     restaurantName: "",
     description: "",
+    logo:undefined,
+    banner:undefined,
     slug: "",
     restaurantEmail: "",
     contactNumber: "",
@@ -77,13 +57,46 @@ const SuperAdmin = () => {
     },
   }));
 };
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleFileChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  field: "logo" | "banner"
+) => {
+  const file = e.target.files?.[0];
+  if (file) {
+    setForm((prev) => ({ ...prev, [field]: file }));
+    setErrors((prev) => ({ ...prev, [field]: "" }));
+  }
+};
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
+       const formData = new FormData();
+        formData.append("restaurantName", form.restaurantName);
+        formData.append("description", form.description);
+        formData.append("slug", form.slug);
+        formData.append("restaurantEmail", form.restaurantEmail);
+        formData.append("contactNumber", form.contactNumber);
+        formData.append("deliveryFee", form.deliveryFee.toString());
+        formData.append("name", form.name);
+        formData.append("email", form.email);
+        formData.append("password", form.password);
+        formData.append("phone", form.phone);
+        formData.append("address", form.address);
+
+        // Append files only if they exist
+        if (form.logo) {
+            formData.append("logo", form.logo);
+        }
+        if (form.banner) {
+            formData.append("banner", form.banner);
+        }
+
+        // Append theme as JSON string
+        formData.append("theme", JSON.stringify(form.theme));
       const response = await api.post(
         "/api/super_admin/create-restaurant",
-        form
+        formData
       );
 
       console.log(response.data);
@@ -246,7 +259,29 @@ console.log(form)
           />
 {errors.address && <p className="text-red-500">{errors.address}</p>}
 <hr />
+   <div>
+      <label className="block text-sm font-medium">Logo</label>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleFileChange(e, "logo")}
+        className="mt-1 block w-full"
+      />
+      {form.logo && <p className="text-green-500 text-sm">{form.logo.name}</p>}
+      {errors.logo && <p className="text-red-500 text-sm">{errors.logo}</p>}
+    </div>
 
+    <div>
+      <label className="block text-sm font-medium">Banner</label>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => handleFileChange(e, "banner")}
+        className="mt-1 block w-full"
+      />
+      {form.banner && <p className="text-green-500 text-sm">{form.banner.name}</p>}
+      {errors.banner && <p className="text-red-500 text-sm">{errors.banner}</p>}
+    </div>
 <h2 className="text-lg font-semibold">
   Theme Colors (Optional)
 </h2>
