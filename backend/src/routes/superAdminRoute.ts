@@ -11,7 +11,6 @@ superAdminRouter.post(
   "/create-restaurant",
   authMiddleware,
   checkSuperAdmin,
-  uploadMultipleImagesToCloudinary,
   validate(createRestaurantValidator),
   validateRestaurantImages,
   createRestaurantBySuperAdmin
