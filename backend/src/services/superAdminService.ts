@@ -4,16 +4,24 @@ import { ApiError } from "../middlewares/errorHandler.js";
 import * as resturantRepo from '../repos/resturantRepo.js' 
 import * as userRepo from '../repos/userRepo.js'    
 import {CreateRestaurantBySuperAdminInput} from '../types/CreateResturant.js'
+import { uploadImageToCloudinary } from "./uploadService.js";
 
 
 const createRestaurantBySuperAdmin = async (
-  payload: CreateRestaurantBySuperAdminInput
+  payload: CreateRestaurantBySuperAdminInput,
+  files: {logo?:Express.Multer.File[],banner?:Express.Multer.File[]}
 ) => {
   const session = await mongoose.startSession();
 
   try {
     session.startTransaction();
-
+     const logoFile = files?.logo?.[0];
+     const bannerFile = files?.banner?.[0];
+   
+     if (!logoFile && !bannerFile) {
+       throw new ApiError(400, "Logo or banner image is required");
+     }
+ 
     const {
       restaurantName,
       description,
@@ -28,7 +36,36 @@ const createRestaurantBySuperAdmin = async (
       address,
      theme
     } = payload;
-
+     let logo={url:"",publicId:""}
+       if (logoFile) {
+       logo=await uploadImageToCloudinary({
+        file:logoFile,
+        folder:`food-ordering/restaurants/${restaurantName}/logo`,
+        width:300,
+        height:300,
+        validation:{
+          label:"Logo",
+          minWidth:300,
+          minHeight:300,
+          aspectRatio:1,
+          tolerance:0.5,
+        },
+       })
+     }
+     let banner={url:"",publicId:""}
+     if (bannerFile) {
+       banner=await uploadImageToCloudinary({
+        file:bannerFile,
+        folder:`food-ordering/restaurants/${restaurantName}/banner`,
+        width:1600,
+        height:500,
+        validation:{
+          label:"Banner",
+          minWidth:1200,
+          minHeight:400,
+        },
+       })
+     }
 
     const formattedSlug = slug
       .toLowerCase()
@@ -70,7 +107,7 @@ const createRestaurantBySuperAdmin = async (
     }
 
 
-  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,owner:ownerUser._id,theme:theme},session)
+  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,logo,banner,owner:ownerUser._id,theme:theme},session)
       const updatedOwner = await userRepo.updateUserRestaurantId(
       ownerUser._id,
       restaurant._id,

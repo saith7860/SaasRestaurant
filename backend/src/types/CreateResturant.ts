@@ -15,4 +15,12 @@ export interface CreateRestaurantBySuperAdminInput {
   address:string
   role:string
   theme?:Theme
+  logo?:{
+    url:string
+    publicId:string
+  }
+  banner?:{
+    url:string
+    publicId:string
+  }
 }

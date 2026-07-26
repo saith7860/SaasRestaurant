@@ -7,8 +7,8 @@ const createRestaurantBySuperAdmin = async (
   next: NextFunction
 ) => {
   try {
-    const result =
-      await restaurantService.createRestaurantBySuperAdmin(req.body);
+    const files = req.files as {logo?:Express.Multer.File[],banner?:Express.Multer.File[]};
+    const result =await restaurantService.createRestaurantBySuperAdmin(req.body,files);
 
     return res.status(201).json({
       success: true,
