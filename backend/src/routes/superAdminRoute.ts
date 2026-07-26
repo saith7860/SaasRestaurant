@@ -8,11 +8,13 @@ import validate from "../middlewares/validationMiddleware.js";
 import { uploadMultipleImagesToCloudinary } from "../services/uploadService.js";
 import { validateRestaurantImages } from "../validators/validateItem.js";
 import { uploadRestaurantImages } from "../middlewares/uploadMiddleware.js";
+import { parseTheme } from "../middlewares/parseTheme.js";
 superAdminRouter.post(
   "/create-restaurant",
   authMiddleware,
   checkSuperAdmin,
   uploadRestaurantImages,
+  parseTheme,
   validate(createRestaurantValidator),
   validateRestaurantImages,
   createRestaurantBySuperAdmin

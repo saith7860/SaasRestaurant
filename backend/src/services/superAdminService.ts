@@ -34,7 +34,7 @@ const createRestaurantBySuperAdmin = async (
       password,
       phone,
       address,
-     theme
+      theme
     } = payload;
      let logo={url:"",publicId:""}
        if (logoFile) {

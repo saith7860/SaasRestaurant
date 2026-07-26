@@ -134,7 +134,8 @@ const handleFileChange = (
             }
     }
   };
-console.log("errors",errors)
+console.log("errors",errors);
+console.log("formdata",form.theme)
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto p-8 rounded-lg shadow">
