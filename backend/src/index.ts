@@ -42,7 +42,8 @@ app.use(
       if (
         allowedOrigins.includes(origin) ||
         origin.endsWith(".localhost:5173") ||
-        origin.endsWith(".orderva.com")
+        origin.endsWith(".orderva.com")||
+        origin.endsWith(".saas-restaurantl.vercel.app")
       ) {
         console.log("Allowed:", origin);
         return callback(null, true);
