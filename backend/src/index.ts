@@ -16,7 +16,7 @@ import branchRouter from './routes/branchRouter.js';
 import variantRouter from './routes/variantRouter.js';
 import whatsappRouter from './routes/whatappRouter.js';
 import superAdminRouter from './routes/superAdminRoute.js';
-import testEmailRouter from './routes/testRoute.js';
+import dealRouter from './routes/dealRoute.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
@@ -71,7 +71,7 @@ app.use("/api/branch",branchRouter) //BRANCH ROUTER
 app.use("/api/variant",variantRouter) //VARIANT ROUTER
 app.use("/whatsapp",whatsappRouter);
 app.use("/api/super_admin",superAdminRouter);
-app.use("/api",testEmailRouter)
+app.use("/api/deals",dealRouter)
 //handle error middleware
 app.use(handleError);
 app.listen(PORT,async()=>{
