@@ -6,3 +6,9 @@ export const validateImage = (req:Request, res:Response, next:NextFunction) => {
   }
   next();
 };
+export const validateRestaurantImages = (req:Request, res:Response, next:NextFunction) => {
+  if (!req.files || req.files.length === 0) {
+    throw new ApiError(400,"Image files are required")
+  }
+  next(); 
+};

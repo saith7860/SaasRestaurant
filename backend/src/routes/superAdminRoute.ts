@@ -5,11 +5,15 @@ import { authMiddleware } from "../tokens/jwt.js";
 import { createRestaurantValidator } from "../validators/resturantValidator.js";
 const superAdminRouter = express.Router();
 import validate from "../middlewares/validationMiddleware.js";
+import { uploadMultipleImagesToCloudinary } from "../services/uploadService.js";
+import { validateRestaurantImages } from "../validators/validateItem.js";
 superAdminRouter.post(
   "/create-restaurant",
   authMiddleware,
   checkSuperAdmin,
+  uploadMultipleImagesToCloudinary,
   validate(createRestaurantValidator),
+  validateRestaurantImages,
   createRestaurantBySuperAdmin
 );
 

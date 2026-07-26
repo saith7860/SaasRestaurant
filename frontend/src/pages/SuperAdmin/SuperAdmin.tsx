@@ -69,7 +69,7 @@ const handleFileChange = (
 };
   const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    console.log("form is submitted")
     try {
        const formData = new FormData();
         formData.append("restaurantName", form.restaurantName);
@@ -134,7 +134,7 @@ const handleFileChange = (
             }
     }
   };
-console.log(form)
+console.log("errors",errors)
   return (
     <div className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto p-8 rounded-lg shadow">
