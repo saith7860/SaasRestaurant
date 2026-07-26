@@ -8,7 +8,7 @@ export const createDeal=async(dealData:DealType)=>{
   return await newDeal.save();
 }
 export const getAllDeals=async(restaurantId:string)=>{
-  return Deal.find({restaurantId:restaurantId}).populate('items.itemId');
+  return Deal.find({restaurantId:restaurantId});
 }
 export const getSpecificDeal=async(id:string)=>{
   return Deal.findById(id).populate('items.itemId');

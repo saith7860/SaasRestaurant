@@ -12,12 +12,12 @@ export const createDeal=async(req:Request,res:Response,next:NextFunction)=>{
 }
 export const getAllDeals=async(req:Request,res:Response,next:NextFunction)=>{
     try {
-        const restaurantId=req.user?.restaurantId as string;
-        const deals=await dealService.getAllDeals(restaurantId);
+        const restaurantId=req.params.id;
+        const deals=await dealService.getAllDeals(restaurantId as string);
         return res.status(200).json({success:true,message:'Deals fetched successfully',deals});
     } catch (error) {
         next(error)
-    }
+    } 
 }
 export const getSpecificDeal=async(req:Request,res:Response,next:NextFunction)=>{
     try {
