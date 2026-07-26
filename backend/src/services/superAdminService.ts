@@ -34,7 +34,8 @@ const createRestaurantBySuperAdmin = async (
       password,
       phone,
       address,
-      theme
+      theme,
+      socialLinks
     } = payload;
      let logo={url:"",publicId:""}
        if (logoFile) {
@@ -107,7 +108,7 @@ const createRestaurantBySuperAdmin = async (
     }
 
 
-  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,logo,banner,owner:ownerUser._id,theme:theme},session)
+  const restaurant = await resturantRepo.createRestaurant({restaurantName,description:description,slug:formattedSlug,restaurantEmail,contactNumber,deliveryFee,logo,banner,socialLinks,owner:ownerUser._id,theme:theme},session)
       const updatedOwner = await userRepo.updateUserRestaurantId(
       ownerUser._id,
       restaurant._id,

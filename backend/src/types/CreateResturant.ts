@@ -23,4 +23,12 @@ export interface CreateRestaurantBySuperAdminInput {
     url:string
     publicId:string
   }
+   socialLinks: {
+        facebook: string,
+        instagram: string,
+        whatsapp: string,
+        tiktok: string,
+        youtube: string,
+        x: string
+    }
 }

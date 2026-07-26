@@ -9,6 +9,7 @@ export const imageSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
   },
   { _id: false }
 );
@@ -64,6 +65,32 @@ const restaurantSchema = new mongoose.Schema({
         url: "",
         publicId: "",
       },
+    },
+     socialLinks: {
+        facebook: {
+          type:String,
+          default:""
+        },
+        instagram: {
+          type:String,
+          default:""
+        },
+        whatsapp: {
+          type:String,
+          default:""
+        },
+        tiktok: {
+          type:String,
+          default:""
+        },
+        youtube: {
+          type:String,
+          default:""
+        },
+        x: {
+          type:String,
+          default:""
+        }
     },
   description: {
     type:String,

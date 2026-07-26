@@ -26,6 +26,14 @@ const SuperAdmin = () => {
     buttonColor: "#984447",
     buttonTextColor: "#FFFFFF",
   },
+  socialLinks:{
+    facebook:"",
+    instagram:"",
+    whatsapp:"",
+    tiktok:"",
+    youtube:"",
+    x:""
+  }
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -42,6 +50,18 @@ const SuperAdmin = () => {
             ? ""
             : Number(value)
           : value,
+    }));
+  };
+   const handleSocialLinksChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      socialLinks: {
+        ...prev.socialLinks,
+        [name]: value,
+      },
     }));
   };
   const handleThemeChange = (
@@ -94,6 +114,7 @@ const handleFileChange = (
 
         // Append theme as JSON string
         formData.append("theme", JSON.stringify(form.theme));
+        formData.append("socialLinks", JSON.stringify(form.socialLinks));
       const response = await api.post(
         "/api/super_admin/create-restaurant",
         formData
@@ -123,6 +144,14 @@ const handleFileChange = (
     textColor: "",
     buttonColor: "",
     buttonTextColor: ""
+        },
+        socialLinks:{
+          facebook:"",
+          instagram:"",
+          whatsapp:"",
+          tiktok:"",
+          youtube:"",
+          x:""
         }
       });
     } catch (error) {
@@ -283,6 +312,60 @@ console.log("formdata",form.theme)
       {form.banner && <p className="text-green-500 text-sm">{form.banner.name}</p>}
       {errors.banner && <p className="text-red-500 text-sm">{errors.banner}</p>}
     </div>
+      <div>
+        <label className="block text-sm font-medium">Social Links</label>
+        <div className="grid grid-cols-2 gap-4 mt-2">
+          <input
+            type="text"
+            name="facebook"
+            placeholder="Facebook"
+            value={form.socialLinks.facebook}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="text"
+            name="instagram"
+            placeholder="Instagram"
+            value={form.socialLinks.instagram}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="text"
+            name="whatsapp"
+            placeholder="Whatsapp"
+            value={form.socialLinks.whatsapp}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="text"
+            name="tiktok"
+            placeholder="Tiktok"
+            value={form.socialLinks.tiktok}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="text"
+            name="youtube"
+            placeholder="Youtube"
+            value={form.socialLinks.youtube}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+          <input
+            type="text"
+            name="x"
+            placeholder="X"
+            value={form.socialLinks.x}
+            onChange={handleSocialLinksChange}
+            className="w-full border p-3 rounded"
+          />
+        </div>
+        {errors.socialLinks && <p className="text-red-500">{errors.socialLinks}</p>}
+      </div>
 <h2 className="text-lg font-semibold">
   Theme Colors (Optional)
 </h2>
