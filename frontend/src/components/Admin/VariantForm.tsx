@@ -4,7 +4,7 @@ import type { variantType } from "../../types/DashBoardtype";
 import api from "../../api/api";
 import handleApiError from "../../api/handleError";
 import { useDashboard } from "../../context/DashBoardContext";
-
+import LoadingButton from "../LoadingState/LoadingState";
 const VariantForm = ({
   itemId,
   editVariant,
@@ -15,7 +15,7 @@ const VariantForm = ({
   onCancelEdit: () => void;
 }) => {
   const [error, setErrors] = useState<Record<string, string>>({});
-
+  const [isLoading,setIsLoading]=useState(false)
   const [formData, setFormData] = useState({
     itemId: itemId,
     variation: "",
@@ -55,7 +55,7 @@ const VariantForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setIsLoading(true)
     try {
       const payload = {
         itemId: itemId,
@@ -91,9 +91,17 @@ const VariantForm = ({
       if (result?.fieldErrors) {
         setErrors(result.fieldErrors);
       }
+    }finally{
+      setIsLoading(false)
     }
   };
-
+ const buttonText = isLoading
+    ? editVariant
+        ? "Updating Variant..."
+        : "Adding Variant..."
+    : editVariant
+        ? "Update Variant"
+        : "Add Variant";
   return (
     <div className="flex items-center justify-center p-4">
       <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar rounded-2xl">
@@ -155,10 +163,11 @@ const VariantForm = ({
 
           <div className="flex flex-col sm:flex-row gap-4 pt-2">
 
-            <button type="submit"
+            {/* <button type="submit"
               className="flex-1 bg-[var(--button-color)] text-[var(--button-text-color)] font-bold py-3 rounded-xl hover:bg-[var(--primary-color)] hover:text-black active:scale-95 transition-all duration-300 shadow-lg shadow-black/20">
               {editVariant ? "Update Variant" : "Add Variant"}
-            </button>
+            </button> */}
+            <LoadingButton type="submit" loading={isLoading} >{buttonText}</LoadingButton>
 
             {editVariant && (
               <button type="button" onClick={onCancelEdit}

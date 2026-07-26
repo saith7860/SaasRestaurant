@@ -18,8 +18,6 @@ const SideBar = () => {
       console.error("Logout API error:", err);
     }
     clearAccessToken();
-    localStorage.removeItem("token");
-
     navigate("/login");
   };
 
