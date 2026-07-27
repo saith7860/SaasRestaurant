@@ -121,7 +121,7 @@ const createOrder = async (userId: string, data: any) => {
     totalAmount,
 };
   const newOrder = await orderRepo.createOrder(userId, orderData);
-
+  console.log("ORDER CREATED:", newOrder._id);
   const io=getIO();
   console.log(
  "Sending new order notification to:",
