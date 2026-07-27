@@ -75,10 +75,6 @@ const restaurantSchema = new mongoose.Schema({
           type:String,
           default:""
         },
-        whatsapp: {
-          type:String,
-          default:""
-        },
         tiktok: {
           type:String,
           default:""
