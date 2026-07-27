@@ -121,11 +121,12 @@ const createOrder = async (userId: string, data: any) => {
     totalAmount,
 };
   const newOrder = await orderRepo.createOrder(userId, orderData);
+
+  const io=getIO();
   console.log(
  "Sending new order notification to:",
  `restaurant_${newOrder.restaurantId}`
 );
-  const io=getIO();
   io.to(`restaurant_${newOrder.restaurantId}`)
 .emit(
     "new-order",
