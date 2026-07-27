@@ -7,7 +7,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { initSocket } from './config/socket.js';
-
+import { corsOriginChecker } from './originChecker.js';
 //File imports
 import { connectDB } from './utils/db.js';
 import categoryRouter from './routes/categoryRouter.js';
@@ -38,7 +38,7 @@ const allowedOrigins = [
 ];
 const io=new Server(server,{
   cors:{
-    origin:allowedOrigins,
+    origin:corsOriginChecker,
     methods:['GET','POST','PUT','PATCH','DELETE'],
     credentials:true
   }
