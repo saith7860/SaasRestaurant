@@ -91,8 +91,12 @@ app.use(handleError);
 io.on("connection", (socket) => {
 
     console.log("New socket connected:", socket.id);
-
-
+     socket.on("join-restaurant", (restaurantId:string) => {
+        console.log(
+            `Socket ${socket.id} joined restaurant room: ${restaurantId}`
+        );
+        socket.join(restaurantId);
+    });
     socket.on("disconnect", () => {
         console.log("Socket disconnected:", socket.id);
     });

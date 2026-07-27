@@ -2,11 +2,12 @@ import {
     createContext,
     useContext,
     useState,
+    useEffect,
     useCallback,
 } from "react";
 import type { ReactNode } from "react";
 import api from "../api/api.js";
-
+import socket from "../socket/socket.js";
 import type {
     Restaurant,
     BranchType,
@@ -60,6 +61,7 @@ interface DashboardProviderProps {
 export const DashboardProvider = ({
     children
 }: DashboardProviderProps) => {
+    
     const [restaurant, setRestaurant] =
         useState<Restaurant | null>(null);
 
@@ -102,7 +104,21 @@ export const DashboardProvider = ({
             setLoading(false);
         }
     }, []);
+     useEffect(() => {
+    if(!restaurant?._id){
+        return;
+    }
+    socket.connect();
+    
+    socket.emit(
+        "join-restaurant",
+        restaurant?._id
+    );
 
+    return ()=>{
+        socket.disconnect();
+    }
+    }, [restaurant?._id]);
     return (
         <DashboardContext.Provider
             value={{
@@ -130,6 +146,7 @@ export const DashboardProvider = ({
 };
 
 export const useDashboard = () => {
+    
     const context = useContext(DashboardContext);
 
     if (!context) {
