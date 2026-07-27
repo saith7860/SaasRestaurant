@@ -9,4 +9,20 @@ export type restaurantType={
     deliveryFee:number,
     owner:string|mongoose.Types.ObjectId
     theme?:Theme
+    logo?:{
+      url:string,
+      publicId:string
+    }
+    banner?:{
+      url:string,
+      publicId:string
+    }
+     socialLinks: {
+        facebook: string,
+        instagram: string,
+        whatsapp: string,
+        tiktok: string,
+        youtube: string,
+        x: string
+    }
 }

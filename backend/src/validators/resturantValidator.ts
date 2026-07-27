@@ -6,7 +6,7 @@ export const updateRestaurantValidator = z.object({
   contactNumber: z.string().min(1, "Contact number is required"),
   slug:z.string("Enter a value").min(1, "Slug is required"),
   restaurantEmail:z.email("Invalid email"),
-  deliveryFee:z.number("Enter a number").min(1, "Delivery fee is required"),
+  deliveryFee:z.coerce.number().min(1, "Delivery fee is required"),
   
 })
 export const createRestaurantValidator=z.object({
@@ -15,7 +15,7 @@ export const createRestaurantValidator=z.object({
   contactNumber: z.string().min(1, "Contact number is required"),
   slug:z.string("Enter a value").min(1, "Slug is required"),
   restaurantEmail:z.email("Invalid email").min(1,"Email is required"),
-  deliveryFee:z.number("Enter a number").min(1, "Delivery fee is required"),
+  deliveryFee:z.coerce.number().min(1, "Delivery fee is required"),
   name: z.string("Enter name").min(1, "Name is required"),
     email:z.email("Invalid email").min(1,"Email is required"),
     password:z.string("Enter password").min(8, "Password is required"),
