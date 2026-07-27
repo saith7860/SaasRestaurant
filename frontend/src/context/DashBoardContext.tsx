@@ -104,7 +104,7 @@ export const DashboardProvider = ({
             setLoading(false);
         }
     }, []);
-     useEffect(() => {
+    useEffect(() => {
     if(!restaurant?._id){
         return;
     }
@@ -114,6 +114,46 @@ export const DashboardProvider = ({
         "join-restaurant",
         restaurant?._id
     );
+
+    useEffect(() => {
+
+    if (!restaurant?._id) return;
+
+
+    const handleNewOrder = (newOrder: OrderType) => {
+
+        console.log(
+            "New order received:",
+            newOrder
+        );
+
+
+        setOrders((prevOrders)=>[
+           newOrder,
+           ...prevOrders,
+           
+        ]);
+
+    };
+
+
+    socket.on(
+        "new-order",
+        handleNewOrder
+    );
+
+
+    return ()=>{
+
+        socket.off(
+            "new-order",
+            handleNewOrder
+        );
+
+    };
+
+
+}, [restaurant?._id]);
 
     return ()=>{
         socket.disconnect();
