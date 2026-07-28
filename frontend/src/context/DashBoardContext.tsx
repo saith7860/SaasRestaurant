@@ -108,8 +108,10 @@ export const DashboardProvider = ({
     if(!restaurant?._id){
         return;
     }
+
+
     socket.connect();
-    
+    console.log("Joining room:", restaurant?._id);
     socket.emit(
         "join-restaurant",
         restaurant?._id
@@ -120,7 +122,7 @@ export const DashboardProvider = ({
     useEffect(() => {
 
     if (!restaurant?._id) return;
-
+    
 
     const handleNewOrder = (newOrder: OrderType) => {
 
@@ -128,8 +130,6 @@ export const DashboardProvider = ({
             "New order received:",
             newOrder
         );
-
-
           setOrders((prevOrders)=>[
             newOrder,
             ...prevOrders
@@ -137,7 +137,7 @@ export const DashboardProvider = ({
 
     };
 
-
+   console.log("Listening for new-order events");
     socket.on(
         "new-order",
         handleNewOrder
