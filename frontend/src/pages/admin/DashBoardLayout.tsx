@@ -2,14 +2,16 @@ import { useEffect } from "react";
 import SideBar from "../../components/Admin/SideBar";
 import { Outlet } from "react-router";
 import { useDashboard } from "../../context/DashBoardContext";
-
+import type { OrderType } from "../../types/DashBoardtype";
 import { useNavigate } from "react-router";
 import { CiLogout } from "react-icons/ci";
 import { logout } from "../../utils/logout";
-
+import socket from "../../socket/socket";
 
 const DashBoardLayout = () => {
   const {
+    restaurant,
+    setOrders,
     refreshDashboardData,
     loading,
     error
@@ -21,7 +23,56 @@ const DashBoardLayout = () => {
   useEffect(() => {
     refreshDashboardData();
   }, [refreshDashboardData]);
+  useEffect(() => {
+    socket.connect();
+    if (restaurant?._id) {
+      console.log("Joining room:", restaurant?._id);
+      socket.emit(
+        "join-restaurant",
+        restaurant?._id
+      );
+    }
+  }, [restaurant?._id])
 
+
+
+  useEffect(() => {
+
+    if (!restaurant?._id) return;
+
+
+    const handleNewOrder = async (newOrder: OrderType) => {
+
+      console.log(
+        "New order received:",
+        newOrder
+      );
+      setOrders((prevOrders) => [
+        newOrder,
+        ...prevOrders
+      ])
+
+
+    };
+
+    console.log("Listening for new-order events");
+    socket.on(
+      "new-order",
+      handleNewOrder
+    );
+
+
+    return () => {
+
+      socket.off(
+        "new-order",
+        handleNewOrder
+      );
+
+    };
+
+
+  }, [restaurant?._id]);
 
   return (
     <div className="flex min-h-screen bg-[var(--background-color)] text-[var(--text-color)]">

@@ -82,7 +82,7 @@ export const DashboardProvider = ({
 
     const refreshDashboardData = useCallback(async () => {
         try {
-            setLoading(true);
+            setLoading(true); 
             setError(null);
 
             const res = await api.get(
@@ -104,57 +104,56 @@ export const DashboardProvider = ({
             setLoading(false);
         }
     }, []);
-    useEffect(() => {
-    if(!restaurant?._id){
-        return;
-    }
 
+    // useEffect(() => {
+    // if(!restaurant?._id){
+    //     return;
+    // }
+    // socket.connect();
+    // console.log("Joining room:", restaurant?._id);
+    // socket.emit(
+    //     "join-restaurant",
+    //     restaurant?._id
+    // );
 
-    socket.connect();
-    console.log("Joining room:", restaurant?._id);
-    socket.emit(
-        "join-restaurant",
-        restaurant?._id
-    );
+    // },[restaurant?._id])
 
-    },[restaurant?._id])
+//     useEffect(() => {
 
-    useEffect(() => {
-
-    if (!restaurant?._id) return;
+//     if (!restaurant?._id) return;
     
 
-    const handleNewOrder = (newOrder: OrderType) => {
+//     const handleNewOrder = (newOrder: OrderType) => {
 
-        console.log(
-            "New order received:",
-            newOrder
-        );
-          setOrders((prevOrders)=>[
-            newOrder,
-            ...prevOrders
-        ])
+//         console.log(
+//             "New order received:",
+//             newOrder
+//         );
+//           setOrders((prevOrders)=>[
+//             newOrder,
+//             ...prevOrders
+//         ])
 
-    };
+//     };
 
-   console.log("Listening for new-order events");
-    socket.on(
-        "new-order",
-        handleNewOrder
-    );
-
-
-    return ()=>{
-
-        socket.off(
-            "new-order",
-            handleNewOrder
-        );
-
-    };
+//    console.log("Listening for new-order events");
+//     socket.on(
+//         "new-order",
+//         handleNewOrder
+//     );
 
 
-}, [restaurant?._id]);
+//     return ()=>{
+
+//         socket.off(
+//             "new-order",
+//             handleNewOrder
+//         );
+
+//     };
+
+
+// }, [restaurant?._id]);
 
     return (
         <DashboardContext.Provider
