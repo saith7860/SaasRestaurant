@@ -127,7 +127,7 @@ const createOrder = async (userId: string, data: any) => {
  "Sending new order notification to:",
  `restaurant_${newOrder.restaurantId}`
 );
-io.emit(
+io.to(`restaurant_${newOrder.restaurantId}`).emit(
     "new-order",
     newOrder
 );
