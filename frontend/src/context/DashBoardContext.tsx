@@ -115,6 +115,8 @@ export const DashboardProvider = ({
         restaurant?._id
     );
 
+    },[restaurant?._id])
+
     useEffect(() => {
 
     if (!restaurant?._id) return;
@@ -128,11 +130,10 @@ export const DashboardProvider = ({
         );
 
 
-        setOrders((prevOrders)=>[
-           newOrder,
-           ...prevOrders,
-           
-        ]);
+          setOrders((prevOrders)=>[
+            newOrder,
+            ...prevOrders
+        ])
 
     };
 
@@ -155,10 +156,6 @@ export const DashboardProvider = ({
 
 }, [restaurant?._id]);
 
-    return ()=>{
-        socket.disconnect();
-    }
-    }, [restaurant?._id]);
     return (
         <DashboardContext.Provider
             value={{
