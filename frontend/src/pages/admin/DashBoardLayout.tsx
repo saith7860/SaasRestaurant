@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import { CiLogout } from "react-icons/ci";
 import { logout } from "../../utils/logout";
 import socket from "../../socket/socket";
-
+import { useNotification } from "../../context/NotificationContext";
 const DashBoardLayout = () => {
   const {
     restaurant,
@@ -16,10 +16,8 @@ const DashBoardLayout = () => {
     loading,
     error
   } = useDashboard();
-
+ const {notifyNewOrder,unlockAudio} = useNotification();
   const navigate = useNavigate();
-
-
   useEffect(() => {
     refreshDashboardData();
   }, [refreshDashboardData]);
@@ -27,6 +25,7 @@ const DashBoardLayout = () => {
     socket.connect();
     if (restaurant?._id) {
       console.log("Joining room:", restaurant?._id);
+
       socket.emit(
         "join-restaurant",
         restaurant?._id
@@ -47,12 +46,13 @@ const DashBoardLayout = () => {
         "New order received:",
         newOrder
       );
+
       setOrders((prevOrders) => [
         newOrder,
         ...prevOrders
       ])
-
-
+     notifyNewOrder(newOrder.userId.name)
+     unlockAudio()
     };
 
     console.log("Listening for new-order events");

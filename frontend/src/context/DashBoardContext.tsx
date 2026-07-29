@@ -2,12 +2,10 @@ import {
     createContext,
     useContext,
     useState,
-    useEffect,
     useCallback,
 } from "react";
 import type { ReactNode } from "react";
 import api from "../api/api.js";
-import socket from "../socket/socket.js";
 import type {
     Restaurant,
     BranchType,
@@ -104,56 +102,6 @@ export const DashboardProvider = ({
             setLoading(false);
         }
     }, []);
-
-    // useEffect(() => {
-    // if(!restaurant?._id){
-    //     return;
-    // }
-    // socket.connect();
-    // console.log("Joining room:", restaurant?._id);
-    // socket.emit(
-    //     "join-restaurant",
-    //     restaurant?._id
-    // );
-
-    // },[restaurant?._id])
-
-//     useEffect(() => {
-
-//     if (!restaurant?._id) return;
-    
-
-//     const handleNewOrder = (newOrder: OrderType) => {
-
-//         console.log(
-//             "New order received:",
-//             newOrder
-//         );
-//           setOrders((prevOrders)=>[
-//             newOrder,
-//             ...prevOrders
-//         ])
-
-//     };
-
-//    console.log("Listening for new-order events");
-//     socket.on(
-//         "new-order",
-//         handleNewOrder
-//     );
-
-
-//     return ()=>{
-
-//         socket.off(
-//             "new-order",
-//             handleNewOrder
-//         );
-
-//     };
-
-
-// }, [restaurant?._id]);
 
     return (
         <DashboardContext.Provider
