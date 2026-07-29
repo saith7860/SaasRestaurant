@@ -21,6 +21,34 @@ const DashBoardLayout = () => {
   useEffect(() => {
     refreshDashboardData();
   }, [refreshDashboardData]);
+     useEffect(() => {
+
+        const unlock = () => {
+
+            unlockAudio();
+
+            window.removeEventListener(
+                "click",
+                unlock
+            );
+
+        };
+
+        window.addEventListener(
+            "click",
+            unlock
+        );
+
+        return () => {
+
+            window.removeEventListener(
+                "click",
+                unlock
+            );
+
+        };
+
+    }, []);
   useEffect(() => {
     socket.connect();
     if (restaurant?._id) {
@@ -32,8 +60,6 @@ const DashBoardLayout = () => {
       );
     }
   }, [restaurant?._id])
-
-
 
   useEffect(() => {
 
@@ -51,9 +77,9 @@ const DashBoardLayout = () => {
         newOrder,
         ...prevOrders
       ])
-     notifyNewOrder(newOrder.userId.name)
-     unlockAudio()
+     notifyNewOrder(newOrder.userId.name);
     };
+ 
 
     console.log("Listening for new-order events");
     socket.on(

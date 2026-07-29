@@ -1,6 +1,5 @@
 import { createContext, useContext, type ReactNode, } from "react";
 import { notificationService } from "../services/NotificationService";
-import { useEffect } from "react";
 interface NotificationContextType {
     notifyNewOrder: (customerName?: string) => void;
     unlockAudio: () => void;
@@ -21,38 +20,8 @@ export const NotificationProvider = ({
         notificationService.notifyNewOrder(customerName);
     };
     const unlockAudio = () => {
-
         notificationService.unlockAudio();
-
     };
-    useEffect(() => {
-
-        const unlock = () => {
-
-            unlockAudio();
-
-            window.removeEventListener(
-                "click",
-                unlock
-            );
-
-        };
-
-        window.addEventListener(
-            "click",
-            unlock
-        );
-
-        return () => {
-
-            window.removeEventListener(
-                "click",
-                unlock
-            );
-
-        };
-
-    }, []);
     return (
         <NotificationContext.Provider
             value={{
