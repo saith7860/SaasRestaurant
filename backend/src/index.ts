@@ -1,9 +1,13 @@
 import express from 'express';
+import 'dotenv/config'
+import http from 'http';
+import { Server } from 'socket.io';
 import type { Express } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import 'dotenv/config'
+import { initSocket } from './config/socket.js';
+import { corsOriginChecker } from './originChecker.js';
 //File imports
 import { connectDB } from './utils/db.js';
 import categoryRouter from './routes/categoryRouter.js';
@@ -20,6 +24,7 @@ import dealRouter from './routes/dealRoute.js';
 //constants
 const PORT=process.env.PORT||3000;
 const app:Express=express();
+const server=http.createServer(app);
 app.use(cookieParser())
 // app.use(cors({
 //    origin: ["https://foodordersystemonline.vercel.app","http://localhost:5173","http://[IP_ADDRESS]"],
@@ -29,8 +34,16 @@ app.use(cookieParser())
 const allowedOrigins = [
   "http://localhost:5173",
   "https://orderva.com",
-  "https://saas-restaurantl.vercel.app/"
+  "https://saas-restaurantl.vercel.app"
 ];
+const io=new Server(server,{
+  cors:{
+    origin:corsOriginChecker,
+    methods:['GET','POST','PUT','PATCH','DELETE'],
+    credentials:true
+  }
+})
+initSocket(io)
 app.use(
   cors({
     origin(origin, callback) {
@@ -74,7 +87,22 @@ app.use("/api/super_admin",superAdminRouter);
 app.use("/api/deals",dealRouter)
 //handle error middleware
 app.use(handleError);
-app.listen(PORT,async()=>{
+
+io.on("connection", (socket) => {
+
+    console.log("New socket connected:", socket.id);
+     socket.on("join-restaurant", (restaurantId:string) => {
+        console.log(
+            `Socket ${socket.id} joined restaurant room: ${restaurantId}`
+        );
+        socket.join(restaurantId);
+    });
+    socket.on("disconnect", () => {
+        console.log("Socket disconnected:", socket.id);
+    });
+
+});
+server.listen(PORT,async()=>{
     try {
         await connectDB();
          console.log('app is listening on port',PORT);
