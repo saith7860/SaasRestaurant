@@ -2,6 +2,7 @@ import { ApiError } from '../middlewares/errorHandler.js';
 import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
 import { sendEmail } from "../utils/sendEmail.js";
+import { getIO } from '../config/socket.js';
 import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
 import { verifyOrderItems } from './verifyOrderItem.js';
@@ -120,7 +121,16 @@ const createOrder = async (userId: string, data: any) => {
     totalAmount,
 };
   const newOrder = await orderRepo.createOrder(userId, orderData);
-
+  console.log("ORDER CREATED:", newOrder._id);
+  const io=getIO();
+  console.log(
+ "Sending new order notification to:",
+ `restaurant_${newOrder.restaurantId}`
+);
+io.to(`${newOrder.restaurantId}`).emit(
+    "new-order",
+    newOrder
+);
   if (!newOrder) {
     throw new ApiError(400, "Server Error! Order not created");
   }
