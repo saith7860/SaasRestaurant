@@ -5,6 +5,7 @@ import * as categoryRepo from "../repos/categoryRepo.js";
 import { ApiError } from "../middlewares/errorHandler.js";
 import * as itemRepo from "../repos/itemRepo.js";
 import * as orderRepo from '../repos/orderRepo.js';
+import * as dealRepo from '../repos/dealRepo.js';
 import {
   uploadImageToCloudinary,
   deleteImageFromCloudinary,
@@ -104,8 +105,11 @@ const getDashBoardData=async(id:string)=>{
     if (!orders) {
         throw new ApiError(404,"Orders not found")
     }
-    
-    return {resuturant,branches,category,items,orders}
+    const deals=await dealRepo.getAllDeals(id);
+    if(!deals){
+      throw new ApiError(404,"Deals not found")
+    }
+    return {resuturant,branches,category,items,orders,deals}
 }
 const updateResturant=async(id:string,data:restaurantType)=>{
     const updateResturant=await resturantRepo.updateResturant(id,data);

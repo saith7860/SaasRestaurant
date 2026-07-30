@@ -85,3 +85,23 @@ export interface DashboardData {
   categories: CategoryType[];
   items: ItemType[];
 }
+interface Deal{
+  _id:string;
+  itemId:string;
+  variantId:string;
+  quantity:string
+}
+export interface Deals {
+  _id:string;
+  restaurantId:string;
+  branchId?:string;
+  title:string;
+  image?: {
+    url: string;
+    publicId: string;
+  };
+  totalPrice:number;
+  isAvailable:boolean;
+  items:Deal[]
+
+}
