@@ -92,15 +92,20 @@ const createOrder = async (userId: string, data: any) => {
   if(!findBranch){
     throw new ApiError(404,"Branch is not found");
   }
-  const currentMinutes=new Date().getHours()*60+new Date().getMinutes()
+  const now=new Date();
+  const timeInAsia= now.toLocaleString("en-US", { timeZone: "Asia/Karachi" ,  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,});
+  const currentTime=timeInAsia.split(":").map(Number);
+  const currentMinutes=(currentTime[0]*60)+currentTime[1];
   console.log("currentMinutes",currentMinutes);
-  const [openingHour, openingMinute] = findBranch.openingTime.split(":").map(Number);
-  const openingMinutes =(openingHour * 60)+ openingMinute;
-  console.log("openingMinutes",openingMinutes);
+ const [openingHours,openingMinutes]=findBranch.openingTime.split(":").map(Number);
+ const openingMinutesTotal=(openingHours*60)+openingMinutes;
+  console.log("openingMinutes",openingMinutesTotal);
   const [closingHour, closingMinute] =findBranch.closingTime.split(":").map(Number);
-  const closingMinutes =(closingHour * 60)+ closingMinute;
-  console.log("closingMinutes",closingMinutes);
-  if(currentMinutes<openingMinutes||currentMinutes>closingMinutes){
+  const closingMinutesTotal =(closingHour * 60)+ closingMinute;
+  console.log("closingMinutes",closingMinutesTotal);
+  if(currentMinutes<openingMinutesTotal||currentMinutes>closingMinutesTotal){
     throw new ApiError(400,"Branch is closed");
   }
   const foundUser = await User.findById(userId);
