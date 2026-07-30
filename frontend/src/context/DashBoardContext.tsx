@@ -11,7 +11,8 @@ import type {
     BranchType,
     CategoryType,
     ItemType,
-    OrderType
+    OrderType,
+    Deals,
 } from "../types/DashBoardtype";
 
 interface DashboardContextType {
@@ -20,7 +21,7 @@ interface DashboardContextType {
     category: CategoryType[];
     items: ItemType[];
     orders: OrderType[];
-
+    deals:Deals[];
     loading: boolean;
     error: string | null;
 
@@ -32,6 +33,9 @@ interface DashboardContextType {
 
     setBranches: React.Dispatch<
         React.SetStateAction<BranchType[]>
+    >;
+    setDeals:React.Dispatch<
+        React.SetStateAction<Deals[]>
     >;
 
     setCategory: React.Dispatch<
@@ -74,6 +78,7 @@ export const DashboardProvider = ({
 
     const [orders, setOrders] =
         useState<OrderType[]>([]);
+    const [deals,setDeals]=useState<Deals[]>([]);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -94,6 +99,7 @@ export const DashboardProvider = ({
             setCategory(res.data.result.category || []);
             setItems(res.data.result.items || []);
             setOrders(res.data.result.orders || []);
+            setDeals(res.data.result.deals||[]);
 
         } catch (error) {
             console.log("Dashboard refresh error:", error);
@@ -102,7 +108,6 @@ export const DashboardProvider = ({
             setLoading(false);
         }
     }, []);
-
     return (
         <DashboardContext.Provider
             value={{
@@ -111,7 +116,7 @@ export const DashboardProvider = ({
                 category,
                 items,
                 orders,
-
+                deals,
                 loading,
                 error,
 
@@ -121,6 +126,7 @@ export const DashboardProvider = ({
                 setRestaurant,
                 setBranches,
                 setCategory,
+                setDeals,
                 setItems
             }}
         >

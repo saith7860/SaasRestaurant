@@ -45,6 +45,7 @@ try{
     }
     
     const result=await resturantService.getDashBoardData(resturantId);
+    console.log("Dashboard data from the backend",result);
     return res.json({
         success:"true",
         message:"Dashboard data",   
