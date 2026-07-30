@@ -106,7 +106,7 @@ const createOrder = async (userId: string, data: any) => {
   const closingMinutesTotal =(closingHour * 60)+ closingMinute;
   console.log("closingMinutes",closingMinutesTotal);
   if(currentMinutes<openingMinutesTotal||currentMinutes>closingMinutesTotal){
-    throw new ApiError(400,"Branch is closed");
+    throw new ApiError(400,`Branch is closed.Place order between ${findBranch.openingTime} and ${findBranch.closingTime}`);
   }
   const foundUser = await User.findById(userId);
   console.log(foundUser);
