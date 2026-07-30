@@ -14,8 +14,6 @@ export const uploadImageToCloudinary = async ({
     throw new ApiError(400, "Image file is required");
   }
 
-
-
   const base64File = `data:${file.mimetype};base64,${file.buffer.toString(
     "base64"
   )}`;
@@ -52,4 +50,20 @@ export const deleteImageFromCloudinary = async (publicId?: string) => {
   if (!publicId) return;
 
   await cloudinary.uploader.destroy(publicId);
+};
+export const uploadMultipleImagesToCloudinary = async ({
+  files,
+  folder,
+  width,
+  height,
+}: UploadImageOptions) => {
+  if (!files || files.length === 0) {
+    throw new ApiError(400, "Image files are required");
+  }
+
+  const promises = files.map((file: Express.Multer.File) =>
+    uploadImageToCloudinary({ file, folder, width, height })
+  );
+
+  return Promise.all(promises);
 };

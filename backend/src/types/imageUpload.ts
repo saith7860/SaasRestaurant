@@ -8,6 +8,7 @@ export interface ImageValidationRules {
 
 export interface UploadImageOptions {
   file: Express.Multer.File | undefined;
+  files?: Express.Multer.File[];
   folder: string;
   width?: number;
   height?: number;

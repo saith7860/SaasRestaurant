@@ -6,7 +6,6 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import api from "../api/api.js";
-
 import type {
     Restaurant,
     BranchType,
@@ -60,6 +59,7 @@ interface DashboardProviderProps {
 export const DashboardProvider = ({
     children
 }: DashboardProviderProps) => {
+    
     const [restaurant, setRestaurant] =
         useState<Restaurant | null>(null);
 
@@ -80,7 +80,7 @@ export const DashboardProvider = ({
 
     const refreshDashboardData = useCallback(async () => {
         try {
-            setLoading(true);
+            setLoading(true); 
             setError(null);
 
             const res = await api.get(
@@ -130,6 +130,7 @@ export const DashboardProvider = ({
 };
 
 export const useDashboard = () => {
+    
     const context = useContext(DashboardContext);
 
     if (!context) {

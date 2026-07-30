@@ -2,9 +2,9 @@ import { ApiError } from '../middlewares/errorHandler.js';
 import User from '../models/userModel.js';
 import * as orderRepo from '../repos/orderRepo.js'
 import { sendEmail } from "../utils/sendEmail.js";
+import { getIO } from '../config/socket.js';
 import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrderStatusTemplate } from "../utils/orderEmailTemplate.js";
 import Restaurant from "../models/resturantModel.js";
-import { OrderType } from '../types/order.js';
 import { verifyOrderItems } from './verifyOrderItem.js';
 import { calculateOrderTotals } from './calculateOrderTotal.js';
 const getOrdersByRestaurant=async(restaurantId:string)=>{
@@ -110,6 +110,7 @@ const createOrder = async (userId: string, data: any) => {
   if (!restaurant.isActive) {
     throw new ApiError(400, "Restaurant is not active");
   }
+  const adminUrl = `https://${restaurant.slug}.orderva.com/admin/orders`;
   const {verifiedItems,subtotal}=await verifyOrderItems(data.orderItems);
   const {deliveryFee,totalAmount}=calculateOrderTotals(subtotal,restaurant.deliveryFee as number);
   const orderData = {
@@ -120,11 +121,20 @@ const createOrder = async (userId: string, data: any) => {
     totalAmount,
 };
   const newOrder = await orderRepo.createOrder(userId, orderData);
-
+  console.log("ORDER CREATED:", newOrder._id);
+  const io=getIO();
+  console.log(
+ "Sending new order notification to:",
+ `restaurant_${newOrder.restaurantId}`
+);
+io.to(`${newOrder.restaurantId}`).emit(
+    "new-order",
+    newOrder
+);
   if (!newOrder) {
     throw new ApiError(400, "Server Error! Order not created");
   }
-
+try {
   Promise.all([
     sendEmail({
       to: data.customerEmail,
@@ -146,11 +156,14 @@ const createOrder = async (userId: string, data: any) => {
         totalAmount: newOrder.totalAmount,
         customerEmail: newOrder.customerEmail,
         deliveryAddress: newOrder.deliveryAddress,
+        adminUrl:adminUrl
       }),
     }),
-  ]).catch((error) => {
-    console.log("Order email notification failed:", error);
-  });
+  ])
+} catch (error) {
+  console.log("Order email notification failed:", error);
+}
+  
 
   return newOrder;
 };

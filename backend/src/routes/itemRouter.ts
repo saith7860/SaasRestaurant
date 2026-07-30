@@ -5,10 +5,10 @@ import validate from '../middlewares/validationMiddleware.js';
 import { ItemSchema } from '../validators/itemValidator.js';
 import { authMiddleware,checkAdmin } from '../tokens/jwt.js';
 import { uploadSingleImage } from '../middlewares/uploadMiddleware.js';
-import { validateItem } from '../validators/validateItem.js';
+import { validateImage } from '../validators/validateItem.js';
 const itemRouter=express.Router();
 // itemRouter.get("/:branchId/items",getAllItems); //SHOW WHOLE ITEMS
-itemRouter.post("/create-item",authMiddleware,checkAdmin,uploadSingleImage,validate(ItemSchema),validateItem,postItem); //CREATE A NEW ITEM
+itemRouter.post("/create-item",authMiddleware,checkAdmin,uploadSingleImage,validate(ItemSchema),validateImage,postItem); //CREATE A NEW ITEM
 // itemRouter.get("/all-items/:id",authMiddleware,checkAdmin,getAllItems); //GET ALL ITEMS
 itemRouter.get("/:id",getSpecificItem) //GET SPECIFIC ITEM
 itemRouter.put("/update-item/:id",authMiddleware,checkAdmin,uploadSingleImage,validate(ItemSchema),updateSpecificItem) //UPDATE SPECIFIC Item

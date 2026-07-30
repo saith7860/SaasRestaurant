@@ -1,14 +1,8 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "orderva",
-  "compatibility_date": "2026-07-16",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "not_found_handling": "single-page-application"
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+    "name": "orderva",
+    "compatibility_date": "2026-07-25",     
+    "assets": {
+        "directory": "./dist",
+        "not_found_handling": "single-page-application"
+    }
 }
