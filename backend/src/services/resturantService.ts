@@ -106,6 +106,7 @@ const getDashBoardData=async(id:string)=>{
         throw new ApiError(404,"Orders not found")
     }
     const deals=await dealRepo.getAllDeals(id);
+    console.log(`deals of the resturant with id${id}`,deals);
     if(!deals){
       throw new ApiError(404,"Deals not found")
     }
