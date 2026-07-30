@@ -7,6 +7,7 @@ import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrde
 import Restaurant from "../models/resturantModel.js";
 import { verifyOrderItems } from './verifyOrderItem.js';
 import { calculateOrderTotals } from './calculateOrderTotal.js';
+import Branch from '../models/branchModel.js';
 const getOrdersByRestaurant=async(restaurantId:string)=>{
   const orders=await orderRepo.showAllOrders(restaurantId);
   if (!orders.length) {
@@ -87,7 +88,26 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
 const createOrder = async (userId: string, data: any) => {
   console.log(userId);
   console.log("data of order is",data);
-  
+  const findBranch=await Branch.findById(data.branchId);
+  if(!findBranch){
+    throw new ApiError(404,"Branch is not found");
+  }
+  const now=new Date();
+  const timeInAsia= now.toLocaleString("en-US", { timeZone: "Asia/Karachi" ,  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,});
+  const currentTime=timeInAsia.split(":").map(Number);
+  const currentMinutes=(currentTime[0]*60)+currentTime[1];
+  console.log("currentMinutes",currentMinutes);
+ const [openingHours,openingMinutes]=findBranch.openingTime.split(":").map(Number);
+ const openingMinutesTotal=(openingHours*60)+openingMinutes;
+  console.log("openingMinutes",openingMinutesTotal);
+  const [closingHour, closingMinute] =findBranch.closingTime.split(":").map(Number);
+  const closingMinutesTotal =(closingHour * 60)+ closingMinute;
+  console.log("closingMinutes",closingMinutesTotal);
+  if(currentMinutes<openingMinutesTotal||currentMinutes>closingMinutesTotal){
+    throw new ApiError(400,`Branch is closed.Place order between ${findBranch.openingTime} and ${findBranch.closingTime}`);
+  }
   const foundUser = await User.findById(userId);
   console.log(foundUser);
 
