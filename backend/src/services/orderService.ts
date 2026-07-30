@@ -92,14 +92,13 @@ const createOrder = async (userId: string, data: any) => {
   if(!findBranch){
     throw new ApiError(404,"Branch is not found");
   }
-  const now=new Date();
-  const currentMinutes=now.getHours()*60+now.getMinutes();
+  const currentMinutes=new Date().getHours()*60+new Date().getMinutes()
   console.log("currentMinutes",currentMinutes);
   const [openingHour, openingMinute] = findBranch.openingTime.split(":").map(Number);
-  const openingMinutes =openingHour * 60 + openingMinute;
+  const openingMinutes =(openingHour * 60)+ openingMinute;
   console.log("openingMinutes",openingMinutes);
   const [closingHour, closingMinute] =findBranch.closingTime.split(":").map(Number);
-  const closingMinutes =closingHour * 60 + closingMinute;
+  const closingMinutes =(closingHour * 60)+ closingMinute;
   console.log("closingMinutes",closingMinutes);
   if(currentMinutes<openingMinutes||currentMinutes>closingMinutes){
     throw new ApiError(400,"Branch is closed");
