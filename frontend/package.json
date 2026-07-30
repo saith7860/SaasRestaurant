@@ -27,6 +27,7 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.45.0",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
@@ -39,6 +40,6 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
     "vite": "^8.0.10",
-    "wrangler": "^4.115.0"
+    "wrangler": "^4.111.0"
   }
 }
