@@ -15,7 +15,7 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
 
   const categories = restaurantData?.category || [];
   const allItems = restaurantData?.items || [];
-
+  console.log("Deals in frontend", restaurantData.deals) 
   // First category pre-selected
   useEffect(() => {
     if (categories.length > 0 && !category) {

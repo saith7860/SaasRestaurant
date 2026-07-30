@@ -157,6 +157,11 @@ const getSpecificResturantData=async(slug:string)=>{
     if (!items) {
         throw new ApiError(404,"Items not found");
     }
-    return {restaurantData,branches,category,items}
+    const deals=await dealRepo.getAllDeals(restaurantData._id as any);//typescript giving issues here
+    console.log(`deals of the resturant with id${restaurantData._id}`,deals);
+    if(!deals){
+      throw new ApiError(404,"Deals not found")
+    }
+    return {restaurantData,branches,category,items,deals}
 }
 export {updateRestaurantImages,updateResturant,deleteResturant,getProfile,getAllBranches,getSpecificResturantData,getDashBoardData}
