@@ -94,12 +94,13 @@ const createOrder = async (userId: string, data: any) => {
   }
   const now=new Date();
   const currentMinutes=now.getHours()*60+now.getMinutes();
-  const [openingHour, openingMinute] =
-    findBranch.openingTime.split(":").map(Number);
+  console.log("currentMinutes",currentMinutes);
+  const [openingHour, openingMinute] = findBranch.openingTime.split(":").map(Number);
   const openingMinutes =openingHour * 60 + openingMinute;
-  const [closingHour, closingMinute] =
-    findBranch.closingTime.split(":").map(Number);
+  console.log("openingMinutes",openingMinutes);
+  const [closingHour, closingMinute] =findBranch.closingTime.split(":").map(Number);
   const closingMinutes =closingHour * 60 + closingMinute;
+  console.log("closingMinutes",closingMinutes);
   if(currentMinutes<openingMinutes||currentMinutes>closingMinutes){
     throw new ApiError(400,"Branch is closed");
   }
