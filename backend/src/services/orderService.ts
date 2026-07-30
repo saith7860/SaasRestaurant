@@ -7,6 +7,7 @@ import { customerOrderPlacedTemplate, restaurantOrderPlacedTemplate,customerOrde
 import Restaurant from "../models/resturantModel.js";
 import { verifyOrderItems } from './verifyOrderItem.js';
 import { calculateOrderTotals } from './calculateOrderTotal.js';
+import Branch from '../models/branchModel.js';
 const getOrdersByRestaurant=async(restaurantId:string)=>{
   const orders=await orderRepo.showAllOrders(restaurantId);
   if (!orders.length) {
@@ -87,7 +88,21 @@ const updateOrderStatus = async (id: string, orderStatus: string) => {
 const createOrder = async (userId: string, data: any) => {
   console.log(userId);
   console.log("data of order is",data);
-  
+  const findBranch=await Branch.findById(data.branchId);
+  if(!findBranch){
+    throw new ApiError(404,"Branch is not found");
+  }
+  const now=new Date();
+  const currentMinutes=now.getHours()*60+now.getMinutes();
+  const [openingHour, openingMinute] =
+    findBranch.openingTime.split(":").map(Number);
+  const openingMinutes =openingHour * 60 + openingMinute;
+  const [closingHour, closingMinute] =
+    findBranch.closingTime.split(":").map(Number);
+  const closingMinutes =closingHour * 60 + closingMinute;
+  if(currentMinutes<openingMinutes||currentMinutes>closingMinutes){
+    throw new ApiError(400,"Branch is closed");
+  }
   const foundUser = await User.findById(userId);
   console.log(foundUser);
 
