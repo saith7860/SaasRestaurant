@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Navbar from "../../components/Home/Navbar"
-import SearchBar from "../../components/Home/SearchBar"
 import { useRestaurant } from "../../context/RestaurantContext";
 import SpecificCatogires from "../../components/Home/SpecificCatogires";
 import WhatsAppButton from "../../components/Home/WhatsppButton";
-const Home = () => {
+const AboutUs = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
    
@@ -12,8 +11,7 @@ const Home = () => {
     <>
     <div className="overflow-x-hidden">
 
-     <Navbar restaurnatName = {restaurantData?.restaurantData?.restaurantName||null} />
-     <SearchBar search={search} setSearch={setSearch}/>
+     <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <SpecificCatogires search={search}/>
      <WhatsAppButton/>
      {/* <Categories search={search}/> */}
@@ -23,4 +21,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default AboutUs;
