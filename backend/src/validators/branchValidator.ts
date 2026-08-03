@@ -4,6 +4,12 @@ export const BranchValidator = z.object({
   address: z.string("Enter a description").min(10, "Description is required"),
   city: z.string("Enter a description").min(3, "City should be greater than 3"),
   contactNumber: z.string("Contact Number is required").min(1, "Contact number is required"),
+  deliveryAreas: z
+    .array(
+      z.object({
+        areaName: z.string("Area name is required").min(1, "Area name cannot be empty"),
+      }) 
+    ).default([]), 
   openingTime:z.string("Opening time is required").refine((time) => {
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
     return timeRegex.test(time);

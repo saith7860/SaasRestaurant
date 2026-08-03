@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import api from "../../api/api";
 import { useDashboard } from "../../context/DashBoardContext";
@@ -16,9 +15,11 @@ const BranchForm = ({ branch, setShowForm }: {
         contactNumber: branch?.contactNumber || "",
         openingTime: branch?.openingTime || "",
         closingTime: branch?.closingTime || "",
-        deliveryFee: branch?.deliveryFee || ""
+        deliveryFee: branch?.deliveryFee || "",
+        deliveryAreas: [] as { areaName: string }[],
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
+    const [currentArea, setCurrentArea] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const { restaurant, refreshDashboardData } = useDashboard();
 
@@ -35,6 +36,19 @@ const BranchForm = ({ branch, setShowForm }: {
                     : value,
         }));
     };
+    const handleAddArea = () => {
+    if (!currentArea.trim()) return;
+
+    setFormData(prev => ({
+        ...prev,
+        deliveryAreas: [
+            ...prev.deliveryAreas,
+            { areaName: currentArea.trim() }
+        ]
+    }));
+
+    setCurrentArea("");
+};
     console.log("formdata is", formData);
 
     const handleBranchSubmit = async (e: React.FormEvent) => {
@@ -165,6 +179,33 @@ const BranchForm = ({ branch, setShowForm }: {
                                 {errors.city && <span >{errors.city}</span>}
                             </p>
                         </div>
+
+                    <div>
+    <label className="mb-2 block text-sm font-semibold text-[var(--primary-color)]">
+        Delivery Areas
+    </label>
+
+    <div className="flex gap-2">
+        <input
+            type="text"
+            value={currentArea}
+            onChange={(e) => setCurrentArea(e.target.value)}
+            placeholder="Enter Delivery Area"
+            className="flex-1 rounded-xl border border-white/15 bg-[var(--background-color)] px-4 py-3 text-[var(--text-color)] placeholder-white/40 outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/30"
+        />
+
+        <button
+            type="button"
+            onClick={handleAddArea}
+            className="rounded-xl bg-[var(--button-color)] px-4 text-[var(--button-text-color)]"
+        >
+            Add
+        </button>
+    </div>
+    <p className="mt-1 min-h-5 text-sm text-red-500">
+        {errors.deliveryAreas && <span>{errors.deliveryAreas}</span>}
+    </p>
+</div>
 
                         {/* Opening Time */}
                         <div>

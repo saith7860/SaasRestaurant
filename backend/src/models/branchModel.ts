@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 const branchSchema = new mongoose.Schema({
 
   restaurant: {
@@ -22,6 +23,14 @@ const branchSchema = new mongoose.Schema({
     type:String,
     required:true
   },
+  deliveryAreas:[
+    {
+    areaName:{
+      type:String,
+      required:true
+    }  
+  },
+  ], 
 
 contactNumber: {
   type: String,
