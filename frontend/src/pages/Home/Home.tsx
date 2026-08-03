@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "../../components/Home/Navbar"
+import Hero from "../../components/Home/Hero/Hero";
 import { useRestaurant } from "../../context/RestaurantContext";
 import SpecificCatogires from "../../components/Home/SpecificCatogires";
 import WhatsAppButton from "../../components/Home/WhatsppButton";
@@ -10,8 +11,8 @@ const Home = () => {
   return (
     <>
     <div className="overflow-x-hidden">
-
      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
+     <Hero/>
      <SpecificCatogires search={search}/>
      <WhatsAppButton/>
      {/* <Categories search={search}/> */}
