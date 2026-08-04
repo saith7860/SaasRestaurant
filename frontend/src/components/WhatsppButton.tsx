@@ -1,4 +1,4 @@
-import { useRestaurant } from "../../context/RestaurantContext";
+import { useRestaurant } from "../context/RestaurantContext";
 
 const WhatsAppButton = () => {
   const { restaurantData } = useRestaurant();

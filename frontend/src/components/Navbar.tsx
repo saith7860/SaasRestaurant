@@ -11,9 +11,9 @@ import {
   Menu, X
 } from "lucide-react";
 
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../context/CartContext";
 import type { FC } from "react";
-import type { NavbarProps } from "../../types/HomePageTypes";
+import type { NavbarProps } from "../types/HomePageTypes";
 
 const Navbar: FC<NavbarProps> = ({ restaurnatName }) => {
   const { cart } = useContext(CartContext)!;

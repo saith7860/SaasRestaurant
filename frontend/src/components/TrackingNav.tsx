@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../context/CartContext";
 import { ShoppingCart } from "lucide-react";
 import type { FC } from "react";
-import type { TrackingNavProps } from "../../types/HomePageTypes";
+import type { TrackingNavProps } from "../types/HomePageTypes";
 import { Link } from "react-router";
 
 const TrackingNav: FC<TrackingNavProps> = ({ restaurnatName }) => {
