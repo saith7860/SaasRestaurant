@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import type { FC } from "react";
-import type { SearchBarProps } from "../types/HomePageTypes";
+import type { SearchBarProps } from "../../../types/HomePageTypes";
 
 const SearchBar: FC<SearchBarProps> = ({ search, setSearch }) => {
   return (
