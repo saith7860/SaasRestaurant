@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar"
 import Hero from "../../components/Home/Hero/Hero";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../../components/Home/SearchBar/SearchBar";
 import { useRestaurant } from "../../context/RestaurantContext";
-import SpecificCatogires from "../../components/Home/SpecificCatogires";
+import SpecificCatogires from "../../components/Home/Categories/SpecificCatogires";
 import WhatsAppButton from "../../components/WhatsppButton";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
@@ -17,7 +17,6 @@ const Home = () => {
      <SearchBar search={search} setSearch={setSearch}/>
      <SpecificCatogires search={search}/>
      <WhatsAppButton/>
-     {/* <Categories search={search}/> */}
     </div>
     </>
     

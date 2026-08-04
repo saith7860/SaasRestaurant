@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { useRestaurant } from "../../context/RestaurantContext";
-import ItemCard from "./ItemCard";
-import type { CategoryType } from "../../types/DashBoardtype";
-import type { ItemType } from "../../types/HomePageTypes";
+import { useRestaurant } from "../../../context/RestaurantContext";
+import ItemCard from "../ItemCard";
+import type { CategoryType } from "../../../types/DashBoardtype";
+import type { ItemType } from "../../../types/HomePageTypes";
 
 
 interface SpecificCatogiresProps {
@@ -58,18 +58,123 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
     <div className="mx-2 md:mx-4 my-5 text-[var(--text-color)]">
       {/* Hide categories while searching, optional but cleaner */}
       {!search.trim() && (
-        <div className="flex gap-3 mb-8 overflow-x-auto whitespace-nowrap scrollbar-hide pb-2 px-1">
+        <section className="mb-12">
 
-          {categories.map((cat: CategoryType) => (
+          {/* Header */}
+
+          <div className="mb-8 flex items-center justify-between">
+
+            <div>
+
+              <p className="text-sm font-black uppercase tracking-[0.3em] text-[var(--primary-color)]">
+                Explore
+              </p>
+
+              <h2 className="mt-2 text-3xl md:text-4xl font-black text-[var(--text-color)]">
+                Browse Categories
+              </h2>
+
+            </div>
+
             <button
-              key={cat._id}
-              className={`${category?._id === cat._id ? "bg-[var(--primary-color)] text-[var(--background-color)] shadow-lg shadow-[var(--primary-color)]/25 scale-105" : "bg-[var(--card-color)] text-[var(--text-color)] border border-[var(--primary-color)]/20 hover:border-[var(--primary-color)]/60 hover:bg-[var(--secondary-color)]"} text-sm sm:text-base font-semibold px-5 py-2.5  rounded-xl transition-all duration-300 shrink-0`}
-              onClick={() => handleCategory(cat)}
+              className="
+      hidden
+      md:flex
+
+      items-center
+      gap-2
+
+      rounded-full
+
+      border
+
+      border-[var(--primary-color)]/10
+
+      bg-[var(--card-color)]
+
+      px-5
+
+      py-3
+
+      text-sm
+
+      transition-all
+
+      duration-300
+
+      hover:border-[var(--primary-color)]
+
+      hover:shadow-lg
+
+      hover:-translate-y-1
+      "
             >
-              {cat.category}
+              View All Category →
             </button>
-          ))}
-        </div>
+
+          </div>
+
+          {/* Categories */}
+
+          <div
+            className="flex gap-4 p-6 overflow-x-auto scrollbar-hide pb-3 " >
+
+            {categories.map((cat) => (
+
+              <button
+                key={cat._id}
+                onClick={() => handleCategory(cat)}
+                className={`
+        group
+        shrink-0
+
+        rounded-full
+
+        px-7
+
+        py-3
+
+        text-sm
+        font-semibold
+
+        transition-all
+        duration-300
+
+        ${category?._id === cat._id
+                    ? `
+              bg-[var(--primary-color)]
+              text-[var(--background-color)]
+              shadow-xl
+              shadow-[var(--primary-color)]/30
+              scale-105
+            `
+                    : `
+              bg-[var(--card-color)]
+              text-[var(--text-color)]
+
+              border
+
+              border-[var(--primary-color)]/10
+
+              hover:border-[var(--primary-color)]
+
+              hover:-translate-y-1
+
+              hover:shadow-xl
+            `
+                  }
+        `}
+              >
+
+                {cat.category}
+
+              </button>
+
+            ))}
+
+          </div>
+
+        </section>
       )}
 
       {search.trim() && (
