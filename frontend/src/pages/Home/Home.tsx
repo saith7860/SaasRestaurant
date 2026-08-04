@@ -3,8 +3,9 @@ import Navbar from "../../components/Navbar"
 import Hero from "../../components/Home/Hero/Hero";
 import SearchBar from "../../components/Home/SearchBar/SearchBar";
 import { useRestaurant } from "../../context/RestaurantContext";
-import SpecificCatogires from "../../components/Home/Categories/SpecificCatogires";
 import WhatsAppButton from "../../components/WhatsppButton";
+import PopularItems from "../../components/Home/PopularItems/PopularItems";
+import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
@@ -15,7 +16,8 @@ const Home = () => {
      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <Hero/>
      <SearchBar search={search} setSearch={setSearch}/>
-     <SpecificCatogires search={search}/>
+     <PopularItems search={search} />
+     <FeaturedCategories />
      <WhatsAppButton/>
     </div>
     </>

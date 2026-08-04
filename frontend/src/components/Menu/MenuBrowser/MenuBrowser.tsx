@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRestaurant } from "../../../context/RestaurantContext";
-import ItemCard from "../ItemCard";
+import ItemCard from "../../Home/ItemCard";
 import type { CategoryType } from "../../../types/DashBoardtype";
 import type { ItemType } from "../../../types/HomePageTypes";
 
@@ -9,7 +9,7 @@ interface SpecificCatogiresProps {
   search: string;
 }
 
-const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
+const MenuBrowser = ({ search }: SpecificCatogiresProps) => {
   const [category, setCategory] = useState<CategoryType | null>(null);
   const { restaurantData } = useRestaurant();
 
@@ -197,4 +197,4 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
   );
 };
 
-export default SpecificCatogires;
+export default MenuBrowser;
