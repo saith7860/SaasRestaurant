@@ -7,9 +7,9 @@ interface Props {
 
 const CategoryCard = ({ category }: Props) => {
 
-  const image =
-    category.image?.url ??
-    "/images/categories/default-category.webp";
+  // const image =
+  //   category.image?.url ??
+  //   "/images/categories/default-category.webp";
 
   return (
 
