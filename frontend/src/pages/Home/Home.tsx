@@ -7,6 +7,8 @@ import PopularItems from "../../components/Home/PopularItems/PopularItems";
 import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
 import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
 import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
+import CTABanner from "../../components/Home/CTABanner/CTABanner";
+import Footer from "../../components/Footer/Footer";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
@@ -20,6 +22,8 @@ const Home = () => {
      <FeaturedCategories />
      <PopularItems search={search} />
      <WhyChooseUs />
+     <CTABanner />
+     <Footer />
      <WhatsAppButton/>
     </div>
     </>
