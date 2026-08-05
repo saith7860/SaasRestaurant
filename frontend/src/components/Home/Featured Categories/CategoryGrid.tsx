@@ -9,7 +9,19 @@ const CategoryGrid = () => {
 
   return (
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className="
+          flex
+          gap-4
+          overflow-x-auto
+          whitespace-nowrap
+          scrollbar-hide
+          pb-2
+          scroll-smooth
+          snap-x
+          snap-mandatory
+        "
+      >
 
       {categories.map((category) => (
 

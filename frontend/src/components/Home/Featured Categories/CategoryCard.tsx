@@ -1,5 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import type { CategoryType } from "../../../types/DashBoardtype";
+import { Link } from "react-router";
+
 
 interface Props {
   category: CategoryType;
@@ -13,21 +15,26 @@ const CategoryCard = ({ category }: Props) => {
 
   return (
 
-    <div
+
+    <Link
+        to="/menu"
       className="
-      group
-      relative
-      overflow-hidden
-      rounded-3xl
-      border
-      border-[var(--primary-color)]/10
-      bg-[var(--card-color)]
-      transition-all
-      duration-500
-      hover:-translate-y-2
-      hover:border-[var(--primary-color)]/40
-      hover:shadow-2xl
-      "
+            shrink-0
+            snap-start
+            rounded-2xl
+            border
+            border-[var(--primary-color)]/10
+            bg-[var(--card-color)]
+            px-4
+            transition-all
+            duration-300
+            hover:-translate-y-1
+            hover:border-[var(--primary-color)]/40
+            hover:shadow-xl
+            min-w-[70px]
+            sm:min-w-[100px]
+            lg:min-w-[140px]
+          "
     >
 
       {/* <div className="overflow-hidden">
@@ -48,47 +55,24 @@ const CategoryCard = ({ category }: Props) => {
 
       </div> */}
 
-      <div className="p-6">
+      <div className="p-4">
 
-        <h3 className="text-2xl font-bold text-[var(--text-color)]">
+        <h3 className="text-base sm:text-lg lg:text-xl font-bold font-bold text-[var(--text-color)]">
 
           {category.category}
 
         </h3>
 
-        <p className="mt-2 text-[var(--text-color)]/60">
+        <p className="mt-1 text-sm sm:text-base text-[var(--primary-color)]">
 
           {category.items.length} Items
 
         </p>
 
-        <div
-          className="
-          mt-6
-          flex
-          items-center
-          gap-2
-          font-semibold
-          text-[var(--primary-color)]
-          "
-        >
-
-          Explore
-
-          <ArrowRight
-            size={18}
-            className="
-            transition-transform
-            duration-300
-            group-hover:translate-x-2
-            "
-          />
-
-        </div>
-
       </div>
 
-    </div>
+    </Link>
+      
 
   );
 };

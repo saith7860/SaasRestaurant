@@ -12,7 +12,7 @@ const CategoryHeader = () => {
         </span>
 
         <h2 className="mt-3 text-4xl font-black tracking-tight text-[var(--text-color)]">
-          Browse by Category
+           Explore Categories
         </h2>
 
         <p className="mt-4 max-w-xl text-lg text-[var(--text-color)]/65">
@@ -23,13 +23,24 @@ const CategoryHeader = () => {
 
       <Link
         to="/menu"
-        className="group flex items-center gap-2 font-semibold text-[var(--primary-color)]"
+        className="group w-fit flex gap-2 text-[var(--primary-color)]
+        items-center
+        rounded-2xl
+        border
+        border-[var(--primary-color)]/20
+        px-5
+        py-3
+        font-semibold
+        transition-all
+        duration-300
+        hover:bg-[var(--primary-color)]
+        hover:text-[var(--background-color)]"
       >
         View All
 
         <ArrowRight
           size={18}
-          className="transition-transform duration-300 group-hover:translate-x-1"
+          className="transition-transform duration-900 group-hover:translate-x-2"
         />
       </Link>
 

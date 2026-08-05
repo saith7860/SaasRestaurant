@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRestaurant } from "../../../context/RestaurantContext";
-import ItemCard from "../../Home/ItemCard";
+import ItemCard from "../../ItemCard/ItemCard";
 import type { CategoryType } from "../../../types/DashBoardtype";
 import type { ItemType } from "../../../types/HomePageTypes";
 

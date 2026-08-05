@@ -58,8 +58,12 @@ const AddToCart = ({item,selectedVariant,cart,setCart}: AddToCartProps) => {
   }
     
   return (
-   <button   className="mt-auto w-full rounded-xl bg-[var(--button-color)] py-3 mb-2 font-semibold text-[var(--button-text-color)] shadow-md transition-all duration-300 hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] hover:shadow-xl active:scale-[0.98]" onClick={(e)=>handleAddToCart(e)}>Add To Cart</button>
-  )
+        <button
+          onClick={handleAddToCart}
+          className=" mt-3 w-full rounded-xl bg-[var(--button-color)] py-3.5 rounded-2xl font-semibold font-semibold text-[var(--button-text-color)] transition duration-300 hover:scale-[1.02] hover:bg-[var(--primary-color)] hover:text-[var(--background-color)] active:scale-95 "
+          >
+          Add to Cart
+        </button>  )
 }
 
 export default AddToCart;

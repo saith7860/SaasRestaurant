@@ -14,22 +14,21 @@ const ItemCard = ({ item }: ItemCardProps) => {
   const { cart, setCart } = useContext(CartContext);
 
   return (
-    <div className="group flex flex-col h-full overflow-hidden rounded-2xl mx-1 bg-[var(--card-color)] border border-[var(--primary-color)]/15 shadow-lg hover:border-[var(--primary-color)]/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+    <div className="group flex h-full flex-col overflow-hidden rounded-3xl bg-[var(--card-color)] border border-[var(--primary-color)]/10 shadow-md transition-all duration-500 hover:-translate-y-2 hover:border-[var(--primary-color)]/40 hover:shadow-2xl">
 
-      <div className="w-full h-40 sm:h-44 lg:h-52 xl:h-60 overflow-hidden rounded-t-2xl">
-
-        <img src={item?.image?.url || undefined} alt={item.name}
-          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="aspect-square w-full overflow-hidden rounded-t-2xl">
+        <img
+          src={item.image?.url}
+          alt={item.name}
+          className=" h-full w-full object-cover object-center transition-all duration-700 group-hover:scale-110  " />
       </div>
 
-      <div className="flex flex-col flex-1 p-2">
-
-        <h2 className="text-md sm:text-lg lg:text-xl font-bold text-[var(--primary-color)] tracking-wide leading-tight">
+      <div className="flex flex-1 flex-col p-5 lg:p-6">
+        <h2 className="text-base md:text-lg leading-tight line-clamp-1 font-bold text-[var(--primary-color)] ">
           {item.name}
         </h2>
 
-        <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/70 line-clamp-2">
+        <p className="text-sm leading-6 line-clamp-1 text-[var(--text-color)]/65 ">
           {item.description}
         </p>
 
@@ -44,12 +43,10 @@ const ItemCard = ({ item }: ItemCardProps) => {
             setSelectedVariant={setSelectedVariant}
           />
         ) : (
-          <p className="mt-auto py-3 text-xl font-bold text-[var(--primary-color)]">
+          <p className=" mt-auto py-3 text-xl font-black tracking-tight font-bold text-[var(--primary-color)] ">
             Rs {item.basePrice}
           </p>
         )}
-
-
 
 
         <AddToCart
@@ -58,6 +55,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
           setCart={setCart}
           item={item}
         />
+
 
       </div>
     </div>
