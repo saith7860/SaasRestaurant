@@ -1,9 +1,12 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 
 const CTAButton = () => {
   return (
-    <button
-      className="
+
+    <Link to="/menu">
+      <button
+        className="
       group
       inline-flex
       items-center
@@ -19,14 +22,15 @@ const CTAButton = () => {
       hover:scale-105
       hover:shadow-xl
       "
-    >
-      Order Now
+      >
+        Order Now
 
-      <ArrowRight
-        size={20}
-        className="transition-transform duration-300 group-hover:translate-x-2"
-      />
-    </button>
+        <ArrowRight
+          size={20}
+          className="transition-transform duration-300 group-hover:translate-x-2"
+        />
+      </button>
+    </ Link>
   );
 };
 
