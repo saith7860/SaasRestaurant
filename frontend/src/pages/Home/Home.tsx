@@ -6,6 +6,7 @@ import WhatsAppButton from "../../components/WhatsppButton";
 import PopularItems from "../../components/Home/PopularItems/PopularItems";
 import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
 import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
+import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
@@ -18,6 +19,7 @@ const Home = () => {
      <BrandStrip />
      <FeaturedCategories />
      <PopularItems search={search} />
+     <WhyChooseUs />
      <WhatsAppButton/>
     </div>
     </>

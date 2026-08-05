@@ -69,8 +69,8 @@ const AddToCart = ({ item, selectedVariant, cart, setCart , mobile = false }: Ad
       bottom-3
       right-3
       flex
-      h-12
-      w-12
+      h-8
+      w-8
       items-center
       justify-center
       rounded-full
@@ -85,7 +85,7 @@ const AddToCart = ({ item, selectedVariant, cart, setCart , mobile = false }: Ad
       sm:hidden
     "
     >
-      <Plus size={22} strokeWidth={3} />
+      <Plus size={18} strokeWidth={3} />
     </button>
   ) : (
     <button

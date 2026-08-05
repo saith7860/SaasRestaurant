@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import type { CategoryType } from "../../../types/DashBoardtype";
 import { Link } from "react-router";
 
