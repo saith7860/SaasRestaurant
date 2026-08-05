@@ -13,7 +13,7 @@ const Variants = ({
   setSelectedVariant,
 }: VariantsProps) => {
   return (
-    <div className="my-3 mt-4">
+    <div className="mt-4">
       <select
         value={selectedVariant?._id || ""}
         onChange={(e) => {
