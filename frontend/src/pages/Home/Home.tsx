@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../../components/Home/Navbar"
 import { useRestaurant } from "../../context/RestaurantContext";
 import WhatsAppButton from "../../components/WhatsppButton";
@@ -10,9 +9,7 @@ import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
 import CTABanner from "../../components/Home/CTABanner/CTABanner";
 import Footer from "../../components/Footer/Footer";
 const Home = () => {
-   const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
-   
   return (
     <>
     <div className="overflow-x-hidden">
