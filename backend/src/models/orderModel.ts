@@ -29,7 +29,6 @@ const orderSchema = new mongoose.Schema(
       ref: "Branch",
       required: true,
     },
-   
     deliveryAddress: {
       type: String,
       required: true,

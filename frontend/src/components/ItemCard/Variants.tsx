@@ -13,14 +13,14 @@ const Variants = ({
   setSelectedVariant,
 }: VariantsProps) => {
   return (
-    <div className="my-3">
+    <div className="mt-4">
       <select
         value={selectedVariant?._id || ""}
         onChange={(e) => {
           const variant = variants.find((v) => v._id === e.target.value);
           if (variant) setSelectedVariant(variant);
         }}
-        className="w-full rounded-xl border border-white/10 bg-[var(--card-color)] px-4 py-3 text-[var(--text-color)] text-sm font-medium outline-none transition-all duration-300 focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 hover:border-[var(--primary-color)]/50 cursor-pointer"
+        className=" w-full rounded-xl border border-[var(--primary-color)]/15 bg-[var(--card-color)] px-4 py-3 text-sm outline-none focus:border-[var(--primary-color)] focus:ring-2 focus:ring-[var(--primary-color)]/20 "       
       >
         <option className=" py-3 text-lg font-bold text-[var(--primary-color)]" value="" disabled>
           Select Variant

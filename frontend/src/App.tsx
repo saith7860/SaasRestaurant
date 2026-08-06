@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
+import Menu from "./pages/menu/Menu";
 import CartPage from "./pages/Cart/CartPage";
 import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
@@ -97,6 +98,8 @@ const getSlug = () => {
         <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />

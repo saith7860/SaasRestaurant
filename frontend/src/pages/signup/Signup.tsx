@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TrackingNav from "../../components/Home/TrackingNav.js"
+import TrackingNav from "../../components/TrackingNav.js"
 import { useRestaurant } from "../../context/RestaurantContext";
 import { Link, useNavigate } from "react-router";
 import api from "../../api/api";

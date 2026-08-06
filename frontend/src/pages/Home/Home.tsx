@@ -1,9 +1,14 @@
 import { useState } from "react";
 import Navbar from "../../components/Home/Navbar"
-import SearchBar from "../../components/Home/SearchBar"
 import { useRestaurant } from "../../context/RestaurantContext";
-import SpecificCatogires from "../../components/Home/SpecificCatogires";
-import WhatsAppButton from "../../components/Home/WhatsppButton";
+import WhatsAppButton from "../../components/WhatsppButton";
+import Hero from "../../components/Home/Hero/Hero";
+import PopularItems from "../../components/Home/PopularItems/PopularItems";
+import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
+import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
+import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
+import CTABanner from "../../components/Home/CTABanner/CTABanner";
+import Footer from "../../components/Footer/Footer";
 const Home = () => {
    const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
@@ -12,11 +17,15 @@ const Home = () => {
     <>
     <div className="overflow-x-hidden">
 
-     <Navbar restaurnatName = {restaurantData?.restaurantData?.restaurantName||null} />
-     <SearchBar search={search} setSearch={setSearch}/>
-     <SpecificCatogires search={search}/>
+     <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} />
+     <Hero/>
+     <BrandStrip />
+     <FeaturedCategories />
+     <PopularItems/>
+     <WhyChooseUs />
+     <CTABanner />
+     <Footer />
      <WhatsAppButton/>
-     {/* <Categories search={search}/> */}
     </div>
     </>
     
