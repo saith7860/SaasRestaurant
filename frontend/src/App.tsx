@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router";
 import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
-import Menu from "./pages/menu/Menu";
+import Menu from "./pages/Menu/Menu";
 import CartPage from "./pages/Cart/CartPage";
 import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
