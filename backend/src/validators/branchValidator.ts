@@ -10,6 +10,12 @@ export const BranchValidator = z.object({
   }, {
     message: "Opening time must be in HH:MM format",
   }),
+  deliveryAreas: z
+    .array(
+      z.object({
+        areaName: z.string("Area name is required").min(1, "Area name cannot be empty"),
+      }) 
+    ).default([]), 
   closingTime:z.string("Closing time is required").refine((time) => {
     const timeRegex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
     return timeRegex.test(time);
