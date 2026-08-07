@@ -1,5 +1,4 @@
 import {Request,Response,NextFunction} from 'express';
-import { DealType } from '../types/dealType.js';
 import * as dealService from '../services/dealService.js'
 export const createDeal=async(req:Request,res:Response,next:NextFunction)=>{
     try { 
