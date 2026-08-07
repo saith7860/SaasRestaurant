@@ -9,4 +9,5 @@ export type branchType={
     closingTime:string;
     deliveryFee:number;
     isOpen:boolean;
+      deliveryAreas: { areaName: string }[];
 }
