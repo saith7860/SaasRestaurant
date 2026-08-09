@@ -94,7 +94,7 @@ const getSlug = () => {
   return (
     <>
       <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-300">
-
+        
         <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
           <Routes>
             <Route path="/" element={<Home />} />

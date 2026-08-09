@@ -6,7 +6,14 @@ const branchSchema = new mongoose.Schema({
     ref: "Restaurant",
     required: true
   },
-
+  deliveryAreas:[
+    {
+    areaName:{
+      type:String,
+      required:true
+    }  
+  },
+  ], 
   name: {
     type:String,
     required:true,

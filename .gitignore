@@ -5,6 +5,10 @@ frontend/node_modules
 backend/node_modules
 # Environment variables (Crucial for security)
 .env
+*.env
+.env.development
+.env.test
+.env.production
 .env.local
 .env.development.local
 .env.test.local
