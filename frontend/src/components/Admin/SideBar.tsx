@@ -78,6 +78,19 @@ const SideBar = () => {
 
       </NavLink>
 
+      <NavLink to="deals" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><FaUtensils className="text-xl md:text-lg" /></span>
+          <span className="hidden md:block">Deals</span>
+        </li>
+
+      </NavLink>
+
       <NavLink to="orders" className={({ isActive }) =>
         `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
           ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"

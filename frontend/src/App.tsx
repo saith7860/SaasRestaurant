@@ -14,6 +14,7 @@ import Resturant from "./pages/admin/Resturant";
 import Branch from "./pages/admin/Branch";
 import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
+import Deals from "./pages/admin/Deals/DealsPage";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
 import { useEffect, useState } from "react";
@@ -104,6 +105,7 @@ const getSlug = () => {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/deals" element={<Deals />} />
             <Route path="/super_admin" element={
               <ProtectedSuperAdminRoute>
                 <SuperAdmin />
