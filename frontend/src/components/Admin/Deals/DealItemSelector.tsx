@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { useRestaurant } from "../../../context/RestaurantContext";
+import VariantSelector from "./VariantSelector";
 import DealItemRow from "./DealItemRow";
 
 export interface DealItem {
@@ -58,7 +59,7 @@ const DealItemSelector = ({
       (item) =>
         item.itemId === selectedItemId &&
         item.variantId ===
-          (selectedVariantId || undefined)
+        (selectedVariantId || undefined)
     );
 
     if (alreadyExists) {
@@ -99,9 +100,9 @@ const DealItemSelector = ({
       (item, itemIndex) =>
         itemIndex === index
           ? {
-              ...item,
-              quantity: newQuantity,
-            }
+            ...item,
+            quantity: newQuantity,
+          }
           : item
     );
 
@@ -200,65 +201,13 @@ const DealItemSelector = ({
           </div>
 
           {/* Variant */}
-          <div>
-            <label className="mb-2 block text-sm font-semibold">
-              Variant
-            </label>
-
-            <select
-              value={selectedVariantId}
-              onChange={(e) =>
-                setSelectedVariantId(
-                  e.target.value
-                )
-              }
-              disabled={
-                !selectedItemId ||
-                variants.length === 0
-              }
-              className="
-                w-full
-                rounded-xl
-                border
-                border-[var(--primary-color)]/15
-                bg-[var(--background-color)]
-                px-4
-                py-3
-                text-sm
-                outline-none
-                transition
-                focus:border-[var(--primary-color)]
-                focus:ring-2
-                focus:ring-[var(--primary-color)]/10
-                disabled:cursor-not-allowed
-                disabled:opacity-50
-              "
-            >
-              <option value="">
-                {selectedItemId
-                  ? variants.length > 0
-                    ? "Select Variant"
-                    : "No Variant"
-                  : "Select Item First"}
-              </option>
-
-              {variants
-                .filter(
-                  (variant) =>
-                    variant.isAvailable
-                )
-                .map((variant) => (
-                  <option
-                    key={variant._id}
-                    value={variant._id}
-                  >
-                    {variant.variation} — Rs.{" "}
-                    {variant.price}
-                  </option>
-                ))}
-            </select>
-          </div>
-
+          <VariantSelector
+            variants={variants}
+            value={selectedVariantId}
+            onChange={setSelectedVariantId}
+            disabled={!selectedItemId}
+          />
+          
           {/* Quantity */}
           <div>
             <label className="mb-2 block text-sm font-semibold">

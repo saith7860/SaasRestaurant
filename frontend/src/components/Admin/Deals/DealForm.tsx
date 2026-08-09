@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
+
 import DealItemSelector from "./DealItemSelector";
+import DealImageUpload from "./DealImageUpload";
 
 interface DealItem {
   itemId: string;
@@ -26,6 +28,8 @@ const DealForm = ({ onCancel }: DealFormProps) => {
     isAvailable: true,
     items: [],
   });
+
+  const [dealImage, setDealImage] = useState<File | null>(null);
 
   return (
     <div className="pb-10">
@@ -183,6 +187,24 @@ const DealForm = ({ onCancel }: DealFormProps) => {
 
       </div>
 
+      {/* Deal Image */}
+      <div className="mt-6 rounded-2xl border border-[var(--primary-color)]/10 bg-[var(--card-color)] p-6 shadow-lg">
+        <h2 className="text-xl font-bold">
+          Deal Image
+        </h2>
+
+        <p className="mt-1 text-sm text-[var(--text-color)]/60">
+          Add an attractive image for your customers.
+        </p>
+
+        <div className="mt-6">
+          <DealImageUpload
+            value={dealImage}
+            onChange={setDealImage}
+          />
+        </div>
+      </div>
+
       {/* Deal Items */}
       <div className="
         mt-6
@@ -228,7 +250,10 @@ const DealForm = ({ onCancel }: DealFormProps) => {
 
         <button
           type="button"
-          onClick={() => console.log("Deal Data:", formData)}
+          onClick={() => {
+            console.log("Deal Data:", formData);
+            console.log("Deal Image:", dealImage);
+          }}
           className="
             rounded-xl
             bg-[var(--button-color)]
