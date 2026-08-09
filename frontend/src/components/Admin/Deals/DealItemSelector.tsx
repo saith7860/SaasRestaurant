@@ -152,8 +152,8 @@ const DealItemSelector = ({
             Add Item
           </h3>
 
-          <p className="mt-1 text-sm text-[var(--text-color)]/60">
-            Select a menu item, variant and quantity.
+          <p className="mt-1 text-sm text-[var(--text-color)]/60 line-clamp-1">
+            Select item, variant and quantity.
           </p>
         </div>
 
@@ -306,6 +306,8 @@ const DealItemSelector = ({
             mt-5
             inline-flex
             items-center
+            w-full
+            mx-auto
             justify-center
             gap-2
             rounded-xl
@@ -326,7 +328,6 @@ const DealItemSelector = ({
             disabled:hover:translate-y-0
           "
         >
-          <Plus size={17} />
           Add Item
         </button>
 

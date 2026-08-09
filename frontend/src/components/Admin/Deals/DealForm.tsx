@@ -31,7 +31,17 @@ const DealForm = ({ onCancel }: DealFormProps) => {
     <div className="pb-10">
 
       {/* Header */}
-      <div className="mb-8 flex items-center gap-4">
+      <div className="mb-8 flex items-center justify-between gap-4">
+
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary-color)]">
+            Deals
+          </p>
+
+          <h1 className="text-3xl font-black text-[var(--text-color)]">
+            Create Deal
+          </h1>
+        </div>
 
         <button
           type="button"
@@ -49,15 +59,6 @@ const DealForm = ({ onCancel }: DealFormProps) => {
           <ArrowLeft size={19} />
         </button>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[var(--primary-color)]">
-            Deals
-          </p>
-
-          <h1 className="text-3xl font-black text-[var(--text-color)]">
-            Create Deal
-          </h1>
-        </div>
 
       </div>
 
@@ -195,10 +196,6 @@ const DealForm = ({ onCancel }: DealFormProps) => {
         <h2 className="text-xl font-bold">
           Deal Items
         </h2>
-
-        <p className="mt-1 text-sm text-[var(--text-color)]/60">
-          Select menu items, their variants and quantities.
-        </p>
 
         <DealItemSelector
           items={formData.items}
