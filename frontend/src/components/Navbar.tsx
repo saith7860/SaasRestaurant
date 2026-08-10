@@ -8,7 +8,7 @@ import {
   ShoppingCart,
   User,
   UtensilsCrossed,
-  Menu, X
+  Menu, X , BadgePercent  
 } from "lucide-react";
 
 import { CartContext } from "../context/CartContext";
@@ -33,6 +33,11 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName }) => {
       title: "Menu",
       path: "/menu",
       icon: UtensilsCrossed,
+    },
+    {
+      title: "Deal",
+      path: "/deal",
+      icon: BadgePercent ,
     },
     {
       title: "About",
