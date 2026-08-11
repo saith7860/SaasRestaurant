@@ -10,8 +10,9 @@ const DealsHeader = ({
   return (
     <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
 
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[var(--primary-color)]">
+      <div className="w-full" >
+
+        <p className="mb-18 nx-auto text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl">
           Restaurant Deals
         </p>
 
@@ -31,6 +32,8 @@ const DealsHeader = ({
           inline-flex
           items-center
           justify-center
+          w-full
+          lg:w-50
           gap-2
           rounded-xl
           bg-[var(--button-color)]
@@ -48,7 +51,9 @@ const DealsHeader = ({
         "
       >
         <Plus size={19} />
-        Create Deal
+        <span>
+          Create Deal
+        </span>
       </button>
 
     </div>

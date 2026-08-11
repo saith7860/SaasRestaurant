@@ -50,9 +50,9 @@ const DealImageUpload = ({
 
   return (
     <div>
-      <label className="mb-2 block text-sm font-semibold">
+      {/* <label className="mb-2 block text-sm font-semibold">
         Deal Image
-      </label>
+      </label> */}
 
       <p className="mb-4 text-sm text-[var(--text-color)]/60">
         Upload an image that represents this deal.

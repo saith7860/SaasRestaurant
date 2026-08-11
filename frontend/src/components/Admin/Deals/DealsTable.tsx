@@ -1,18 +1,42 @@
 import DealCard from "./DealCard";
+import { useEffect, useState } from "react";
+import api from "../../../api/api";
+
+
+interface Deal {
+  id: string;
+  title: string;
+  image: string;
+  totalPrice: number;
+  itemCount: number;
+  isAvailable: boolean;
+}
+
 
 const DealsTable = () => {
 
-  const deals = [
-    {
-      id: "1",
-      title: "Student Deal",
-      image:
-        "https://res.cloudinary.com/dwrezyeke/image/upload/v1785051656/food-ordering/restaurants/saucy-sals/deals/student-deal.jpg",
-      totalPrice: 1500,
-      itemCount: 2,
-      isAvailable: true,
-    },
-  ];
+  const [deals, setDeals] = useState<Deal[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDeals = async () => {
+    try {
+      setLoading(true);
+
+      const response = await api.get("/your-deal-endpoint");
+
+      setDeals(response.data.result);
+    } catch (error) {
+      console.error("Failed to fetch deals:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDeals();
+  }, []);
+
+
 
   if (deals.length === 0) {
     return (

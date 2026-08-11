@@ -5,6 +5,7 @@ import { clearAccessToken } from "../../api/tokenStore";
 import { FaStore, FaLayerGroup, FaUtensils, FaClipboardList, FaSlidersH } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { BadgePercent } from "lucide-react";
 
 
 
@@ -85,7 +86,7 @@ const SideBar = () => {
         }`
       }>
         <li className="flex flex-row gap-3">
-          <span><FaUtensils className="text-xl md:text-lg" /></span>
+          <span><BadgePercent className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Deals</span>
         </li>
 

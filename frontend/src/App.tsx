@@ -15,7 +15,7 @@ import Resturant from "./pages/admin/Resturant";
 import Branch from "./pages/admin/Branch";
 import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
-// import Deals from "./pages/admin/Deals/DealsPage";
+import Deals from "./pages/admin/Deals/DealsPage";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
 import { useEffect, useState } from "react";
@@ -112,7 +112,6 @@ const App = () => {
                 <SuperAdmin />
               </ProtectedSuperAdminRoute>
             }>
-
             </Route>
             <Route path="/admin" element={
               <ProtectedAdminRoute>
@@ -128,12 +127,12 @@ const App = () => {
               <Route path="branches" element={<Branch />} />
               <Route path="categories" element={<Category />} />
               <Route path="items" element={<Item />} />
-              {/* <Route path="/deals" element={<Deals />} /> */}
+              <Route path="deals" element={<Deals />} />
               <Route path="orders" element={<Order />} />
               <Route path="variants" element={<Variant />} />
             </Route>
           </Routes>
-        </CartProvider>
+        </CartProvider >
       </div>
     </>
   )

@@ -3,6 +3,8 @@ import { ArrowLeft } from "lucide-react";
 
 import DealItemSelector from "./DealItemSelector";
 import DealImageUpload from "./DealImageUpload";
+import { useRestaurant } from "../../../context/RestaurantContext";
+import api from "../../../api/api";
 
 interface DealItem {
   itemId: string;
@@ -12,7 +14,8 @@ interface DealItem {
 
 interface DealFormData {
   title: string;
-  totalPrice: number;
+  description: string;
+  branchId: string;
   isAvailable: boolean;
   items: DealItem[];
 }
@@ -22,19 +25,113 @@ interface DealFormProps {
 }
 
 const DealForm = ({ onCancel }: DealFormProps) => {
-  const [formData, setFormData] = useState<DealFormData>({
-    title: "",
-    totalPrice: 0,
-    isAvailable: true,
-    items: [],
-  });
+  const { restaurantData } = useRestaurant();
+
+  const [formData, setFormData] =
+    useState<DealFormData>({
+      title: "",
+      description: "",
+      branchId: "",
+      isAvailable: true,
+      items: [],
+    });
 
   const [dealImage, setDealImage] = useState<File | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  /*
+   * Adjust this according to the actual shape
+   * of your restaurantData.
+   *
+   * For example:
+   * restaurantData.branches
+   *
+   * or:
+   * restaurantData.result.branches
+   */
+  const branches = restaurantData?.branches || [];
+
+  const handleSubmit = async () => {
+    try {
+      if (!formData.title.trim()) {
+        alert("Deal title is required");
+        return;
+      }
+
+      if (!formData.description.trim()) {
+        alert("Deal description is required");
+        return;
+      }
+
+      if (!formData.branchId) {
+        alert("Please select a branch");
+        return;
+      }
+
+      if (formData.items.length === 0) {
+        alert("Please add at least one item");
+        return;
+      }
+
+      const payload = new FormData();
+
+      payload.append("title", formData.title.trim());
+      payload.append("description", formData.description.trim());
+      payload.append("branchId", formData.branchId);
+      payload.append(
+        "isAvailable",
+        String(formData.isAvailable)
+      );
+
+      payload.append(
+        "items",
+        JSON.stringify(formData.items)
+      );
+
+      if (dealImage) {
+        payload.append("image", dealImage);
+      }
+
+      console.log("========== CREATE DEAL ==========");
+      console.log("Title:", formData.title);
+      console.log("Description:", formData.description);
+      console.log("Branch ID:", formData.branchId);
+      console.log("Available:", formData.isAvailable);
+      console.log("Items:", formData.items);
+      console.log("Image:", dealImage);
+      console.log("================================");
+
+      const response = await api.post(
+        "/api/deals/create-deal",
+        payload
+      );
+
+      console.log(
+        "Deal created successfully:",
+        response.data
+      );
+
+      alert("Deal created successfully!");
+
+      onCancel();
+
+    } catch (error: any) {
+      console.error("Failed to create deal:", error);
+
+      console.error(
+        "Backend error:",
+        error?.response?.data
+      );
+    }
+  };
 
   return (
     <div className="pb-10">
 
-      {/* Header */}
+      {/* ========================================
+          Header
+      ======================================== */}
+
       <div className="mb-8 flex items-center justify-between gap-4">
 
         <div>
@@ -51,9 +148,14 @@ const DealForm = ({ onCancel }: DealFormProps) => {
           type="button"
           onClick={onCancel}
           className="
-            flex h-10 w-10 items-center justify-center
+            flex
+            h-10
+            w-10
+            items-center
+            justify-center
             rounded-xl
-            border border-[var(--primary-color)]/15
+            border
+            border-[var(--primary-color)]/15
             bg-[var(--card-color)]
             transition-all
             hover:border-[var(--primary-color)]
@@ -63,17 +165,22 @@ const DealForm = ({ onCancel }: DealFormProps) => {
           <ArrowLeft size={19} />
         </button>
 
-
       </div>
 
-      {/* Deal Information */}
-      <div className="
-        rounded-2xl
-        border border-[var(--primary-color)]/10
-        bg-[var(--card-color)]
-        p-6
-        shadow-lg
-      ">
+      {/* ========================================
+          Deal Information
+      ======================================== */}
+
+      <div
+        className="
+          rounded-2xl
+          border
+          border-[var(--primary-color)]/10
+          bg-[var(--card-color)]
+          p-6
+          shadow-lg
+        "
+      >
 
         <h2 className="text-xl font-bold">
           Deal Information
@@ -86,6 +193,7 @@ const DealForm = ({ onCancel }: DealFormProps) => {
         <div className="mt-6 grid gap-5 md:grid-cols-2">
 
           {/* Title */}
+
           <div className="md:col-span-2">
 
             <label className="mb-2 block text-sm font-semibold">
@@ -95,58 +203,82 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             <input
               type="text"
               value={formData.title}
-              onChange={(e) =>
+              onChange={(event) =>
                 setFormData((prev) => ({
                   ...prev,
-                  title: e.target.value,
+                  title: event.target.value,
                 }))
               }
               placeholder="e.g. Student Deal"
               className="
                 w-full
                 rounded-xl
-                border border-[var(--primary-color)]/15
+                border
+                border-[var(--primary-color)]/15
                 bg-[var(--background-color)]
-                px-4 py-3
+                px-4
+                py-3
                 outline-none
+                transition
                 focus:border-[var(--primary-color)]
+                focus:ring-2
+                focus:ring-[var(--primary-color)]/10
               "
             />
 
           </div>
 
-          {/* Price */}
+          {/* Branch */}
+
           <div>
 
             <label className="mb-2 block text-sm font-semibold">
-              Deal Price
+              Branch
             </label>
 
-            <input
-              type="number"
-              min="0"
-              value={formData.totalPrice}
-              onChange={(e) =>
+            <select
+              value={formData.branchId}
+              onChange={(event) =>
                 setFormData((prev) => ({
                   ...prev,
-                  totalPrice: Number(e.target.value),
+                  branchId: event.target.value,
                 }))
               }
-              placeholder="1500"
               className="
                 w-full
                 rounded-xl
-                border border-[var(--primary-color)]/15
+                border
+                border-[var(--primary-color)]/15
                 bg-[var(--background-color)]
-                px-4 py-3
+                px-4
+                py-3
                 outline-none
+                transition
                 focus:border-[var(--primary-color)]
+                focus:ring-2
+                focus:ring-[var(--primary-color)]/10
               "
-            />
+            >
+
+              <option value="">
+                Select Branch
+              </option>
+
+              {branches.map((branch: any) => (
+                <option
+                  key={branch._id}
+                  value={branch._id}
+                >
+                  {branch.name}
+                </option>
+              ))}
+
+            </select>
 
           </div>
 
           {/* Availability */}
+
           <div>
 
             <label className="mb-2 block text-sm font-semibold">
@@ -155,22 +287,29 @@ const DealForm = ({ onCancel }: DealFormProps) => {
 
             <select
               value={String(formData.isAvailable)}
-              onChange={(e) =>
+              onChange={(event) =>
                 setFormData((prev) => ({
                   ...prev,
-                  isAvailable: e.target.value === "true",
+                  isAvailable:
+                    event.target.value === "true",
                 }))
               }
               className="
                 w-full
                 rounded-xl
-                border border-[var(--primary-color)]/15
+                border
+                border-[var(--primary-color)]/15
                 bg-[var(--background-color)]
-                px-4 py-3
+                px-4
+                py-3
                 outline-none
+                transition
                 focus:border-[var(--primary-color)]
+                focus:ring-2
+                focus:ring-[var(--primary-color)]/10
               "
             >
+
               <option value="true">
                 Active
               </option>
@@ -183,12 +322,64 @@ const DealForm = ({ onCancel }: DealFormProps) => {
 
           </div>
 
+          {/* Description */}
+
+          <div className="md:col-span-2">
+
+            <label className="mb-2 block text-sm font-semibold">
+              Deal Description
+            </label>
+
+            <textarea
+              value={formData.description}
+              onChange={(event) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  description:
+                    event.target.value,
+                }))
+              }
+              placeholder="e.g. Enjoy a burger, fries and drink at a special price."
+              rows={4}
+              className="
+                w-full
+                resize-none
+                rounded-xl
+                border
+                border-[var(--primary-color)]/15
+                bg-[var(--background-color)]
+                px-4
+                py-3
+                outline-none
+                transition
+                focus:border-[var(--primary-color)]
+                focus:ring-2
+                focus:ring-[var(--primary-color)]/10
+              "
+            />
+
+          </div>
+
         </div>
 
       </div>
 
-      {/* Deal Image */}
-      <div className="mt-6 rounded-2xl border border-[var(--primary-color)]/10 bg-[var(--card-color)] p-6 shadow-lg">
+      {/* ========================================
+          Deal Image
+      ======================================== */}
+
+      <div
+        className="
+          mt-6
+          rounded-2xl
+          border
+          border-[var(--primary-color)]/10
+          bg-[var(--card-color)]
+          p-6
+          shadow-lg
+        "
+      >
+
         <h2 className="text-xl font-bold">
           Deal Image
         </h2>
@@ -198,66 +389,95 @@ const DealForm = ({ onCancel }: DealFormProps) => {
         </p>
 
         <div className="mt-6">
+
           <DealImageUpload
             value={dealImage}
             onChange={setDealImage}
           />
+
         </div>
+
       </div>
 
-      {/* Deal Items */}
-      <div className="
-        mt-6
-        rounded-2xl
-        border border-[var(--primary-color)]/10
-        bg-[var(--card-color)]
-        p-6
-        shadow-lg
-      ">
+      {/* ========================================
+          Deal Items
+      ======================================== */}
+
+      <div
+        className="
+          mt-6
+          rounded-2xl
+          border
+          border-[var(--primary-color)]/10
+          bg-[var(--card-color)]
+          p-6
+          shadow-lg
+        "
+      >
 
         <h2 className="text-xl font-bold">
           Deal Items
         </h2>
 
-        <DealItemSelector
-          items={formData.items}
-          setItems={(items) =>
-            setFormData((prev) => ({
-              ...prev,
-              items,
-            }))
-          }
-        />
+        <p className="mt-1 text-sm text-[var(--text-color)]/60">
+          Select menu items, variants, and quantities.
+        </p>
+
+        <div className="mt-6">
+
+          <DealItemSelector
+            items={formData.items}
+            setItems={(items) =>
+              setFormData((prev) => ({
+                ...prev,
+                items,
+              }))
+            }
+          />
+
+        </div>
 
       </div>
 
-      {/* Actions */}
+      {/* ========================================
+          Actions
+      ======================================== */}
+
       <div className="mt-6 flex justify-end gap-3">
+
+        {/* Cancel */}
 
         <button
           type="button"
           onClick={onCancel}
+          disabled={saving}
           className="
             rounded-xl
-            border border-[var(--primary-color)]/15
-            px-5 py-3
+            border
+            border-[var(--primary-color)]/15
+            px-5
+            py-3
             font-semibold
+            transition
             hover:bg-[var(--primary-color)]/5
+            disabled:cursor-not-allowed
+            disabled:opacity-50
           "
         >
           Cancel
         </button>
 
+        {/* Save */}
+
         <button
           type="button"
-          onClick={() => {
-            console.log("Deal Data:", formData);
-            console.log("Deal Image:", dealImage);
-          }}
+          onClick={handleSubmit}
+          disabled={saving}
           className="
             rounded-xl
             bg-[var(--button-color)]
-            px-6 py-3
+            px-6
+            py-3
             font-semibold
             text-[var(--button-text-color)]
             shadow-lg
@@ -265,9 +485,12 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             hover:-translate-y-0.5
             hover:bg-[var(--primary-color)]
             hover:text-[var(--background-color)]
+            active:scale-95
+            disabled:cursor-not-allowed
+            disabled:opacity-50
           "
         >
-          Save Deal
+          {saving ? "Saving..." : "Save Deal"}
         </button>
 
       </div>
