@@ -1,65 +1,69 @@
 import DealCard from "./DealCard";
 import type { Deal } from "../../pages/Deals/DealsPage";
-
+import { useRestaurant } from "../../context/RestaurantContext";
 interface Props {
   onSelectDeal: (deal: Deal) => void;
 }
 
-const DealsGrid = ({ onSelectDeal }: Props) => {
-  const deals: Deal[] = [
-    {
-      id: "1",
-      title: "Student Deal",
-      image:
-        "https://res.cloudinary.com/dwrezyeke/image/upload/v1785051656/food-ordering/restaurants/saucy-sals/deals/student-deal.jpg",
-      totalPrice: 1500,
-      isAvailable: true,
+const DealsGrid = () => {
 
-      items: [
-        {
-          itemId: "burger-1",
-          itemName: "Chicken Burger",
-          itemImage:
-            "https://res.cloudinary.com/dwrezyeke/image/upload/v1784208525/food-ordering/restaurants/saucy-sals/items/cih3jv5xnmp4xkyrcnyc.jpg",
+  const {restaurantData}=useRestaurant();
+  const deals=restaurantData?.deals;
+  console.log("deals from the deals grid",deals)
+  // const deals: Deal[] = [
+  //   {
+  //     id: "1",
+  //     title: "Student Deal",
+  //     image:
+  //       "https://res.cloudinary.com/dwrezyeke/image/upload/v1785051656/food-ordering/restaurants/saucy-sals/deals/student-deal.jpg",
+  //     totalPrice: 1500,
+  //     isAvailable: true,
 
-          variants: [
-            {
-              id: "small",
-              variation: "S",
-              price: 400,
-            },
-            {
-              id: "large",
-              variation: "L",
-              price: 600,
-            },
-          ],
-        },
+  //     items: [
+  //       {
+  //         itemId: "burger-1",
+  //         itemName: "Chicken Burger",
+  //         itemImage:
+  //           "https://res.cloudinary.com/dwrezyeke/image/upload/v1784208525/food-ordering/restaurants/saucy-sals/items/cih3jv5xnmp4xkyrcnyc.jpg",
 
-        {
-          itemId: "pizza-1",
-          itemName: "Chicken Pizza",
-          itemImage:
-            "https://res.cloudinary.com/dwrezyeke/image/upload/v1784208525/food-ordering/restaurants/saucy-sals/items/cih3jv5xnmp4xkyrcnyc.jpg",
+  //         variants: [
+  //           {
+  //             id: "small",
+  //             variation: "S",
+  //             price: 400,
+  //           },
+  //           {
+  //             id: "large",
+  //             variation: "L",
+  //             price: 600,
+  //           },
+  //         ],
+  //       },
 
-          variants: [
-            {
-              id: "medium",
-              variation: "Medium",
-              price: 700,
-            },
-            {
-              id: "large",
-              variation: "Large",
-              price: 1000,
-            },
-          ],
-        },
-      ],
-    },
-  ];
+  //       {
+  //         itemId: "pizza-1",
+  //         itemName: "Chicken Pizza",
+  //         itemImage:
+  //           "https://res.cloudinary.com/dwrezyeke/image/upload/v1784208525/food-ordering/restaurants/saucy-sals/items/cih3jv5xnmp4xkyrcnyc.jpg",
 
-  if (!deals.length) {
+  //         variants: [
+  //           {
+  //             id: "medium",
+  //             variation: "Medium",
+  //             price: 700,
+  //           },
+  //           {
+  //             id: "large",
+  //             variation: "Large",
+  //             price: 1000,
+  //           },
+  //         ],
+  //       },
+  //     ],
+  //   },
+  // ];
+
+  if (!deals?.length) {
     return (
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-5 text-center">
@@ -87,7 +91,7 @@ const DealsGrid = ({ onSelectDeal }: Props) => {
             <DealCard
               key={deal.id}
               deal={deal}
-              onClick={() => onSelectDeal(deal)}
+            
             />
           ))}
         </div>

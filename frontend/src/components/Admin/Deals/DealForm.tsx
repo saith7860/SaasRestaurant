@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-
+import handleApiError from "../../../api/handleError";
 import DealItemSelector from "./DealItemSelector";
 import DealImageUpload from "./DealImageUpload";
-import { useRestaurant } from "../../../context/RestaurantContext";
+import { useDashboard } from "../../../context/DashBoardContext";
 import api from "../../../api/api";
+
+
+interface Deal {
+  _id: string;
+  title: string;
+  description: string;
+  branchId: string;
+  restaurantId: string;
+
+  image?: {
+    url: string;
+    publicId: string;
+  };
+
+  totalPrice: number;
+  items: DealItem[];
+  isAvailable: boolean;
+}
 
 interface DealItem {
   itemId: string;
@@ -22,10 +40,13 @@ interface DealFormData {
 
 interface DealFormProps {
   onCancel: () => void;
+  deal?: Deal;
 }
 
-const DealForm = ({ onCancel }: DealFormProps) => {
-  const { restaurantData } = useRestaurant();
+const DealForm = ({ onCancel, deal }: DealFormProps) => {
+  const { restaurant, branches, refreshDashboardData } = useDashboard();
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  console.log(restaurant?._id)
 
   const [formData, setFormData] =
     useState<DealFormData>({
@@ -35,6 +56,29 @@ const DealForm = ({ onCancel }: DealFormProps) => {
       isAvailable: true,
       items: [],
     });
+
+
+
+  useEffect(() => {
+    if (!deal) {
+      return;
+    }
+
+    console.log("Loading deal into form:", deal);
+
+    setFormData({
+      title: deal.title || "",
+      description: deal.description || "",
+      branchId: deal.branchId || "",
+      isAvailable: deal.isAvailable ?? true,
+      items: deal.items || [],
+    });
+
+
+    setDealImage(null);
+  }, [deal]);
+
+
 
   const [dealImage, setDealImage] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
@@ -49,17 +93,12 @@ const DealForm = ({ onCancel }: DealFormProps) => {
    * or:
    * restaurantData.result.branches
    */
-  const branches = restaurantData?.branches || [];
+
 
   const handleSubmit = async () => {
     try {
       if (!formData.title.trim()) {
         alert("Deal title is required");
-        return;
-      }
-
-      if (!formData.description.trim()) {
-        alert("Deal description is required");
         return;
       }
 
@@ -73,11 +112,19 @@ const DealForm = ({ onCancel }: DealFormProps) => {
         return;
       }
 
+      setSaving(true);
+
       const payload = new FormData();
 
-      payload.append("title", formData.title.trim());
-      payload.append("description", formData.description.trim());
+      payload.append("title", formData.title);
+      payload.append("description", formData.description);
       payload.append("branchId", formData.branchId);
+
+      payload.append(
+        "restaurantId",
+        restaurant?._id
+      );
+
       payload.append(
         "isAvailable",
         String(formData.isAvailable)
@@ -92,36 +139,57 @@ const DealForm = ({ onCancel }: DealFormProps) => {
         payload.append("image", dealImage);
       }
 
-      console.log("========== CREATE DEAL ==========");
+      console.log(
+        deal
+          ? "========== UPDATE DEAL =========="
+          : "========== CREATE DEAL =========="
+      );
+
+      console.log("Deal ID:", deal?._id);
       console.log("Title:", formData.title);
       console.log("Description:", formData.description);
       console.log("Branch ID:", formData.branchId);
       console.log("Available:", formData.isAvailable);
       console.log("Items:", formData.items);
       console.log("Image:", dealImage);
-      console.log("================================");
 
-      const response = await api.post(
-        "/api/deals/create-deal",
-        payload
-      );
+      const response = deal
+        ? await api.put(
+          `/api/deals/update-deal/${deal._id}`,
+          payload
+        )
+        : await api.post(
+          "/api/deals/create-deal",
+          payload
+        );
 
       console.log(
-        "Deal created successfully:",
+        deal
+          ? "Deal updated successfully:"
+          : "Deal created successfully:",
         response.data
       );
 
-      alert("Deal created successfully!");
+      await refreshDashboardData();
 
       onCancel();
 
     } catch (error: any) {
-      console.error("Failed to create deal:", error);
-
       console.error(
-        "Backend error:",
-        error?.response?.data
+        deal
+          ? "Failed to update deal:"
+          : "Failed to create deal:",
+        error
       );
+
+      const result = handleApiError(error);
+
+      if (result?.fieldErrors) {
+        setErrors(result.fieldErrors);
+      }
+
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -140,7 +208,7 @@ const DealForm = ({ onCancel }: DealFormProps) => {
           </p>
 
           <h1 className="text-3xl font-black text-[var(--text-color)]">
-            Create Deal
+            {deal ? "Edit Deal" : "Create Deal"}
           </h1>
         </div>
 
@@ -227,7 +295,7 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             />
 
           </div>
-
+          {errors.title && <span className="text-red-500">{errors.title}</span>}
           {/* Branch */}
 
           <div>
@@ -276,51 +344,8 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             </select>
 
           </div>
+          {errors.branchId && <span className="text-red-500">{errors.branchId}</span>}
 
-          {/* Availability */}
-
-          <div>
-
-            <label className="mb-2 block text-sm font-semibold">
-              Availability
-            </label>
-
-            <select
-              value={String(formData.isAvailable)}
-              onChange={(event) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  isAvailable:
-                    event.target.value === "true",
-                }))
-              }
-              className="
-                w-full
-                rounded-xl
-                border
-                border-[var(--primary-color)]/15
-                bg-[var(--background-color)]
-                px-4
-                py-3
-                outline-none
-                transition
-                focus:border-[var(--primary-color)]
-                focus:ring-2
-                focus:ring-[var(--primary-color)]/10
-              "
-            >
-
-              <option value="true">
-                Active
-              </option>
-
-              <option value="false">
-                Inactive
-              </option>
-
-            </select>
-
-          </div>
 
           {/* Description */}
 
@@ -359,7 +384,7 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             />
 
           </div>
-
+          {errors.description && <span className="text-red-500">{errors.description}</span>}
         </div>
 
       </div>
@@ -490,7 +515,12 @@ const DealForm = ({ onCancel }: DealFormProps) => {
             disabled:opacity-50
           "
         >
-          {saving ? "Saving..." : "Save Deal"}
+          {saving
+            ? "Saving..."
+            : deal
+              ? "Update Deal"
+              : "Save Deal"}
+              
         </button>
 
       </div>

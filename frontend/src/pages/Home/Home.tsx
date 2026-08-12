@@ -2,12 +2,12 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar"
 import Hero from "../../components/Home/Hero/Hero";
 import { useRestaurant } from "../../context/RestaurantContext";
-import WhatsAppButton from "../../components/WhatsppButton";
 import PopularItems from "../../components/Home/PopularItems/PopularItems";
 import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
 import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
 import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
 import CTABanner from "../../components/Home/CTABanner/CTABanner";
+import WhatsAppButton from "../../components/WhatsppButton";
 import Footer from "../../components/Footer/Footer";
 const Home = () => {
    const [search, setSearch] = useState<string>("");

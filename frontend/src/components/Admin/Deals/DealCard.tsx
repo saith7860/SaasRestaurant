@@ -1,28 +1,81 @@
 import { Edit, Trash2, PackageCheck } from "lucide-react";
+import api from "../../../api/api";
+
+interface DealItem {
+  itemId: string;
+  variantId?: string;
+  quantity: number;
+}
 
 interface Deal {
-  id: string;
+  _id: string;
   title: string;
-  image: string;
+  description: string;
+  branchId: string;
+  restaurantId: string;
+
+  image?: {
+    url: string;
+    publicId: string;
+  };
+
   totalPrice: number;
-  itemCount: number;
+  items: DealItem[];
   isAvailable: boolean;
 }
 
 interface DealCardProps {
   deal: Deal;
+
+  onEdit: (deal: Deal) => void;
+
+  onDelete: (dealId: string) => void;
 }
+
+const API_URL = "https://ordreva-testing.onrender.com";
 
 const DealCard = ({
   deal,
+  onEdit,
+  onDelete,
 }: DealCardProps) => {
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${deal.title}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await api.delete(
+        `/api/deals/delete-deal/${deal._id}`
+      );
+
+      // Remove the deal from the UI
+      onDelete(deal._id);
+
+    } catch (error) {
+      console.error("Failed to delete deal:", error);
+
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Backend error:",
+          error.response?.data
+        );
+      }
+
+      alert("Failed to delete deal.");
+    }
+  };
+
   return (
     <div
       className="
         overflow-hidden
         rounded-2xl
-        border
-        border-[var(--primary-color)]/10
+        border border-[var(--primary-color)]/10
         bg-[var(--card-color)]
         shadow-lg
         transition-all
@@ -32,17 +85,39 @@ const DealCard = ({
         hover:shadow-2xl
       "
     >
-
       {/* Image */}
-
       <div className="relative h-52 overflow-hidden">
+        {deal.image?.url ? (
+          <img
+            src={deal.image.url}
+            alt={deal.title}
+            className="
+              h-full
+              w-full
+              object-cover
+              transition-transform
+              duration-500
+              hover:scale-105
+            "
+          />
+        ) : (
+          <div
+            className="
+              flex
+              h-full
+              w-full
+              items-center
+              justify-center
+              bg-[var(--background-color)]
+              text-sm
+              text-[var(--text-color)]/50
+            "
+          >
+            No Image
+          </div>
+        )}
 
-        <img
-          src={deal.image}
-          alt={deal.title}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-        />
-
+        {/* Availability */}
         <div
           className="
             absolute
@@ -67,45 +142,55 @@ const DealCard = ({
             </span>
           )}
         </div>
-
       </div>
 
-
       {/* Content */}
-
       <div className="p-5">
-
         <div className="flex items-start justify-between gap-4">
-
           <div>
             <h2 className="text-xl font-bold">
               {deal.title}
             </h2>
 
-            <div className="mt-2 flex items-center gap-2 text-sm text-[var(--text-color)]/60">
-
+            <div
+              className="
+                mt-2
+                flex
+                items-center
+                gap-2
+                text-sm
+                text-[var(--text-color)]/60
+              "
+            >
               <PackageCheck size={16} />
 
               <span>
-                {deal.itemCount} Items
+                {deal.items.length}{" "}
+                {deal.items.length === 1
+                  ? "Item"
+                  : "Items"}
               </span>
-
             </div>
           </div>
 
-          <p className="text-lg font-black text-[var(--primary-color)]">
+          <p
+            className="
+              text-lg
+              font-black
+              text-[var(--primary-color)]
+            "
+          >
             Rs. {deal.totalPrice}
           </p>
-
         </div>
 
-
         {/* Actions */}
-
         <div className="mt-5 flex gap-3">
 
+          {/* Edit */}
           <button
             type="button"
+            onClick={() => onEdit(deal)}
             className="
               flex
               flex-1
@@ -127,8 +212,10 @@ const DealCard = ({
             Edit
           </button>
 
+          {/* Delete */}
           <button
             type="button"
+            onClick={handleDelete}
             className="
               flex
               items-center
@@ -146,9 +233,7 @@ const DealCard = ({
           </button>
 
         </div>
-
       </div>
-
     </div>
   );
 };

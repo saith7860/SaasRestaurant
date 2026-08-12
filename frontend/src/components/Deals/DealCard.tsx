@@ -27,8 +27,8 @@ const DealCard = ({ deal, onClick }: Props) => {
       {/* Image */}
       <div className="relative h-56 overflow-hidden">
         <img
-          src={deal.image}
-          alt={deal.title}
+          src={deal?.image?.url}
+          alt={deal?.title}
           className="
             h-full
             w-full

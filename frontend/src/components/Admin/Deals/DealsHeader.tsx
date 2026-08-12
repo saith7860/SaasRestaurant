@@ -12,7 +12,7 @@ const DealsHeader = ({
 
       <div className="w-full" >
 
-        <p className="mb-18 nx-auto text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl">
+        <p className="mb-18 sm:ml-22 text-center text-2xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-3xl">
           Restaurant Deals
         </p>
 
