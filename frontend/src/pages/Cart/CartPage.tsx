@@ -44,7 +44,7 @@ const checkoutRoute = token ? "/checkout" : "/signup?redirect=/checkout";
   console.log(cart);
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-10 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
       {cart.length == 0 ?
         <div className="flex min-h-[60vh] items-center justify-center">
           <p className="text-center text-2xl font-bold tracking-wide text-[var(--primary-color)]">Your cart is empty!</p>

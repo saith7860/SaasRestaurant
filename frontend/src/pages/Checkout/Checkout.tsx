@@ -33,7 +33,7 @@ const Checkout = () => {
   const orderData = { ...formData, subtotal, deliveryFee, totalAmount }
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)] px-4 py-8 sm:px-6 lg:px-8">
       <h1 className="mb-8 text-center text-3xl font-extrabold tracking-wide text-[var(--primary-color)] sm:text-4xl">
         Checkout
       </h1>

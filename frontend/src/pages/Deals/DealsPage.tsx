@@ -35,7 +35,7 @@ const DealsPage = () => {
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
 
   return (
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)]">
+    <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)]">
 
       <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName || null} setSearch={setSearch} search={search} />
 

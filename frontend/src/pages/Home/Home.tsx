@@ -15,7 +15,7 @@ const Home = () => {
    
   return (
     <>
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden pt-15">
      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <Hero/>
      <BrandStrip />

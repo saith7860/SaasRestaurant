@@ -19,7 +19,7 @@ const Menu = () => {
 
 
   return (
-    <div className="overflow-x-hidden bg-[var(--background-color)] min-h-screen">
+    <div className="overflow-x-hidden pt-15 bg-[var(--background-color)] min-h-screen">
 
       <Navbar
         restaurnatName={

@@ -48,7 +48,7 @@ const Signup = () => {
 
   return (
 
-    <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)]">
+    <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)]">
 
       <TrackingNav restaurnatName={restaurantData?.restaurantData?.restaurantName || null} />
 
