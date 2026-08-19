@@ -95,7 +95,7 @@ const ContactHero = ({
         </p>
 
         {/* Quick contact */}
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-8 flex flex-col mx-auto sm:mx-1 sm:flex-row justify-center gap-2">
 
           <div
             className="
