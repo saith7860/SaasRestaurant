@@ -88,6 +88,7 @@ const DealCard = ({ deal, onClick }: Props) => {
           <span>
             {deal.items.length} items included
           </span>
+          
         </div>
 
         <button
