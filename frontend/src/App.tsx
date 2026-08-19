@@ -9,6 +9,7 @@ import { CartProvider } from "./context/CartContext";  //Making cart functionali
 import Checkout from "./pages/Checkout/Checkout";
 import UserDeal from "./pages/Deals/DealsPage"
 import AboutPage from "./pages/About/AboutPage";
+import ContactUs from "./pages/ContactUs/ContactPage";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/Login/Login";
 import DashBoardLayout from "./pages/admin/DashBoardLayout";
@@ -105,6 +106,7 @@ const App = () => {
             <Route path="/menu" element={<Menu />} />
             <Route path="/deal" element={<UserDeal />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />

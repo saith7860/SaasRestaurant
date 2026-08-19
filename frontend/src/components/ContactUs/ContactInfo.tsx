@@ -8,14 +8,14 @@ import {
 interface ContactInfoProps {
   phone?: string;
   email?: string;
-  address?: string;
+  branchesCount?: number;
   openingHours?: string;
 }
 
 const ContactInfo = ({
   phone,
   email,
-  address,
+  branchesCount,
   openingHours,
 }: ContactInfoProps) => {
   const contactItems = [
@@ -31,8 +31,11 @@ const ContactInfo = ({
     },
     {
       icon: <MapPin size={22} />,
-      title: "Address",
-      value: address || "Address unavailable",
+      title: "Branches",
+      value:
+        branchesCount !== undefined
+          ? `${branchesCount} ${branchesCount === 1 ? "location" : "locations"}`
+          : "Locations unavailable",
     },
     {
       icon: <Clock3 size={22} />,
@@ -42,9 +45,31 @@ const ContactInfo = ({
   ];
 
   return (
-    <section className="py-16">
-
+    <section className="py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-5">
+
+        <div className="mb-10 text-center">
+          <span
+            className="
+              text-sm
+              font-bold
+              uppercase
+              tracking-[0.2em]
+              text-[var(--primary-color)]
+            "
+          >
+            Contact Information
+          </span>
+
+          <h2 className="mt-3 text-3xl font-black md:text-4xl">
+            We're Here for You
+          </h2>
+
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[var(--text-color)]/60 md:text-base">
+            Whether you have a question about an order or simply want
+            to learn more about us, we're happy to help.
+          </p>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
 
@@ -65,7 +90,6 @@ const ContactInfo = ({
                 hover:shadow-xl
               "
             >
-
               <div
                 className="
                   flex
@@ -96,14 +120,11 @@ const ContactInfo = ({
               >
                 {item.value}
               </p>
-
             </div>
           ))}
 
         </div>
-
       </div>
-
     </section>
   );
 };
