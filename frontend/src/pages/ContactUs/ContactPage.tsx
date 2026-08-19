@@ -22,6 +22,8 @@ const ContactUs = () => {
         search=""
       />
 
+      
+
       <ContactHero
         restaurantName={restaurant?.restaurantName || "our restaurant"}
       />

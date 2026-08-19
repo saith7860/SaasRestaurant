@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
