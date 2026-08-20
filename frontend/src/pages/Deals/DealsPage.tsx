@@ -8,11 +8,16 @@ import WhatsAppButton from "../../components/WhatsppButton";
 import Footer from "../../components/Footer/Footer";
 
 export interface Deal {
-  id: string;
+  _id: string;
   title: string;
-  image: string;
+  description: string;
+  image: {
+    url: string;
+    publicId?: string;
+  };
   totalPrice: number;
   isAvailable: boolean;
+
   items: {
     itemId: string;
     itemName: string;

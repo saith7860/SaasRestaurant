@@ -18,8 +18,6 @@ const ContactUs = () => {
 
       <Navbar
         restaurnatName={restaurant?.restaurantName || null}
-        setSearch={() => {}}
-        search=""
       />
 
       

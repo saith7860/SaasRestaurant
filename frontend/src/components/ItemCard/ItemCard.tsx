@@ -5,6 +5,7 @@ import { CartContext } from "../../context/CartContext";
 import Variants from "./Variants";
 import AddToCart from "./AddToCart";
 
+
 interface ItemCardProps {
   item: ItemType;
 }

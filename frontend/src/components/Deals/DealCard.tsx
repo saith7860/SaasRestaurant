@@ -1,4 +1,4 @@
-import { ArrowRight, PackageCheck } from "lucide-react";
+import { Eye, PackageCheck } from "lucide-react";
 import type { Deal } from "../../pages/Deals/DealsPage";
 
 interface Props {
@@ -86,9 +86,9 @@ const DealCard = ({ deal, onClick }: Props) => {
           <PackageCheck size={17} />
 
           <span>
-            {deal.items.length} items included
+            {deal.items.length}{" "}
+            {deal.items.length === 1 ? "item" : "items"} included
           </span>
-          
         </div>
 
         <button
@@ -116,8 +116,8 @@ const DealCard = ({ deal, onClick }: Props) => {
             active:scale-95
           "
         >
-          Customize Deal
-          <ArrowRight size={18} />
+          <Eye size={18} />
+          View Deal
         </button>
       </div>
     </article>

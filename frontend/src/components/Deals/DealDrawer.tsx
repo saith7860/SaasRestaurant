@@ -1,5 +1,17 @@
-import { X } from "lucide-react";
+import {
+  Check,
+  ShoppingCart,
+  X,
+} from "lucide-react";
+
+import { toast } from "react-toastify";
+import { useContext } from "react";
+
+import { CartContext } from "../../context/CartContext";
+import type { CartItem } from "../../types/CartType";
+
 import type { Deal } from "../../pages/Deals/DealsPage";
+import { useRestaurant } from "../../context/RestaurantContext";
 
 interface DealDrawerProps {
   deal: Deal;
@@ -10,6 +22,109 @@ const DealDrawer = ({
   deal,
   onClose,
 }: DealDrawerProps) => {
+  const { setCart } = useContext(CartContext);
+
+  const { restaurantData } = useRestaurant();
+
+  const restaurantItems = restaurantData?.items ?? [];
+
+  /*
+   * Resolve the actual restaurant item
+   * using the itemId stored inside the deal.
+   */
+  const resolvedDealItems = deal.items.map((dealItem) => {
+    const restaurantItem = restaurantItems.find(
+      (item) => item._id === dealItem.itemId
+    );
+
+    /*
+     * Find the selected variant if the deal
+     * contains a variantId.
+     */
+    const selectedVariant = restaurantItem?.variants?.find(
+      (variant) =>
+        variant.id === dealItem.variantId ||
+        variant._id === dealItem.variantId
+    );
+
+    return {
+      dealItem,
+      restaurantItem,
+      selectedVariant,
+    };
+  });
+
+  const handleAddToCart = () => {
+    const dealCartItem: CartItem = {
+      id: `deal-${deal._id}`,
+      name: deal.title,
+      image: deal.image?.url,
+      price: deal.totalPrice,
+      quantity: 1,
+
+      type: "deal",
+      dealId: deal._id,
+
+      dealItems: resolvedDealItems.map(
+        ({
+          dealItem,
+          restaurantItem,
+          selectedVariant,
+        }) => ({
+          itemId: dealItem.itemId,
+
+          itemName:
+            restaurantItem?.name ??
+            "Unknown item",
+
+          itemImage:
+            restaurantItem?.image?.url,
+
+          quantity: dealItem.quantity,
+
+          variantId: dealItem.variantId,
+
+          variation:
+            selectedVariant?.variation,
+
+          variantPrice:
+            selectedVariant?.price,
+        })
+      ),
+    };
+
+    setCart((previousCart) => {
+      const existingDeal = previousCart.find(
+        (item) =>
+          item.type === "deal" &&
+          item.dealId === deal._id
+      );
+
+      if (existingDeal) {
+        return previousCart.map((item) =>
+          item.type === "deal" &&
+          item.dealId === deal._id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
+      }
+
+      return [
+        ...previousCart,
+        dealCartItem,
+      ];
+    });
+
+    toast.success(
+      `${deal.title} added to cart successfully!`
+    );
+
+    onClose();
+  };
+
   return (
     <>
       {/* Backdrop */}
@@ -36,6 +151,7 @@ const DealDrawer = ({
           w-full
           max-w-md
           flex-col
+          overflow-hidden
           bg-[var(--background-color)]
           shadow-2xl
         "
@@ -64,7 +180,7 @@ const DealDrawer = ({
                 text-[var(--primary-color)]
               "
             >
-              Customize Deal
+              Deal Details
             </p>
 
             <h2 className="mt-1 text-xl font-black">
@@ -72,7 +188,6 @@ const DealDrawer = ({
             </h2>
           </div>
 
-          {/* Close */}
           <button
             type="button"
             onClick={onClose}
@@ -90,7 +205,6 @@ const DealDrawer = ({
               bg-[var(--background-color)]
               text-[var(--text-color)]/70
               transition-all
-              duration-200
               hover:border-[var(--primary-color)]/30
               hover:bg-[var(--primary-color)]/10
               hover:text-[var(--primary-color)]
@@ -101,157 +215,309 @@ const DealDrawer = ({
           </button>
         </div>
 
-        {/* Scrollable Content */}
+        {/* Content */}
         <div className="flex-1 overflow-y-auto px-5 py-6">
+
           {/* Deal Image */}
           <div className="overflow-hidden rounded-2xl">
             <img
-              src={deal.image}
+              src={deal.image?.url}
               alt={deal.title}
               className="
-                h-48
+                h-52
                 w-full
                 object-cover
               "
             />
           </div>
 
-          {/* Description */}
+          {/* Deal Info */}
           <div className="mt-5">
-            <h3 className="text-lg font-bold">
-              Choose Your Items
+            <h3 className="text-2xl font-black">
+              {deal.title}
             </h3>
 
-            <p className="mt-1 text-sm leading-6 text-[var(--text-color)]/60">
-              Select your preferred variants and quantity for
-              each item in this deal.
-            </p>
-          </div>
-
-          {/* Items */}
-          <div className="mt-6 space-y-4">
-            {deal.items.map((item) => (
-              <div
-                key={item.itemId}
+            {deal.description && (
+              <p
                 className="
-                  rounded-2xl
-                  border
-                  border-[var(--primary-color)]/10
-                  bg-[var(--card-color)]
-                  p-4
+                  mt-2
+                  text-sm
+                  leading-6
+                  text-[var(--text-color)]/60
                 "
               >
-                <div className="flex gap-4">
-                  <img
-                    src={item.itemImage}
-                    alt={item.itemName}
+                {deal.description}
+              </p>
+            )}
+
+            <div
+              className="
+                mt-4
+                flex
+                items-center
+                justify-between
+                rounded-xl
+                bg-[var(--primary-color)]/10
+                px-4
+                py-3
+              "
+            >
+              <span className="text-sm font-semibold">
+                Deal Price
+              </span>
+
+              <span
+                className="
+                  text-xl
+                  font-black
+                  text-[var(--primary-color)]
+                "
+              >
+                Rs. {deal.totalPrice}
+              </span>
+            </div>
+          </div>
+
+          {/* Included Items */}
+          <div className="mt-7">
+
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold">
+                What's Included
+              </h3>
+
+              <span className="text-sm text-[var(--text-color)]/50">
+                {deal.items.length}{" "}
+                {deal.items.length === 1
+                  ? "item"
+                  : "items"}
+              </span>
+            </div>
+
+            <div className="mt-4 space-y-3">
+
+              {resolvedDealItems.map(
+                ({
+                  dealItem,
+                  restaurantItem,
+                  selectedVariant,
+                }) => (
+                  <div
+                    key={dealItem._id ?? dealItem.itemId}
                     className="
-                      h-20
-                      w-20
-                      shrink-0
-                      rounded-xl
-                      object-cover
-                    "
-                  />
-
-                  <div className="min-w-0">
-                    <h4 className="font-bold">
-                      {item.itemName}
-                    </h4>
-
-                    <p className="mt-1 text-xs text-[var(--text-color)]/50">
-                      Select variant and quantity
-                    </p>
-                  </div>
-                </div>
-
-                {/* Temporary variant UI */}
-                <div className="mt-4">
-                  <label className="mb-2 block text-sm font-semibold">
-                    Variant
-                  </label>
-
-                  <select
-                    className="
-                      w-full
-                      rounded-xl
+                      rounded-2xl
                       border
-                      border-[var(--primary-color)]/15
-                      bg-[var(--background-color)]
-                      px-4
-                      py-3
-                      text-sm
-                      outline-none
-                      focus:border-[var(--primary-color)]
+                      border-[var(--primary-color)]/10
+                      bg-[var(--card-color)]
+                      p-4
                     "
                   >
-                    {item.variants.map((variant) => (
-                      <option
-                        key={variant.id}
-                        value={variant.id}
+                    <div className="flex gap-4">
+
+                      {/* ITEM IMAGE */}
+                      <div
+                        className="
+                          h-20
+                          w-20
+                          shrink-0
+                          overflow-hidden
+                          rounded-xl
+                          bg-[var(--primary-color)]/10
+                        "
                       >
-                        {variant.variation} — Rs. {variant.price}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                        {restaurantItem?.image?.url ? (
+                          <img
+                            src={restaurantItem.image.url}
+                            alt={
+                              restaurantItem.name
+                            }
+                            className="
+                              h-full
+                              w-full
+                              object-cover
+                            "
+                          />
+                        ) : (
+                          <div
+                            className="
+                              flex
+                              h-full
+                              w-full
+                              items-center
+                              justify-center
+                              text-xs
+                              text-[var(--text-color)]/40
+                            "
+                          >
+                            No image
+                          </div>
+                        )}
+                      </div>
 
-                {/* Temporary quantity UI */}
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-sm font-semibold">
-                    Quantity
-                  </span>
+                      {/* ITEM INFO */}
+                      <div className="min-w-0 flex-1">
 
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
+                        <h4 className="font-bold">
+                          {restaurantItem?.name ??
+                            "Item unavailable"}
+                        </h4>
+
+                        <p
+                          className="
+                            mt-1
+                            text-xs
+                            text-[var(--text-color)]/50
+                          "
+                        >
+                          Included in this deal
+                        </p>
+
+                        {/* Quantity */}
+                        <div className="mt-2">
+                          <span
+                            className="
+                              rounded-lg
+                              bg-[var(--primary-color)]/10
+                              px-2.5
+                              py-1
+                              text-xs
+                              font-semibold
+                              text-[var(--primary-color)]
+                            "
+                          >
+                            Qty: {dealItem.quantity}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Selected Variant */}
+                    {selectedVariant && (
+                      <div className="mt-4">
+                        <p
+                          className="
+                            mb-2
+                            text-xs
+                            font-semibold
+                            uppercase
+                            tracking-wide
+                            text-[var(--text-color)]/50
+                          "
+                        >
+                          Included variant
+                        </p>
+
+                        <div
+                          className="
+                            flex
+                            items-center
+                            justify-between
+                            rounded-xl
+                            border
+                            border-[var(--primary-color)]/10
+                            bg-[var(--background-color)]
+                            px-3
+                            py-2
+                          "
+                        >
+                          <span className="text-sm font-semibold">
+                            {selectedVariant.variation}
+                          </span>
+
+                          <span
+                            className="
+                              text-sm
+                              font-bold
+                              text-[var(--primary-color)]
+                            "
+                          >
+                            Rs.{" "}
+                            {selectedVariant.price}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Available Variants */}
+                    {restaurantItem?.variants?.length ? (
+                      <div className="mt-4">
+                        <p
+                          className="
+                            mb-2
+                            text-xs
+                            font-semibold
+                            uppercase
+                            tracking-wide
+                            text-[var(--text-color)]/50
+                          "
+                        >
+                          Available variants
+                        </p>
+
+                        <div className="flex flex-wrap gap-2">
+                          {restaurantItem.variants.map(
+                            (variant) => (
+                              <span
+                                key={
+                                  variant.id ??
+                                  variant._id
+                                }
+                                className={`
+                                  rounded-lg
+                                  border
+                                  px-3
+                                  py-1.5
+                                  text-xs
+                                  ${
+                                    variant.id ===
+                                      dealItem.variantId ||
+                                    variant._id ===
+                                      dealItem.variantId
+                                      ? `
+                                        border-[var(--primary-color)]
+                                        bg-[var(--primary-color)]/10
+                                        font-bold
+                                        text-[var(--primary-color)]
+                                      `
+                                      : `
+                                        border-[var(--primary-color)]/10
+                                        bg-[var(--background-color)]
+                                        text-[var(--text-color)]/70
+                                      `
+                                  }
+                                `}
+                              >
+                                {variant.variation}
+                              </span>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    <div
                       className="
+                        mt-4
                         flex
-                        h-9
-                        w-9
                         items-center
-                        justify-center
-                        rounded-lg
-                        bg-[var(--button-color)]
-                        text-[var(--button-text-color)]
-                        transition
-                        hover:bg-[var(--primary-color)]
-                        active:scale-95
+                        gap-2
+                        text-xs
+                        font-semibold
+                        text-green-500
                       "
                     >
-                      -
-                    </button>
-
-                    <span className="min-w-6 text-center font-bold">
-                      1
-                    </span>
-
-                    <button
-                      type="button"
-                      className="
-                        flex
-                        h-9
-                        w-9
-                        items-center
-                        justify-center
-                        rounded-lg
-                        bg-[var(--button-color)]
-                        text-[var(--button-text-color)]
-                        transition
-                        hover:bg-[var(--primary-color)]
-                        active:scale-95
-                      "
-                    >
-                      +
-                    </button>
+                      <Check size={15} />
+                      Included in deal
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                )
+              )}
+
+            </div>
           </div>
         </div>
 
-        {/* Bottom Summary */}
+        {/* Bottom */}
         <div
           className="
             shrink-0
@@ -263,18 +529,29 @@ const DealDrawer = ({
         >
           <div className="mb-4 flex items-center justify-between">
             <span className="text-sm text-[var(--text-color)]/60">
-              Deal Price
+              Total
             </span>
 
-            <span className="text-xl font-black text-[var(--primary-color)]">
+            <span
+              className="
+                text-2xl
+                font-black
+                text-[var(--primary-color)]
+              "
+            >
               Rs. {deal.totalPrice}
             </span>
           </div>
 
           <button
             type="button"
+            onClick={handleAddToCart}
             className="
+              flex
               w-full
+              items-center
+              justify-center
+              gap-2
               rounded-xl
               bg-[var(--button-color)]
               px-5
@@ -290,6 +567,7 @@ const DealDrawer = ({
               active:scale-[0.98]
             "
           >
+            <ShoppingCart size={19} />
             Add Deal to Cart
           </button>
         </div>

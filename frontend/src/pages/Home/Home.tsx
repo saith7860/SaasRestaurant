@@ -2,9 +2,8 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar"
 import Hero from "../../components/Home/Hero/Hero";
 import { useRestaurant } from "../../context/RestaurantContext";
-import PopularItems from "../../components/Home/PopularItems/PopularItems";
 import FeaturedCategories from "../../components/Home/Featured Categories/FeaturedCategories";
-import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
+// import BrandStrip from "../../components/Home/BrandStrip/BrandStrip";
 import WhyChooseUs from "../../components/Home/WhyChooseUs/WhyChooseUs";
 import CTABanner from "../../components/Home/CTABanner/CTABanner";
 import WhatsAppButton from "../../components/WhatsppButton";
@@ -18,9 +17,8 @@ const Home = () => {
     <div className="overflow-x-hidden pt-15">
      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
      <Hero/>
-     <BrandStrip />
+     <hr />
      <FeaturedCategories />
-     <PopularItems search={search} />
      <WhyChooseUs />
      <CTABanner />
      <Footer />
