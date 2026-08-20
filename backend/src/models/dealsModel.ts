@@ -40,7 +40,6 @@ const DealSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Variant"
         },
-
         quantity: {
             type: Number,
             default: 1
