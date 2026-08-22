@@ -1,8 +1,5 @@
 import { useRestaurant } from "../../context/RestaurantContext";
-import ContactHero from "../../components/ContactUs/ContactHero";
 import ContactInfo from "../../components/ContactUs/ContactInfo";
-import ContactForm from "../../components/ContactUs/ContactForm";
-import ContactMap from "../../components/ContactUs/ContactMap";
 import ContactCTA from "../../components/ContactUs/ContactCTA";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer/Footer";
@@ -22,21 +19,23 @@ const ContactUs = () => {
 
       
 
-      <ContactHero
+      {/* <ContactHero
         restaurantName={restaurant?.restaurantName || "our restaurant"}
-      />
+      /> */}
 
       <ContactInfo
         phone={restaurant?.contactNumber}
         email={restaurant?.restaurantEmail}
         branchesCount={restaurantData?.branches?.length}
+        openingHours={`
+        ${restaurantData?.branches?.[0].openingTime} - ${restaurantData?.branches?.[0].closingTime}`}
       />
 
-      <ContactForm />
+      {/* <ContactForm /> */}
 
-      <ContactMap
+      {/* <ContactMap
         branches={restaurantData?.branches || []}
-      />
+      /> */}
 
       <ContactCTA />
 

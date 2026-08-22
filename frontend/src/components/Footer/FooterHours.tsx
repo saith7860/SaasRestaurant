@@ -1,22 +1,24 @@
+import { useRestaurant } from "../../context/RestaurantContext";
 const FooterHours = () => {
+    const { restaurantData } = useRestaurant();
   return (
     <div>
 
       <h3 className="mb-6 text-lg font-bold text-white">
-        Opening Hours
+        Opening Time
       </h3>
 
       <div className="space-y-3 text-white/70">
 
-        <p>Monday - Friday</p>
 
-        <p>11:00 AM - 11:00 PM</p>
+        <p>{restaurantData?.branches?.[0].openingTime || "Not Available"}</p>
 
-        <br />
+      <h3 className="mb-6 text-lg font-bold text-white">
+        Closing Time
+      </h3>
 
-        <p>Saturday - Sunday</p>
+        <p>{restaurantData?.branches?.[0].closingTime || "Not Available"}</p>
 
-        <p>10:00 AM - 12:00 AM</p>
 
       </div>
 

@@ -3,8 +3,9 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-
+import { useRestaurant } from "../../context/RestaurantContext";
 const FooterContact = () => {
+  const {restaurantData} =useRestaurant();
   return (
     <div>
 
@@ -19,7 +20,7 @@ const FooterContact = () => {
           <Phone size={18} className="text-[var(--primary-color)]" />
 
           <span className="text-white/70">
-            +92 300 1234567
+            {restaurantData?.branches?.[0].contactNumber || "Not Available"}
           </span>
 
         </div>
@@ -29,7 +30,7 @@ const FooterContact = () => {
           <Mail size={18} className="text-[var(--primary-color)]" />
 
           <span className="text-white/70">
-            hello@restaurant.com
+            {restaurantData?.restaurantData?.restaurantEmail || "Not Available"}
           </span>
 
         </div>
@@ -38,8 +39,8 @@ const FooterContact = () => {
 
           <MapPin size={18} className="text-[var(--primary-color)]" />
 
-          <span className="text-white/70">
-            Lahore, Pakistan
+          <span className="text-white/70"> 
+            {restaurantData?.branches?.[0].address || "Not Available"}
           </span>
 
         </div>

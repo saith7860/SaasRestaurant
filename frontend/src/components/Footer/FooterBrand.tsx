@@ -1,30 +1,36 @@
-import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
-
+import { FaFacebookF, FaInstagram } from "react-icons/fa6";
+import { useRestaurant } from "../../context/RestaurantContext";
+import { toast } from "react-toastify";
 const FooterBrand = () => {
-
+const {restaurantData} =useRestaurant();
   const socials = [
-    FaFacebookF,
-    FaInstagram,
-    FaXTwitter,
+    { name: "Facebook", url: restaurantData?.restaurantData?.socialLinks.facebook, icon: FaFacebookF },
+    { name: "Instagram", url: restaurantData?.restaurantData?.socialLinks.instagram, icon: FaInstagram },
   ];
-
+  const handleRedirect=(url:string)=>{
+    if(url){
+      window.open(url, "_blank");
+    }
+    else{
+       toast.error("No link available")
+    }
+  }
   return (
     <div>
 
-      <h2 className="text-3xl font-black text-white">
-        Saucy Sals
-      </h2>
+      <h3 className="text-3xl font-black text-white">
+        {restaurantData?.restaurantData?.restaurantName}
+      </h3>
 
       <p className="mt-5 max-w-sm leading-7 text-white/70">
-        Freshly prepared meals delivered with love.
-        Quality ingredients, unforgettable taste,
-        and fast delivery.
+        {restaurantData?.restaurantData?.description.slice(0,50)}
       </p>
 
       <div className="mt-7 flex gap-4">
-        {socials.map((Icon, index) => (
+        {socials.map((social) => (
           <button
-            key={index}
+            onClick={()=>handleRedirect(social.url)}
+            key={social.name}
             className="
                 flex
                 h-11
@@ -38,7 +44,7 @@ const FooterBrand = () => {
                 hover:bg-[var(--primary-color)]
                 "
           >
-            <Icon className="text-lg text-white" />
+            <social.icon className="text-lg text-white" />
           </button>
         ))}
       </div>

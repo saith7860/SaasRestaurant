@@ -1,16 +1,20 @@
-const HeroImage = () => {
-  return (
-    <div className="relative flex justify-center">
+import { useRestaurant } from "../../../context/RestaurantContext";
 
-      <div className="absolute h-96 w-96 rounded-full bg-[var(--primary-color)]/20 blur-[120px]" />
+const HeroImage = () => {
+  const {restaurantData} = useRestaurant();
+  console.log(restaurantData?.restaurantData?.banner.publicId);
+  
+  return (
+  
+      
 
       <img
-        src="/burger.png"
+        src={restaurantData?.restaurantData?.banner?.url}
         alt="Burger"
-        className="relative z-10 w-full max-w-lg"
+        className="mt-10 mb-10 w-[100]"
       />
 
-    </div>
+
   );
 };
 
