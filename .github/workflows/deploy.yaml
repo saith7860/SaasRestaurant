@@ -1,4 +1,4 @@
-name: deploy to aws ec2
+name: deploy to aws ec2 service
 on:
  push:
     branches:
