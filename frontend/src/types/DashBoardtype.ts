@@ -85,7 +85,7 @@ export interface DashboardData {
   categories: CategoryType[];
   items: ItemType[];
 }
-interface Deal{
+export interface Deal{
   _id:string;
   itemId:string;
   variantId:string;
@@ -96,6 +96,7 @@ export interface Deals {
   restaurantId:string;
   branchId?:string;
   title:string;
+  description:string
   image?: {
     url: string;
     publicId: string;

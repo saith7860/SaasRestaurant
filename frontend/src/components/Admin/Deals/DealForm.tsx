@@ -5,42 +5,17 @@ import DealItemSelector from "./DealItemSelector";
 import DealImageUpload from "./DealImageUpload";
 import { useDashboard } from "../../../context/DashBoardContext";
 import api from "../../../api/api";
-
-
-interface Deal {
-  _id: string;
-  title: string;
-  description: string;
-  branchId: string;
-  restaurantId: string;
-
-  image?: {
-    url: string;
-    publicId: string;
-  };
-
-  totalPrice: number;
-  items: DealItem[];
-  isAvailable: boolean;
-}
-
-interface DealItem {
-  itemId: string;
-  variantId?: string;
-  quantity: number;
-}
-
+import type { Deal } from "../../../types/DashBoardtype";
 interface DealFormData {
   title: string;
   description: string;
   branchId: string;
-  isAvailable: boolean;
-  items: DealItem[];
+  items: Deal[];
 }
 
 interface DealFormProps {
   onCancel: () => void;
-  deal?: Deal;
+  deal?: DealFormData;
 }
 
 const DealForm = ({ onCancel, deal }: DealFormProps) => {
@@ -53,7 +28,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
       title: "",
       description: "",
       branchId: "",
-      isAvailable: true,
       items: [],
     });
 
@@ -70,7 +44,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
       title: deal.title || "",
       description: deal.description || "",
       branchId: deal.branchId || "",
-      isAvailable: deal.isAvailable ?? true,
       items: deal.items || [],
     });
 
@@ -97,15 +70,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
 
   const handleSubmit = async () => {
     try {
-      if (!formData.title.trim()) {
-        alert("Deal title is required");
-        return;
-      }
-
-      if (!formData.branchId) {
-        alert("Please select a branch");
-        return;
-      }
 
       if (formData.items.length === 0) {
         alert("Please add at least one item");
@@ -126,11 +90,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
       );
 
       payload.append(
-        "isAvailable",
-        String(formData.isAvailable)
-      );
-
-      payload.append(
         "items",
         JSON.stringify(formData.items)
       );
@@ -144,12 +103,9 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
           ? "========== UPDATE DEAL =========="
           : "========== CREATE DEAL =========="
       );
-
-      console.log("Deal ID:", deal?._id);
       console.log("Title:", formData.title);
       console.log("Description:", formData.description);
       console.log("Branch ID:", formData.branchId);
-      console.log("Available:", formData.isAvailable);
       console.log("Items:", formData.items);
       console.log("Image:", dealImage);
 

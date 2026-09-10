@@ -156,170 +156,170 @@ const AboutPage = () => {
    Small Reusable Components
 ========================================================= */
 
-interface ValueCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+// interface ValueCardProps {
+//   icon: React.ReactNode;
+//   title: string;
+//   description: string;
+// }
 
-const ValueCard = ({
-  icon,
-  title,
-  description,
-}: ValueCardProps) => {
-  return (
-    <div
-      className="
-        rounded-2xl
-        border
-        border-[var(--primary-color)]/10
-        bg-[var(--card-color)]
-        p-6
-        shadow-sm
-        transition-all
-        duration-300
-        hover:-translate-y-1
-        hover:border-[var(--primary-color)]/25
-        hover:shadow-xl
-      "
-    >
-      <div
-        className="
-          flex
-          h-12
-          w-12
-          items-center
-          justify-center
-          rounded-xl
-          bg-[var(--primary-color)]/10
-          text-[var(--primary-color)]
-        "
-      >
-        {icon}
-      </div>
+// const ValueCard = ({
+//   icon,
+//   title,
+//   description,
+// }: ValueCardProps) => {
+//   return (
+//     <div
+//       className="
+//         rounded-2xl
+//         border
+//         border-[var(--primary-color)]/10
+//         bg-[var(--card-color)]
+//         p-6
+//         shadow-sm
+//         transition-all
+//         duration-300
+//         hover:-translate-y-1
+//         hover:border-[var(--primary-color)]/25
+//         hover:shadow-xl
+//       "
+//     >
+//       <div
+//         className="
+//           flex
+//           h-12
+//           w-12
+//           items-center
+//           justify-center
+//           rounded-xl
+//           bg-[var(--primary-color)]/10
+//           text-[var(--primary-color)]
+//         "
+//       >
+//         {icon}
+//       </div>
 
-      <h3 className="mt-5 text-lg font-bold">
-        {title}
-      </h3>
+//       <h3 className="mt-5 text-lg font-bold">
+//         {title}
+//       </h3>
 
-      <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/60">
-        {description}
-      </p>
-    </div>
-  );
-};
+//       <p className="mt-2 text-sm leading-6 text-[var(--text-color)]/60">
+//         {description}
+//       </p>
+//     </div>
+//   );
+// };
 
-interface WhyChooseItemProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
+// interface WhyChooseItemProps {
+//   icon: React.ReactNode;
+//   title: string;
+//   description: string;
+// }
 
-const WhyChooseItem = ({
-  icon,
-  title,
-  description,
-}: WhyChooseItemProps) => {
-  return (
-    <div className="flex gap-4">
+// const WhyChooseItem = ({
+//   icon,
+//   title,
+//   description,
+// }: WhyChooseItemProps) => {
+//   return (
+//     <div className="flex gap-4">
 
-      <div
-        className="
-          flex
-          h-10
-          w-10
-          shrink-0
-          items-center
-          justify-center
-          rounded-xl
-          bg-[var(--primary-color)]/10
-          text-[var(--primary-color)]
-        "
-      >
-        {icon}
-      </div>
+//       <div
+//         className="
+//           flex
+//           h-10
+//           w-10
+//           shrink-0
+//           items-center
+//           justify-center
+//           rounded-xl
+//           bg-[var(--primary-color)]/10
+//           text-[var(--primary-color)]
+//         "
+//       >
+//         {icon}
+//       </div>
 
-      <div>
-        <h3 className="font-bold">
-          {title}
-        </h3>
+//       <div>
+//         <h3 className="font-bold">
+//           {title}
+//         </h3>
 
-        <p className="mt-1 text-sm leading-6 text-[var(--text-color)]/60">
-          {description}
-        </p>
-      </div>
+//         <p className="mt-1 text-sm leading-6 text-[var(--text-color)]/60">
+//           {description}
+//         </p>
+//       </div>
 
-    </div>
-  );
-};
+//     </div>
+//   );
+// };
 
-interface FeatureStatProps {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}
+// interface FeatureStatProps {
+//   icon: React.ReactNode;
+//   label: string;
+//   value: string;
+// }
 
-const FeatureStat = ({
-  icon,
-  label,
-  value,
-}: FeatureStatProps) => {
-  return (
-    <div
-      className="
-        rounded-2xl
-        border
-        border-[var(--primary-color)]/10
-        bg-[var(--card-color)]
-        p-5
-        text-center
-      "
-    >
-      <div className="flex justify-center text-[var(--primary-color)]">
-        {icon}
-      </div>
+// const FeatureStat = ({
+//   icon,
+//   label,
+//   value,
+// }: FeatureStatProps) => {
+//   return (
+//     <div
+//       className="
+//         rounded-2xl
+//         border
+//         border-[var(--primary-color)]/10
+//         bg-[var(--card-color)]
+//         p-5
+//         text-center
+//       "
+//     >
+//       <div className="flex justify-center text-[var(--primary-color)]">
+//         {icon}
+//       </div>
 
-      <p className="mt-3 text-xl font-black">
-        {value}
-      </p>
+//       <p className="mt-3 text-xl font-black">
+//         {value}
+//       </p>
 
-      <p className="mt-1 text-xs text-[var(--text-color)]/50">
-        {label}
-      </p>
-    </div>
-  );
-};
+//       <p className="mt-1 text-xs text-[var(--text-color)]/50">
+//         {label}
+//       </p>
+//     </div>
+//   );
+// };
 
-interface StatProps {
-  value: string;
-  label: string;
-  note?: string;
-}
+// interface StatProps {
+//   value: string;
+//   label: string;
+//   note?: string;
+// }
 
-const Stat = ({
-  value,
-  label,
-  note,
-}: StatProps) => {
-  return (
-    <div className="text-center">
+// const Stat = ({
+//   value,
+//   label,
+//   note,
+// }: StatProps) => {
+//   return (
+//     <div className="text-center">
 
-      <p className="text-3xl font-black text-[var(--primary-color)] sm:text-4xl">
-        {value}
-      </p>
+//       <p className="text-3xl font-black text-[var(--primary-color)] sm:text-4xl">
+//         {value}
+//       </p>
 
-      <p className="mt-2 text-sm font-bold">
-        {label}
-      </p>
+//       <p className="mt-2 text-sm font-bold">
+//         {label}
+//       </p>
 
-      {note && (
-        <p className="mt-1 text-xs text-[var(--text-color)]/40">
-          {note}
-        </p>
-      )}
+//       {note && (
+//         <p className="mt-1 text-xs text-[var(--text-color)]/40">
+//           {note}
+//         </p>
+//       )}
 
-    </div>
-  );
-};
+//     </div>
+//   );
+// };
 
 export default AboutPage;

@@ -3,7 +3,7 @@ import {
   ShoppingCart,
   X,
 } from "lucide-react";
-
+import type { variantType } from "../../types/DashBoardtype";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 
@@ -42,8 +42,7 @@ const DealDrawer = ({
      * contains a variantId.
      */
     const selectedVariant = restaurantItem?.variants?.find(
-      (variant) =>
-        variant.id === dealItem.variantId ||
+      (variant:variantType) =>
         variant._id === dealItem.variantId
     );
 
