@@ -1,0 +1,26 @@
+name: deploy to aws ec2 service
+on:
+ push:
+    branches:
+     - master
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v6
+            - name: deploy via ssh
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.HOST }}
+                username: ubuntu
+                key: ${{ secrets.SSH_KEY }}
+                script: |
+                   cd SaasRestaurant
+                   git pull origin master
+                   sudo docker compose down 
+                   sudo docker compose up -d --build
+                
+               
+            
+
