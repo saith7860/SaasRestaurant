@@ -8,7 +8,7 @@ import WhatsAppButton from "../../components/WhatsppButton";
 import Footer from "../../components/Footer/Footer";
 import type { Deals } from "../../types/DashBoardtype";
 
-const DealsPage = () => {
+export const DealsPage = () => {
 
   const { restaurantData } = useRestaurant();
 
@@ -36,4 +36,3 @@ const DealsPage = () => {
   );
 };
 
-export default DealsPage;

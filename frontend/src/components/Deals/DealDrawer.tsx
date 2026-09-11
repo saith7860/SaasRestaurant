@@ -455,12 +455,9 @@ const DealDrawer = ({
 
                         <div className="flex flex-wrap gap-2">
                           {restaurantItem.variants.map(
-                            (variant) => (
+                            (variant:variantType) => (
                               <span
-                                key={
-                                  variant.id ??
-                                  variant._id
-                                }
+                                key={variant._id}
                                 className={`
                                   rounded-lg
                                   border
@@ -468,7 +465,7 @@ const DealDrawer = ({
                                   py-1.5
                                   text-xs
                                   ${
-                                    variant.id ===
+                                    variant._id===
                                       dealItem.variantId ||
                                     variant._id ===
                                       dealItem.variantId

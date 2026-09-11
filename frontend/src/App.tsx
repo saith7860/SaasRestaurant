@@ -7,7 +7,7 @@ import CartPage from "./pages/Cart/CartPage";
 import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
 import Checkout from "./pages/Checkout/Checkout";
-import UserDeal from "./pages/Deals/DealsPage"
+import DealsPage from "./pages/admin/Deals/DealsPage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactUs from "./pages/ContactUs/ContactPage";
 import Signup from "./pages/signup/Signup";
@@ -104,7 +104,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
-            <Route path="/deal" element={<UserDeal />} />
+            <Route path="/deal" element={<DealsPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/cart" element={<CartPage />} />

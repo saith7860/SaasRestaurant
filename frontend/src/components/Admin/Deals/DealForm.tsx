@@ -67,7 +67,10 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
 
   const handleSubmit = async () => {
     try {
-
+      if (!restaurant?._id || !formData.branchId) {
+        alert("Restaurant id or branch id is missing. Please try again.");
+        return;
+      }
       if (formData.items.length === 0) {
         alert("Please add at least one item");
         return;
@@ -79,11 +82,12 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
 
       payload.append("title", formData.title);
       payload.append("description", formData.description);
+      
       payload.append("branchId", formData.branchId);
 
       payload.append(
         "restaurantId",
-        restaurant?._id
+        restaurant._id
       );
 
       payload.append(

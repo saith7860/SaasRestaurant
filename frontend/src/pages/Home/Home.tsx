@@ -8,16 +8,16 @@ import Footer from "../../components/Footer/Footer";
 import DealsGrid from "../../components/Deals/DealsGrid";
 import DealDrawer from "../../components/Deals/DealDrawer";
 import DealHeader from "../../components/Deals/DealHeader";
-import type { Deal } from "../Deals/DealsPage";
+import type { Deals } from "../../types/DashBoardtype";
 const Home = () => {
-   const [search, setSearch] = useState<string>("");
+  //  const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
-     const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+     const [selectedDeal, setSelectedDeal] = useState<Deals | null>(null);
    
   return (
     <>
     <div className="overflow-x-hidden pt-15">
-     <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null} setSearch={setSearch}   search={search}/>
+     <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName||null}/>
      <Hero/>
      
      <FeaturedCategories />
