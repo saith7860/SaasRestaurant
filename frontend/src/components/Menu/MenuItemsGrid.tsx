@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { useRestaurant } from "../../context/RestaurantContext";
 import ShowItems from "../ItemCard/ShowItems";
+import type { ItemType } from "../../types/HomePageTypes";
+import type { CategoryType } from "../../types/DashBoardtype";
 
 interface Props {
   search: string;
@@ -21,7 +23,7 @@ const MenuItemsGrid = ({
     // SEARCH MODE
     if (keyword) {
       return restaurantData.items.filter(
-        (item) =>
+        (item:ItemType) =>
           item.name.toLowerCase().includes(keyword) ||
           item.description.toLowerCase().includes(keyword)
       );
@@ -32,8 +34,8 @@ const MenuItemsGrid = ({
       return restaurantData.items;
     }
 
-    return restaurantData.items.filter(
-      (item) => item.categoryId === selectedCategory
+    return restaurantData.category.filter(
+      (category:CategoryType) => category.category === selectedCategory
     );
   }, [restaurantData, search, selectedCategory]);
 
@@ -42,7 +44,7 @@ const MenuItemsGrid = ({
     : selectedCategory === "All"
     ? "All Items"
     : restaurantData?.category.find(
-        (cat) => cat._id === selectedCategory
+        (cat:CategoryType) => cat._id === selectedCategory
       )?.category || "Items";
 
   if (!filteredItems.length) {

@@ -6,43 +6,18 @@ import DealDrawer from "../../components/Deals/DealDrawer";
 import Navbar from "../../components/Navbar";
 import WhatsAppButton from "../../components/WhatsppButton";
 import Footer from "../../components/Footer/Footer";
-
-export interface Deal {
-  _id: string;
-  title: string;
-  description: string;
-  image: {
-    url: string;
-    publicId?: string;
-  };
-  totalPrice: number;
-  isAvailable: boolean;
-
-  items: {
-    itemId: string;
-    itemName: string;
-    itemImage: string;
-    variants: {
-      id: string;
-      variation: string;
-      price: number;
-    }[];
-  }[];
-}
+import type { Deals } from "../../types/DashBoardtype";
 
 const DealsPage = () => {
 
-
-
-  const [search, setSearch] = useState<string>("");
   const { restaurantData } = useRestaurant();
 
-  const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [selectedDeal, setSelectedDeal] = useState<Deals | null>(null);
 
   return (
     <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)]">
 
-      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName || null} setSearch={setSearch} search={search} />
+      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName || null} />
 
       <DealsHero />
 

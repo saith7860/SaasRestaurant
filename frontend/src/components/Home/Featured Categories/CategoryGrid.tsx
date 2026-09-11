@@ -1,6 +1,6 @@
 import { useRestaurant } from "../../../context/RestaurantContext";
 import CategoryCard from "./CategoryCard";
-
+import type { CategoryType } from "../../../types/DashBoardtype";
 const CategoryGrid = () => {
 
   const { restaurantData } = useRestaurant();
@@ -23,7 +23,7 @@ const CategoryGrid = () => {
         "
       >
 
-      {categories.map((category) => (
+      {categories.map((category:CategoryType) => (
 
         <CategoryCard
           key={category._id}

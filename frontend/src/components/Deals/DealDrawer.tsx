@@ -3,18 +3,18 @@ import {
   ShoppingCart,
   X,
 } from "lucide-react";
-import type { variantType } from "../../types/DashBoardtype";
+import type { Deal, variantType } from "../../types/DashBoardtype";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 
 import { CartContext } from "../../context/CartContext";
 import type { CartItem } from "../../types/CartType";
-
-import type { Deal } from "../../pages/Deals/DealsPage";
+import type { Deals } from "../../types/DashBoardtype";
 import { useRestaurant } from "../../context/RestaurantContext";
+import type { ItemType } from "../../types/HomePageTypes";
 
 interface DealDrawerProps {
-  deal: Deal;
+  deal: Deals;
   onClose: () => void;
 }
 
@@ -32,9 +32,9 @@ const DealDrawer = ({
    * Resolve the actual restaurant item
    * using the itemId stored inside the deal.
    */
-  const resolvedDealItems = deal.items.map((dealItem) => {
+  const resolvedDealItems = deal.items.map((dealItem:Deal) => {
     const restaurantItem = restaurantItems.find(
-      (item) => item._id === dealItem.itemId
+      (item:ItemType) => item._id === dealItem.itemId
     );
 
     /*
@@ -302,7 +302,7 @@ const DealDrawer = ({
                   selectedVariant,
                 }) => (
                   <div
-                    key={dealItem._id ?? dealItem.itemId}
+                    key={dealItem.itemId}
                     className="
                       rounded-2xl
                       border

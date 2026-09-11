@@ -1,38 +1,15 @@
 import { Edit, Trash2, PackageCheck } from "lucide-react";
 import api from "../../../api/api";
-
-interface DealItem {
-  itemId: string;
-  variantId?: string;
-  quantity: number;
-}
-
-interface Deal {
-  _id: string;
-  title: string;
-  description: string;
-  branchId: string;
-  restaurantId: string;
-
-  image?: {
-    url: string;
-    publicId: string;
-  };
-
-  totalPrice: number;
-  items: DealItem[];
-  isAvailable: boolean;
-}
+import type { Deals } from "../../../types/DashBoardtype";
 
 interface DealCardProps {
-  deal: Deal;
+  deal: Deals;
 
-  onEdit: (deal: Deal) => void;
+  onEdit: (deal: Deals) => void;
 
   onDelete: (dealId: string) => void;
 }
 
-const API_URL = "https://ordreva-testing.onrender.com";
 
 const DealCard = ({
   deal,
@@ -57,16 +34,7 @@ const DealCard = ({
       onDelete(deal._id);
 
     } catch (error) {
-      console.error("Failed to delete deal:", error);
-
-      if (axios.isAxiosError(error)) {
-        console.error(
-          "Backend error:",
-          error.response?.data
-        );
-      }
-
-      alert("Failed to delete deal.");
+     console.log('error in deleting the deal',error)
     }
   };
 
@@ -132,15 +100,7 @@ const DealCard = ({
             backdrop-blur
           "
         >
-          {deal.isAvailable ? (
-            <span className="text-green-500">
-              Active
-            </span>
-          ) : (
-            <span className="text-red-400">
-              Inactive
-            </span>
-          )}
+
         </div>
       </div>
 

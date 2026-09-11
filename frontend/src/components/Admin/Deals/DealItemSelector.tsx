@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
 import { useRestaurant } from "../../../context/RestaurantContext";
 import VariantSelector from "./VariantSelector";
 import DealItemRow from "./DealItemRow";
+import type { ItemType } from "../../../types/DashBoardtype";
 
 export interface DealItem {
   itemId: string;
@@ -29,7 +29,7 @@ const DealItemSelector = ({
 
   // Find currently selected menu item
   const selectedItem = menuItems.find(
-    (item) => item._id === selectedItemId
+    (item:ItemType) => item._id === selectedItemId
   );
 
   // Variants belonging to selected item
@@ -189,7 +189,7 @@ const DealItemSelector = ({
                 Select Item
               </option>
 
-              {menuItems.map((item) => (
+              {menuItems.map((item:ItemType) => (
                 <option
                   key={item._id}
                   value={item._id}

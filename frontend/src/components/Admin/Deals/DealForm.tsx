@@ -5,17 +5,11 @@ import DealItemSelector from "./DealItemSelector";
 import DealImageUpload from "./DealImageUpload";
 import { useDashboard } from "../../../context/DashBoardContext";
 import api from "../../../api/api";
-import type { Deal } from "../../../types/DashBoardtype";
-interface DealFormData {
-  title: string;
-  description: string;
-  branchId: string;
-  items: Deal[];
-}
+import type { Deals } from "../../../types/DashBoardtype";
 
 interface DealFormProps {
   onCancel: () => void;
-  deal?: DealFormData;
+  deal?: Deals;
 }
 
 const DealForm = ({ onCancel, deal }: DealFormProps) => {
@@ -24,11 +18,22 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
   console.log(restaurant?._id)
 
   const [formData, setFormData] =
-    useState<DealFormData>({
+    useState<Deals>({
+      _id:"",
+      restaurantId:"",
+      image:{
+        url:"",
+        publicId:""
+      },
+      totalPrice:0,
       title: "",
       description: "",
       branchId: "",
-      items: [],
+      items: [{
+        itemId:"",
+        variantId:"",
+        quantity:0,
+      }],
     });
 
 
@@ -41,6 +46,10 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
     console.log("Loading deal into form:", deal);
 
     setFormData({
+      _id:deal._id,
+      restaurantId:deal.restaurantId,
+      image:deal.image,
+      totalPrice:deal.totalPrice,
       title: deal.title || "",
       description: deal.description || "",
       branchId: deal.branchId || "",
@@ -55,18 +64,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
 
   const [dealImage, setDealImage] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
-
-  /*
-   * Adjust this according to the actual shape
-   * of your restaurantData.
-   *
-   * For example:
-   * restaurantData.branches
-   *
-   * or:
-   * restaurantData.result.branches
-   */
-
 
   const handleSubmit = async () => {
     try {

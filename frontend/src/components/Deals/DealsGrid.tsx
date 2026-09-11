@@ -1,11 +1,9 @@
 import DealCard from "./DealCard";
-import type { Deal } from "../../pages/Deals/DealsPage";
+import type {Deals } from "../../types/DashBoardtype";
 import { useRestaurant } from "../../context/RestaurantContext";
 
-
-
 interface Props {
-  onSelectDeal: (deal: Deal) => void;
+  onSelectDeal: (deal: Deals) => void;
 }
 
 const DealsGrid = ({ onSelectDeal }: Props) => {
@@ -42,7 +40,7 @@ if (!deals?.length) {
     <section className="py-12 pb-20">
       <div className="mx-auto max-w-7xl px-5">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {deals.map((deal) => (
+          {deals.map((deal:Deals) => (
             <DealCard
               key={deal._id}
               deal={deal}

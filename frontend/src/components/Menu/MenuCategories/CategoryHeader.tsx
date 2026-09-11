@@ -1,5 +1,3 @@
-import { SlidersHorizontal } from "lucide-react";
-
 const CategoryHeader = () => {
   return (
     <div className="mb-5">

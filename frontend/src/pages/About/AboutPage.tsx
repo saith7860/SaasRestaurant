@@ -10,7 +10,7 @@ const AboutPage = () => {
 
 
 
-   console.log(restaurantData)
+  console.log(restaurantData)
 
   return (
     <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)]">
@@ -19,23 +19,10 @@ const AboutPage = () => {
       <Navbar
         restaurnatName={restaurantData?.restaurantData?.restaurantName || null}
       />
-     <section className="flex flex-col items-center justify-center p-10 m-10">
-            <h1 className="text-3xl font-bold">Our Story</h1>
-      <p className="text-sm leading-6 text-[var(--text-color)]/60">{restaurantData?.restaurantData?.description}</p>
-     </section>
-      
-   
-
-
-
-
-   
-
-    
-
-
-
-     
+      <section className="flex flex-col items-center justify-center p-10 m-10">
+        <h1 className="text-3xl font-bold">Our Story</h1>
+        <p className="text-sm leading-6 text-[var(--text-color)]/60">{restaurantData?.restaurantData?.description}</p>
+      </section>
 
       {/* =====================================================
           CTA

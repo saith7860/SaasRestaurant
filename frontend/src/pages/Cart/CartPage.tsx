@@ -12,28 +12,13 @@ const CartPage = () => {
   const checkoutRoute = token
     ? "/checkout"
     : "/signup?redirect=/checkout";
-
-  /**
-   * Get image URL safely.
-   *
-   * Your API can return:
-   *
-   * image: "https://..."
-   *
-   * OR:
-   *
-   * image: {
-   *   url: "https://...",
-   *   publicId: "..."
-   * }
-   */
   const getImageUrl = (
     image:
       | string
       | {
-          url?: string;
-          publicId?: string;
-        }
+        url?: string;
+        publicId?: string;
+      }
       | null
       | undefined
   ): string | null => {
@@ -54,9 +39,9 @@ const CartPage = () => {
       .map((item) =>
         item.id === itemId
           ? {
-              ...item,
-              quantity: item.quantity - 1,
-            }
+            ...item,
+            quantity: item.quantity - 1,
+          }
           : item
       )
       .filter((item) => item.quantity > 0);
@@ -69,9 +54,9 @@ const CartPage = () => {
     const updatedCart = cart.map((item) =>
       item.id === itemId
         ? {
-            ...item,
-            quantity: item.quantity + 1,
-          }
+          ...item,
+          quantity: item.quantity + 1,
+        }
         : item
     );
 
@@ -453,14 +438,14 @@ const CartPage = () => {
                               </div>
 
                               {/* DEAL ITEM INFO */}
-                              <div className="min-w-0 flex-1">
+                              {/* <div className="min-w-0 flex-1">
                                 <p className="font-semibold">
                                   {
-                                    dealItem.itemName
+                                    dealItem.
                                   }
                                 </p>
 
-                                {dealItem.variation && (
+                                {dealItem.variants && (
                                   <p
                                     className="
                                       mt-1
@@ -470,7 +455,7 @@ const CartPage = () => {
                                   >
                                     Variant:{" "}
                                     {
-                                      dealItem.variation
+                                      dealItem.variants.
                                     }
                                   </p>
                                 )}
@@ -489,7 +474,7 @@ const CartPage = () => {
                                     }
                                   </p>
                                 )}
-                              </div>
+                              </div> */}
 
                               <Check
                                 size={18}

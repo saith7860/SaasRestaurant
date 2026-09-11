@@ -1,8 +1,8 @@
 import { Eye, PackageCheck } from "lucide-react";
-import type { Deal } from "../../pages/Deals/DealsPage";
+import type { Deals } from "../../types/DashBoardtype";
 
 interface Props {
-  deal: Deal;
+  deal: Deals;
   onClick: () => void;
 }
 

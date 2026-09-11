@@ -1,7 +1,7 @@
 import { useRestaurant } from "../../../context/RestaurantContext";
 import CategoryHeader from "./CategoryHeader";
 import CategoryPill from "./CategoryPill";
-
+import type { CategoryType } from "../../../types/DashBoardtype";
 interface Props {
   search: string;
   selectedCategory: string;
@@ -18,7 +18,7 @@ const MenuCategories = ({
   const { restaurantData } = useRestaurant();
 
   const categories =
-  restaurantData?.category.filter((category) =>
+  restaurantData?.category.filter((category:CategoryType) =>
     category.category
       .toLowerCase()
       .includes(search.toLowerCase())
@@ -65,7 +65,7 @@ const MenuCategories = ({
             All Items
           </button>
 
-          {categories.map((category) => (
+          {categories.map((category:CategoryType) => (
             <CategoryPill
               key={category._id}
               category={category}

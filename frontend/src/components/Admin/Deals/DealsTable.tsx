@@ -11,7 +11,7 @@ const DealsTable = () => {
   // -----------------------------
   // Delete
   // -----------------------------
-  const handleDelete = async (dealId: string) => {
+  const handleDelete = async () => {
     // DealCard already performs the API delete.
     // Here we refresh the dashboard so the deleted deal disappears.
     try {

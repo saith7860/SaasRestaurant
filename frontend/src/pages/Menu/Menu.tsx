@@ -25,8 +25,6 @@ const Menu = () => {
         restaurnatName={
           restaurantData?.restaurantData?.restaurantName || null
         }
-        search={search}
-        setSearch={setSearch}
       />
 
       <MenuHero
