@@ -2,15 +2,12 @@ import { useState } from "react";
 import DealCard from "./DealCard";
 import DealForm from "./DealForm";
 import { useDashboard } from "../../../context/DashBoardContext";
-
+import type { Deals } from "../../../types/DashBoardtype";
 const DealsTable = () => {
   const { deals, refreshDashboardData } = useDashboard();
 
-  const [editingDeal, setEditingDeal] = useState<any>(null);
+  const [editingDeal, setEditingDeal] = useState<Deals | null>(null);
 
-  // -----------------------------
-  // Delete
-  // -----------------------------
   const handleDelete = async () => {
     // DealCard already performs the API delete.
     // Here we refresh the dashboard so the deleted deal disappears.
@@ -22,17 +19,11 @@ const DealsTable = () => {
   };
 
   // -----------------------------
-  // Edit
-  // -----------------------------
-  const handleEdit = (deal: any) => {
+  const handleEdit = (deal: Deals) => {
     console.log("Editing deal:", deal);
 
     setEditingDeal(deal);
   };
-
-  // -----------------------------
-  // If editing
-  // -----------------------------
   if (editingDeal) {
     return (
       <DealForm
@@ -42,9 +33,6 @@ const DealsTable = () => {
     );
   }
 
-  // -----------------------------
-  // No deals
-  // -----------------------------
   if (!deals || deals.length === 0) {
     return (
       <div className="flex min-h-[400px] items-center justify-center rounded-2xl border border-[var(--primary-color)]/10 bg-[var(--card-color)]">
@@ -65,12 +53,10 @@ const DealsTable = () => {
     );
   }
 
-  // -----------------------------
-  // Deals list
-  // -----------------------------
+
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-      {deals.map((deal: any) => (
+      {deals.map((deal: Deals) => (
         <DealCard
           key={deal._id}
           deal={deal}
