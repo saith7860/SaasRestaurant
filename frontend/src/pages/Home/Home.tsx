@@ -10,7 +10,6 @@ import DealDrawer from "../../components/Deals/DealDrawer";
 import DealHeader from "../../components/Deals/DealHeader";
 import type { Deals } from "../../types/DashBoardtype";
 const Home = () => {
-  //  const [search, setSearch] = useState<string>("");
    const {restaurantData}=useRestaurant();
      const [selectedDeal, setSelectedDeal] = useState<Deals | null>(null);
    

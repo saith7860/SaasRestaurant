@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useRestaurant } from "../../context/RestaurantContext";
 import ShowItems from "../ItemCard/ShowItems";
-import type { ItemType } from "../../types/HomePageTypes";
+import type { ItemType } from "../../types/DashBoardtype";
 import type { CategoryType } from "../../types/DashBoardtype";
 
 interface Props {
@@ -23,7 +23,7 @@ const MenuItemsGrid = ({
     // SEARCH MODE
     if (keyword) {
       return restaurantData.items.filter(
-        (item:ItemType) =>
+        (item: ItemType) =>
           item.name.toLowerCase().includes(keyword) ||
           item.description.toLowerCase().includes(keyword)
       );
@@ -33,18 +33,22 @@ const MenuItemsGrid = ({
     if (selectedCategory === "All") {
       return restaurantData.items;
     }
+    
+    return restaurantData.items.filter(
 
-    return restaurantData.category.filter(
-      (category:CategoryType) => category.category === selectedCategory
+      (item:ItemType) => item.categoryId === selectedCategory
     );
+    // return restaurantData.category.filter(
+    //   (category:CategoryType) => category.category === selectedCategory
+    // );
   }, [restaurantData, search, selectedCategory]);
 
   const heading = search.trim()
     ? `Search Results for "${search}"`
     : selectedCategory === "All"
-    ? "All Items"
-    : restaurantData?.category.find(
-        (cat:CategoryType) => cat._id === selectedCategory
+      ? "All Items"
+      : restaurantData?.category.find(
+        (cat: CategoryType) => cat._id === selectedCategory
       )?.category || "Items";
 
   if (!filteredItems.length) {
