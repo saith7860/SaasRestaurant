@@ -99,17 +99,6 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
         payload.append("image", dealImage);
       }
 
-      console.log(
-        deal
-          ? "========== UPDATE DEAL =========="
-          : "========== CREATE DEAL =========="
-      );
-      console.log("Title:", formData.title);
-      console.log("Description:", formData.description);
-      console.log("Branch ID:", formData.branchId);
-      console.log("Items:", formData.items);
-      console.log("Image:", dealImage);
-
       const response = deal
         ? await api.put(
           `/api/deals/update-deal/${deal._id}`,
@@ -119,7 +108,9 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
           "/api/deals/create-deal",
           payload
         );
+        console.log('response',response)
 
+        console.log('data',payload)
       console.log(
         deal
           ? "Deal updated successfully:"

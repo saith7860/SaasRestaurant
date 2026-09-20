@@ -7,7 +7,7 @@ import CartPage from "./pages/Cart/CartPage";
 import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
 import Checkout from "./pages/Checkout/Checkout";
-import DealsPage from "./pages/admin/Deals/DealsPage";
+import { DealsPage } from "./pages/Deals/DealsPage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactUs from "./pages/ContactUs/ContactPage";
 import Signup from "./pages/signup/Signup";
@@ -125,8 +125,6 @@ const App = () => {
                 </DashboardProvider>
               </ProtectedAdminRoute>
             }>
-
-              {/* <Route index element={<Navigate to="restaurant" replace />} /> */}
               <Route index element={<DashBoardLayout />} />
               <Route path="restaurant" element={<Resturant />} />
               <Route path="branches" element={<Branch />} />

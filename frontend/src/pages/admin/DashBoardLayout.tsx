@@ -16,16 +16,16 @@ const DashBoardLayout = () => {
     loading,
     error
   } = useDashboard();
- const {notifyNewOrder,unlockAudio} = useNotification();
+  const { notifyNewOrder, unlockAudio } = useNotification();
   const navigate = useNavigate();
   useEffect(() => {
     refreshDashboardData();
   }, [refreshDashboardData]);
-     useEffect(() => {
+  useEffect(() => {
 
-        const unlock = () => {
+    const unlock = () => {
 
-            unlockAudio();
+      unlockAudio();
 
             window.removeEventListener(
                 "click",
@@ -48,7 +48,7 @@ const DashBoardLayout = () => {
 
         };
 
-    }, []);
+    }, [restaurant?._id]);
   useEffect(() => {
     socket.connect();
     if (restaurant?._id) {
