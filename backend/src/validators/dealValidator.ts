@@ -6,7 +6,7 @@ export const createDealSchema=z.object({
     items:z.array(z.object({
         variantId:z.string("variantId is required").trim().optional(),
         itemId:z.string("itemId is required").trim(),
-        quantity:z.number("quantity is required").min(1,{message:'quantity should be minimum of one charachter'}),
+        quantity:z.number("quantity is required"),
     })),
     description:z.string("description is required").min(3,{message:'description should be minimum of three charachters'}).trim(),
 }) 

@@ -1,11 +1,15 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route } from "react-router";
 import { ToastContainer } from "react-toastify";
 import api from "./api/api";
 import Home from "./pages/Home/Home";
+import Menu from "./pages/Menu/Menu";
 import CartPage from "./pages/Cart/CartPage";
 import { DashboardProvider } from "./context/DashBoardContext";
 import { CartProvider } from "./context/CartContext";  //Making cart functionality global so that any component can access it
 import Checkout from "./pages/Checkout/Checkout";
+import { DealsPage } from "./pages/Deals/DealsPage";
+import AboutPage from "./pages/About/AboutPage";
+import ContactUs from "./pages/ContactUs/ContactPage";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/Login/Login";
 import DashBoardLayout from "./pages/admin/DashBoardLayout";
@@ -13,6 +17,7 @@ import Resturant from "./pages/admin/Resturant";
 import Branch from "./pages/admin/Branch";
 import Category from "./pages/admin/Category";
 import Item from "./pages/admin/Item";
+import Deals from "./pages/admin/Deals/DealsPage";
 import Order from "./pages/admin/Order";
 import Variant from "./pages/admin/Variant";
 import { useEffect, useState } from "react";
@@ -28,21 +33,21 @@ const App = () => {
   const [loadingRestaurant, setLoadingRestaurant] = useState(true);
   const hostname = window.location.hostname;
   console.log(hostname);
-const getSlug = () => {
-  const host = window.location.hostname;
+  const getSlug = () => {
+    const host = window.location.hostname;
 
-  const rootDomain = import.meta.env.VITE_ROOT_DOMAIN;
+    const rootDomain = import.meta.env.VITE_ROOT_DOMAIN;
 
-  if (host === rootDomain) {
+    if (host === rootDomain) {
+      return null;
+    }
+
+    if (host.endsWith("." + rootDomain)) {
+      return host.replace("." + rootDomain, "");
+    }
+
     return null;
-  }
-
-  if (host.endsWith("." + rootDomain)) {
-    return host.replace("." + rootDomain, "");
-  }
-
-  return null;
-};
+  };
   const getRestaurant =
     async (slug: string) => {
       try {
@@ -65,38 +70,43 @@ const getSlug = () => {
       }
     };
 
- const slug = getSlug();
+  const slug = getSlug();
   useEffect(() => {
-   
-  if (!slug) {
-    return;
-  }
-  
-  else{
-    getRestaurant(slug);
-  }
+
+    if (!slug) {
+      return;
+    }
+
+    else {
+      getRestaurant(slug);
+    }
   }, [slug])
-  
+
   useEffect(() => {
     if (restaurantData?.restaurantData?.restaurantName) {
       document.title = restaurantData.restaurantData.restaurantName;
     }
-    document.title=window.location.hostname.split(".")[0]
+    document.title = window.location.hostname.split(".")[0]
   }, [restaurantData]);
-   if (!slug) {
+  if (!slug) {
     return <LandingPage />;
-    }
+  }
   if (loadingRestaurant) {
     return <SplashScreen />;
   }
 
   return (
     <>
-      <div className="pt-20 min-h-screen bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-300">
+      <div className="min-h-screen bg-[var(--background-color)] text-[var(--text-color)] transition-colors duration-300">
 
         <ToastContainer position="top-right" autoClose={3000} /><CartProvider>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/deal" element={<DealsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/signup" element={<Signup />} />
@@ -106,8 +116,8 @@ const getSlug = () => {
                 <SuperAdmin />
               </ProtectedSuperAdminRoute>
             }>
-              
             </Route>
+
             <Route path="/admin" element={
               <ProtectedAdminRoute>
                 <DashboardProvider>
@@ -115,18 +125,17 @@ const getSlug = () => {
                 </DashboardProvider>
               </ProtectedAdminRoute>
             }>
-          
-              <Route index element={<Navigate to="restaurant" replace />} />
-              {/* <Route index element={<DashBoardLayout/>}/> */}
+              <Route index element={<DashBoardLayout />} />
               <Route path="restaurant" element={<Resturant />} />
               <Route path="branches" element={<Branch />} />
               <Route path="categories" element={<Category />} />
               <Route path="items" element={<Item />} />
+              <Route path="deals" element={<Deals />} />
               <Route path="orders" element={<Order />} />
               <Route path="variants" element={<Variant />} />
             </Route>
           </Routes>
-        </CartProvider>
+        </CartProvider >
       </div>
     </>
   )

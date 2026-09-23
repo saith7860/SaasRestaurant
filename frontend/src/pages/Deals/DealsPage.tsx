@@ -1,0 +1,38 @@
+import { useState } from "react";
+import { useRestaurant } from "../../context/RestaurantContext";
+import DealsHero from "../../components/Deals/DealsHero";
+import DealsGrid from "../../components/Deals/DealsGrid";
+import DealDrawer from "../../components/Deals/DealDrawer";
+import Navbar from "../../components/Navbar";
+import WhatsAppButton from "../../components/WhatsppButton";
+import Footer from "../../components/Footer/Footer";
+import type { Deals } from "../../types/DashBoardtype";
+
+export const DealsPage = () => {
+
+  const { restaurantData } = useRestaurant();
+
+  const [selectedDeal, setSelectedDeal] = useState<Deals | null>(null);
+
+  return (
+    <div className="min-h-screen pt-15 bg-[var(--background-color)] text-[var(--text-color)]">
+
+      <Navbar restaurnatName={restaurantData?.restaurantData?.restaurantName || null} />
+
+      <DealsHero />
+
+      <DealsGrid onSelectDeal={setSelectedDeal} />
+
+      {selectedDeal && (
+        <DealDrawer
+          deal={selectedDeal}
+          onClose={() => setSelectedDeal(null)}
+        />
+      )}
+
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+};
+

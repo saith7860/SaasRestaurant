@@ -34,7 +34,6 @@ app.use(cookieParser())
 const allowedOrigins = [
   "http://localhost:5173",
   "https://orderva.com",
-  "https://saas-restaurantl.vercel.app"
 ];
 const io=new Server(server,{
   cors:{
@@ -57,8 +56,7 @@ app.use(
       if (
         allowedOrigins.includes(origin) ||
         origin.endsWith(".localhost:5173") ||
-        origin.endsWith(".orderva.com")||
-        origin.endsWith(".saas-restaurantl.vercel.app")
+        origin.endsWith(".orderva.com")
       ) {
         console.log("Allowed:", origin);
         return callback(null, true);

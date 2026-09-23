@@ -4,9 +4,8 @@ export type NavbarProps = {
 
 export type SearchBarProps = {
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 };
-
 
 export type TrackingNavProps = {
   restaurnatName: string | null;

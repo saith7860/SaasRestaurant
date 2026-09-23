@@ -5,6 +5,7 @@ import { clearAccessToken } from "../../api/tokenStore";
 import { FaStore, FaLayerGroup, FaUtensils, FaClipboardList, FaSlidersH } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { BadgePercent } from "lucide-react";
 
 
 
@@ -74,6 +75,19 @@ const SideBar = () => {
         <li className="flex flex-row gap-3">
           <span><FaUtensils className="text-xl md:text-lg" /></span>
           <span className="hidden md:block">Items</span>
+        </li>
+
+      </NavLink>
+
+      <NavLink to="deals" className={({ isActive }) =>
+        `flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-300 md:flex-row md:justify-start md:gap-4 md:px-4 md:py-3 ${isActive
+          ? "bg-[var(--primary-color)]/15 text-[var(--primary-color)]"
+          : "text-[var(--text-color)] hover:bg-[var(--secondary-color)]/20 hover:text-[var(--primary-color)]"
+        }`
+      }>
+        <li className="flex flex-row gap-3">
+          <span><BadgePercent className="text-xl md:text-lg" /></span>
+          <span className="hidden md:block">Deals</span>
         </li>
 
       </NavLink>

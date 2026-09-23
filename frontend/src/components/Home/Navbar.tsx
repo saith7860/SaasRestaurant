@@ -17,7 +17,6 @@ import type { NavbarProps } from "../../types/HomePageTypes";
 
 const Navbar: FC<NavbarProps> = ({ restaurnatName }) => {
   const { cart } = useContext(CartContext)!;
-
   const totalItems = cart.reduce(
     (acc, item) => acc + item.quantity,
     0
@@ -58,18 +57,18 @@ const Navbar: FC<NavbarProps> = ({ restaurnatName }) => {
           to="/"
           className="group flex items-center gap-2"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--primary-color)] text-[var(--background-color)] shadow-lg transition-all duration-300 group-hover:scale-105">
-            🍔
-          </div>
+          {/* <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--primary-color)] text-[var(--background-color)] shadow-lg transition-all duration-300 group-hover:scale-105">
+            <img src={restaurantData?.restaurantData?.logo.url} alt="saucy sals logo" />
+          </div> */}
 
           <div className="flex flex-col">
             <h1 className="text-xl font-black tracking-tight text-[var(--text-color)]">
               {restaurnatName}
             </h1>
 
-            <span className="hidden sm:block text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--text-color)]/55">
+            {/* <span className="hidden sm:block text-[11px] font-bold uppercase tracking-[0.25em] text-[var(--text-color)]/55">
               Restaurant Platform
-            </span>
+            </span> */}
           </div>
         </Link>
 

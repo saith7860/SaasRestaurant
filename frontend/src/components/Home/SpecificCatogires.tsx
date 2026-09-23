@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRestaurant } from "../../context/RestaurantContext";
-import ItemCard from "./ItemCard";
+import ItemCard from "../ItemCard/ItemCard";
 import type { CategoryType } from "../../types/DashBoardtype";
 import type { ItemType } from "../../types/HomePageTypes";
 
@@ -14,7 +14,7 @@ const SpecificCatogires = ({ search }: SpecificCatogiresProps) => {
   const { restaurantData } = useRestaurant();
 
   const categories = restaurantData?.category || [];
-  const allItems = restaurantData?.items || [];
+  const allItems = restaurantData?.items || []; 
   console.log("Deals in frontend", restaurantData.deals) 
   // First category pre-selected
   useEffect(() => {
