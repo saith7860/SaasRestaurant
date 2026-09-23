@@ -19,11 +19,11 @@ const DealsTable = () => {
   };
 
   // -----------------------------
-  const handleEdit = (deal: Deals) => {
-    console.log("Editing deal:", deal);
+  // const handleEdit = (deal: Deals) => {
+  //   console.log("Editing deal:", deal);
 
-    setEditingDeal(deal);
-  };
+  //   setEditingDeal(deal);
+  // };
   if (editingDeal) {
     return (
       <DealForm
@@ -60,7 +60,7 @@ const DealsTable = () => {
         <DealCard
           key={deal._id}
           deal={deal}
-          onEdit={handleEdit}
+          // onEdit={handleEdit}
           onDelete={handleDelete}
         />
       ))}

@@ -15,6 +15,7 @@ interface DealFormProps {
 const DealForm = ({ onCancel, deal }: DealFormProps) => {
   const { restaurant, branches, refreshDashboardData } = useDashboard();
   const [errors, setErrors] = useState<Record<string, string>>({});
+
   console.log(restaurant?._id)
 
   const [formData, setFormData] =
@@ -29,11 +30,7 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
       title: "",
       description: "",
       branchId: "",
-      items: [{
-        itemId:"",
-        variantId:"",
-        quantity:0,
-      }],
+      items:[]
     });
 
 
@@ -89,10 +86,9 @@ const DealForm = ({ onCancel, deal }: DealFormProps) => {
         "restaurantId",
         restaurant._id
       );
-
+      console.log('items',formData.items)
       payload.append(
-        "items",
-        JSON.stringify(formData.items)
+        "items",JSON.stringify(formData.items)
       );
 
       if (dealImage) {

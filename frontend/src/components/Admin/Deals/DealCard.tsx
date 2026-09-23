@@ -1,11 +1,11 @@
-import { Edit, Trash2, PackageCheck } from "lucide-react";
+import { Trash2, PackageCheck } from "lucide-react";
 import api from "../../../api/api";
 import type { Deals } from "../../../types/DashBoardtype";
 
 interface DealCardProps {
   deal: Deals;
 
-  onEdit: (deal: Deals) => void;
+  // onEdit: (deal: Deals) => void;
 
   onDelete: (dealId: string) => void;
 }
@@ -13,7 +13,7 @@ interface DealCardProps {
 
 const DealCard = ({
   deal,
-  onEdit,
+  // onEdit,
   onDelete,
 }: DealCardProps) => {
   const handleDelete = async () => {
@@ -148,7 +148,7 @@ const DealCard = ({
         <div className="mt-5 flex gap-3">
 
           {/* Edit */}
-          <button
+          {/* <button
             type="button"
             onClick={() => onEdit(deal)}
             className="
@@ -170,7 +170,7 @@ const DealCard = ({
           >
             <Edit size={16} />
             Edit
-          </button>
+          </button> */}
 
           {/* Delete */}
           <button
